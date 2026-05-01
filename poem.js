@@ -1,132 +1,73 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
 import { getFirestore, collection, getDocs, addDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-// Tapai ko Config Code
 const firebaseConfig = {
     apiKey: "AIzaSyD0Uc2UxGt0MmOBk8IG0TZPQCmij6p5gqE",
     authDomain: "myportfolio-e77ba.firebaseapp.com",
     projectId: "myportfolio-e77ba",
     storageBucket: "myportfolio-e77ba.firebasestorage.app",
     messagingSenderId: "741383996320",
-    appId: "1:741383996320:web:0fded52449d58e1d1b1ac5",
-    measurementId: "G-JYR3BKGF26"
+    appId: "1:741383996320:web:0fded52449d58e1d1b1ac5"
 };
 
-// Initialize Firebase & Firestore
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Unique Visitor ID for "One ID, One Comment" logic
+// Visitor ID Logic
 if (!localStorage.getItem('visitor_id')) {
-    localStorage.setItem('visitor_id', 'visitor_' + Math.random().toString(36).substr(2, 9));
+    localStorage.setItem('visitor_id', 'v_' + Math.random().toString(36).substr(2, 9));
 }
-const visitorId = localStorage.getItem('visitor_id');
+const vId = localStorage.getItem('visitor_id');
 
-// Function: Database bata Poems lyaune
-async function fetchPoems() {
-    const poemList = document.getElementById('poems-list');
+async function loadPoems() {
+    const list = document.getElementById('poems-list');
     try {
-        const querySnapshot = await getDocs(collection(db, "poems"));
-        poemList.innerHTML = ''; 
-
-        if (querySnapshot.empty) {
-            poemList.innerHTML = `<p class="font-sans text-gray-400 italic">Firebase Firestore ma 'poems' collection banayera data halnuhos hoi.</p>`;
-            return;
-        }
-
-        querySnapshot.forEach((doc) => {
-            renderPoem(doc.id, doc.data());
-        });
-    } catch (error) {
-        console.error("Firebase Error:", error);
-        poemList.innerHTML = `<p class="font-sans text-red-500 text-sm">Error: Firebase Rules check garnuhos (Set to 'true').</p>`;
-    }
-}
-
-// Function: UI ma Poem ra Comment Section banaune
-async function renderPoem(id, data) {
-    const container = document.getElementById('poems-list');
-    const article = document.createElement('article');
-    article.className = "border-b border-gray-100 pb-16";
-
-    article.innerHTML = `
-        <h2 class="text-3xl font-bold mb-8">${data.title}</h2>
-        <p class="poem-content italic text-gray-700 text-lg mb-10" style="white-space: pre-wrap;">${data.content}</p>
+        const snap = await getDocs(query(collection(db, "poems"), orderBy("timestamp", "desc")));
+        list.innerHTML = '';
+        if(snap.empty) { list.innerHTML = "<p class='font-sans text-gray-400'>No poems found. Use entry.html to add one.</p>"; return; }
         
-        <div class="font-sans bg-white border border-gray-100 p-6 rounded-2xl shadow-sm">
-            <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Reviews & Feedback</h4>
-            <div id="comments-box-${id}" class="space-y-3 mb-6 text-sm text-gray-600">
-                </div>
-            
-            <div id="action-area-${id}">
-                <div class="flex gap-2">
-                    <input type="text" id="input-${id}" placeholder="Meetho pratikriya lekhnuhos..." 
-                           class="flex-1 p-3 bg-gray-50 rounded-lg text-sm outline-none focus:ring-1 focus:ring-black">
-                    <button id="btn-${id}" class="bg-black text-white px-5 py-3 rounded-lg text-xs font-bold uppercase transition hover:bg-gray-800">Post</button>
-                </div>
+        snap.forEach(doc => renderPoem(doc.id, doc.data()));
+    } catch (e) { list.innerHTML = "Error: Firestore Rules check garnuhos!"; }
+}
+
+function renderPoem(id, data) {
+    const div = document.createElement('div');
+    div.className = "border-b pb-10";
+    div.innerHTML = `
+        <h2 class="text-3xl font-bold mb-4">${data.title}</h2>
+        <p class="italic text-gray-700 mb-6 whitespace-pre-wrap">${data.content}</p>
+        <div class="font-sans bg-gray-50 p-4 rounded-xl">
+            <div id="comments-${id}" class="space-y-2 mb-4 text-sm"></div>
+            <div id="form-${id}" class="flex gap-2">
+                <input id="in-${id}" type="text" placeholder="Review..." class="flex-1 p-2 rounded border">
+                <button id="btn-${id}" class="bg-black text-white px-4 py-2 rounded text-xs">POST</button>
             </div>
-        </div>
-    `;
-
-    container.appendChild(article);
-    document.getElementById(`btn-${id}`).addEventListener('click', () => postReview(id));
+        </div>`;
+    document.getElementById('poems-list').appendChild(div);
     
-    loadReviews(id);
-    checkPreviousComment(id);
+    document.getElementById(`btn-${id}`).onclick = () => postComment(id);
+    fetchComments(id);
+    checkCommented(id);
 }
 
-// Function: Comment Post Garne (Logic: One per user)
-async function postReview(poemId) {
-    const input = document.getElementById(`input-${poemId}`);
-    const text = input.value.trim();
-
-    if (!text) return;
-
-    try {
-        await addDoc(collection(db, "comments"), {
-            poemId: poemId,
-            userId: visitorId,
-            text: text,
-            timestamp: new Date()
-        });
-        location.reload(); 
-    } catch (e) {
-        alert("Wait! Firebase Rules ma write access 'true' chha ki nai check garnus.");
-    }
+async function postComment(id) {
+    const val = document.getElementById(`in-${id}`).value;
+    if(!val) return;
+    await addDoc(collection(db, "comments"), { poemId: id, userId: vId, text: val, timestamp: new Date() });
+    location.reload();
 }
 
-// Function: Reviews load garne
-async function loadReviews(poemId) {
-    const box = document.getElementById(`comments-box-${poemId}`);
-    const q = query(collection(db, "comments"), where("poemId", "==", poemId), orderBy("timestamp", "asc"));
+async function fetchComments(id) {
+    const q = query(collection(db, "comments"), where("poemId", "==", id), orderBy("timestamp", "asc"));
     const snap = await getDocs(q);
-    
-    if (!snap.empty) {
-        box.innerHTML = '';
-        snap.forEach(d => {
-            const p = document.createElement('p');
-            p.className = "bg-gray-50 p-3 rounded-lg border-l-4 border-black";
-            p.innerHTML = d.data().text;
-            box.appendChild(p);
-        });
-    } else {
-        box.innerHTML = `<p class="italic text-gray-300">Aahile samma kasaile pratikriya diyeko xaina.</p>`;
-    }
+    const box = document.getElementById(`comments-${id}`);
+    snap.forEach(d => { box.innerHTML += `<p class="bg-white p-2 rounded shadow-sm italic">"${d.data().text}"</p>`; });
 }
 
-// Function: Comment gareko xaki nai check garne
-async function checkPreviousComment(poemId) {
-    const q = query(collection(db, "comments"), 
-                    where("poemId", "==", poemId), 
-                    where("userId", "==", visitorId));
+async function checkCommented(id) {
+    const q = query(collection(db, "comments"), where("poemId", "==", id), where("userId", "==", vId));
     const snap = await getDocs(q);
-    
-    if (!snap.empty) {
-        document.getElementById(`action-area-${poemId}`).innerHTML = 
-            `<p class="text-xs font-bold text-green-600 bg-green-50 p-3 rounded-lg">
-                Sadhanyabad! Tapai le aafno pratikriya di-saknu bhayo.
-            </p>`;
-    }
+    if(!snap.empty) document.getElementById(`form-${id}`).innerHTML = "<p class='text-green-600 text-xs font-bold'>✓ Review Shared</p>";
 }
 
-fetchPoems();
+loadPoems();
