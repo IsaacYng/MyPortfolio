@@ -3,35 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poetry Collection | My Portfolio</title>
+    <title>Poetry Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600&display=swap');
         body { font-family: 'Playfair Display', serif; background-color: #ffffff; color: #1a1a1a; }
         .font-sans { font-family: 'Inter', sans-serif; }
-        .poem-content { white-space: pre-wrap; line-height: 2; }
     </style>
 </head>
 <body class="p-6 md:p-20 bg-[#fcfcfc]">
-
     <div class="max-w-2xl mx-auto">
-        <nav class="mb-12">
-            <a href="index.html" class="font-sans text-xs uppercase tracking-widest text-gray-400 hover:text-black inline-flex items-center gap-2 transition">
-                <i class="fas fa-arrow-left"></i> Return Home
-            </a>
-        </nav>
-
-        <header class="mb-20">
-            <h1 class="text-5xl italic font-light mb-4">The Verse Collection</h1>
-            <div class="h-1 w-20 bg-black"></div>
+        <a href="index.html" class="font-sans text-xs uppercase tracking-widest text-gray-400 hover:text-black mb-10 inline-flex items-center gap-2">
+            <i class="fas fa-arrow-left"></i> Return Home
+        </a>
+        <header class="mb-16">
+            <h1 class="text-5xl italic font-light">The Verse Collection</h1>
         </header>
-
-        <div id="poems-list" class="space-y-24">
-            <div class="font-sans text-gray-400 animate-pulse">Fetching verses from the database...</div>
+        <div id="poems-list" class="space-y-20">
+            <p class="font-sans text-gray-400">Loading verses...</p>
         </div>
     </div>
-
     <script type="module" src="poem.js"></script>
 </body>
 </html>
