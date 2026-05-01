@@ -18,17 +18,25 @@
         .glass-card:hover { border-color: #000; transform: translateY(-3px); }
         
     .profile-img {
-    width: 160px;
-    height: 160px;
-    object-fit: cover; /* Yasle photo lai stretch huna didaina, milayera crop garchha */
-    object-position: center top; /* Yasle tapai ko anuhar (face) lai focus garchha */
+    /* PC ko lagi standard size */
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     border: 4px solid #f3f4f6;
-    /* Sharpening ko lagi tala ko line thapnus */
-    image-rendering: -webkit-optimize-contrast; 
     display: block;
+    margin: 0 auto; /* Mobile ma photo center garna */
 }
 
+/* Mobile ko lagi thap sizes (Responsive Fix) */
+@media (max-width: 768px) {
+    .profile-img {
+        width: 120px; /* Mobile ma thoraichai sano banaye paxi clear dekhinxa */
+        height: 120px;
+        margin-bottom: 20px;
+    }
+}
 
     </style>
 </head>
