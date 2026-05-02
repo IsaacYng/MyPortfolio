@@ -13,47 +13,61 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Visitor ID Logic
-if (!localStorage.getItem('visitor_id')) {
-    localStorage.setItem('visitor_id', 'v_' + Math.random().toString(36).substr(2, 9));
+// Unique User ID check
+if (!localStorage.getItem('v_id')) {
+    localStorage.setItem('v_id', 'user_' + Math.random().toString(36).substr(2, 9));
 }
-const vId = localStorage.getItem('visitor_id');
+const userId = localStorage.getItem('v_id');
 
 async function loadPoems() {
     const list = document.getElementById('poems-list');
     try {
-        const snap = await getDocs(query(collection(db, "poems"), orderBy("timestamp", "desc")));
+        // "timestamp" field ko aadhar ma naya kavita mathi aaucha
+        const q = query(collection(db, "poems"), orderBy("timestamp", "desc"));
+        const snap = await getDocs(q);
         list.innerHTML = '';
-        if(snap.empty) { list.innerHTML = "<p class='font-sans text-gray-400'>No poems found. Use entry.html to add one.</p>"; return; }
-        
+
         snap.forEach(doc => renderPoem(doc.id, doc.data()));
-    } catch (e) { list.innerHTML = "Error: Firestore Rules check garnuhos!"; }
+    } catch (e) {
+        list.innerHTML = "<p class='text-center text-red-400'>Error loading data. Check Firestore rules.</p>";
+    }
 }
 
 function renderPoem(id, data) {
-    const div = document.createElement('div');
-    div.className = "border-b pb-10";
-    div.innerHTML = `
-        <h2 class="text-3xl font-bold mb-4">${data.title}</h2>
-        <p class="italic text-gray-700 mb-6 whitespace-pre-wrap">${data.content}</p>
-        <div class="font-sans bg-gray-50 p-4 rounded-xl">
-            <div id="comments-${id}" class="space-y-2 mb-4 text-sm"></div>
-            <div id="form-${id}" class="flex gap-2">
-                <input id="in-${id}" type="text" placeholder="Review..." class="flex-1 p-2 rounded border">
-                <button id="btn-${id}" class="bg-black text-white px-4 py-2 rounded text-xs">POST</button>
+    const list = document.getElementById('poems-list');
+    const poemHTML = `
+        <article class="poem-card bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-50">
+            <h2 class="devanagari text-3xl font-bold mb-8 text-gray-900 border-l-4 border-black pl-4">${data.title}</h2>
+            <div class="devanagari text-xl leading-[2.2] text-gray-700 whitespace-pre-wrap mb-10 italic">
+                ${data.content}
             </div>
-        </div>`;
-    document.getElementById('poems-list').appendChild(div);
+            
+            <div class="mt-10 pt-8 border-t border-gray-50">
+                <div id="comments-${id}" class="space-y-3 mb-6"></div>
+                
+                <div id="action-${id}" class="flex gap-2">
+                    <input id="in-${id}" type="text" placeholder="Pratikriya..." 
+                           class="flex-1 bg-gray-50 p-3 rounded-xl text-sm border-none focus:ring-1 focus:ring-black">
+                    <button id="btn-${id}" class="bg-black text-white px-6 rounded-xl text-xs font-bold transition active:scale-95">POST</button>
+                </div>
+            </div>
+        </article>
+    `;
+    list.insertAdjacentHTML('beforeend', poemHTML);
     
+    // Logic calls
     document.getElementById(`btn-${id}`).onclick = () => postComment(id);
     fetchComments(id);
-    checkCommented(id);
+    checkDone(id);
 }
 
+// ... baaki logic (postComment, fetchComments, checkDone) same rakkhnuhos ...
+// (Maile agi diyeko code ko comment logic yaha pani valid hunchha)
+
 async function postComment(id) {
-    const val = document.getElementById(`in-${id}`).value;
-    if(!val) return;
-    await addDoc(collection(db, "comments"), { poemId: id, userId: vId, text: val, timestamp: new Date() });
+    const text = document.getElementById(`in-${id}`).value;
+    if(!text) return;
+    await addDoc(collection(db, "comments"), { poemId: id, userId: userId, text: text, timestamp: new Date() });
     location.reload();
 }
 
@@ -61,13 +75,15 @@ async function fetchComments(id) {
     const q = query(collection(db, "comments"), where("poemId", "==", id), orderBy("timestamp", "asc"));
     const snap = await getDocs(q);
     const box = document.getElementById(`comments-${id}`);
-    snap.forEach(d => { box.innerHTML += `<p class="bg-white p-2 rounded shadow-sm italic">"${d.data().text}"</p>`; });
+    snap.forEach(d => {
+        box.innerHTML += `<p class="bg-gray-50 p-3 rounded-lg text-sm text-gray-600 italic border-l-2 border-gray-200">"${d.data().text}"</p>`;
+    });
 }
 
-async function checkCommented(id) {
-    const q = query(collection(db, "comments"), where("poemId", "==", id), where("userId", "==", vId));
+async function checkDone(id) {
+    const q = query(collection(db, "comments"), where("poemId", "==", id), where("userId", "==", userId));
     const snap = await getDocs(q);
-    if(!snap.empty) document.getElementById(`form-${id}`).innerHTML = "<p class='text-green-600 text-xs font-bold'>✓ Review Shared</p>";
+    if(!snap.empty) document.getElementById(`action-${id}`).innerHTML = "<p class='text-xs font-bold text-green-500 py-2'>✓ Review shared. Thank you!</p>";
 }
 
 loadPoems();
