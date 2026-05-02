@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poetry Collection</title>
+    <title>नजिर जिवन | Poetry Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600&display=swap');
-        body { font-family: 'Playfair Display', serif; background-color: #ffffff; color: #1a1a1a; }
-        .font-sans { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; color: #1f2937; }
+        .devanagari { font-family: 'Noto Serif Devanagari', serif; }
+        .poem-card { transition: all 0.3s ease; }
+        .poem-card:hover { transform: translateY(-5px); }
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
-<body class="p-6 md:p-20 bg-[#fcfcfc]">
-    <div class="max-w-2xl mx-auto">
-        <a href="index.html" class="font-sans text-xs uppercase tracking-widest text-gray-400 hover:text-black mb-10 inline-flex items-center gap-2">
-            <i class="fas fa-arrow-left"></i> Return Home
-        </a>
-        <header class="mb-16">
-            <h1 class="text-5xl italic font-light">The Verse Collection</h1>
-        </header>
-        <div id="poems-list" class="space-y-20">
-            <p class="font-sans text-gray-400">Loading verses...</p>
+<body>
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 p-4">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-sm font-bold uppercase tracking-widest text-black hover:opacity-70 transition">
+                <i class="fas fa-chevron-left mr-2"></i> View Portfolio
+            </a>
+            <div class="text-xs text-gray-400 font-medium">ISSAQ POETRY VOL. 1</div>
         </div>
-    </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto py-16 px-6">
+        <header class="text-center mb-20">
+            <h1 class="devanagari text-5xl font-bold mb-4 tracking-tight">नजिर जिवन</h1>
+            <div class="h-1 w-20 bg-black mx-auto mb-6"></div>
+            <p class="text-gray-500 italic">"शब्दहरूमा कोरिएको एउटा यात्रा"</p>
+        </header>
+
+        <div id="poems-list" class="space-y-16">
+            <div class="animate-pulse text-center text-gray-400">Loading your verses...</div>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-100 py-12 bg-white mt-20">
+        <div class="max-w-2xl mx-auto text-center px-6">
+            <p class="devanagari text-lg mb-4 text-gray-800">"स्मृति ओइलाई नजिर बन्छ, कसरी सम्झौ म ।"</p>
+            <p class="text-xs uppercase tracking-widest text-gray-400">&copy; 2026 Crafted by Yonghang Ishak</p>
+        </div>
+    </footer>
+
     <script type="module" src="poem.js"></script>
 </body>
 </html>
