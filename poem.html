@@ -3,49 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>नजिर जिवन | Poetry Collection</title>
+    <title>My Poetry Collection | Yonghang Ishak</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&family=Inter:wght@300;400;600&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; color: #1f2937; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+            line-height: 1.6;
+        }
         .devanagari { font-family: 'Noto Serif Devanagari', serif; }
-        .poem-card { transition: all 0.3s ease; }
-        .poem-card:hover { transform: translateY(-5px); }
-        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        /* Kavita ko formatting ko lagi */
+        .poem-body {
+            white-space: pre-wrap;
+            line-height: 2.2;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Smooth Hover Effect */
+        .poem-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
     </style>
 </head>
-<body>
+<body class="bg-gray-50/50">
 
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 p-4">
-        <div class="max-w-3xl mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-sm font-bold uppercase tracking-widest text-black hover:opacity-70 transition">
-                <i class="fas fa-chevron-left mr-2"></i> View Portfolio
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 p-5">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black transition">
+                <i class="fas fa-long-arrow-alt-left text-lg"></i> Portfolio
             </a>
-            <div class="text-xs text-gray-400 font-medium">ISSAQ POETRY VOL. 1</div>
+            <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">Phidim, Koshi, Nepal</span>
         </div>
     </nav>
 
-    <main class="max-w-2xl mx-auto py-16 px-6">
-        <header class="text-center mb-20">
-            <h1 class="devanagari text-5xl font-bold mb-4 tracking-tight">नजिर जिवन</h1>
-            <div class="h-1 w-20 bg-black mx-auto mb-6"></div>
-            <p class="text-gray-500 italic">"शब्दहरूमा कोरिएको एउटा यात्रा"</p>
-        </header>
+    <header class="max-w-2xl mx-auto pt-20 pb-16 px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-light italic mb-4 tracking-tight">The Verse.</h1>
+        <p class="text-gray-400 text-sm font-sans uppercase tracking-[0.3em]">Poetry Collection 2026</p>
+        <div class="mt-8 h-px w-12 bg-black mx-auto"></div>
+    </header>
 
-        <div id="poems-list" class="space-y-16">
-            <div class="animate-pulse text-center text-gray-400">Loading your verses...</div>
-        </div>
-    </main>
+    <main class="max-w-2xl mx-auto px-6 space-y-24 pb-20">
 
-    <footer class="border-t border-gray-100 py-12 bg-white mt-20">
-        <div class="max-w-2xl mx-auto text-center px-6">
-            <p class="devanagari text-lg mb-4 text-gray-800">"स्मृति ओइलाई नजिर बन्छ, कसरी सम्झौ म ।"</p>
-            <p class="text-xs uppercase tracking-widest text-gray-400">&copy; 2026 Crafted by Yonghang Ishak</p>
-        </div>
+        <article class="poem-card group">
+            <div class="mb-6 flex items-center gap-4">
+                <span class="text-[10px] font-bold text-gray-300">01</span>
+                <h2 class="devanagari text-3xl font-bold text-gray-900">नजिर जिवन</h2>
+            </div>
+            
+            <div class="devanagari poem-body text-lg md:text-xl text-gray-700 bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-gray-100 group-hover:shadow-md transition-shadow">
+बगेर जान्छन् कन्चन धारा
+जिब्रोले स्वाद बोकी रहन्छ
+ओइलाई जान्छ फुलेको फुल नि
+अमर तिम्रो तस्विर रहिरहन्छ ।
+
+कैदमा रहयो स्मृति तिम्रो 
+खै केले छुटाउ म
+नजिर जिवन रस रहित भयो
+कसरी स्वाद ल्याउ म ।
+
+कहानी भयो जवानी हाम्रो
+समयको खेल छ
+स्मृति ओइलाई नजिर बन्छ
+कसरी सम्झौ म ।
+            </div>
+            <div class="mt-4 flex justify-between items-center px-4">
+                <span class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Written by Ishak</span>
+                <button class="text-xs text-gray-400 hover:text-black transition flex items-center gap-2">
+                    <i class="far fa-heart"></i> Like
+                </button>
+            </div>
+        </article>
+
+        </main>
+
+    <footer class="py-16 border-t border-gray-100 bg-white text-center">
+        <p class="text-[10px] font-bold uppercase tracking-[0.5em] text-gray-300 mb-4">End of Collection</p>
+        <a href="index.html" class="text-xs font-sans font-bold hover:underline">Back to Dashboard</a>
     </footer>
 
-    <script type="module" src="poem.js"></script>
 </body>
 </html>
