@@ -3,139 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Professional Portfolio</title>
+    <title>Ishak Yonghang | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; }
         
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+            scroll-behavior: smooth;
+        }
+
         .glass-card {
             background: #ffffff;
             border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .glass-card:hover { border-color: #000; transform: translateY(-3px); }
         
-    .profile-img {
-    /* PC ko lagi standard size */
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-    border: 4px solid #f3f4f6;
-    display: block;
-    margin: 0 auto; /* Mobile ma photo center garna */
-}
+        .glass-card:hover { 
+            border-color: #000; 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
 
-/* Mobile ko lagi thap sizes (Responsive Fix) */
-@media (max-width: 768px) {
-    .profile-img {
-        width: 120px; /* Mobile ma thoraichai sano banaye paxi clear dekhinxa */
-        height: 120px;
-        margin-bottom: 20px;
-    }
-}
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid #f9fafb;
+            display: block;
+            margin: 0 auto;
+        }
 
+        @media (max-width: 768px) {
+            .profile-img {
+                width: 130px;
+                height: 130px;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen selection:bg-black selection:text-white">
 
-    <nav class="p-6 max-w-7xl mx-auto flex justify-between items-center">
-        <div class="text-sm font-black tracking-widest uppercase border-b-2 border-black">My-Portfolio</div>
-        <div class="flex gap-4">
-            <a href="https://www.facebook.com/yonghangisaac" class="text-gray-400 hover:text-blue-600"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/9779820907795" class="text-gray-400 hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md p-6 max-w-7xl mx-auto flex justify-between items-center">
+        <div class="text-sm font-black tracking-widest uppercase border-b-2 border-black">
+            My-Portfolio
+        </div>
+        <div class="flex gap-6">
+            <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/9779820907795" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:yonghangissac@gmail.com" class="text-gray-400 hover:text-red-500 transition-colors"><i class="fas fa-envelope"></i></a>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 py-10">
-        
-        <section class="flex flex-col md:flex-row items-center gap-10 mb-16">
-            <div class="relative">
-                <img src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" alt="My Photo" class="profile-img shadow-lg">
-                <div class="absolute bottom-0 right-0 bg-green-500 w-5 h-5 rounded-full border-4 border-white"></div>
+    <main class="max-w-6xl mx-auto px-6 py-12">
+
+        <section class="flex flex-col md:flex-row items-center gap-10 mb-20">
+            <div class="relative group">
+                <img src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" alt="Ishak Yonghang" class="profile-img shadow-xl group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute bottom-2 right-4 bg-green-500 w-6 h-6 rounded-full border-4 border-white"></div>
             </div>
-            
+
             <div class="text-center md:text-left">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">Hello, I'm <br><span class="text-gray-400">Creative & Focused.</span></h1>
-                <p class="text-gray-500 text-lg max-w-lg italic">"Just a simple guy from Phidim who believes in staying focused. I value growth, learning new things every day, and finding beauty in the little details of life."</p>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4">
+                    Hello, I'm <br><span class="text-gray-300">Ishak Yonghang.</span>
+                </h1>
+                <p class="text-gray-500 text-lg max-w-xl italic leading-relaxed">
+                    "A focused individual from Phidim who believes in the power of words and web technology. Dedicated to continuous learning and finding creative solutions."
+                </p>
             </div>
         </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <div class="md:col-span-2 glass-card rounded-2xl p-8">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Education Details</h3>
-                <div class="space-y-6">
-                    <div class="flex justify-between items-start border-l-2 border-gray-100 pl-4">
-                        <div>
-                            <h4 class="font-bold text-xl">Class 12 (Higher Secondary)</h4>
-                            <p class="text-gray-500">Stream: <span class="font-semibold text-black">Humanities</span></p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div class="md:col-span-2 glass-card rounded-3xl p-10">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-px flex-1 bg-gray-100"></div>
+                    <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Education Background</h3>
+                </div>
+                
+                <div class="space-y-10">
+                    <div class="flex justify-between items-start group">
+                        <div class="border-l-4 border-black pl-6">
+                            <h4 class="font-bold text-2xl group-hover:text-gray-600 transition-colors">Higher Secondary (12)</h4>
+                            <p class="text-gray-500 mt-1">Specialization: <span class="text-black font-semibold">Humanities</span></p>
                         </div>
-                        <span class="bg-gray-100 px-3 py-1 rounded text-sm font-bold text-gray-700">? Grade</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded-full text-xs font-black uppercase">Completed</span>
                     </div>
-                    <div class="flex justify-between items-start border-l-2 border-gray-100 pl-4">
-                        <div>
-                            <h4 class="font-bold text-xl">Class 10 (SEE)</h4>
-                            <p class="text-gray-500">Stream: <span class="font-semibold text-black">Education</span></p>
+
+                    <div class="flex justify-between items-start group">
+                        <div class="border-l-4 border-gray-200 pl-6">
+                            <h4 class="font-bold text-2xl group-hover:text-gray-600 transition-colors">School Level (SEE)</h4>
+                            <p class="text-gray-500 mt-1">Focus Area: <span class="text-black font-semibold">Education</span></p>
                         </div>
-                        <span class="bg-gray-100 px-3 py-1 rounded text-sm font-bold text-gray-700">? Grade</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded-full text-xs font-black uppercase text-gray-400">Achieved</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card rounded-2xl p-8 bg-gray-50">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Key Skills</h3>
-                <ul class="space-y-4">
-                    <li class="flex items-center justify-between">
-                        <span class="font-medium italic">MS Excel</span>
-                        <span class="text-xs text-gray-400 font-bold uppercase">Advanced</span>
-                    </li>
-                    <li class="flex items-center justify-between">
-                        <span class="font-medium italic">MS Word</span>
-                        <span class="text-xs text-gray-400 font-bold uppercase">Basic</span>
-                    </li>
-                    <li class="flex items-center justify-between">
-                        <span class="font-medium italic">Computer Tech</span>
-                        <span class="text-xs text-gray-400 font-bold uppercase">Intermediate</span>
-                    </li>
-                    <li class="flex items-center justify-between">
-                        <span class="font-medium italic">Fast Typing</span>
-                        <span class="text-xs text-gray-400 font-bold uppercase">Active</span>
-                    </li>
-                </ul>
+            <div class="glass-card rounded-3xl p-10 bg-gray-50/50">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-8 text-center">Core Competencies</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 flex justify-between items-center">
+                        <span class="font-bold italic">MS Excel</span>
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 flex justify-between items-center">
+                        <span class="font-bold italic">MS Word</span>
+                        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 flex justify-between items-center">
+                        <span class="font-bold italic">Web Tech</span>
+                        <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 flex justify-between items-center">
+                        <span class="font-bold italic">Fast Typing</span>
+                        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                    </div>
+                </div>
             </div>
 
-            <div class="glass-card rounded-2xl p-8">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Work Experience</h3>
-                <h4 class="font-bold text-xl mb-2">Bajaj Showroom</h4>
+            <div class="glass-card rounded-3xl p-10">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Experience</h3>
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="bg-gray-100 p-3 rounded-lg"><i class="fas fa-motorcycle text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-xl">Bajaj Showroom</h4>
+                        <p class="text-xs text-gray-400 font-bold uppercase">Phidim, Koshi</p>
+                    </div>
+                </div>
                 <p class="text-sm text-gray-500 leading-relaxed italic">
-                    Sales & Operational management, handling customer queries and service flows efficiently.
+                    Specialized in sales operations and customer relations, ensuring smooth service flow and showroom management.
                 </p>
             </div>
 
-            <div class="glass-card rounded-2xl p-8 bg-black text-white flex flex-col justify-between">
-                <div>
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Interests</h3>
-                    <h4 class="text-2xl font-bold mb-4 italic">Poetry Collection</h4>
-                    <p class="text-gray-400 text-sm">When I am not working, I write my thoughts into verses.</p>
+            <div class="glass-card rounded-3xl p-10 bg-black text-white flex flex-col justify-between group overflow-hidden relative">
+                <div class="relative z-10">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Passion Project</h3>
+                    <h4 class="text-3xl font-extrabold mb-4 italic">Poetry <br>Collection</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Turning observations and emotions into written verses. This is where my creativity lives.</p>
                 </div>
-                <a href="poem.html" class="mt-6 inline-block text-sm font-bold border-b-2 border-white w-max pb-1 hover:text-gray-400 transition">Read My Poems →</a>
+                <a href="poem.html" class="relative z-10 mt-8 inline-flex items-center gap-2 text-sm font-bold border-b-2 border-white w-max pb-1 hover:gap-4 transition-all duration-300">
+                    Open Gallery <i class="fas fa-arrow-right"></i>
+                </a>
+                <div class="absolute -bottom-4 -right-4 text-white/5 text-8xl font-black italic select-none">POEM</div>
             </div>
 
-            <div class="glass-card rounded-2xl p-8 flex flex-col justify-center">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Direct Contact</h3>
-                <a href="mailto: yonghangissac@gmail.com" class="text-lg font-bold hover:underline">yonghangissac@gmail.com</a>
-                <p class="text-sm text-gray-500 mt-2">Phidim, Koshi, Nepal</p>
+            <div class="glass-card rounded-3xl p-10 flex flex-col justify-center">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4 text-center">Let's Connect</h3>
+                <a href="mailto:yonghangissac@gmail.com" class="text-lg font-bold hover:underline text-center truncate">yonghangissac@gmail.com</a>
+                <div class="mt-6 pt-6 border-t border-gray-100 text-center">
+                    <p class="text-xs font-black text-gray-300 tracking-tighter uppercase mb-1">Based in</p>
+                    <p class="text-sm font-bold">Phidim, Koshi Province, Nepal</p>
+                </div>
             </div>
 
         </div>
     </main>
 
-    <footer class="py-10 text-center">
-        <p class="text-xs text-gray-300 font-bold tracking-[0.4em]">DESIGNED BY ME • 2026</p>
+    <footer class="py-16 text-center">
+        <div class="h-px w-20 bg-gray-200 mx-auto mb-8"></div>
+        <p class="text-xs text-gray-300 font-bold tracking-[0.5em] uppercase">Built with Passion • 2026</p>
     </footer>
 
 </body>
