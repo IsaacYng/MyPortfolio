@@ -57,22 +57,56 @@
     </div>
 </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div class="glass-card rounded-3xl p-10 bg-gray-50/30">
-                <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Identity</h3>
-                <div class="space-y-4">
-                    <div>
-                        <p class="text-[10px] font-black uppercase text-gray-400">Current Age</p>
-                        <p id="current-age" class="text-2xl font-bold">--</p>
+        <<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="glass-card rounded-3xl p-8 hover:shadow-2xl transition-all duration-500">
+        <div class="flex justify-between items-start mb-8">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400">Personal Identity</h3>
+            <span class="bg-gray-100 text-[10px] px-2 py-1 rounded-md font-bold text-gray-500 uppercase tracking-tighter">Verified</span>
+        </div>
+
+        <div class="space-y-6">
+            <div class="flex justify-between border-b border-gray-50 pb-4">
+                <div>
+                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Age</p>
+                    <p id="current-age" class="text-2xl font-bold tracking-tighter text-black">--</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Date of Birth</p>
+                    <p class="text-sm font-bold text-gray-700">Oct 26, 2005</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Current Address</p>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <p class="text-sm font-semibold text-gray-800">Phidim-1, Panchthar, Nepal</p>
                     </div>
-                    <div>
-                        <p class="text-[10px] font-black uppercase text-gray-400">Location</p>
-                        <p class="text-sm font-semibold">Phidim-1, Panchthar (Current)</p>
-                        <p class="text-xs text-gray-400 font-medium italic">Hilihang-5, Panchthar (Permanent)</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Permanent Address</p>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                        <p class="text-sm font-medium text-gray-600">Hilihang-5, Panchthar</p>
                     </div>
                 </div>
             </div>
+
+            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-50">
+                <div>
+                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Father's Name</p>
+                    <p class="text-xs font-bold text-gray-700 uppercase">[Father's Name]</p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Mother's Name</p>
+                    <p class="text-xs font-bold text-gray-700 uppercase">[Mother's Name]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
 
             <div class="md:col-span-2 glass-card rounded-3xl p-10">
                 <div class="flex items-center gap-3 mb-8">
