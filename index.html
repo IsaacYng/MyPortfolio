@@ -162,75 +162,72 @@
     </div>
 
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
-<!-- Main Container -->
+<!-- Wrapper for Snapshots & Info -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12 items-start">
 
-    <!-- Left Side: Snapshots (2 Columns wide) -->
-    <div class="lg:col-span-2 relative group px-2">
-        
-        <div class="flex items-center justify-between mb-6 px-1">
+    <!-- Snapshot Section (Left 2/3) -->
+    <div class="lg:col-span-2 relative group">
+        <div class="flex items-center justify-between mb-6 px-2">
             <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400">Life Snapshots</h3>
             <span class="text-[10px] font-bold text-gray-300 uppercase italic">Slide &rarr;</span>
         </div>
         
-        <!-- PC Buttons - Clean & Safe -->
-        <button onclick="scrollSnap('left')" class="absolute -left-2 top-1/2 -translate-y-1/2 z-30 bg-white shadow-xl p-2.5 rounded-full text-black hidden md:group-hover:flex items-center justify-center hover:bg-black hover:text-white transition-all border border-gray-100">
+        <!-- Navigation Buttons -->
+        <button onclick="scrollSnap('left')" class="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-white shadow-lg p-2 rounded-full text-black hidden md:group-hover:flex items-center justify-center hover:bg-black hover:text-white transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
         </button>
 
-        <button onclick="scrollSnap('right')" class="absolute -right-2 top-1/2 -translate-y-1/2 z-30 bg-white shadow-xl p-2.5 rounded-full text-black hidden md:group-hover:flex items-center justify-center hover:bg-black hover:text-white transition-all border border-gray-100">
+        <button onclick="scrollSnap('right')" class="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white shadow-lg p-2 rounded-full text-black hidden md:group-hover:flex items-center justify-center hover:bg-black hover:text-white transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
         </button>
 
-        <!-- The Slider - Fixed Width for Safety -->
-        <div id="snapshotScroll" class="flex gap-5 overflow-x-auto scrollbar-hide scroll-smooth pb-6">
+        <!-- Fixed Width Scroll Container -->
+        <div id="snapshotScroll" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-6">
             
-            <!-- Card 1 -->
-            <div class="flex-shrink-0 w-[160px] h-[260px] md:w-[200px] md:h-[320px] rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
+            <!-- Moment 01 -->
+            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
                 <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/472558076_1164731438403169_6567111720680367611_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=53a332&oh=00_Af4TR2fX4cc_vKdyo8dRbDF5_OPUGEMaZGVTdmLlwBCCmQ&oe=69FEFD07" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-6 left-6">
-                    <p class="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1 italic">01</p>
-                    <p class="text-xs font-bold text-white uppercase tracking-tighter">Phidim Days</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="text-[9px] font-black opacity-50 uppercase italic">01</p>
+                    <p class="text-xs font-bold uppercase">Phidim Days</p>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="flex-shrink-0 w-[160px] h-[260px] md:w-[200px] md:h-[320px] rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
+            <!-- Moment 02 -->
+            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
                 <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/481766809_1204158447793801_5994095327484505540_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&oh=00_Af6a0eJaalfqzTgS-Sh1m8xv0LMddYpfwjQ7mle-FX7mVA&oe=69FF0EAD" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-6 left-6">
-                    <p class="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1 italic">02</p>
-                    <p class="text-xs font-bold text-white uppercase tracking-tighter">Travel Log</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="text-[9px] font-black opacity-50 uppercase italic">02</p>
+                    <p class="text-xs font-bold uppercase">Travel Log</p>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="flex-shrink-0 w-[160px] h-[260px] md:w-[200px] md:h-[320px] rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
+            <!-- Moment 03 -->
+            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
                 <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/571195295_1385580556318255_8982659104324797403_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&oh=00_Af5pN7jBwYFMfiNyCqGj7Mml-xAi3sHcOu24Y8revfhrcg&oe=69FF17EF" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-6 left-6">
-                    <p class="text-[9px] font-black text-white/50 uppercase tracking-widest mb-1 italic">03</p>
-                    <p class="text-xs font-bold text-white uppercase tracking-tighter">Memories</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 text-white">
+                    <p class="text-[9px] font-black opacity-50 uppercase italic">03</p>
+                    <p class="text-xs font-bold uppercase">Memories</p>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Right Side: Info Cards (1 Column wide) -->
+    <!-- Right Column (Experience & Poetry) -->
     <div class="space-y-6">
-        <!-- Professional Card -->
-        <div class="glass-card rounded-[2.5rem] p-8 bg-white group border border-gray-50 shadow-sm">
-            <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6">Experience</h3>
-            <div class="flex items-center gap-4 mb-6">
+        <!-- Bajaj Experience Card -->
+        <div class="glass-card rounded-[2.5rem] p-8 bg-white border border-gray-100 shadow-sm">
+            <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6">Professional</h3>
+            <div class="flex items-center gap-4 mb-4">
                 <div class="bg-gray-900 w-12 h-12 rounded-xl flex items-center justify-center text-white">
                     <i class="fas fa-motorcycle"></i>
                 </div>
                 <div>
-                    <h4 class="font-black text-lg text-gray-800 leading-tight">Bajaj Showroom</h4>
-                    <p class="text-[9px] font-bold text-blue-500 uppercase">Phidim</p>
+                    <h4 class="font-black text-lg text-gray-800">Bajaj Showroom</h4>
+                    <p class="text-[9px] font-bold text-blue-500 uppercase">Phidim, Koshi</p>
                 </div>
             </div>
             <p class="text-xs text-gray-500 italic border-l-2 border-gray-100 pl-4">Sales & Operations.</p>
@@ -238,16 +235,14 @@
 
         <!-- Poetry Card -->
         <div class="glass-card rounded-[2.5rem] p-8 bg-black text-white relative overflow-hidden shadow-xl">
-            <h4 class="text-3xl font-black italic mb-2">Poetry</h4>
+            <h4 class="text-3xl font-black italic mb-2 tracking-tighter">Poetry</h4>
             <p class="text-[10px] text-gray-400 mb-6">"Turning emotions into verses."</p>
-            <a href="https://poem.yonghangishak.com.np/" target="_blank" class="inline-flex text-[9px] font-black uppercase tracking-widest bg-white text-black px-5 py-2.5 rounded-full">Explore</a>
+            <a href="https://poem.yonghangishak.com.np/" target="_blank" class="inline-flex text-[9px] font-black uppercase tracking-widest bg-white text-black px-6 py-2.5 rounded-full hover:bg-gray-200 transition-all">Explore</a>
             <div class="absolute -bottom-4 -right-2 opacity-10 text-6xl font-black italic">POET</div>
         </div>
     </div>
+</div>
 
-</div>
-    
-</div>
 <section class="mt-20 px-4 md:px-0">
     <div class="flex items-end justify-between mb-10">
         <div>
@@ -358,14 +353,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Optional: Small console log to confirm it's running
     console.log("Portfolio logic loaded successfully.");
 });
-
-</script>
-  <!-- The Magic Script -->
 <script>
     function scrollSnap(direction) {
         const container = document.getElementById('snapshotScroll');
-        const scrollDist = 250;
-        container.scrollBy({ left: direction === 'left' ? -scrollDist : scrollDist, behavior: 'smooth' });
+        const amount = 250;
+        container.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
     }
 </script>
 </body>
