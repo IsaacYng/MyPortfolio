@@ -379,5 +379,24 @@ document.addEventListener('DOMContentLoaded', () => {
         container.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
     }
 </script>
+    <script>
+    function scrollSnap(direction) {
+        // Container lai fetch garne
+        const container = document.querySelector('#snapshotScroll');
+        
+        if (container) {
+            // Ek click ma kati tada puryaune (px ma)
+            const scrollAmount = 300; 
+            
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        } else {
+            console.error("Scroll container vetiyena! ID check garnus.");
+        }
+    }
+</script>
 </body>
 </html>
