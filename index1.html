@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <title>Personal Portfolio</title>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tight">IY.</div>
+            
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="mailto:example@email.com" class="flex items-center gap-2 hover:text-blue-600 transition">
+                    <i class="ph ph-envelope text-lg"></i> example@email.com
+                </a>
+                <div class="flex gap-4 border-l pl-6 border-slate-200">
+                    <a href="#" class="hover:text-blue-600"><i class="ph ph-facebook-logo text-xl"></i></a>
+                    <a href="#" class="hover:text-green-600"><i class="ph ph-whatsapp-logo text-xl"></i></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 space-y-24">
+        
+        <section class="text-center space-y-6 pt-10">
+            <div class="w-32 h-32 bg-slate-200 rounded-full mx-auto overflow-hidden ring-4 ring-white shadow-lg">
+                <img src="your-photo.jpg" alt="Profile" class="w-full h-full object-cover">
+            </div>
+            <div class="space-y-2">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Creative & Focused</h1>
+                <p class="text-lg text-slate-600 max-w-lg mx-auto">
+                    Just a simple individual who believes in staying focused and finding creative solutions in every challenge.
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <i class="ph ph-user-circle text-blue-600"></i> Personal Profile
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-slate-500 uppercase tracking-wider text-xs font-semibold">Date of Birth</p>
+                        <p class="text-lg font-medium">October 26, 2005</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-500 uppercase tracking-wider text-xs font-semibold">Age</p>
+                        <p id="display-age" class="text-lg font-medium text-blue-600">Calculating...</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-slate-500 uppercase tracking-wider text-xs font-semibold">Current Location</p>
+                        <p class="text-lg font-medium">Phidim-1, Panchthar, Nepal</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-500 uppercase tracking-wider text-xs font-semibold">Home Town</p>
+                        <p class="text-lg font-medium">Phidim, Koshi Province</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-xl font-bold mb-6 px-2">Life Snapshots</h2>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+                <div class="flex-shrink-0 w-32 h-48 rounded-2xl bg-slate-200 overflow-hidden relative group cursor-pointer shadow-md">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                    <p class="absolute bottom-2 left-2 text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition">Moments</p>
+                </div>
+                <div class="flex-shrink-0 w-32 h-48 rounded-2xl bg-slate-200"></div>
+                <div class="flex-shrink-0 w-32 h-48 rounded-2xl bg-slate-200"></div>
+                <div class="flex-shrink-0 w-32 h-48 rounded-2xl bg-slate-200"></div>
+                <div class="flex-shrink-0 w-32 h-48 rounded-2xl bg-slate-200"></div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <i class="ph ph-feather text-blue-600"></i> The Quiet Collection
+                </h3>
+                <p class="italic text-slate-700 leading-relaxed mb-6">
+                    "When words find rhythm, thoughts find peace."
+                </p>
+                <button class="bg-white text-blue-600 px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:shadow-md transition">Read Verses</button>
+            </div>
+
+            <div class="bg-slate-900 text-white p-8 rounded-3xl">
+                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <i class="ph ph-code text-indigo-400"></i> Tech Work
+                </h3>
+                <ul class="space-y-4 text-sm text-slate-300">
+                    <li class="flex justify-between items-center">
+                        <span>Financial Tools</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-1 rounded">HTML/JS</span>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span>Bajaj Price Directory</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-1 rounded">Tailwind</span>
+                    </li>
+                    <li class="flex justify-between items-center text-slate-500 italic">
+                        <span>Coming Soon...</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-12 border-t border-slate-200 text-center text-slate-400 text-xs">
+        <p>© 2026 • Stay Focused.</p>
+    </footer>
+
+    <script>
+        // Auto-calculate Age
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        document.getElementById('display-age').innerText = calculateAge('2005-10-26') + ' Years';
+    </script>
+</body>
+</html>
