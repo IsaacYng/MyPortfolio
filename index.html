@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ishak Yonghang - Aspiring Developer, Poet, and Writer from Phidim, Nepal.">
-<meta name="keywords" content="Ishak Yonghang, Portfolio, Nepal, Developer, Poet, Phidim, Panchthar">
+<meta name="description" content="Ishak Yonghang — Aspiring Developer, Poet, and Writer from Phidim, Nepal.">
+<meta name="keywords" content="Ishak Yonghang, Portfolio, Nepal, Developer, Poet, Phidim, Panchthar, Finance Calculator">
 <meta name="author" content="Ishak Yonghang">
 <meta property="og:title" content="Ishak Yonghang | Portfolio">
 <meta property="og:description" content="Aspiring Developer & Writer from Phidim, Nepal.">
@@ -12,787 +12,1073 @@
 <title>Ishak Yonghang | Portfolio</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Cabinet+Grotesk:wght@300;400;500;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
-  :root {
-    --bg: #faf9f7;
-    --bg2: #ffffff;
-    --bg3: #f4f2ee;
-    --bg4: #ede9e2;
-    --border: rgba(0,0,0,0.07);
-    --border2: rgba(0,0,0,0.12);
-    --text: #1a1814;
-    --text2: #4a4540;
-    --muted: #9a9590;
-    --accent: #b8864e;
-    --accent-light: #f5ece0;
-    --accent2: #5246c8;
-    --accent2-light: #eeedfb;
-    --accent3: #1a8c5e;
-    --accent3-light: #e4f5ed;
-    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
-    --shadow-lg: 0 12px 48px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
-  }
+/* ============================================================
+   ROOT & RESET
+============================================================ */
+:root {
+  --bg:        #f7f4ef;
+  --bg2:       #ffffff;
+  --bg3:       #eeebe4;
+  --bg4:       #e4dfd5;
+  --text:      #1c1a17;
+  --text2:     #4a4640;
+  --muted:     #9c9890;
+  --faint:     #c8c4bc;
+  --border:    rgba(0,0,0,0.08);
+  --border2:   rgba(0,0,0,0.14);
+  --gold:      #b5823a;
+  --gold-l:    #f5ede0;
+  --gold-d:    #8c621e;
+  --teal:      #1e7a62;
+  --teal-l:    #e3f2ec;
+  --rose:      #c0504a;
+  --rose-l:    #faeaea;
+  --ink:       #2c2820;
+  --sh1: 0 1px 3px rgba(0,0,0,.06), 0 0 0 1px rgba(0,0,0,.04);
+  --sh2: 0 4px 16px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  --sh3: 0 12px 40px rgba(0,0,0,.11), 0 0 0 1px rgba(0,0,0,.04);
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-    cursor: none;
-  }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
 
-  /* CUSTOM CURSOR */
-  #cursor {
-    width: 10px; height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transition: transform 0.15s ease;
-  }
-  #cursor-ring {
-    width: 32px; height: 32px;
-    border: 1.5px solid var(--accent);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.5);
-    opacity: 0.4;
-  }
+/* ============================================================
+   CURSOR
+============================================================ */
+#cur  { width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .15s,background .2s; }
+#ring { width:34px;height:34px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;opacity:.45;transition:all .35s cubic-bezier(.175,.885,.32,1.5); }
 
-  /* DECORATIVE BACKGROUND */
-  body::before {
-    content: '';
-    position: fixed;
-    top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(184,134,78,0.07) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 50%;
-  }
-  body::after {
-    content: '';
-    position: fixed;
-    bottom: 0; left: -100px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(82,70,200,0.05) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 50%;
-  }
+/* ============================================================
+   TEXTURE & GRAIN
+============================================================ */
+.grain {
+  position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.028'/%3E%3C/svg%3E");
+  opacity:.55;
+}
+.grid-bg {
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(0,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.03) 1px,transparent 1px);
+  background-size:52px 52px;
+}
 
-  /* GRID PATTERN */
-  .grid-pattern {
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-    z-index: 0;
-  }
+/* ============================================================
+   NAV
+============================================================ */
+nav {
+  position:sticky;top:0;z-index:200;
+  padding:0 56px;height:64px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(247,244,239,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;font-weight:600;color:var(--gold);
+  text-decoration:none;letter-spacing:.02em;
+}
+.nav-menu { display:flex;gap:2px; }
+.nav-menu a {
+  padding:7px 15px;border-radius:8px;
+  font-size:.78rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:all .2s;cursor:none;
+}
+.nav-menu a:hover { color:var(--text);background:var(--bg3); }
+.nav-menu a.active { color:var(--gold); }
+.nav-right { display:flex;gap:8px;align-items:center; }
+.nav-icon {
+  width:36px;height:36px;border-radius:9px;border:1px solid var(--border2);background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;color:var(--muted);
+  text-decoration:none;font-size:.8rem;transition:all .2s;box-shadow:var(--sh1);cursor:none;
+}
+.nav-icon:hover { color:var(--gold);border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--sh2); }
+.nav-dot {
+  display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;
+  background:var(--teal-l);border:1px solid rgba(30,122,98,.2);
+  font-size:.65rem;font-family:'Fira Code',monospace;color:var(--teal);letter-spacing:.06em;
+}
+.nav-dot span { width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1;}50%{opacity:.3;} }
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    padding: 16px 48px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid var(--border);
-    background: rgba(250,249,247,0.85);
-    backdrop-filter: blur(20px);
-  }
+/* ============================================================
+   SECTION WRAPPER
+============================================================ */
+.wrap { max-width:1140px;margin:0 auto;padding:0 56px;position:relative;z-index:2; }
 
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
+section { padding:96px 0;border-bottom:1px solid var(--border); }
+section:last-of-type { border-bottom:none; }
 
-  .nav-links { display: flex; gap: 6px; align-items: center; }
-  .nav-links a {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    border: 1px solid var(--border2);
-    background: var(--bg2);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm);
-  }
-  .nav-links a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.sec-label {
+  display:flex;align-items:center;gap:14px;margin-bottom:52px;
+}
+.sec-label-txt { font-family:'Fira Code',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted); }
+.sec-label-line { flex:1;height:1px;background:var(--border2); }
+.sec-label-num { font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--faint);font-size:.95rem; }
 
-  .nav-status {
-    display: flex; align-items: center; gap: 7px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    background: var(--accent3-light);
-    border: 1px solid rgba(26,140,94,0.2);
-    font-size: 0.68rem;
-    font-family: 'DM Mono', monospace;
-    color: var(--accent3);
-    letter-spacing: 0.06em;
-  }
-  .nav-status span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+/* ============================================================
+   HERO
+============================================================ */
+#hero { padding:80px 0 88px; }
 
-  /* MAIN */
-  main { position: relative; z-index: 2; max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+.hero-inner {
+  display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:center;
+}
 
-  /* HERO */
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-    padding: 90px 0 80px;
-    border-bottom: 1px solid var(--border);
-  }
+.hero-eyebrow {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:20px;
+  border:1px solid var(--border2);background:var(--bg2);
+  font-size:.65rem;font-family:'Fira Code',monospace;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:26px;
+  box-shadow:var(--sh1);
+}
+.hero-eyebrow i { color:var(--gold);font-size:.55rem; }
 
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border2);
-    background: var(--bg2);
-    font-size: 0.67rem;
-    font-family: 'DM Mono', monospace;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-sm);
-  }
+.hero-h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.2rem,6vw,5.4rem);
+  font-weight:700;line-height:.98;
+  margin-bottom:30px;color:var(--text);
+}
+.hero-h1 em { font-style:italic;color:var(--gold); }
+.hero-h1 .outline-txt {
+  color:transparent;-webkit-text-stroke:1.5px var(--faint);
+  font-style:italic;
+}
 
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 5.5vw, 5rem);
-    font-weight: 900;
-    line-height: 1.0;
-    margin-bottom: 28px;
-    color: var(--text);
-  }
+.hero-quote {
+  font-size:1rem;color:var(--text2);font-weight:300;line-height:1.85;
+  border-left:2px solid var(--gold);padding-left:18px;
+  margin-bottom:38px;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.15rem;
+}
+.hero-quote strong { color:var(--text);font-style:normal;font-weight:600; }
 
-  .hero-title .name-last {
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--muted);
-    font-style: italic;
-  }
+.hero-btns { display:flex;gap:10px;flex-wrap:wrap; }
 
-  .hero-quote {
-    font-size: 0.95rem;
-    color: var(--text2);
-    font-weight: 300;
-    line-height: 1.9;
-    border-left: 2px solid var(--accent);
-    padding-left: 18px;
-    margin-bottom: 36px;
-    font-style: italic;
-  }
-  .hero-quote strong { color: var(--text); font-style: normal; font-weight: 600; }
+.btn {
+  padding:13px 26px;border-radius:11px;
+  font-family:'Cabinet Grotesk',sans-serif;font-weight:600;font-size:.82rem;
+  letter-spacing:.03em;cursor:none;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .25s ease;border:none;
+}
+.btn-solid { background:var(--ink);color:#fff;box-shadow:var(--sh1); }
+.btn-solid:hover { background:var(--gold);transform:translateY(-3px);box-shadow:var(--sh3); }
+.btn-ghost { background:var(--bg2);color:var(--text2);border:1px solid var(--border2);box-shadow:var(--sh1); }
+.btn-ghost:hover { border-color:var(--gold);color:var(--gold);transform:translateY(-3px);box-shadow:var(--sh2); }
 
-  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+/* PROFILE CARD */
+.profile-card {
+  position:relative;
+  background:linear-gradient(145deg,#fff,var(--bg3));
+  border:1px solid var(--border2);border-radius:28px;
+  box-shadow:var(--sh3);overflow:hidden;height:440px;
+}
+.profile-card::before {
+  content:'';position:absolute;top:16px;right:16px;
+  width:100px;height:100px;
+  background-image:radial-gradient(var(--bg4) 1.5px,transparent 1.5px);
+  background-size:11px 11px;border-radius:50%;opacity:.9;
+}
+.profile-card::after {
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to top,rgba(247,244,239,.6),transparent);
+}
+.profile-card img {
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:88%;height:405px;object-fit:cover;object-position:top;
+  border-radius:20px 20px 0 0;display:block;
+}
 
-  .btn-primary {
-    padding: 13px 26px;
-    background: var(--text);
-    color: var(--bg);
-    border-radius: 12px;
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 0.82rem;
-    letter-spacing: 0.03em;
-    cursor: none;
-    text-decoration: none;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: all 0.25s ease;
-    box-shadow: var(--shadow-sm);
-  }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); background: var(--accent); }
+.p-badge {
+  position:absolute;top:20px;right:-18px;
+  background:var(--bg2);border:1px solid var(--border2);border-radius:14px;
+  padding:12px 16px;box-shadow:var(--sh2);z-index:10;
+  font-family:'Fira Code',monospace;font-size:.66rem;color:var(--muted);
+}
+.p-badge strong {
+  display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:2rem;color:var(--gold);margin-bottom:1px;line-height:1;
+}
+.p-badge2 {
+  position:absolute;bottom:30px;left:-18px;
+  background:var(--teal-l);border:1px solid rgba(30,122,98,.25);
+  border-radius:12px;padding:10px 14px;
+  display:flex;align-items:center;gap:8px;
+  font-family:'Fira Code',monospace;font-size:.66rem;color:var(--teal);
+  box-shadow:var(--sh2);z-index:10;font-weight:500;
+}
+.p-badge2::before { content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;animation:blink 2s infinite;flex-shrink:0; }
 
-  .btn-outline {
-    padding: 13px 26px;
-    background: var(--bg2);
-    color: var(--text2);
-    border-radius: 12px;
-    border: 1px solid var(--border2);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: 0.82rem;
-    cursor: none;
-    text-decoration: none;
-    display: inline-flex; align-items: center; gap: 8px;
-    transition: all 0.25s ease;
-    box-shadow: var(--shadow-sm);
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+/* HERO STATS BAR */
+.hero-stats {
+  display:flex;gap:0;margin-top:48px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--sh1);overflow:hidden;
+}
+.hero-stat {
+  flex:1;padding:20px 24px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;gap:4px;
+}
+.hero-stat:last-child { border-right:none; }
+.stat-val { font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;font-style:italic;color:var(--gold); }
+.stat-key { font-size:.68rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-family:'Fira Code',monospace; }
 
-  /* HERO RIGHT — PROFILE */
-  .hero-right { position: relative; display: flex; justify-content: center; }
+/* ============================================================
+   ABOUT
+============================================================ */
+.about-grid { display:grid;grid-template-columns:1fr 1.5fr;gap:22px; }
 
-  .profile-frame {
-    position: relative;
-    width: 320px; height: 400px;
-  }
+.card {
+  background:var(--bg2);border:1px solid var(--border);border-radius:20px;
+  padding:26px;box-shadow:var(--sh1);transition:all .3s ease;position:relative;overflow:hidden;
+}
+.card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover { box-shadow:var(--sh2);transform:translateY(-3px);border-color:var(--border2); }
+.card:hover::before { opacity:1; }
 
-  .profile-bg-card {
-    position: absolute; inset: 0;
-    border-radius: 28px;
-    background: linear-gradient(145deg, #fff, var(--bg3));
-    border: 1px solid var(--border2);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-  }
+.card-lbl {
+  font-family:'Fira Code',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:9px;
+}
+.card-lbl::before { content:'';width:14px;height:1px;background:var(--faint); }
 
-  /* Decorative dots pattern on card */
-  .profile-bg-card::before {
-    content: '';
-    position: absolute;
-    top: 20px; right: 20px;
-    width: 120px; height: 120px;
-    background-image: radial-gradient(var(--bg4) 1.5px, transparent 1.5px);
-    background-size: 12px 12px;
-    border-radius: 50%;
-    opacity: 0.8;
-  }
+.info-row { display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border); }
+.info-row:last-child { border-bottom:none; }
+.ik { font-size:.72rem;color:var(--muted); }
+.iv { font-size:.82rem;color:var(--text);font-weight:500;text-align:right; }
 
-  .profile-img-wrapper {
-    position: absolute;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 82%;
-  }
-  .profile-img-wrapper img {
-    width: 100%;
-    display: block;
-    border-radius: 20px 20px 0 0;
-    object-fit: cover;
-    height: 360px;
-    object-position: top;
-  }
+.big-age { font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;font-style:italic;color:var(--gold);line-height:1;margin:6px 0 3px; }
 
-  .profile-badge {
-    position: absolute;
-    top: 18px; right: -22px;
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: 14px;
-    padding: 12px 16px;
-    font-size: 0.68rem;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    box-shadow: var(--shadow-md);
-  }
-  .profile-badge strong { color: var(--accent); display: block; font-size: 1.5rem; margin-bottom: 1px; font-family: 'Playfair Display', serif; font-style: italic; }
+/* EDU */
+.edu-row {
+  display:flex;gap:18px;align-items:center;padding:20px;
+  background:var(--bg3);border:1px solid var(--border);border-radius:14px;
+  transition:all .3s;cursor:none;margin-bottom:10px;
+}
+.edu-row:last-child { margin-bottom:0; }
+.edu-row:hover { background:var(--bg2);border-color:var(--gold);box-shadow:var(--sh2);transform:translateX(6px); }
+.edu-num { font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;font-style:italic;color:var(--bg4);flex-shrink:0;transition:color .3s; }
+.edu-row:hover .edu-num { color:var(--gold); }
+.edu-ttl { font-size:1rem;font-weight:700;color:var(--text);margin-bottom:3px; }
+.edu-sub { font-size:.71rem;color:var(--muted); }
+.badge {
+  margin-left:auto;padding:5px 12px;border-radius:20px;
+  font-size:.6rem;font-family:'Fira Code',monospace;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;
+}
+.badge-green { background:var(--teal-l);color:var(--teal);border:1px solid rgba(30,122,98,.2); }
+.badge-gold  { background:var(--gold-l);color:var(--gold-d);border:1px solid rgba(181,130,58,.2); }
+.badge-gray  { background:var(--bg3);color:var(--muted);border:1px solid var(--border2); }
 
-  .profile-badge2 {
-    position: absolute;
-    bottom: 28px; left: -20px;
-    background: var(--accent3-light);
-    border: 1px solid rgba(26,140,94,0.25);
-    border-radius: 12px;
-    padding: 10px 14px;
-    font-size: 0.68rem;
-    color: var(--accent3);
-    font-family: 'DM Mono', monospace;
-    display: flex; align-items: center; gap: 8px;
-    box-shadow: var(--shadow-md);
-    font-weight: 500;
-  }
-  .profile-badge2::before { content: ''; width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+/* ============================================================
+   POEMS
+============================================================ */
+.poems-layout { display:grid;grid-template-columns:1fr 1fr;gap:22px; }
 
-  /* SECTIONS */
-  section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+.poem-hero-card {
+  background:var(--ink);border-radius:24px;padding:36px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:320px;position:relative;overflow:hidden;box-shadow:var(--sh3);
+  grid-row:span 2;
+}
+.poem-hero-card::before {
+  content:'"';position:absolute;bottom:-40px;right:10px;
+  font-family:'Cormorant Garamond',serif;font-size:14rem;
+  color:rgba(255,255,255,.03);line-height:1;pointer-events:none;
+}
+.poem-big-title { font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;font-style:italic;color:var(--gold);line-height:1.1;margin-bottom:10px; }
+.poem-big-sub { font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:28px;font-style:italic; }
 
-  .section-label {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 44px;
-  }
-  .section-label-text { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .section-label-line { flex: 1; height: 1px; background: var(--border2); }
-  .section-label-num { font-family: 'Playfair Display', serif; font-style: italic; color: var(--bg4); font-size: 0.85rem; }
+.poem-card {
+  background:var(--bg2);border:1px solid var(--border);border-radius:20px;
+  padding:26px;box-shadow:var(--sh1);transition:all .3s ease;
+  display:flex;flex-direction:column;gap:14px;
+  position:relative;overflow:hidden;cursor:none;
+}
+.poem-card::after { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(181,130,58,.03),transparent);opacity:0;transition:opacity .3s; }
+.poem-card:hover { box-shadow:var(--sh2);transform:translateY(-4px);border-color:var(--gold); }
+.poem-card:hover::after { opacity:1; }
 
-  /* ABOUT GRID */
-  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 20px; }
+.poem-num { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:2rem;font-weight:700;color:var(--bg4);line-height:1; }
+.poem-ttl { font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--text); }
+.poem-preview { font-size:.8rem;color:var(--muted);line-height:1.7;font-style:italic; }
+.poem-tag { display:inline-block;padding:3px 10px;border-radius:20px;font-size:.6rem;font-family:'Fira Code',monospace;letter-spacing:.08em;align-self:flex-start; }
 
-  .info-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 26px;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
-  }
-  .info-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .info-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); border-color: var(--border2); }
-  .info-card:hover::before { opacity: 1; }
+.poem-full-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:10px;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);
+  border:1px solid rgba(255,255,255,.14);
+  font-family:'Cabinet Grotesk',sans-serif;font-weight:500;font-size:.8rem;
+  text-decoration:none;cursor:none;transition:all .2s;
+}
+.poem-full-btn:hover { background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.28); }
 
-  .card-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 18px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .card-label::before { content: ''; width: 14px; height: 1px; background: var(--muted); }
+/* ============================================================
+   PORTFOLIO / PROJECTS
+============================================================ */
+.proj-grid { display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px; }
 
-  .info-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .info-row:last-child { border-bottom: none; }
-  .info-key { font-size: 0.72rem; color: var(--muted); }
-  .info-val { font-size: 0.82rem; color: var(--text); font-weight: 500; text-align: right; }
+.proj-card {
+  background:var(--bg2);border:1px solid var(--border);border-radius:22px;
+  padding:30px;display:flex;flex-direction:column;min-height:290px;
+  transition:all .35s cubic-bezier(.175,.885,.32,1.275);
+  position:relative;overflow:hidden;text-decoration:none;color:inherit;cursor:none;
+  box-shadow:var(--sh1);
+}
+.proj-card.feat {
+  background:linear-gradient(150deg,#f0eeff,#f8f7ff);
+  border-color:rgba(82,70,200,.18);
+}
+.proj-card.feat:hover { box-shadow:0 20px 56px rgba(82,70,200,.14);border-color:rgba(82,70,200,.3); }
+.proj-card:not(.disabled):not(.feat):hover { box-shadow:var(--sh3);transform:translateY(-8px);border-color:var(--border2); }
+.proj-card.disabled { opacity:.6;cursor:not-allowed; }
 
-  .big-age {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    font-style: italic;
-    color: var(--accent);
-    line-height: 1;
-    margin: 6px 0 3px;
-  }
+.proj-icon { width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:24px;flex-shrink:0; }
+.pi-purple { background:#eeedfb;color:#5246c8; }
+.pi-gold   { background:var(--gold-l);color:var(--gold); }
+.pi-gray   { background:var(--bg3);color:var(--muted); }
 
-  /* EDU ITEMS */
-  .edu-item {
-    display: flex; gap: 20px; align-items: center;
-    padding: 22px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    transition: all 0.3s ease;
-    cursor: none;
-  }
-  .edu-item:hover { background: var(--bg2); border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateX(6px); }
+.proj-tag { position:absolute;top:18px;right:18px;padding:4px 10px;border-radius:20px;font-size:.58rem;font-family:'Fira Code',monospace;letter-spacing:.08em;text-transform:uppercase; }
 
-  .edu-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; font-style: italic; color: var(--bg4); flex-shrink: 0; transition: color 0.3s; }
-  .edu-item:hover .edu-num { color: var(--accent); }
-  .edu-title { font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .edu-sub { font-size: 0.72rem; color: var(--muted); }
+.proj-ttl { font-size:1.15rem;font-weight:700;margin-bottom:9px;color:var(--text); }
+.proj-desc { font-size:.8rem;color:var(--text2);line-height:1.75;flex:1; }
+.proj-link { display:inline-flex;align-items:center;gap:7px;font-size:.7rem;font-family:'Fira Code',monospace;color:#5246c8;letter-spacing:.07em;margin-top:22px;text-decoration:none;transition:gap .2s; }
+.proj-card:hover .proj-link { gap:11px; }
 
-  .edu-badge { margin-left: auto; padding: 5px 12px; border-radius: 20px; font-size: 0.62rem; font-family: 'DM Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
-  .edu-badge.done { background: var(--accent3-light); color: var(--accent3); border: 1px solid rgba(26,140,94,0.2); }
+/* ============================================================
+   SNAPSHOTS
+============================================================ */
+.snap-wrap { position:relative; }
+.snap-scroll { display:flex;gap:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none; }
+.snap-scroll::-webkit-scrollbar { display:none; }
 
-  /* SNAPSHOTS */
-  .snap-scroll { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: none; }
-  .snap-scroll::-webkit-scrollbar { display: none; }
+.snap-item {
+  flex-shrink:0;width:200px;height:270px;border-radius:20px;overflow:hidden;
+  position:relative;cursor:none;box-shadow:var(--sh1);transition:all .3s;
+}
+.snap-item:hover { box-shadow:var(--sh3);transform:translateY(-7px); }
+.snap-item img { width:100%;height:100%;object-fit:cover;transition:transform .7s; }
+.snap-item:hover img { transform:scale(1.07); }
+.snap-item::after { content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%); }
+.snap-label { position:absolute;bottom:14px;left:14px;z-index:2;color:#fff; }
+.snap-label .sn { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.62rem;color:rgba(255,255,255,.4); }
+.snap-label .st { font-size:.75rem;font-weight:600;letter-spacing:.04em; }
 
-  .snap-item { flex-shrink: 0; width: 190px; height: 260px; border-radius: 18px; overflow: hidden; position: relative; cursor: none; box-shadow: var(--shadow-sm); transition: box-shadow 0.3s, transform 0.3s; }
-  .snap-item:hover { box-shadow: var(--shadow-lg); transform: translateY(-6px); }
-  .snap-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-  .snap-item:hover img { transform: scale(1.06); }
-  .snap-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%); }
+.snap-controls { display:flex;gap:8px;margin-top:20px; }
+.snap-btn {
+  width:38px;height:38px;border-radius:10px;background:var(--bg2);
+  border:1px solid var(--border2);color:var(--muted);cursor:none;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-size:.78rem;box-shadow:var(--sh1);
+}
+.snap-btn:hover { border-color:var(--gold);color:var(--gold);box-shadow:var(--sh2); }
 
-  .snap-label { position: absolute; bottom: 14px; left: 14px; z-index: 2; color: white; }
-  .snap-label .num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.62rem; color: rgba(255,255,255,0.45); }
-  .snap-label .title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; }
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-layout { display:grid;grid-template-columns:1fr 1.4fr;gap:28px; }
 
-  .snap-controls { display: flex; gap: 8px; margin-top: 18px; }
-  .snap-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--bg2); border: 1px solid var(--border2); color: var(--muted); cursor: none; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 0.78rem; box-shadow: var(--shadow-sm); }
-  .snap-btn:hover { border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-md); }
+.contact-info { display:flex;flex-direction:column;gap:14px; }
 
-  /* PROJECTS */
-  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.contact-method {
+  background:var(--bg2);border:1px solid var(--border);border-radius:18px;
+  padding:22px 24px;display:flex;align-items:center;gap:16px;
+  box-shadow:var(--sh1);transition:all .3s;text-decoration:none;color:inherit;cursor:none;
+}
+.contact-method:hover { box-shadow:var(--sh2);transform:translateX(6px);border-color:var(--border2); }
 
-  .project-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    padding: 28px;
-    display: flex; flex-direction: column;
-    min-height: 280px;
-    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative; overflow: hidden;
-    text-decoration: none; color: inherit; cursor: none;
-    box-shadow: var(--shadow-sm);
-  }
-  .project-card:not(.disabled):hover { box-shadow: var(--shadow-lg); transform: translateY(-8px); border-color: var(--border2); }
-  .project-card.featured { background: linear-gradient(145deg, #f0eeff, #f7f5ff); border-color: rgba(82,70,200,0.2); }
-  .project-card.featured:hover { box-shadow: 0 20px 60px rgba(82,70,200,0.15); }
-  .project-card.disabled { opacity: 0.65; cursor: not-allowed; }
+.cm-icon {
+  width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.cmi-fb   { background:#e7effe;color:#1877f2; }
+.cmi-wa   { background:#e6f9f0;color:#25d366; }
+.cmi-mail { background:var(--rose-l);color:var(--rose); }
+.cmi-loc  { background:var(--gold-l);color:var(--gold); }
+.cmi-web  { background:#eeedfb;color:#5246c8; }
 
-  .project-icon { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; margin-bottom: 26px; flex-shrink: 0; }
-  .project-icon.purple { background: var(--accent2-light); color: var(--accent2); }
-  .project-icon.gold { background: var(--accent-light); color: var(--accent); }
-  .project-icon.dim { background: var(--bg3); color: var(--muted); }
+.cm-info { flex:1; }
+.cm-label { font-size:.62rem;color:var(--muted);font-family:'Fira Code',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px; }
+.cm-val   { font-size:.9rem;font-weight:600;color:var(--text); }
+.cm-sub   { font-size:.72rem;color:var(--muted);margin-top:1px; }
 
-  .project-tag { position: absolute; top: 20px; right: 20px; padding: 4px 10px; border-radius: 20px; font-size: 0.58rem; font-family: 'DM Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; }
-  .tag-live { background: var(--accent3-light); color: var(--accent3); border: 1px solid rgba(26,140,94,0.2); }
-  .tag-soon { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(184,134,78,0.2); }
-  .tag-planned { background: var(--bg3); color: var(--muted); border: 1px solid var(--border2); }
+.cm-arrow { color:var(--faint);font-size:.8rem;transition:all .25s; }
+.contact-method:hover .cm-arrow { color:var(--gold);transform:translateX(4px); }
 
-  .project-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-  .project-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.75; flex: 1; }
-  .project-link { display: inline-flex; align-items: center; gap: 7px; font-size: 0.72rem; font-family: 'DM Mono', monospace; color: var(--accent2); letter-spacing: 0.07em; margin-top: 22px; text-decoration: none; transition: gap 0.2s; }
-  .project-card:hover .project-link { gap: 11px; }
+/* CONTACT FORM */
+.contact-form-wrap {
+  background:var(--bg2);border:1px solid var(--border);border-radius:24px;
+  padding:36px;box-shadow:var(--sh1);
+}
 
-  /* WORK & POETRY */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+.form-title { font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;font-style:italic;color:var(--text);margin-bottom:6px; }
+.form-sub { font-size:.82rem;color:var(--muted);margin-bottom:28px; }
 
-  .work-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 28px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
-  .work-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px; }
+.form-group { display:flex;flex-direction:column;gap:6px;margin-bottom:14px; }
+.form-label { font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2); }
 
-  .work-icon { font-size: 1.4rem; margin-bottom: 14px; }
+.form-input, .form-textarea {
+  padding:12px 16px;border-radius:11px;
+  border:1.5px solid var(--border2);background:var(--bg);
+  font-family:'Cabinet Grotesk',sans-serif;font-size:.88rem;color:var(--text);
+  transition:all .2s;outline:none;width:100%;
+  cursor:none;
+}
+.form-input:focus, .form-textarea:focus { border-color:var(--gold);background:var(--bg2);box-shadow:0 0 0 3px rgba(181,130,58,.1); }
+.form-textarea { resize:vertical;min-height:110px;line-height:1.6; }
 
-  .poetry-card {
-    background: var(--text);
-    border-radius: 20px; padding: 28px;
-    position: relative; overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-  }
-  .poetry-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-  .poetry-card::before {
-    content: '"';
-    position: absolute; bottom: -30px; right: 16px;
-    font-family: 'Playfair Display', serif;
-    font-size: 10rem; color: rgba(255,255,255,0.04);
-    line-height: 1; pointer-events: none;
-  }
-  .poetry-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic; color: var(--accent); margin-bottom: 6px; }
-  .poetry-sub { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 22px; }
+.form-submit {
+  width:100%;padding:14px;border-radius:12px;
+  background:var(--ink);color:#fff;border:none;
+  font-family:'Cabinet Grotesk',sans-serif;font-weight:700;font-size:.9rem;
+  letter-spacing:.04em;cursor:none;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:all .25s;box-shadow:var(--sh1);
+}
+.form-submit:hover { background:var(--gold);transform:translateY(-2px);box-shadow:var(--sh3); }
 
-  .btn-poetry {
-    padding: 11px 22px;
-    background: rgba(255,255,255,0.1);
-    color: rgba(255,255,255,0.85);
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.15);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    font-size: 0.78rem;
-    cursor: none;
-    text-decoration: none;
-    display: inline-flex; align-items: center; gap: 7px;
-    transition: all 0.2s ease;
-  }
-  .btn-poetry:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.3); }
+.form-success {
+  display:none;text-align:center;padding:28px;
+  background:var(--teal-l);border:1px solid rgba(30,122,98,.2);border-radius:16px;
+  color:var(--teal);font-weight:600;font-size:.95rem;margin-top:16px;
+}
+.form-success i { font-size:2rem;display:block;margin-bottom:10px; }
 
-  /* FOOTER */
-  footer {
-    padding: 60px 48px; text-align: center;
-    border-top: 1px solid var(--border);
-    position: relative; z-index: 2;
-    max-width: 1160px; margin: 0 auto;
-  }
-  .footer-text { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
-  .footer-name { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; font-style: italic; color: transparent; -webkit-text-stroke: 1px var(--bg4); display: block; margin: 18px 0; letter-spacing: -0.02em; }
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  padding:64px 56px 48px;
+  position:relative;z-index:2;
+  max-width:1140px;margin:0 auto;
+}
+.footer-top { display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px; }
+.footer-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:700;font-style:italic;
+  color:transparent;-webkit-text-stroke:1.5px var(--bg4);letter-spacing:-.02em;
+}
+.footer-socials { display:flex;gap:8px; }
+.footer-social {
+  width:40px;height:40px;border-radius:11px;border:1px solid var(--border2);background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;color:var(--muted);
+  text-decoration:none;font-size:.85rem;transition:all .2s;box-shadow:var(--sh1);cursor:none;
+}
+.footer-social:hover { border-color:var(--gold);color:var(--gold);transform:translateY(-2px);box-shadow:var(--sh2); }
+.footer-divider { height:1px;background:var(--border);margin-bottom:28px; }
+.footer-bottom { display:flex;justify-content:space-between;align-items:center; }
+.footer-txt { font-family:'Fira Code',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted); }
+.footer-tag { font-family:'Fira Code',monospace;font-size:.6rem;color:var(--faint);letter-spacing:.1em; }
 
-  /* ANIMATIONS */
-  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-  .fade-up-1 { transition-delay: 0.08s; }
-  .fade-up-2 { transition-delay: 0.16s; }
-  .fade-up-3 { transition-delay: 0.24s; }
-  .fade-up-4 { transition-delay: 0.32s; }
+/* ============================================================
+   SCROLL ANIMATIONS
+============================================================ */
+.reveal { opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease; }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.d1 { transition-delay:.08s; }
+.d2 { transition-delay:.16s; }
+.d3 { transition-delay:.24s; }
+.d4 { transition-delay:.32s; }
 
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 4px; }
-  ::selection { background: var(--accent); color: white; }
+/* ============================================================
+   SELECTION & SCROLLBAR
+============================================================ */
+::selection { background:var(--gold);color:#fff; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--bg4);border-radius:4px; }
 
-  @media (max-width: 900px) {
-    nav { padding: 14px 20px; }
-    main { padding: 0 20px; }
-    .hero { grid-template-columns: 1fr; gap: 40px; padding: 56px 0 56px; }
-    .hero-right { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .two-col { grid-template-columns: 1fr; }
-    .hero-title { font-size: 2.8rem; }
-    footer { padding: 36px 20px; }
-  }
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:960px){
+  nav { padding:0 20px; }
+  .nav-menu { display:none; }
+  .wrap { padding:0 20px; }
+  .hero-inner { grid-template-columns:1fr; }
+  .profile-card { display:none; }
+  .hero-stats { flex-direction:column; }
+  .about-grid, .poems-layout, .proj-grid, .contact-layout { grid-template-columns:1fr; }
+  .poem-hero-card { grid-row:span 1; }
+  footer { padding:40px 20px; }
+  .footer-top { flex-direction:column;align-items:flex-start;gap:20px; }
+  .footer-bottom { flex-direction:column;gap:10px;text-align:center; }
+  .form-row { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
 
-<div class="grid-pattern"></div>
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<div class="grain"></div>
+<div class="grid-bg"></div>
+<div id="cur"></div>
+<div id="ring"></div>
 
-<!-- NAV -->
+<!-- ============================================================
+     NAV
+============================================================ -->
 <nav>
-  <div class="nav-logo">Ishak · Yonghang</div>
-  <div class="nav-status"><span></span> Available for work</div>
-  <div class="nav-links">
-    <a href="https://www.facebook.com/yonghangisaac" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://wa.me/9779820907795" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    <a href="mailto:yonghangissac@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+  <a href="#hero" class="nav-logo">Ishak Yonghang</a>
+  <div class="nav-menu">
+    <a href="#about" class="nav-menu-link">About</a>
+    <a href="#poems" class="nav-menu-link">Poetry</a>
+    <a href="#portfolio" class="nav-menu-link">Portfolio</a>
+    <a href="#snapshots" class="nav-menu-link">Life</a>
+    <a href="#contact" class="nav-menu-link">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-dot"><span></span>Open to Work</div>
+    <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="nav-icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://wa.me/9779820907795" target="_blank" class="nav-icon"><i class="fab fa-whatsapp"></i></a>
+    <a href="mailto:yonghangissac@gmail.com" class="nav-icon"><i class="fas fa-envelope"></i></a>
   </div>
 </nav>
 
-<main>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="hero-tag fade-up fade-up-1">
-        <i class="fas fa-map-marker-alt" style="color:var(--accent); font-size:0.58rem;"></i>
-        Phidim, Panchthar · Nepal
+<!-- ============================================================
+     HERO
+============================================================ -->
+<div class="wrap">
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow reveal d1">
+        <i class="fas fa-map-marker-alt"></i>
+        Phidim, Panchthar &nbsp;·&nbsp; Nepal
       </div>
-      <h1 class="hero-title fade-up fade-up-2">
-        <span>Ishak</span><br>
-        <span class="name-last">Yonghang</span>
+      <h1 class="hero-h1 reveal d2">
+        <em>Ishak</em><br>
+        <span class="outline-txt">Yonghang</span>
       </h1>
-      <p class="hero-quote fade-up fade-up-3">
+      <p class="hero-quote reveal d3">
         "Currently <strong>exploring</strong> the depth of poetry.<br>
         Growing through every line I learn and every verse I write."
       </p>
-      <div class="hero-actions fade-up fade-up-4">
-        <a href="https://poem.yonghangishak.com.np/" target="_blank" class="btn-primary">
-          <i class="fas fa-feather"></i> Read Poetry
+      <div class="hero-btns reveal d4">
+        <a href="#poems" class="btn btn-solid"><i class="fas fa-feather-alt"></i> Read Poetry</a>
+        <a href="#contact" class="btn btn-ghost"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+        <a href="#portfolio" class="btn btn-ghost"><i class="fas fa-briefcase"></i> Portfolio</a>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <div class="profile-card reveal d2">
+        <img src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" alt="Ishak Yonghang"
+          onerror="this.src='https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/484720029_1214268536782792_2219807835874787926_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeE2eu9kE8ERJaKVOS8oDPGzeO2PC5poXp947Y8Lmmhen0TmNHSH4oTHynBpp36i3beIqZvDcFWDxmqk-w--dOu5&_nc_ohc=IgKVA44EnLwQ7kNvwHeARNO&_nc_oc=Ado6Rxx-vgztG6fMvTf0YfC2KIVGzMeqIHVO6XFwLK3Hg1h34_D6eR2fEEMhgPaN0xo&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=HRZCbwhELLjrsFwoksCXoQ&_nc_ss=7b2a8&oh=00_Af6PX_Y5vYTQyglELzrs7m3dbc2M89IoqjHYhn0OkeNEjA&oe=69FFCD07'">
+      </div>
+      <div class="p-badge reveal d3"><strong id="hero-age">20</strong>Years Old</div>
+      <div class="p-badge2 reveal d4">Available Now</div>
+    </div>
+  </div>
+
+  <div class="hero-stats reveal" style="transition-delay:.4s;">
+    <div class="hero-stat">
+      <div class="stat-val" id="stat-age">20</div>
+      <div class="stat-key">Years Old</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-val">Class XII</div>
+      <div class="stat-key">Education</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-val">Bajaj</div>
+      <div class="stat-key">Experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-val">Poet</div>
+      <div class="stat-key">& Developer</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="sec-label">
+    <span class="sec-label-txt">About Me</span>
+    <div class="sec-label-line"></div>
+    <span class="sec-label-num">01</span>
+  </div>
+
+  <div class="about-grid">
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <div class="card reveal d1">
+        <div class="card-lbl">Personal Identity</div>
+        <div class="big-age" id="card-age">20</div>
+        <div style="font-size:.67rem;color:var(--muted);font-family:'Fira Code',monospace;margin-bottom:14px;">Born October 26, 2005</div>
+        <div class="info-row"><span class="ik">Father</span><span class="iv">Seru Hang Yonghang</span></div>
+        <div class="info-row"><span class="ik">Mother</span><span class="iv">Ful Kumari Neambang</span></div>
+        <div class="info-row"><span class="ik">Nationality</span><span class="iv">Nepali 🇳🇵</span></div>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-lbl">Location</div>
+        <div class="info-row"><span class="ik">Current</span><span class="iv" style="color:var(--teal);">Phidim-1, Panchthar</span></div>
+        <div class="info-row"><span class="ik">Permanent</span><span class="iv">Hilihang-5, Panchthar</span></div>
+        <div class="info-row"><span class="ik">Province</span><span class="iv">Koshi, Nepal</span></div>
+      </div>
+
+      <div class="card reveal d3" style="background:var(--ink);border-color:transparent;">
+        <div class="card-lbl" style="color:rgba(255,255,255,.3);">Professional</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gold);flex-shrink:0;">
+            <i class="fas fa-motorcycle"></i>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem;color:#fff;">Bajaj Showroom</div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.4);margin-top:2px;">Sales & Operations · Phidim</div>
+          </div>
+        </div>
+        <div style="font-size:.78rem;color:rgba(255,255,255,.35);font-style:italic;border-left:2px solid rgba(255,255,255,.1);padding-left:12px;">Auto-finance & customer relations experience.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <div class="card reveal d1">
+        <div class="card-lbl">Academic Journey</div>
+        <div class="edu-row">
+          <div class="edu-num">12</div>
+          <div>
+            <div class="edu-ttl">Class XII — Humanities</div>
+            <div class="edu-sub">Completed at age 17 &nbsp;·&nbsp; Higher Secondary Level</div>
+          </div>
+          <div class="badge badge-green">Completed</div>
+        </div>
+        <div class="edu-row">
+          <div class="edu-num">10</div>
+          <div>
+            <div class="edu-ttl">SEE — Secondary Education Examination</div>
+            <div class="edu-sub">Completed at age 15 &nbsp;·&nbsp; School Leaving Exam</div>
+          </div>
+          <div class="badge badge-green">Completed</div>
+        </div>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-lbl">Skills & Interests</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+          <span style="padding:7px 14px;background:var(--gold-l);color:var(--gold-d);border-radius:20px;font-size:.72rem;font-weight:600;">✦ Poetry Writing</span>
+          <span style="padding:7px 14px;background:#eeedfb;color:#5246c8;border-radius:20px;font-size:.72rem;font-weight:600;">✦ Web Development</span>
+          <span style="padding:7px 14px;background:var(--teal-l);color:var(--teal);border-radius:20px;font-size:.72rem;font-weight:600;">✦ HTML & CSS</span>
+          <span style="padding:7px 14px;background:var(--rose-l);color:var(--rose);border-radius:20px;font-size:.72rem;font-weight:600;">✦ JavaScript</span>
+          <span style="padding:7px 14px;background:var(--bg3);color:var(--text2);border-radius:20px;font-size:.72rem;font-weight:600;">✦ Sales & Finance</span>
+          <span style="padding:7px 14px;background:var(--bg3);color:var(--text2);border-radius:20px;font-size:.72rem;font-weight:600;">✦ Creative Writing</span>
+        </div>
+      </div>
+
+      <div class="card reveal d3">
+        <div class="card-lbl">About Me</div>
+        <p style="font-size:.88rem;color:var(--text2);line-height:1.85;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.05rem;">
+          I'm Ishak — an aspiring developer and poet from the hills of Panchthar, Nepal. I believe in learning by doing, whether that's writing a line of code or crafting a verse that captures an untranslatable emotion. Every project I build and every poem I write is a small step forward.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     POETRY
+============================================================ -->
+<section id="poems">
+  <div class="sec-label">
+    <span class="sec-label-txt">Poetry</span>
+    <div class="sec-label-line"></div>
+    <span class="sec-label-num">02</span>
+  </div>
+
+  <div class="poems-layout">
+    <!-- Big hero poetry card -->
+    <div class="poem-hero-card reveal d1">
+      <div>
+        <div style="font-family:'Fira Code',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px;">Poet · Writer · Creator</div>
+        <div class="poem-big-title">Verses<br>of Life</div>
+        <p class="poem-big-sub">
+          "Turning raw emotion into words that breathe.<br>
+          Each poem is a moment — honest, searching, alive."
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="font-size:.78rem;color:rgba(255,255,255,.35);font-family:'Fira Code',monospace;letter-spacing:.06em;">PUBLISHED AT</div>
+        <a href="https://poem.yonghangishak.com.np/" target="_blank" class="poem-full-btn">
+          <i class="fas fa-external-link-alt"></i> poem.yonghangishak.com.np
         </a>
-        <a href="mailto:yonghangissac@gmail.com" class="btn-outline">
-          <i class="fas fa-paper-plane"></i> Get in Touch
-        </a>
       </div>
     </div>
 
-    <div class="hero-right fade-up fade-up-2">
-      <div class="profile-frame">
-        <div class="profile-bg-card"></div>
-        <div class="profile-img-wrapper">
-          <img src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" alt="Ishak Yonghang"
-               onerror="this.src='https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/484720029_1214268536782792_2219807835874787926_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeE2eu9kE8ERJaKVOS8oDPGzeO2PC5poXp947Y8Lmmhen0TmNHSH4oTHynBpp36i3beIqZvDcFWDxmqk-w--dOu5&_nc_ohc=IgKVA44EnLwQ7kNvwHeARNO&_nc_oc=Ado6Rxx-vgztG6fMvTf0YfC2KIVGzMeqIHVO6XFwLK3Hg1h34_D6eR2fEEMhgPaN0xo&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=HRZCbwhELLjrsFwoksCXoQ&_nc_ss=7b2a8&oh=00_Af6PX_Y5vYTQyglELzrs7m3dbc2M89IoqjHYhn0OkeNEjA&oe=69FFCD07'">
-        </div>
-        <div class="profile-badge">
-          <strong id="hero-age">20</strong>
-          Years Old
-        </div>
-        <div class="profile-badge2">Available Now</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section>
-    <div class="section-label">
-      <span class="section-label-text">About</span>
-      <div class="section-label-line"></div>
-      <span class="section-label-num">01</span>
+    <!-- Sample poems -->
+    <div class="poem-card reveal d2">
+      <div class="poem-num">I.</div>
+      <div class="poem-ttl">Phidim Mornings</div>
+      <p class="poem-preview">"The fog rolls over the hills like a slow breath, and I sit with my tea cooling in my palms, learning to be still..."</p>
+      <span class="poem-tag badge-gold">Nature</span>
     </div>
 
-    <div class="about-grid">
-      <div style="display:flex; flex-direction:column; gap:18px;">
-        <div class="info-card fade-up">
-          <div class="card-label">Personal Identity</div>
-          <div class="big-age" id="card-age">20</div>
-          <div style="font-size:0.68rem; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:14px;">Born Oct 26, 2005</div>
-          <div class="info-row"><span class="info-key">Father</span><span class="info-val">Seru Hang Yonghang</span></div>
-          <div class="info-row"><span class="info-key">Mother</span><span class="info-val">Ful Kumari Neambang</span></div>
-        </div>
-
-        <div class="info-card fade-up">
-          <div class="card-label">Location</div>
-          <div class="info-row"><span class="info-key">Current</span><span class="info-val" style="color:var(--accent3);">Phidim-1, Panchthar</span></div>
-          <div class="info-row"><span class="info-key">Permanent</span><span class="info-val">Hilihang-5, Panchthar</span></div>
-          <div class="info-row"><span class="info-key">Country</span><span class="info-val">Nepal 🇳🇵</span></div>
-        </div>
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:18px;">
-        <div class="info-card fade-up">
-          <div class="card-label">Academic Journey</div>
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <div class="edu-item">
-              <div class="edu-num">12</div>
-              <div>
-                <div class="edu-title">Class XII — Humanities</div>
-                <div class="edu-sub">Completed at age 17 · Higher Secondary</div>
-              </div>
-              <div class="edu-badge done">Done</div>
-            </div>
-            <div class="edu-item">
-              <div class="edu-num">10</div>
-              <div>
-                <div class="edu-title">SEE — Secondary Education</div>
-                <div class="edu-sub">Completed at age 15 · School Leaving Exam</div>
-              </div>
-              <div class="edu-badge done">Done</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="two-col fade-up">
-          <div class="work-card">
-            <div class="work-icon"><i class="fas fa-motorcycle" style="color:var(--accent);"></i></div>
-            <div style="font-size:0.58rem; color:var(--muted); font-family:'DM Mono',monospace; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:6px;">Professional</div>
-            <div style="font-weight:700; font-size:0.95rem; margin-bottom:3px; color:var(--text);">Bajaj Showroom</div>
-            <div style="font-size:0.72rem; color:var(--muted);">Sales & Operations · Phidim</div>
-          </div>
-          <div class="poetry-card">
-            <div class="poetry-title">Poetry</div>
-            <div class="poetry-sub">"Turning emotions into verses."</div>
-            <a href="https://poem.yonghangishak.com.np/" target="_blank" class="btn-poetry">
-              <i class="fas fa-external-link-alt"></i> Explore
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SNAPSHOTS -->
-  <section>
-    <div class="section-label">
-      <span class="section-label-text">Life Snapshots</span>
-      <div class="section-label-line"></div>
-      <span class="section-label-num">02</span>
+    <div class="poem-card reveal d3">
+      <div class="poem-num">II.</div>
+      <div class="poem-ttl">Distance</div>
+      <p class="poem-preview">"There is a kind of silence that lives between two people who once shared everything. I am learning its language..."</p>
+      <span class="poem-tag" style="background:var(--teal-l);color:var(--teal);padding:3px 10px;border-radius:20px;font-size:.6rem;font-family:'Fira Code',monospace;">Emotion</span>
     </div>
 
-    <div id="snapScroll" class="snap-scroll fade-up">
+    <div class="poem-card reveal d2" style="background:var(--gold-l);border-color:rgba(181,130,58,.2);">
+      <div class="poem-num" style="color:rgba(181,130,58,.3);">III.</div>
+      <div class="poem-ttl" style="color:var(--gold-d);">Growing</div>
+      <p class="poem-preview" style="color:var(--gold);">"Every mistake was a teacher dressed in disguise. I am still in school — and grateful for every bruise..."</p>
+      <span class="poem-tag badge-gold">Growth</span>
+    </div>
+
+    <div class="poem-card reveal d3" style="align-items:center;justify-content:center;text-align:center;background:var(--bg3);border-style:dashed;">
+      <i class="fas fa-feather-alt" style="font-size:1.8rem;color:var(--faint);margin-bottom:14px;"></i>
+      <div style="font-size:.82rem;color:var(--muted);margin-bottom:16px;">More poems await you</div>
+      <a href="https://poem.yonghangishak.com.np/" target="_blank" class="btn btn-ghost" style="font-size:.76rem;padding:10px 18px;">Visit Poetry Site</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PORTFOLIO
+============================================================ -->
+<section id="portfolio">
+  <div class="sec-label">
+    <span class="sec-label-txt">Portfolio</span>
+    <div class="sec-label-line"></div>
+    <span class="sec-label-num">03</span>
+  </div>
+
+  <div class="proj-grid">
+    <a href="https://projectprice.yonghangishak.com.np/" target="_blank" class="proj-card feat reveal d1">
+      <div class="proj-tag badge-green">● Live</div>
+      <div class="proj-icon pi-purple"><i class="fas fa-calculator"></i></div>
+      <div class="proj-ttl">Finance Calculator</div>
+      <p class="proj-desc">A specialized auto-finance calculation tool built for the Bajaj showroom workflow. Fast, accurate, and purpose-built for real daily use.</p>
+      <div class="proj-link">View Live Project <i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <div class="proj-card disabled reveal d2">
+      <div class="proj-tag badge-gold">In Progress</div>
+      <div class="proj-icon pi-gold"><i class="fas fa-pen-nib"></i></div>
+      <div class="proj-ttl">Verses of Life</div>
+      <p class="proj-desc">A digital archive for my poetry collection — designed to feel like flipping through a physical journal with warm, paper-like typography.</p>
+      <div style="margin-top:22px;font-size:.67rem;font-family:'Fira Code',monospace;color:var(--muted);">Developing...</div>
+    </div>
+
+    <div class="proj-card disabled reveal d3">
+      <div class="proj-tag badge-gray">Planned</div>
+      <div class="proj-icon pi-gray"><i class="fas fa-code"></i></div>
+      <div class="proj-ttl">Next Big Project</div>
+      <p class="proj-desc">Something new is brewing. Exploring new territories in web development — tools that actually solve real problems for real people.</p>
+      <div style="margin-top:22px;font-size:.67rem;font-family:'Fira Code',monospace;color:var(--bg4);">In Queue...</div>
+    </div>
+  </div>
+
+  <!-- Tech stack / tools row -->
+  <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;" class="reveal">
+    <div style="padding:10px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:.78rem;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:8px;box-shadow:var(--sh1);">
+      <i class="fab fa-html5" style="color:#e44d26;"></i> HTML5
+    </div>
+    <div style="padding:10px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:.78rem;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:8px;box-shadow:var(--sh1);">
+      <i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS3
+    </div>
+    <div style="padding:10px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:.78rem;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:8px;box-shadow:var(--sh1);">
+      <i class="fab fa-js-square" style="color:#f7df1e;"></i> JavaScript
+    </div>
+    <div style="padding:10px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:.78rem;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:8px;box-shadow:var(--sh1);">
+      <i class="fab fa-github" style="color:#333;"></i> Git & GitHub
+    </div>
+    <div style="padding:10px 18px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-size:.78rem;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:8px;box-shadow:var(--sh1);">
+      <i class="fas fa-wind" style="color:#38bdf8;"></i> Tailwind CSS
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LIFE SNAPSHOTS
+============================================================ -->
+<section id="snapshots">
+  <div class="sec-label">
+    <span class="sec-label-txt">Life Snapshots</span>
+    <div class="sec-label-line"></div>
+    <span class="sec-label-num">04</span>
+  </div>
+
+  <div class="snap-wrap">
+    <div id="snapScroll" class="snap-scroll reveal">
       <div class="snap-item">
         <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/484720029_1214268536782792_2219807835874787926_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeE2eu9kE8ERJaKVOS8oDPGzeO2PC5poXp947Y8Lmmhen0TmNHSH4oTHynBpp36i3beIqZvDcFWDxmqk-w--dOu5&_nc_ohc=IgKVA44EnLwQ7kNvwHeARNO&_nc_oc=Ado6Rxx-vgztG6fMvTf0YfC2KIVGzMeqIHVO6XFwLK3Hg1h34_D6eR2fEEMhgPaN0xo&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=HRZCbwhELLjrsFwoksCXoQ&_nc_ss=7b2a8&oh=00_Af6PX_Y5vYTQyglELzrs7m3dbc2M89IoqjHYhn0OkeNEjA&oe=69FFCD07" alt="Phidim Days" loading="lazy">
-        <div class="snap-label"><div class="num">01</div><div class="title">Phidim Days</div></div>
+        <div class="snap-label"><div class="sn">01</div><div class="st">Phidim Days</div></div>
       </div>
       <div class="snap-item">
         <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/481262375_1201259798083666_4403938659566561845_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeGJZlTqbEYjnh3RsM4yQybcyK7wIASP0bbIrvAgBI_RtjTPi3tRCSjogyLScu4wW1Uj4Sp0RC66o9If84Lq8Qg2&_nc_ohc=64kGupXqzqkQ7kNvwHbFKOe&_nc_oc=AdrJGoPpwtAtO69g1pi5u5ltTXdnO6mUondqfWQ15XkTJQzMyYiU-Uydc88nz_aY6HE&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=SLggfd_-d1Dxbi3fD0iaFA&_nc_ss=7b2a8&oh=00_Af5MTuGcdJmP-NDJ4EUdotfSaTPJfVkLKptc2QMGm398Kw&oe=69FFCB45" alt="Travel Log" loading="lazy">
-        <div class="snap-label"><div class="num">02</div><div class="title">Travel Log</div></div>
+        <div class="snap-label"><div class="sn">02</div><div class="st">Travel Log</div></div>
       </div>
       <div class="snap-item">
         <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/481671045_1204158414460471_5064747988275741588_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEEZxLBbDDNXWKEma27z6sz49dWefOB-L_j11Z584H4vxAzOD4e1JnHTg1SYvT2O7_fetQAt2IdGmHOcYxHHs3P&_nc_ohc=AtrEzY8iAlQQ7kNvwFHktUy&_nc_oc=Adqu6ccYiqJp6EpeyWRo-gEX5AR-U2twLMmgthPFxc46RkppXHnnM76vT-Cg2r_Xotg&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=Ncw4GZc_ELi-Rl_1RH_QXw&_nc_ss=7b2a8&oh=00_Af7apZhCqrpXzCHeQjH9vFT-Y0Gi60qKDz60Nxv5ZQzNTw&oe=69FFB4DE" alt="Christmas Day" loading="lazy">
-        <div class="snap-label"><div class="num">03</div><div class="title">Christmas Day</div></div>
+        <div class="snap-label"><div class="sn">03</div><div class="st">Christmas Day</div></div>
       </div>
       <div class="snap-item">
         <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/481264202_1204158504460462_2946850783976841220_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeH-VhhQ5Hr6jZhSGWgQSo4RdQXtq8ynIF11Be2rzKcgXfDpjQcZW0A3C1ePnyTuj_DJt8QI4GJ_kCrr9XxHCPJh&_nc_ohc=qLuvTzNCfWkQ7kNvwHPxFVC&_nc_oc=AdoV3VIJAFG3yoLd2b1q4KKr4NFcruGofLN9aEPYhC4yfrtkWLvB_F3fs0D1ckRR3cU&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=c3T53FXvQvhq-Y7lkUkirA&_nc_ss=7b2a8&oh=00_Af4uYSsqMFlQq9lmVNTwhhtGm2ToFzxLdGZ2k9GqccNYUA&oe=69FFB24E" alt="Celebrations" loading="lazy">
-        <div class="snap-label"><div class="num">04</div><div class="title">Celebrations</div></div>
+        <div class="snap-label"><div class="sn">04</div><div class="st">Celebrations</div></div>
       </div>
-      <div class="snap-item" style="background: var(--bg3); border: 1px solid var(--border2); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; box-shadow:none;">
-        <i class="fas fa-plus" style="font-size:1.3rem; color:var(--muted);"></i>
-        <span style="font-size:0.68rem; color:var(--muted); font-family:'DM Mono',monospace;">More Soon</span>
+      <div class="snap-item" style="background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+        <i class="fas fa-camera" style="font-size:1.5rem;color:var(--muted);"></i>
+        <span style="font-size:.68rem;color:var(--muted);font-family:'Fira Code',monospace;">More Soon</span>
       </div>
     </div>
 
     <div class="snap-controls">
-      <button class="snap-btn" onclick="snap(-1)" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
-      <button class="snap-btn" onclick="snap(1)" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+      <button class="snap-btn" onclick="snapScroll(-1)" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+      <button class="snap-btn" onclick="snapScroll(1)" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROJECTS -->
-  <section>
-    <div class="section-label">
-      <span class="section-label-text">Recent Creations</span>
-      <div class="section-label-line"></div>
-      <span class="section-label-num">03</span>
-    </div>
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section id="contact">
+  <div class="sec-label">
+    <span class="sec-label-txt">Contact</span>
+    <div class="sec-label-line"></div>
+    <span class="sec-label-num">05</span>
+  </div>
 
-    <div class="projects-grid">
-      <a href="https://projectprice.yonghangishak.com.np/" target="_blank" class="project-card featured fade-up fade-up-1">
-        <div class="project-tag tag-live">● Live</div>
-        <div class="project-icon purple"><i class="fas fa-calculator"></i></div>
-        <div class="project-title">Finance Calculator</div>
-        <div class="project-desc">A specialized tool for auto-finance calculations. Built for the Bajaj showroom workflow — fast, accurate, and purpose-built.</div>
-        <div class="project-link">View Project <i class="fas fa-arrow-right"></i></div>
+  <div style="max-width:560px;margin-bottom:44px;" class="reveal">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;font-style:italic;color:var(--text);line-height:1.1;margin-bottom:12px;">
+      Let's <em style="color:var(--gold);">Connect</em>
+    </h2>
+    <p style="font-size:.92rem;color:var(--text2);line-height:1.8;">
+      Whether you want to talk about a project, share a poem, or just say hello — I'm always happy to hear from you. Reach out through any of the channels below.
+    </p>
+  </div>
+
+  <div class="contact-layout">
+    <!-- LEFT: contact methods -->
+    <div class="contact-info">
+
+      <a href="mailto:yonghangissac@gmail.com" class="contact-method reveal d1">
+        <div class="cm-icon cmi-mail"><i class="fas fa-envelope"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Email</div>
+          <div class="cm-val">yonghangissac@gmail.com</div>
+          <div class="cm-sub">Best for longer conversations</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
       </a>
 
-      <div class="project-card disabled fade-up fade-up-2">
-        <div class="project-tag tag-soon">In Progress</div>
-        <div class="project-icon gold"><i class="fas fa-pen-nib"></i></div>
-        <div class="project-title">Verses of Life</div>
-        <div class="project-desc">A digital sanctuary for my poetry collection. Turning emotions into a readable archive — designed to feel like a physical journal.</div>
-        <div style="margin-top:22px; font-size:0.68rem; font-family:'DM Mono',monospace; color:var(--muted);">Developing...</div>
+      <a href="https://wa.me/9779820907795" target="_blank" class="contact-method reveal d2">
+        <div class="cm-icon cmi-wa"><i class="fab fa-whatsapp"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">WhatsApp</div>
+          <div class="cm-val">+977 9820907795</div>
+          <div class="cm-sub">Quick replies · Usually active</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="contact-method reveal d3">
+        <div class="cm-icon cmi-fb"><i class="fab fa-facebook-f"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Facebook</div>
+          <div class="cm-val">facebook.com/yonghangisaac</div>
+          <div class="cm-sub">Follow for updates & poetry</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <div class="contact-method reveal d1" style="cursor:default;">
+        <div class="cm-icon cmi-loc"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Location</div>
+          <div class="cm-val">Phidim-1, Panchthar</div>
+          <div class="cm-sub">Koshi Province · Nepal</div>
+        </div>
+        <span style="font-size:.65rem;font-family:'Fira Code',monospace;color:var(--faint);">NP</span>
       </div>
 
-      <div class="project-card disabled fade-up fade-up-3">
-        <div class="project-tag tag-planned">Planned</div>
-        <div class="project-icon dim"><i class="fas fa-code"></i></div>
-        <div class="project-title">Next Big Project</div>
-        <div class="project-desc">Exploring new horizons in web development. Something interesting is in the pipeline — stay tuned.</div>
-        <div style="margin-top:22px; font-size:0.68rem; font-family:'DM Mono',monospace; color:var(--bg4);">In Queue...</div>
+      <a href="https://yonghangishak.com.np" target="_blank" class="contact-method reveal d2">
+        <div class="cm-icon cmi-web"><i class="fas fa-globe"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Website</div>
+          <div class="cm-val">yonghangishak.com.np</div>
+          <div class="cm-sub">Portfolio & Poetry</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <a href="https://poem.yonghangishak.com.np/" target="_blank" class="contact-method reveal d3">
+        <div class="cm-icon" style="background:var(--gold-l);color:var(--gold);width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">
+          <i class="fas fa-feather-alt"></i>
+        </div>
+        <div class="cm-info">
+          <div class="cm-label">Poetry Site</div>
+          <div class="cm-val">poem.yonghangishak.com.np</div>
+          <div class="cm-sub">Read all my poems</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+    </div>
+
+    <!-- RIGHT: contact form -->
+    <div class="contact-form-wrap reveal d2">
+      <div class="form-title">Send a Message</div>
+      <p class="form-sub">I'll get back to you as soon as possible.</p>
+
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" id="fname" placeholder="Your first name">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" id="lname" placeholder="Your last name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <input type="text" class="form-input" id="subject" placeholder="What's this about?">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" id="message" placeholder="Write your message here..."></textarea>
+      </div>
+
+      <button class="form-submit" onclick="sendMsg()">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+
+      <div class="form-success" id="form-success">
+        <i class="fas fa-check-circle"></i>
+        Message sent! Thank you for reaching out. I'll reply soon.
       </div>
     </div>
-  </section>
+  </div>
+</section>
+</div><!-- /wrap -->
 
-</main>
-
+<!-- ============================================================
+     FOOTER
+============================================================ -->
 <footer>
-  <div class="footer-text">Aspiring Developer & Poet · Phidim, Nepal · 2026</div>
-  <div class="footer-name">Ishak Yonghang</div>
-  <div class="footer-text">Go Your Dream</div>
+  <div class="footer-top">
+    <div class="footer-name">Ishak Yonghang</div>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://wa.me/9779820907795" target="_blank" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:yonghangissac@gmail.com" class="footer-social"><i class="fas fa-envelope"></i></a>
+      <a href="https://poem.yonghangishak.com.np/" target="_blank" class="footer-social"><i class="fas fa-feather-alt"></i></a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <div class="footer-txt">Phidim, Panchthar · Nepal · 2026</div>
+    <div class="footer-tag">Aspiring Developer &amp; Poet &nbsp;·&nbsp; Go Your Dream</div>
+    <div class="footer-txt">© Ishak Yonghang</div>
+  </div>
 </footer>
 
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
 <script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+/* CURSOR */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=(mx-5)+'px'; cur.style.top=(my-5)+'px';
+});
+(function animRing(){
+  rx+=(mx-rx-17)*.12; ry+=(my-ry-17)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.contact-method,.edu-row,.snap-item,.card,.poem-card,.proj-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.transform='scale(2.4)'; ring.style.transform='scale(1.7)'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.transform='scale(1)'; ring.style.transform='scale(1)'; });
+});
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = (mx - 5) + 'px';
-    cursor.style.top = (my - 5) + 'px';
+/* AGE */
+function calcAge(){
+  const b=new Date(2005,9,26), n=new Date();
+  let a=n.getFullYear()-b.getFullYear();
+  if(n.getMonth()<b.getMonth()||(n.getMonth()===b.getMonth()&&n.getDate()<b.getDate())) a--;
+  return a;
+}
+const age=calcAge();
+['hero-age','card-age','stat-age'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.textContent=id==='stat-age'?age:age;
+});
+
+/* SNAP SCROLL */
+function snapScroll(dir){
+  document.getElementById('snapScroll').scrollBy({left:dir*220,behavior:'smooth'});
+}
+
+/* NAV ACTIVE */
+const navLinks = document.querySelectorAll('.nav-menu-link');
+const sections = document.querySelectorAll('section[id]');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const match=document.querySelector('.nav-menu-link[href="#'+e.target.id+'"]');
+      if(match) match.classList.add('active');
+    }
   });
+},{threshold:.35});
+sections.forEach(s=>observer.observe(s));
 
-  function animRing() {
-    rx += (mx - rx - 16) * 0.12;
-    ry += (my - ry - 16) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  document.querySelectorAll('a, button, .edu-item, .snap-item, .info-card').forEach(el => {
-    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.2)'; ring.style.transform = 'scale(1.6)'; });
-    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+/* SCROLL REVEAL */
+const rev = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>rev.observe(el));
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight) el.classList.add('visible');
   });
+});
 
-  function calcAge() {
-    const birth = new Date(2005, 9, 26);
-    const now = new Date();
-    let age = now.getFullYear() - birth.getFullYear();
-    if (now.getMonth() < birth.getMonth() || (now.getMonth() === birth.getMonth() && now.getDate() < birth.getDate())) age--;
-    return age;
-  }
-
-  const age = calcAge();
-  document.getElementById('hero-age').textContent = age;
-  document.getElementById('card-age').textContent = age;
-
-  function snap(dir) {
-    document.getElementById('snapScroll').scrollBy({ left: dir * 210, behavior: 'smooth' });
-  }
-
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-
-  window.addEventListener('load', () => {
-    document.querySelectorAll('.fade-up').forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
-    });
-  });
+/* CONTACT FORM */
+function sendMsg(){
+  const fname=document.getElementById('fname').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const message=document.getElementById('message').value.trim();
+  if(!fname||!email||!message){ alert('Please fill in your name, email and message.'); return; }
+  const mailto=`mailto:yonghangissac@gmail.com?subject=${encodeURIComponent(document.getElementById('subject').value||'Message from Portfolio')}&body=${encodeURIComponent('From: '+fname+' '+document.getElementById('lname').value+'\nEmail: '+email+'\n\n'+message)}`;
+  window.location.href=mailto;
+  document.getElementById('form-success').style.display='block';
+  ['fname','lname','email','subject','message'].forEach(id=>document.getElementById(id).value='');
+}
 </script>
 </body>
 </html>
