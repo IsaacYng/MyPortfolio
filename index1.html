@@ -1,402 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ishak Yonghang - Aspiring Developer,Ishak,Isaac, Yonghang, Isaac Yonghang, Poet, and Writer from Phidim, Nepal. Explore my portfolio, poetry, and web projects.">
-<meta name="keywords" content="Ishak Yonghang, Portfolio, Nepal, Developer, Poet, Phidim, Panchthar, Finance Calculator">
-<meta name="author" content="Ishak Yonghang">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta property="og:title" content="Ishak Yonghang | Portfolio">
-<meta property="og:description" content="Aspiring Developer & Writer from Phidim, Nepal. Check out my latest creations and poetry.">
-<meta property="og:image" content="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg">
-<meta property="og:url" content="https://yonghangishak.com.np">
+  <!-- ============ SEO META TAGS ============ -->
+  <title>Ishak Yonghang (Isaac) | Sales Consultant, Poet & Developer</title>
+  <meta name="description" content="Personal portfolio of Ishak Yonghang (Isaac) — Sales Consultant at Bajaj Showroom, poet, and aspiring developer from Phidim-1, Panchthar, Nepal." />
+  <meta name="keywords" content="Ishak Yonghang, Isaac, portfolio, poet, Bajaj sales consultant, Nepal, Panchthar" />
+  <meta name="author" content="Ishak Yonghang (Isaac)" />
+  <meta name="robots" content="index, follow" />
 
-    <title>Ishak Yonghang | Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-      <link rel="icon" type="image/png" href="favicons.png">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; scroll-behavior: smooth; }
-        .glass-card { background: #ffffff; border: 1px solid #e5e7eb; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .glass-card:hover { border-color: #000; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .profile-img { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 6px solid #f9fafb; display: block; margin: 0 auto; }
-        /* Story Scrollbar Hide */
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-<style>
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="Ishak Yonghang (Isaac) — Portfolio" />
+  <meta property="og:description" content="Sales Consultant, Poet & Aspiring Developer from Panchthar, Nepal." />
+  <meta property="og:type" content="website" />
+  <!-- <meta property="og:image" content="path/to/social-preview.jpg" /> -->
+  <!-- <meta property="og:url" content="https://yonghangishak.com.np" /> -->
+
+  <!-- Favicon placeholder -->
+  <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+
+  <!-- ============ FONTS ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- ============ LUCIDE ICONS ============ -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen selection:bg-black selection:text-white">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md p-6 max-w-7xl mx-auto flex justify-between items-center">
-        <div class="text-sm font-black tracking-widest uppercase border-b-2 border-black">MY-PORTFOLIO</div>
-        <div class="flex gap-6">
-            <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/9779820907795" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:yonghangissac@gmail.com" class="text-gray-400 hover:text-red-500 transition-colors"><i class="fas fa-envelope"></i></a>
-        </div>
+  <!-- ===================================================================
+       SIGNATURE ELEMENT: The "Route Line" — a winding road that runs
+       down the page and fills in as the user scrolls, like a journey
+       being travelled. A small bike marker rides along it.
+  =================================================================== -->
+  <div class="route-rail" aria-hidden="true">
+    <svg class="route-svg" viewBox="0 0 4 1000" preserveAspectRatio="none">
+      <path class="route-track" d="M2,0 L2,1000" />
+      <path class="route-fill" d="M2,0 L2,1000" />
+    </svg>
+    <div class="route-marker" id="routeMarker">
+      <i data-lucide="bike"></i>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       NAVIGATION — Icon-only, sticky, glass panel
+  =================================================================== -->
+  <header>
+    <nav class="navbar" aria-label="Primary navigation">
+      <a href="#hero" class="nav-logo" aria-label="Home">IY</a>
+      <ul class="nav-icons">
+        <li><a href="#hero" data-tooltip="Home" aria-label="Home"><i data-lucide="home"></i></a></li>
+        <li><a href="#education" data-tooltip="Education" aria-label="Education"><i data-lucide="graduation-cap"></i></a></li>
+        <li><a href="#skills" data-tooltip="Skills" aria-label="Skills"><i data-lucide="award"></i></a></li>
+        <li><a href="#experience" data-tooltip="Experience" aria-label="Experience"><i data-lucide="briefcase"></i></a></li>
+        <li><a href="#poems" data-tooltip="Poems" aria-label="Poems"><i data-lucide="feather"></i></a></li>
+        <li><a href="#resources" data-tooltip="Resources" aria-label="Resources"><i data-lucide="compass"></i></a></li>
+        <li><a href="#gallery" data-tooltip="Gallery" aria-label="Gallery"><i data-lucide="images"></i></a></li>
+        <li><a href="#contact" data-tooltip="Contact" aria-label="Contact"><i data-lucide="send"></i></a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
+        <i data-lucide="palette"></i>
+      </button>
     </nav>
+  </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-12">
-        <section class="flex flex-col md:flex-row items-center justify-between gap-12 mb-32 mt-12 px-6">
-    <div class="relative group mx-auto md:mx-0">
-        <div class="glass-card p-2 rounded-full transition-transform duration-500 group-hover:scale-105">
-            <img src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" 
-                 alt="Ishak Yonghang" 
-                 class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-full">
-        </div>
-        
-        <div class="absolute bottom-4 right-8 bg-white p-1.5 rounded-full border border-gray-100 shadow-lg">
-            <div class="bg-emerald-500 w-3 h-3 rounded-full animate-pulse"></div>
-        </div>
-    </div>
+  <main>
 
-    <div class="text-center md:text-left flex-1">
-        <span class="text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-2 block">Aspiring Developer & Writer</span>
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-            Ishak <span class="text-gray-300">Yonghang</span>
-        </h1>
-        
-        <div class="max-w-xl">
-            <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
-                "Currently <span class="text-black font-semibold">exploring</span> the depth of poetry. Growing through every line I learn and every verse I write."
-            </p>
-        </div>
-        </div>
-    </div>
-</section>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+    <!-- ===================================================================
+         HERO SECTION
+    =================================================================== -->
+    <section id="hero" class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <svg class="hero-road" viewBox="0 0 1200 600" preserveAspectRatio="none">
+          <path d="M-100,500 C 250,350 450,650 750,420 S 1100,250 1300,380" />
+        </svg>
+      </div>
 
-    <div class="glass-card rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 bg-white border border-gray-100">
-        <div class="flex justify-between items-start mb-8">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400">Personal Identity</h3>
-            <span class="bg-gray-100 text-[10px] px-2 py-1 rounded-md font-bold text-gray-500 uppercase tracking-tighter">Verified</span>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">Phidim&nbsp;&middot;&nbsp;Panchthar&nbsp;&middot;&nbsp;Nepal</p>
+          <h1 class="hero-title">
+            Ishak <span class="accent-text">Yonghang</span>
+            <span class="hero-subtitle">— known as Isaac</span>
+          </h1>
+          <p class="hero-desc">
+            I sell motorcycles by day and chase verses by night. As a Sales
+            Consultant at a Bajaj showroom, I build trust through honest
+            advice and clean numbers — and as a poet, I write about the
+            roads, people, and quiet moments that numbers can't capture.
+            Currently teaching myself to code, one small project at a time.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">
+              <i data-lucide="message-circle"></i> Let's talk
+            </a>
+            <a href="#poems" class="btn btn-ghost">
+              <i data-lucide="book-open"></i> Read my poems
+            </a>
+          </div>
         </div>
 
-        <div class="space-y-6">
-            <div class="flex justify-between border-b border-gray-50 pb-4">
-                <div>
-                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Age</p>
-                    <p id="current-age" class="text-2xl font-bold tracking-tighter text-black">20</p> 
-                </div>
-                <div class="text-right">
-                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Date of Birth</p>
-                    <p class="text-sm font-bold text-gray-700">Oct 26, 2005</p>
-                </div>
+        <div class="hero-portrait">
+          <div class="portrait-frame">
+            <!-- Replace src with your real photo -->
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&fit=crop"
+                 alt="Portrait of Ishak Yonghang (Isaac)" class="portrait-img" />
+          </div>
+          <div class="portrait-badge">
+            <i data-lucide="map-pin"></i>
+            <span>Based in Phidim, Nepal</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#education" class="scroll-cue" aria-label="Scroll to next section">
+        <i data-lucide="chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- ===================================================================
+         EDUCATION SECTION
+    =================================================================== -->
+    <section id="education" class="section">
+      <div class="section-head">
+        <span class="section-tag"><i data-lucide="graduation-cap"></i> Education</span>
+        <h2 class="section-title">The road through school</h2>
+        <p class="section-lede">Two milestones, two certificates — tap the eye icon to view each one.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-marker"><i data-lucide="flag"></i></div>
+          <div class="card edu-card">
+            <div class="card-head">
+              <h3>+2 (Higher Secondary)</h3>
+              <button class="eye-btn" data-modal-target="cert-plus2" aria-label="Preview +2 certificate">
+                <i data-lucide="eye"></i>
+              </button>
             </div>
-
-            <div class="space-y-4">
-                <div>
-                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Current Address</p>
-                    <div class="flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                        <p class="text-sm font-semibold text-gray-800">Phidim-1, Panchthar, Nepal</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Permanent Address</p>
-                    <div class="flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-                        <p class="text-sm font-medium text-gray-600">Hilihang-5, Panchthar, Nepal</p>
-                    </div>
-                </div>
+            <div class="edu-stats">
+              <div class="stat"><span class="stat-label">GPA</span><span class="stat-value">2.49</span></div>
+              <div class="stat"><span class="stat-label">Passed Year</span><span class="stat-value">2080 BS</span></div>
             </div>
+          </div>
+        </article>
 
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-50">
-                <div>
-                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Father's Name</p>
-                    <p class="text-[11px] font-bold text-gray-700 uppercase leading-tight">Seru Hang Yonghang</p>
-                </div>
-                <div>
-                    <p class="text-[10px] font-black uppercase text-gray-400 mb-1">Mother's Name</p>
-                    <p class="text-[11px] font-bold text-gray-700 uppercase leading-tight">Ful Kumari Neambang</p>
-                </div>
+        <article class="timeline-item">
+          <div class="timeline-marker"><i data-lucide="flag"></i></div>
+          <div class="card edu-card">
+            <div class="card-head">
+              <h3>SEE (Secondary Education)</h3>
+              <button class="eye-btn" data-modal-target="cert-see" aria-label="Preview SEE certificate">
+                <i data-lucide="eye"></i>
+              </button>
             </div>
+            <div class="edu-stats">
+              <div class="stat"><span class="stat-label">GPA</span><span class="stat-value">2.80</span></div>
+              <div class="stat"><span class="stat-label">Passed Year</span><span class="stat-value">2077 BS</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SKILLS & COMPUTER COURSES SECTION
+    =================================================================== -->
+    <section id="skills" class="section section-alt">
+      <div class="section-head">
+        <span class="section-tag"><i data-lucide="award"></i> Skills &amp; Courses</span>
+        <h2 class="section-title">Tools I've picked up along the way</h2>
+        <p class="section-lede">Short courses that built my computer foundations.</p>
+      </div>
+
+      <div class="grid-cards">
+        <article class="card skill-card">
+          <div class="card-icon"><i data-lucide="monitor"></i></div>
+          <div class="card-head">
+            <h3>Computer Operator Course</h3>
+            <button class="eye-btn" data-modal-target="cert-operator" aria-label="Preview Computer Operator certificate">
+              <i data-lucide="eye"></i>
+            </button>
+          </div>
+          <p class="card-meta"><i data-lucide="calendar-check"></i> Completed: 2080 BS</p>
+        </article>
+
+        <article class="card skill-card">
+          <div class="card-icon"><i data-lucide="refresh-cw"></i></div>
+          <div class="card-head">
+            <h3>Basic Revision Course</h3>
+            <button class="eye-btn" data-modal-target="cert-revision" aria-label="Preview Basic Revision certificate">
+              <i data-lucide="eye"></i>
+            </button>
+          </div>
+          <p class="card-meta"><i data-lucide="calendar-check"></i> Completed: 2081 BS</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         JOB EXPERIENCE SECTION
+    =================================================================== -->
+    <section id="experience" class="section">
+      <div class="section-head">
+        <span class="section-tag"><i data-lucide="briefcase"></i> Experience</span>
+        <h2 class="section-title">On the showroom floor</h2>
+        <p class="section-lede">Where I spend most of my working hours.</p>
+      </div>
+
+      <div class="experience-card">
+        <div class="experience-top">
+          <div class="experience-icon"><i data-lucide="bike"></i></div>
+          <div>
+            <h3>Sales Consultant</h3>
+            <p class="experience-org">Bajaj Showroom</p>
+          </div>
         </div>
-    </div>
 
-    <div class="lg:col-span-2 glass-card rounded-3xl p-8 md:p-10 hover:shadow-xl transition-all duration-500 bg-white border border-gray-100 flex flex-col justify-center">
-        
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-10 h-10 rounded-xl bg-gray-900 flex items-center justify-center text-white shadow-lg">
-                <i class="fas fa-graduation-cap text-sm"></i>
-            </div>
+        <ul class="experience-list">
+          <li>
+            <i data-lucide="users"></i>
             <div>
-                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 leading-none mb-1">Academic Journey</h3>
-                <p class="text-[10px] font-medium text-gray-400 italic">Evolution of Learning</p>
+              <h4>Customer Management</h4>
+              <p>Greeting, guiding, and following up with customers from first visit to final delivery.</p>
             </div>
-            <div class="h-px flex-1 bg-gradient-to-r from-gray-100 to-transparent"></div>
-        </div>
-
-        <div class="space-y-12 relative">
-            <div class="absolute left-[2px] top-2 bottom-2 w-0.5 bg-gray-50 hidden md:block"></div>
-
-            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-4 group">
-                <div class="md:pl-8">
-                    <div class="absolute left-0 top-1.5 w-1.5 h-1.5 rounded-full bg-black ring-4 ring-white hidden md:block group-hover:scale-150 transition-transform"></div>
-                    <h4 class="font-black text-xl md:text-3xl uppercase tracking-tighter text-gray-800 group-hover:text-black transition-colors">
-                        Class 12 <span class="text-gray-400 font-light italic text-lg md:text-xl">Humanities</span>
-                    </h4>
-                    <div class="flex items-center gap-3 mt-1">
-                        <span class="px-2 py-0.5 bg-gray-100 text-[10px] font-bold rounded uppercase">Completed</span>
-                        <p class="text-gray-400 text-xs font-medium uppercase tracking-wider">Completed at age 17</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 self-end md:self-center">
-                    <i class="fas fa-award text-2xl text-gray-100 group-hover:text-amber-400 transition-all duration-500 group-hover:rotate-12"></i>
-                </div>
+          </li>
+          <li>
+            <i data-lucide="database"></i>
+            <div>
+              <h4>Data Management</h4>
+              <p>Maintaining accurate records of inventory, customer details, and sales documentation.</p>
             </div>
-
-            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-4 group">
-                <div class="md:pl-8">
-                    <div class="absolute left-0 top-1.5 w-1.5 h-1.5 rounded-full bg-gray-200 ring-4 ring-white hidden md:block group-hover:bg-black transition-colors"></div>
-                    <h4 class="font-black text-xl md:text-3xl uppercase tracking-tighter text-gray-400 group-hover:text-black transition-colors">
-                        Class 10 <span class="text-gray-300 font-light italic text-lg md:text-xl">Education</span>
-                    </h4>
-                    <div class="flex items-center gap-3 mt-1">
-                        <span class="px-2 py-0.5 bg-gray-50 text-[10px] font-bold rounded uppercase text-gray-300">SEE Graduate</span>
-                        <p class="text-gray-400 text-xs font-medium uppercase tracking-wider">Completed at age 15</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 self-end md:self-center">
-                    <i class="fas fa-school text-2xl text-gray-100 group-hover:text-blue-400 transition-all duration-500"></i>
-                </div>
+          </li>
+          <li>
+            <i data-lucide="calculator"></i>
+            <div>
+              <h4>Finance &amp; Sales Knowledge</h4>
+              <p>Explaining EMI plans, down payments, and loan options clearly to every customer.</p>
             </div>
-        </div>
-    </div>
+          </li>
+          <li>
+            <i data-lucide="handshake"></i>
+            <div>
+              <h4>Client Relations</h4>
+              <p>Building long-term trust so customers return — and bring their friends and family too.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-</div>
-<!-- Wrapper for Snapshots & Info -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12 items-start">
+    <!-- ===================================================================
+         INTERESTS & INTERACTIVE POEM SECTION
+    =================================================================== -->
+    <section id="poems" class="section section-alt poem-section">
+      <div class="section-head">
+        <span class="section-tag"><i data-lucide="feather"></i> Interests</span>
+        <h2 class="section-title">Verses, written in passing</h2>
+        <p class="section-lede">
+          Writing poems is my main interest — short lines I jot down between
+          customers. Add one of your own below, or remove any you like.
+        </p>
+      </div>
 
-    <!-- Snapshot Section (Left 2/3) -->
-    <div class="lg:col-span-2 relative group">
-        <div class="flex items-center justify-between mb-6 px-2">
-            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400">Life Snapshots</h3>
-            <span class="text-[10px] font-bold text-gray-300 uppercase italic">Slide &rarr;</span>
-        </div>
-        
-        <!-- Navigation Buttons -->
-        <button onclick="scrollSnap('left')" class="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-white shadow-lg p-2 rounded-full text-black hidden md:group-hover:flex items-center justify-center hover:bg-black hover:text-white transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      <div class="poem-app">
+        <form class="poem-form" id="poemForm">
+          <label for="poemInput" class="sr-only">Write a new poem or line</label>
+          <textarea id="poemInput" placeholder="Write a short poem or a line that came to you today..." required></textarea>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="plus-circle"></i> Add poem
+          </button>
+        </form>
+
+        <ul class="poem-list" id="poemList" aria-live="polite">
+          <!-- Poems are rendered here by JavaScript -->
+        </ul>
+
+        <p class="poem-empty" id="poemEmpty">No poems yet — be the first to add a line.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         RESOURCES / "SOME IDEAS" SECTION
+    =================================================================== -->
+    <section id="resources" class="section">
+      <div class="section-head">
+        <span class="section-tag"><i data-lucide="compass"></i> Some Ideas</span>
+        <h2 class="section-title">Places worth visiting</h2>
+        <p class="section-lede">A small collection of links I keep coming back to.</p>
+      </div>
+
+      <div class="grid-cards resource-grid">
+        <a href="https://poem.yonghangishak.com.np" class="card resource-card" target="_blank" rel="noopener">
+          <div class="card-icon"><i data-lucide="book-text"></i></div>
+          <h3>Poem Links</h3>
+          <p>My Nepali poetry collection — a growing archive of short and long pieces.</p>
+          <span class="card-link">poem.yonghangishak.com.np <i data-lucide="arrow-up-right"></i></span>
+        </a>
+
+        <a href="#" class="card resource-card" target="_blank" rel="noopener">
+          <div class="card-icon"><i data-lucide="banknote"></i></div>
+          <h3>Finance Calculation Tools</h3>
+          <p>EMI calculators and finance helpers I use to assist customers at the showroom.</p>
+          <span class="card-link">Open calculator <i data-lucide="arrow-up-right"></i></span>
+        </a>
+
+        <a href="https://yonghangishak.com.np" class="card resource-card" target="_blank" rel="noopener">
+          <div class="card-icon"><i data-lucide="user-round"></i></div>
+          <h3>Main Portfolio</h3>
+          <p>My personal site with biography, family history, and more about me.</p>
+          <span class="card-link">yonghangishak.com.np <i data-lucide="arrow-up-right"></i></span>
+        </a>
+
+        <a href="#" class="card resource-card" target="_blank" rel="noopener">
+          <div class="card-icon"><i data-lucide="code-2"></i></div>
+          <h3>Dev Notes</h3>
+          <p>Small coding experiments and notes as I learn web development.</p>
+          <span class="card-link">Coming soon <i data-lucide="arrow-up-right"></i></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         PHOTO COLLECTION — STORY-STYLE SLIDER
+    =================================================================== -->
+    <section id="gallery" class="section section-alt">
+      <div class="section-head">
+        <span class="section-tag"><i data-lucide="images"></i> Gallery</span>
+        <h2 class="section-title">Moments from the road</h2>
+        <p class="section-lede">A few snapshots — swipe or use the arrows to browse.</p>
+      </div>
+
+      <div class="story-slider" id="storySlider">
+        <button class="story-nav story-prev" id="storyPrev" aria-label="Previous photo">
+          <i data-lucide="chevron-left"></i>
         </button>
 
-        <button onclick="scrollSnap('right')" class="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white shadow-lg p-2 rounded-full text-black hidden md:group-hover:flex items-center justify-center hover:bg-black hover:text-white transition-all">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        <div class="story-viewport">
+          <div class="story-progress" id="storyProgress"></div>
+
+          <div class="story-track" id="storyTrack">
+            <figure class="story-slide">
+              <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=900&h=1200&fit=crop" alt="Mountain road through Panchthar hills" />
+              <figcaption>Hills around Phidim, Panchthar</figcaption>
+            </figure>
+            <figure class="story-slide">
+              <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=900&h=1200&fit=crop" alt="Bajaj motorcycle on display" />
+              <figcaption>A new model at the showroom</figcaption>
+            </figure>
+            <figure class="story-slide">
+              <img src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=900&h=1200&fit=crop" alt="Open road at sunrise" />
+              <figcaption>Early morning ride</figcaption>
+            </figure>
+            <figure class="story-slide">
+              <img src="https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=900&h=1200&fit=crop" alt="Notebook with handwritten poem" />
+              <figcaption>A poem in progress</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <button class="story-nav story-next" id="storyNext" aria-label="Next photo">
+          <i data-lucide="chevron-right"></i>
         </button>
+      </div>
+    </section>
 
-        <!-- Fixed Width Scroll Container -->
-        <div id="snapshotScroll" class="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-6">
-            
-            <!-- Moment 01 -->
-            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
-                <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/484720029_1214268536782792_2219807835874787926_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeE2eu9kE8ERJaKVOS8oDPGzeO2PC5poXp947Y8Lmmhen0TmNHSH4oTHynBpp36i3beIqZvDcFWDxmqk-w--dOu5&_nc_ohc=IgKVA44EnLwQ7kNvwHeARNO&_nc_oc=Ado6Rxx-vgztG6fMvTf0YfC2KIVGzMeqIHVO6XFwLK3Hg1h34_D6eR2fEEMhgPaN0xo&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=HRZCbwhELLjrsFwoksCXoQ&_nc_ss=7b2a8&oh=00_Af6PX_Y5vYTQyglELzrs7m3dbc2M89IoqjHYhn0OkeNEjA&oe=69FFCD07" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <p class="text-[9px] font-black opacity-50 uppercase italic">01</p>
-                    <p class="text-xs font-bold uppercase">Phidim Days</p>
-                </div>
-            </div>
+  </main>
 
-            <!-- Moment 02 -->
-            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
-                <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/481262375_1201259798083666_4403938659566561845_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeGJZlTqbEYjnh3RsM4yQybcyK7wIASP0bbIrvAgBI_RtjTPi3tRCSjogyLScu4wW1Uj4Sp0RC66o9If84Lq8Qg2&_nc_ohc=64kGupXqzqkQ7kNvwHbFKOe&_nc_oc=AdrJGoPpwtAtO69g1pi5u5ltTXdnO6mUondqfWQ15XkTJQzMyYiU-Uydc88nz_aY6HE&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=SLggfd_-d1Dxbi3fD0iaFA&_nc_ss=7b2a8&oh=00_Af5MTuGcdJmP-NDJ4EUdotfSaTPJfVkLKptc2QMGm398Kw&oe=69FFCB45" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <p class="text-[9px] font-black opacity-50 uppercase italic">02</p>
-                    <p class="text-xs font-bold uppercase">Travel Log</p>
-                </div>
-            </div>
+  <!-- ===================================================================
+       CONTACT / FOOTER
+  =================================================================== -->
+  <footer id="contact" class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-logo">Ishak Yonghang</p>
+        <p class="footer-tag">Sales Consultant &middot; Poet &middot; Aspiring Developer</p>
+      </div>
 
-            <!-- Moment 03 -->
-            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
-                <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/481671045_1204158414460471_5064747988275741588_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEEZxLBbDDNXWKEma27z6sz49dWefOB-L_j11Z584H4vxAzOD4e1JnHTg1SYvT2O7_fetQAt2IdGmHOcYxHHs3P&_nc_ohc=AtrEzY8iAlQQ7kNvwFHktUy&_nc_oc=Adqu6ccYiqJp6EpeyWRo-gEX5AR-U2twLMmgthPFxc46RkppXHnnM76vT-Cg2r_Xotg&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=Ncw4GZc_ELi-Rl_1RH_QXw&_nc_ss=7b2a8&oh=00_Af7apZhCqrpXzCHeQjH9vFT-Y0Gi60qKDz60Nxv5ZQzNTw&oe=69FFB4DE" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <p class="text-[9px] font-black opacity-50 uppercase italic">03</p>
-                    <p class="text-xs font-bold uppercase">Christmas Day</p>
-                </div>
-            </div>
-
-            <!-- Moment 04 -->
-            <div class="flex-shrink-0 w-44 h-72 md:w-48 md:h-80 rounded-[2rem] overflow-hidden glass-card relative group/card cursor-pointer shadow-lg">
-                <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/481264202_1204158504460462_2946850783976841220_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeH-VhhQ5Hr6jZhSGWgQSo4RdQXtq8ynIF11Be2rzKcgXfDpjQcZW0A3C1ePnyTuj_DJt8QI4GJ_kCrr9XxHCPJh&_nc_ohc=qLuvTzNCfWkQ7kNvwHPxFVC&_nc_oc=AdoV3VIJAFG3yoLd2b1q4KKr4NFcruGofLN9aEPYhC4yfrtkWLvB_F3fs0D1ckRR3cU&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=c3T53FXvQvhq-Y7lkUkirA&_nc_ss=7b2a8&oh=00_Af4uYSsqMFlQq9lmVNTwhhtGm2ToFzxLdGZ2k9GqccNYUA&oe=69FFB24E" class="absolute inset-0 w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                    <p class="text-[9px] font-black opacity-50 uppercase italic">04</p>
-                    <p class="text-xs font-bold uppercase">Christmas Day</p>
-                </div>
-            </div>
-        </div>
+      <div class="footer-links">
+        <a href="mailto:youremail@gmail.com" class="footer-link" aria-label="Email me">
+          <i data-lucide="mail"></i> <span>Gmail</span>
+        </a>
+        <a href="https://m.me/yonghangisaac" class="footer-link" aria-label="Message me on Facebook Messenger" target="_blank" rel="noopener">
+          <i data-lucide="message-square"></i> <span>Messenger</span>
+        </a>
+        <a href="https://facebook.com/yonghangisaac" class="footer-link" aria-label="My Facebook profile" target="_blank" rel="noopener">
+          <i data-lucide="facebook"></i> <span>Facebook</span>
+        </a>
+        <a href="https://wa.me/9779820907795" class="footer-link" aria-label="Message me on WhatsApp" target="_blank" rel="noopener">
+          <i data-lucide="phone"></i> <span>WhatsApp</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Right Column (Experience & Poetry) -->
-    <div class="space-y-6">
-        <!-- Bajaj Experience Card -->
-        <div class="glass-card rounded-[2.5rem] p-8 bg-white border border-gray-100 shadow-sm">
-            <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6">Professional</h3>
-            <div class="flex items-center gap-4 mb-4">
-                <div class="bg-gray-900 w-12 h-12 rounded-xl flex items-center justify-center text-white">
-                    <i class="fas fa-motorcycle"></i>
-                </div>
-                <div>
-                    <h4 class="font-black text-lg text-gray-800">Bajaj Showroom</h4>
-                    <p class="text-[9px] font-bold text-blue-500 uppercase">Phidim, Koshi</p>
-                </div>
-            </div>
-            <p class="text-xs text-gray-500 italic border-l-2 border-gray-100 pl-4">Sales & Operations.</p>
-        </div>
+    <p class="footer-bottom">&copy; <span id="year"></span> Ishak Yonghang (Isaac). Built with care, one line at a time.</p>
+  </footer>
 
-        <!-- Poetry Card -->
-        <div class="glass-card rounded-[2.5rem] p-8 bg-black text-white relative overflow-hidden shadow-xl">
-            <h4 class="text-3xl font-black italic mb-2 tracking-tighter">Poetry</h4>
-            <p class="text-[10px] text-gray-400 mb-6">"Turning emotions into verses."</p>
-            <a href="https://poem.yonghangishak.com.np/" target="_blank" class="inline-flex text-[9px] font-black uppercase tracking-widest bg-white text-black px-6 py-2.5 rounded-full hover:bg-gray-200 transition-all">Explore</a>
-            <div class="absolute -bottom-4 -right-2 opacity-10 text-6xl font-black italic">POET</div>
-        </div>
+  <!-- ===================================================================
+       CERTIFICATE PREVIEW MODAL
+  =================================================================== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close preview">
+        <i data-lucide="x"></i>
+      </button>
+      <h3 id="modalTitle" class="modal-title">Certificate Preview</h3>
+      <img id="modalImage" src="" alt="Certificate preview" class="modal-image" />
     </div>
-</div>
+  </div>
 
-<section class="mt-20 px-4 md:px-0">
-    <div class="flex items-end justify-between mb-10">
-        <div>
-            <h3 class="text-xs font-black uppercase tracking-[0.3em] text-gray-400 mb-2">Portfolio</h3>
-            <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-gray-900">Recent <span class="text-gray-300">Creations.</span></h2>
-        </div>
-        <div class="hidden md:block h-px flex-1 bg-gray-100 mx-10 mb-4"></div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <div class="glass-card rounded-[2.5rem] p-8 flex flex-col h-full group hover:bg-black transition-all duration-500">
-            <div class="flex justify-between items-start mb-12">
-                <div class="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                    <i class="fas fa-calculator text-xl text-gray-900 group-hover:text-white"></i>
-                </div>
-                <span class="text-[10px] font-bold py-1 px-3 rounded-full border border-gray-100 text-gray-400 group-hover:border-white/20 group-hover:text-white/50 uppercase">Active Tool</span>
-            </div>
-            
-            <div class="flex-1">
-                <h4 class="text-2xl font-bold mb-3 group-hover:text-white transition-colors">Finance Calculator</h4>
-                <p class="text-sm text-gray-500 group-hover:text-gray-400 leading-relaxed italic">
-                    A specialized tool developed for auto-finance calculations.
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <a href="https://projectprice.yonghangishak.com.np/"target="_blank" class="inline-flex items-center gap-3 text-xs font-black uppercase tracking-widest text-gray-900 group-hover:text-white">
-                    Live Preview <i class="fas fa-external-link-alt text-[10px]"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="glass-card rounded-[2.5rem] p-8 flex flex-col h-full border-dashed border-2 border-gray-200 bg-gray-50/50">
-            <div class="flex justify-between items-start mb-12">
-                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm">
-                    <i class="fas fa-pen-nib text-xl text-gray-300"></i>
-                </div>
-                <span class="text-[10px] font-bold py-1 px-3 rounded-full bg-black text-white uppercase tracking-tighter animate-pulse">Coming Soon</span>
-            </div>
-            
-            <div class="flex-1 opacity-50">
-                <h4 class="text-2xl font-bold mb-3">Verses of Life</h4>
-                <p class="text-sm text-gray-500 leading-relaxed italic">
-                    A digital sanctuary for my poetry collection, turning emotions into a readable archive.
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <span class="text-xs font-black uppercase tracking-widest text-gray-300 cursor-not-allowed">Developing...</span>
-            </div>
-        </div>
-
-        <div class="glass-card rounded-[2.5rem] p-8 flex flex-col h-full border-dashed border-2 border-gray-100 bg-gray-50/30">
-            <div class="flex justify-between items-start mb-12">
-                <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center">
-                    <i class="fas fa-code text-xl text-gray-200"></i>
-                </div>
-                <span class="text-[10px] font-bold py-1 px-3 rounded-full border border-gray-100 text-gray-300 uppercase tracking-tighter">Planned</span>
-            </div>
-            
-            <div class="flex-1 opacity-40">
-                <h4 class="text-2xl font-bold mb-3">Next Big Project</h4>
-                <p class="text-sm text-gray-500 leading-relaxed italic">
-                    Exploring new horizons in web development. Stay tuned for the next creation.
-                </p>
-            </div>
-
-            <div class="mt-10">
-                <span class="text-xs font-black uppercase tracking-widest text-gray-200 cursor-not-allowed">In Queue</span>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-
-    </main>
-
-    <footer class="py-20 text-center">
-        <p class="text-xs text-gray-300 font-bold tracking-[0.5em] uppercase">Go Your Dream • 2026</p>
-    </footer>
-
-    <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Set your birthday (Year, Month Index 0-11, Day)
-    // Example: October 26, 2005 -> (2005, 10, 26)
-    const birthDate = new Date(2005, 10, 36); 
-    
-    function calculateAge() {
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-        
-        // Adjust if birthday hasn't happened yet this year
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        
-        const ageElement = document.getElementById('current-age');
-        if(ageElement) {
-            ageElement.innerText = `${age} Years`;
-        }
-    }
-
-    calculateAge();
-
-    // 2. Optional: Small console log to confirm it's running
-    console.log("Portfolio logic loaded successfully.");
-});
-<script>
-    function scrollSnap(direction) {
-        const container = document.getElementById('snapshotScroll');
-        const amount = 250;
-        container.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
-    }
-</script>
-    <script>
-    function scrollSnap(direction) {
-        // Container lai fetch garne
-        const container = document.querySelector('#snapshotScroll');
-        
-        if (container) {
-            // Ek click ma kati tada puryaune (px ma)
-            const scrollAmount = 300; 
-            
-            if (direction === 'left') {
-                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            } else {
-                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-        } else {
-            console.error("Scroll container vetiyena! ID check garnus.");
-        }
-    }
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
