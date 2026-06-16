@@ -1,420 +1,1095 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Portfolio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Syne', 'sans-serif'] },
+        colors: {
+          teal: { 400:'#2DD4BF', 500:'#14B8A6', 600:'#0D9488' },
+          indigo: { 400:'#818CF8', 500:'#6366F1', 600:'#4F46E5' },
+          glass: 'rgba(255,255,255,0.72)',
+        },
+        backdropBlur: { xs: '2px' },
+      }
+    }
+  }
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: linear-gradient(135deg, #f0fdfa 0%, #eef2ff 40%, #fdf4ff 100%);
+    min-height: 100vh;
+    color: #1e293b;
+  }
+  .font-display { font-family: 'Syne', sans-serif; }
 
-  <!-- ============ SEO META TAGS ============ -->
-  <title>Ishak Yonghang (Isaac) | Sales Consultant, Poet & Developer</title>
-  <meta name="description" content="Personal portfolio of Ishak Yonghang (Isaac) — Sales Consultant at Bajaj Showroom, poet, and aspiring developer from Phidim-1, Panchthar, Nepal." />
-  <meta name="keywords" content="Ishak Yonghang, Isaac, portfolio, poet, Bajaj sales consultant, Nepal, Panchthar" />
-  <meta name="author" content="Ishak Yonghang (Isaac)" />
-  <meta name="robots" content="index, follow" />
+  /* Glassmorphism card */
+  .glass-card {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow: 0 4px 32px rgba(99,102,241,0.08), 0 1.5px 8px rgba(20,184,166,0.06);
+    border-radius: 20px;
+  }
+  .glass-card-sm {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 2px 16px rgba(99,102,241,0.07);
+    border-radius: 14px;
+  }
 
-  <!-- Open Graph / Social Preview -->
-  <meta property="og:title" content="Ishak Yonghang (Isaac) — Portfolio" />
-  <meta property="og:description" content="Sales Consultant, Poet & Aspiring Developer from Panchthar, Nepal." />
-  <meta property="og:type" content="website" />
-  <!-- <meta property="og:image" content="path/to/social-preview.jpg" /> -->
-  <!-- <meta property="og:url" content="https://yonghangishak.com.np" /> -->
+  /* Floating Nav */
+  #floatingNav {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.95);
+    box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+    border-radius: 9999px;
+    padding: 0.6rem 1.4rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  #floatingNav a {
+    color: #64748b;
+    font-size: 1.1rem;
+    transition: color 0.2s, transform 0.2s;
+  }
+  #floatingNav a:hover, #floatingNav a.active {
+    color: #6366f1;
+    transform: translateY(-2px);
+  }
 
-  <!-- Favicon placeholder -->
-  <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+  /* Avatar ring */
+  .avatar-ring {
+    background: linear-gradient(135deg, #14B8A6, #6366F1, #a855f7);
+    padding: 3px;
+    border-radius: 9999px;
+    display: inline-block;
+  }
 
-  <!-- ============ FONTS ============ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  /* Gradient text */
+  .grad-text {
+    background: linear-gradient(90deg, #0D9488, #6366F1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-  <!-- ============ LUCIDE ICONS ============ -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  /* Section label */
+  .section-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6366f1;
+  }
 
-  <link rel="stylesheet" href="style.css">
+  /* Skill pill */
+  .skill-pill {
+    background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(20,184,166,0.1));
+    border: 1px solid rgba(99,102,241,0.18);
+    color: #4338ca;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  /* Timeline line */
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    left: 1.1rem;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #14B8A6, #6366F1);
+    border-radius: 2px;
+  }
+
+  /* Story viewer */
+  #storyContainer {
+    position: relative;
+    overflow: hidden;
+  }
+  .story-slide {
+    display: none;
+  }
+  .story-slide.active {
+    display: flex;
+  }
+
+  /* Story progress */
+  .story-progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.35);
+    border-radius: 9999px;
+    overflow: hidden;
+    flex: 1;
+  }
+  .story-progress-fill {
+    height: 100%;
+    background: white;
+    border-radius: 9999px;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* Desktop story grid */
+  .desktop-story-card {
+    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 9/16;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    max-height: 340px;
+  }
+  .desktop-story-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 48px rgba(99,102,241,0.2);
+  }
+  .desktop-story-card.ds-active {
+    outline: 3px solid #6366f1;
+    outline-offset: 2px;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,0.6);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  .modal-box {
+    background: rgba(255,255,255,0.96);
+    border-radius: 24px;
+    padding: 2rem;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(99,102,241,0.18);
+    position: relative;
+    animation: modalIn 0.28s cubic-bezier(.22,1,.36,1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(24px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Poem list */
+  #poemList li {
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Contact icon */
+  .contact-icon-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    padding: 1.2rem 1rem;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.95);
+    box-shadow: 0 2px 12px rgba(99,102,241,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    flex: 1;
+    min-width: 80px;
+  }
+  .contact-icon-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(99,102,241,0.14);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.25); border-radius: 9999px; }
+
+  /* Accent badge */
+  .accent-badge {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 9999px;
+  }
+
+  /* Poem card */
+  .poem-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .poem-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99,102,241,0.14);
+  }
+  .poem-body-preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  #poemFullBody {
+    white-space: pre-wrap;
+  }
+
+  section { padding-top: 5rem; padding-bottom: 2rem; }
+</style>
 </head>
-<body>
+<body class="pb-28">
 
-  <!-- ===================================================================
-       SIGNATURE ELEMENT: The "Route Line" — a winding road that runs
-       down the page and fills in as the user scrolls, like a journey
-       being travelled. A small bike marker rides along it.
-  =================================================================== -->
-  <div class="route-rail" aria-hidden="true">
-    <svg class="route-svg" viewBox="0 0 4 1000" preserveAspectRatio="none">
-      <path class="route-track" d="M2,0 L2,1000" />
-      <path class="route-fill" d="M2,0 L2,1000" />
-    </svg>
-    <div class="route-marker" id="routeMarker">
-      <i data-lucide="bike"></i>
+<!-- ===================== FLOATING NAV ===================== -->
+<nav id="floatingNav" aria-label="Main Navigation">
+  <a href="#hero"       title="Home"><i class="fa-solid fa-house"></i></a>
+  <a href="#about"      title="About"><i class="fa-solid fa-user"></i></a>
+  <a href="#education"  title="Education"><i class="fa-solid fa-graduation-cap"></i></a>
+  <a href="#experience" title="Experience"><i class="fa-solid fa-briefcase"></i></a>
+  <a href="#gallery"    title="Gallery"><i class="fa-solid fa-images"></i></a>
+  <a href="#poems"      title="Poems"><i class="fa-solid fa-feather-pointed"></i></a>
+  <a href="#contact"    title="Contact"><i class="fa-solid fa-envelope"></i></a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero" class="min-h-screen flex items-center justify-center px-4 pt-0 pb-0 relative overflow-hidden">
+  <!-- BG orbs -->
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-teal-400 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-80 h-80 bg-indigo-400 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="glass-card p-8 md:p-12 max-w-4xl w-full mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
+    <!-- Avatar -->
+    <div class="flex-shrink-0 text-center">
+      <div class="avatar-ring">
+        <div class="w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-teal-100 to-indigo-100 flex items-center justify-center overflow-hidden">
+          <!-- Placeholder SVG avatar -->
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+            <defs>
+              <linearGradient id="avGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#14B8A6"/>
+                <stop offset="100%" style="stop-color:#6366F1"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#avGrad)" rx="100"/>
+            <circle cx="100" cy="78" r="34" fill="rgba(255,255,255,0.9)"/>
+            <ellipse cx="100" cy="168" rx="52" ry="38" fill="rgba(255,255,255,0.9)"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Age badge -->
+      <div class="mt-3 accent-badge bg-teal-50 border border-teal-200 text-teal-700 mx-auto">
+        <i class="fa-solid fa-cake-candles text-teal-500"></i>
+        <span>Age: <strong id="heroAge">—</strong> years old</span>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div class="text-center md:text-left flex-1">
+      <p class="section-eyebrow mb-2">Portfolio · Full Profile</p>
+      <h1 class="font-display text-4xl md:text-5xl font-extrabold leading-tight mb-3">
+        <span class="grad-text">Bikash</span><br/>Thapa Magar
+      </h1>
+      <p class="text-slate-500 text-base md:text-lg mb-5 max-w-md">
+        Aspiring professional with a passion for customer relations, financial planning & digital tools. Based in Nepal 🇳🇵
+      </p>
+      <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
+        <span class="skill-pill"><i class="fa-solid fa-motorcycle mr-1 text-teal-500"></i>Sales Consultant</span>
+        <span class="skill-pill"><i class="fa-solid fa-computer mr-1 text-indigo-400"></i>Computer Operator</span>
+        <span class="skill-pill"><i class="fa-solid fa-book-open mr-1 text-purple-400"></i>Poet</span>
+      </div>
+      <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-teal-500 to-indigo-500 text-white rounded-full font-semibold text-sm shadow hover:shadow-lg hover:opacity-90 transition">
+          <i class="fa-solid fa-paper-plane"></i> Get In Touch
+        </a>
+        <a href="#gallery" class="inline-flex items-center gap-2 px-6 py-2.5 border-2 border-indigo-200 text-indigo-600 rounded-full font-semibold text-sm hover:bg-indigo-50 transition">
+          <i class="fa-solid fa-images"></i> View Gallery
+        </a>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- ===================================================================
-       NAVIGATION — Icon-only, sticky, glass panel
-  =================================================================== -->
-  <header>
-    <nav class="navbar" aria-label="Primary navigation">
-      <a href="#hero" class="nav-logo" aria-label="Home">IY</a>
-      <ul class="nav-icons">
-        <li><a href="#hero" data-tooltip="Home" aria-label="Home"><i data-lucide="home"></i></a></li>
-        <li><a href="#education" data-tooltip="Education" aria-label="Education"><i data-lucide="graduation-cap"></i></a></li>
-        <li><a href="#skills" data-tooltip="Skills" aria-label="Skills"><i data-lucide="award"></i></a></li>
-        <li><a href="#experience" data-tooltip="Experience" aria-label="Experience"><i data-lucide="briefcase"></i></a></li>
-        <li><a href="#poems" data-tooltip="Poems" aria-label="Poems"><i data-lucide="feather"></i></a></li>
-        <li><a href="#resources" data-tooltip="Resources" aria-label="Resources"><i data-lucide="compass"></i></a></li>
-        <li><a href="#gallery" data-tooltip="Gallery" aria-label="Gallery"><i data-lucide="images"></i></a></li>
-        <li><a href="#contact" data-tooltip="Contact" aria-label="Contact"><i data-lucide="send"></i></a></li>
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="px-4 max-w-5xl mx-auto">
+  <p class="section-eyebrow text-center mb-2">Who I Am</p>
+  <h2 class="font-display text-3xl md:text-4xl font-extrabold text-center mb-8 grad-text">About Me</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="glass-card p-6 flex flex-col gap-3 md:col-span-2">
+      <h3 class="font-bold text-xl text-slate-800 flex items-center gap-2"><i class="fa-solid fa-id-card text-indigo-400"></i> My Story</h3>
+      <p class="text-slate-600 leading-relaxed text-sm md:text-base">
+        I'm Bikash Thapa Magar, born on <strong>October 26, 2005</strong> in Nepal. My journey has taken me from completing my schooling with strong academic results to gaining hands-on experience as a Sales Consultant at a reputed Bajaj Showroom. I believe in continuous learning — having completed computer training courses to stay sharp in today's digital world. Beyond professional life, I find joy in writing poetry, which keeps my creative and emotional intelligence alive.
+      </p>
+      <div class="grid grid-cols-2 gap-3 mt-2">
+        <div class="glass-card-sm p-3 text-center">
+          <p class="font-display text-2xl font-bold grad-text" id="aboutAge">—</p>
+          <p class="text-xs text-slate-500 mt-0.5">Years Old</p>
+        </div>
+        <div class="glass-card-sm p-3 text-center">
+          <p class="font-display text-2xl font-bold grad-text">2023</p>
+          <p class="text-xs text-slate-500 mt-0.5">Last Qualification</p>
+        </div>
+        <div class="glass-card-sm p-3 text-center">
+          <p class="font-display text-2xl font-bold grad-text">2+</p>
+          <p class="text-xs text-slate-500 mt-0.5">Certifications</p>
+        </div>
+        <div class="glass-card-sm p-3 text-center">
+          <p class="font-display text-2xl font-bold grad-text">NP</p>
+          <p class="text-xs text-slate-500 mt-0.5">Nepal 🇳🇵</p>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card p-6 flex flex-col gap-4">
+      <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2"><i class="fa-solid fa-star text-teal-500"></i> Core Skills</h3>
+      <ul class="space-y-2.5 text-sm text-slate-600">
+        <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Customer Relationship Mgmt</li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Financial Planning & EMI</li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Data Entry & MS Office</li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Written Nepali & English</li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Sales & Negotiation</li>
+        <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Creative Writing / Poetry</li>
       </ul>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">
-        <i data-lucide="palette"></i>
-      </button>
-    </nav>
-  </header>
-
-  <main>
-
-    <!-- ===================================================================
-         HERO SECTION
-    =================================================================== -->
-    <section id="hero" class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <svg class="hero-road" viewBox="0 0 1200 600" preserveAspectRatio="none">
-          <path d="M-100,500 C 250,350 450,650 750,420 S 1100,250 1300,380" />
-        </svg>
-      </div>
-
-      <div class="hero-inner">
-        <div class="hero-text">
-          <p class="eyebrow">Phidim&nbsp;&middot;&nbsp;Panchthar&nbsp;&middot;&nbsp;Nepal</p>
-          <h1 class="hero-title">
-            Ishak <span class="accent-text">Yonghang</span>
-            <span class="hero-subtitle">— known as Isaac</span>
-          </h1>
-          <p class="hero-desc">
-            I sell motorcycles by day and chase verses by night. As a Sales
-            Consultant at a Bajaj showroom, I build trust through honest
-            advice and clean numbers — and as a poet, I write about the
-            roads, people, and quiet moments that numbers can't capture.
-            Currently teaching myself to code, one small project at a time.
-          </p>
-          <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary">
-              <i data-lucide="message-circle"></i> Let's talk
-            </a>
-            <a href="#poems" class="btn btn-ghost">
-              <i data-lucide="book-open"></i> Read my poems
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-portrait">
-          <div class="portrait-frame">
-            <!-- Replace src with your real photo -->
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&fit=crop"
-                 alt="Portrait of Ishak Yonghang (Isaac)" class="portrait-img" />
-          </div>
-          <div class="portrait-badge">
-            <i data-lucide="map-pin"></i>
-            <span>Based in Phidim, Nepal</span>
-          </div>
+      <div class="mt-auto">
+        <p class="text-xs text-slate-400 font-medium mb-1.5">Languages</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="skill-pill">Nepali</span>
+          <span class="skill-pill">English</span>
+          <span class="skill-pill">Hindi</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <a href="#education" class="scroll-cue" aria-label="Scroll to next section">
-        <i data-lucide="chevron-down"></i>
-      </a>
-    </section>
+<!-- ===================== EDUCATION ===================== -->
+<section id="education" class="px-4 max-w-5xl mx-auto">
+  <p class="section-eyebrow text-center mb-2">Academic Journey</p>
+  <h2 class="font-display text-3xl md:text-4xl font-extrabold text-center mb-8 grad-text">Education</h2>
 
-    <!-- ===================================================================
-         EDUCATION SECTION
-    =================================================================== -->
-    <section id="education" class="section">
-      <div class="section-head">
-        <span class="section-tag"><i data-lucide="graduation-cap"></i> Education</span>
-        <h2 class="section-title">The road through school</h2>
-        <p class="section-lede">Two milestones, two certificates — tap the eye icon to view each one.</p>
-      </div>
-
-      <div class="timeline">
-        <article class="timeline-item">
-          <div class="timeline-marker"><i data-lucide="flag"></i></div>
-          <div class="card edu-card">
-            <div class="card-head">
-              <h3>+2 (Higher Secondary)</h3>
-              <button class="eye-btn" data-modal-target="cert-plus2" aria-label="Preview +2 certificate">
-                <i data-lucide="eye"></i>
-              </button>
-            </div>
-            <div class="edu-stats">
-              <div class="stat"><span class="stat-label">GPA</span><span class="stat-value">2.49</span></div>
-              <div class="stat"><span class="stat-label">Passed Year</span><span class="stat-value">2080 BS</span></div>
-            </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <!-- +2 -->
+    <div class="glass-card p-6 flex flex-col gap-3">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center flex-shrink-0 shadow">
+            <i class="fa-solid fa-book text-white text-lg"></i>
           </div>
-        </article>
-
-        <article class="timeline-item">
-          <div class="timeline-marker"><i data-lucide="flag"></i></div>
-          <div class="card edu-card">
-            <div class="card-head">
-              <h3>SEE (Secondary Education)</h3>
-              <button class="eye-btn" data-modal-target="cert-see" aria-label="Preview SEE certificate">
-                <i data-lucide="eye"></i>
-              </button>
-            </div>
-            <div class="edu-stats">
-              <div class="stat"><span class="stat-label">GPA</span><span class="stat-value">2.80</span></div>
-              <div class="stat"><span class="stat-label">Passed Year</span><span class="stat-value">2077 BS</span></div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================================================================
-         SKILLS & COMPUTER COURSES SECTION
-    =================================================================== -->
-    <section id="skills" class="section section-alt">
-      <div class="section-head">
-        <span class="section-tag"><i data-lucide="award"></i> Skills &amp; Courses</span>
-        <h2 class="section-title">Tools I've picked up along the way</h2>
-        <p class="section-lede">Short courses that built my computer foundations.</p>
-      </div>
-
-      <div class="grid-cards">
-        <article class="card skill-card">
-          <div class="card-icon"><i data-lucide="monitor"></i></div>
-          <div class="card-head">
-            <h3>Computer Operator Course</h3>
-            <button class="eye-btn" data-modal-target="cert-operator" aria-label="Preview Computer Operator certificate">
-              <i data-lucide="eye"></i>
-            </button>
-          </div>
-          <p class="card-meta"><i data-lucide="calendar-check"></i> Completed: 2080 BS</p>
-        </article>
-
-        <article class="card skill-card">
-          <div class="card-icon"><i data-lucide="refresh-cw"></i></div>
-          <div class="card-head">
-            <h3>Basic Revision Course</h3>
-            <button class="eye-btn" data-modal-target="cert-revision" aria-label="Preview Basic Revision certificate">
-              <i data-lucide="eye"></i>
-            </button>
-          </div>
-          <p class="card-meta"><i data-lucide="calendar-check"></i> Completed: 2081 BS</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================================================================
-         JOB EXPERIENCE SECTION
-    =================================================================== -->
-    <section id="experience" class="section">
-      <div class="section-head">
-        <span class="section-tag"><i data-lucide="briefcase"></i> Experience</span>
-        <h2 class="section-title">On the showroom floor</h2>
-        <p class="section-lede">Where I spend most of my working hours.</p>
-      </div>
-
-      <div class="experience-card">
-        <div class="experience-top">
-          <div class="experience-icon"><i data-lucide="bike"></i></div>
           <div>
-            <h3>Sales Consultant</h3>
-            <p class="experience-org">Bajaj Showroom</p>
+            <p class="section-eyebrow">Higher Secondary</p>
+            <h3 class="font-bold text-lg text-slate-800">+2 Level</h3>
           </div>
         </div>
-
-        <ul class="experience-list">
-          <li>
-            <i data-lucide="users"></i>
-            <div>
-              <h4>Customer Management</h4>
-              <p>Greeting, guiding, and following up with customers from first visit to final delivery.</p>
-            </div>
-          </li>
-          <li>
-            <i data-lucide="database"></i>
-            <div>
-              <h4>Data Management</h4>
-              <p>Maintaining accurate records of inventory, customer details, and sales documentation.</p>
-            </div>
-          </li>
-          <li>
-            <i data-lucide="calculator"></i>
-            <div>
-              <h4>Finance &amp; Sales Knowledge</h4>
-              <p>Explaining EMI plans, down payments, and loan options clearly to every customer.</p>
-            </div>
-          </li>
-          <li>
-            <i data-lucide="handshake"></i>
-            <div>
-              <h4>Client Relations</h4>
-              <p>Building long-term trust so customers return — and bring their friends and family too.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===================================================================
-         INTERESTS & INTERACTIVE POEM SECTION
-    =================================================================== -->
-    <section id="poems" class="section section-alt poem-section">
-      <div class="section-head">
-        <span class="section-tag"><i data-lucide="feather"></i> Interests</span>
-        <h2 class="section-title">Verses, written in passing</h2>
-        <p class="section-lede">
-          Writing poems is my main interest — short lines I jot down between
-          customers. Add one of your own below, or remove any you like.
-        </p>
-      </div>
-
-      <div class="poem-app">
-        <form class="poem-form" id="poemForm">
-          <label for="poemInput" class="sr-only">Write a new poem or line</label>
-          <textarea id="poemInput" placeholder="Write a short poem or a line that came to you today..." required></textarea>
-          <button type="submit" class="btn btn-primary">
-            <i data-lucide="plus-circle"></i> Add poem
-          </button>
-        </form>
-
-        <ul class="poem-list" id="poemList" aria-live="polite">
-          <!-- Poems are rendered here by JavaScript -->
-        </ul>
-
-        <p class="poem-empty" id="poemEmpty">No poems yet — be the first to add a line.</p>
-      </div>
-    </section>
-
-    <!-- ===================================================================
-         RESOURCES / "SOME IDEAS" SECTION
-    =================================================================== -->
-    <section id="resources" class="section">
-      <div class="section-head">
-        <span class="section-tag"><i data-lucide="compass"></i> Some Ideas</span>
-        <h2 class="section-title">Places worth visiting</h2>
-        <p class="section-lede">A small collection of links I keep coming back to.</p>
-      </div>
-
-      <div class="grid-cards resource-grid">
-        <a href="https://poem.yonghangishak.com.np" class="card resource-card" target="_blank" rel="noopener">
-          <div class="card-icon"><i data-lucide="book-text"></i></div>
-          <h3>Poem Links</h3>
-          <p>My Nepali poetry collection — a growing archive of short and long pieces.</p>
-          <span class="card-link">poem.yonghangishak.com.np <i data-lucide="arrow-up-right"></i></span>
-        </a>
-
-        <a href="#" class="card resource-card" target="_blank" rel="noopener">
-          <div class="card-icon"><i data-lucide="banknote"></i></div>
-          <h3>Finance Calculation Tools</h3>
-          <p>EMI calculators and finance helpers I use to assist customers at the showroom.</p>
-          <span class="card-link">Open calculator <i data-lucide="arrow-up-right"></i></span>
-        </a>
-
-        <a href="https://yonghangishak.com.np" class="card resource-card" target="_blank" rel="noopener">
-          <div class="card-icon"><i data-lucide="user-round"></i></div>
-          <h3>Main Portfolio</h3>
-          <p>My personal site with biography, family history, and more about me.</p>
-          <span class="card-link">yonghangishak.com.np <i data-lucide="arrow-up-right"></i></span>
-        </a>
-
-        <a href="#" class="card resource-card" target="_blank" rel="noopener">
-          <div class="card-icon"><i data-lucide="code-2"></i></div>
-          <h3>Dev Notes</h3>
-          <p>Small coding experiments and notes as I learn web development.</p>
-          <span class="card-link">Coming soon <i data-lucide="arrow-up-right"></i></span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ===================================================================
-         PHOTO COLLECTION — STORY-STYLE SLIDER
-    =================================================================== -->
-    <section id="gallery" class="section section-alt">
-      <div class="section-head">
-        <span class="section-tag"><i data-lucide="images"></i> Gallery</span>
-        <h2 class="section-title">Moments from the road</h2>
-        <p class="section-lede">A few snapshots — swipe or use the arrows to browse.</p>
-      </div>
-
-      <div class="story-slider" id="storySlider">
-        <button class="story-nav story-prev" id="storyPrev" aria-label="Previous photo">
-          <i data-lucide="chevron-left"></i>
+        <button onclick="openModal('cert-plus2')" class="flex-shrink-0 w-9 h-9 rounded-full bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-500 flex items-center justify-center transition" title="View Certificate">
+          <i class="fa-solid fa-eye text-sm"></i>
         </button>
-
-        <div class="story-viewport">
-          <div class="story-progress" id="storyProgress"></div>
-
-          <div class="story-track" id="storyTrack">
-            <figure class="story-slide">
-              <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=900&h=1200&fit=crop" alt="Mountain road through Panchthar hills" />
-              <figcaption>Hills around Phidim, Panchthar</figcaption>
-            </figure>
-            <figure class="story-slide">
-              <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=900&h=1200&fit=crop" alt="Bajaj motorcycle on display" />
-              <figcaption>A new model at the showroom</figcaption>
-            </figure>
-            <figure class="story-slide">
-              <img src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=900&h=1200&fit=crop" alt="Open road at sunrise" />
-              <figcaption>Early morning ride</figcaption>
-            </figure>
-            <figure class="story-slide">
-              <img src="https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=900&h=1200&fit=crop" alt="Notebook with handwritten poem" />
-              <figcaption>A poem in progress</figcaption>
-            </figure>
-          </div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-sm">
+        <div class="glass-card-sm p-2.5">
+          <p class="text-xs text-slate-400 font-medium">BS Year</p>
+          <p class="font-bold text-slate-700">2080 BS</p>
         </div>
-
-        <button class="story-nav story-next" id="storyNext" aria-label="Next photo">
-          <i data-lucide="chevron-right"></i>
-        </button>
+        <div class="glass-card-sm p-2.5">
+          <p class="text-xs text-slate-400 font-medium">CE Year</p>
+          <p class="font-bold text-slate-700">2023–24</p>
+        </div>
+        <div class="glass-card-sm p-2.5 col-span-2">
+          <p class="text-xs text-slate-400 font-medium">Completed at Age</p>
+          <p class="font-bold text-teal-600" id="ageAtPlus2">Calculating…</p>
+        </div>
       </div>
-    </section>
-
-  </main>
-
-  <!-- ===================================================================
-       CONTACT / FOOTER
-  =================================================================== -->
-  <footer id="contact" class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <p class="footer-logo">Ishak Yonghang</p>
-        <p class="footer-tag">Sales Consultant &middot; Poet &middot; Aspiring Developer</p>
-      </div>
-
-      <div class="footer-links">
-        <a href="mailto:youremail@gmail.com" class="footer-link" aria-label="Email me">
-          <i data-lucide="mail"></i> <span>Gmail</span>
-        </a>
-        <a href="https://m.me/yonghangisaac" class="footer-link" aria-label="Message me on Facebook Messenger" target="_blank" rel="noopener">
-          <i data-lucide="message-square"></i> <span>Messenger</span>
-        </a>
-        <a href="https://facebook.com/yonghangisaac" class="footer-link" aria-label="My Facebook profile" target="_blank" rel="noopener">
-          <i data-lucide="facebook"></i> <span>Facebook</span>
-        </a>
-        <a href="https://wa.me/9779820907795" class="footer-link" aria-label="Message me on WhatsApp" target="_blank" rel="noopener">
-          <i data-lucide="phone"></i> <span>WhatsApp</span>
-        </a>
+      <div class="flex flex-wrap gap-1.5 mt-1">
+        <span class="skill-pill">Management</span>
+        <span class="skill-pill">Accounts</span>
+        <span class="skill-pill">Economics</span>
       </div>
     </div>
 
-    <p class="footer-bottom">&copy; <span id="year"></span> Ishak Yonghang (Isaac). Built with care, one line at a time.</p>
-  </footer>
+    <!-- SEE -->
+    <div class="glass-card p-6 flex flex-col gap-3">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center flex-shrink-0 shadow">
+            <i class="fa-solid fa-school text-white text-lg"></i>
+          </div>
+          <div>
+            <p class="section-eyebrow">Secondary Education</p>
+            <h3 class="font-bold text-lg text-slate-800">SEE (SLC)</h3>
+          </div>
+        </div>
+        <button onclick="openModal('cert-see')" class="flex-shrink-0 w-9 h-9 rounded-full bg-teal-50 hover:bg-teal-100 border border-teal-100 text-teal-500 flex items-center justify-center transition" title="View Certificate">
+          <i class="fa-solid fa-eye text-sm"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-sm">
+        <div class="glass-card-sm p-2.5">
+          <p class="text-xs text-slate-400 font-medium">BS Year</p>
+          <p class="font-bold text-slate-700">2077 BS</p>
+        </div>
+        <div class="glass-card-sm p-2.5">
+          <p class="text-xs text-slate-400 font-medium">CE Year</p>
+          <p class="font-bold text-slate-700">2020–21</p>
+        </div>
+        <div class="glass-card-sm p-2.5 col-span-2">
+          <p class="text-xs text-slate-400 font-medium">Completed at Age</p>
+          <p class="font-bold text-teal-600" id="ageAtSEE">Calculating…</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-1.5 mt-1">
+        <span class="skill-pill">Math</span>
+        <span class="skill-pill">Science</span>
+        <span class="skill-pill">Social</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- ===================================================================
-       CERTIFICATE PREVIEW MODAL
-  =================================================================== -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" id="modalClose" aria-label="Close preview">
-        <i data-lucide="x"></i>
-      </button>
-      <h3 id="modalTitle" class="modal-title">Certificate Preview</h3>
-      <img id="modalImage" src="" alt="Certificate preview" class="modal-image" />
+<!-- ===================== TRAINING & EXPERIENCE ===================== -->
+<section id="experience" class="px-4 max-w-5xl mx-auto">
+  <p class="section-eyebrow text-center mb-2">Skills & Work</p>
+  <h2 class="font-display text-3xl md:text-4xl font-extrabold text-center mb-8 grad-text">Training & Experience</h2>
+
+  <!-- Training -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+    <!-- Computer Operator -->
+    <div class="glass-card p-6 flex flex-col gap-3">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center flex-shrink-0 shadow">
+            <i class="fa-solid fa-computer text-white text-lg"></i>
+          </div>
+          <div>
+            <p class="section-eyebrow">Certification</p>
+            <h3 class="font-bold text-lg text-slate-800">Computer Operator Course</h3>
+          </div>
+        </div>
+        <button onclick="openModal('cert-comp1')" class="flex-shrink-0 w-9 h-9 rounded-full bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 text-indigo-500 flex items-center justify-center transition" title="View Certificate">
+          <i class="fa-solid fa-eye text-sm"></i>
+        </button>
+      </div>
+      <div class="glass-card-sm p-3 text-sm">
+        <p class="text-xs text-slate-400 font-medium mb-0.5">Completed</p>
+        <p class="font-bold text-slate-700">2080 BS <span class="text-slate-400 font-normal">(≈ 2023 CE)</span></p>
+      </div>
+      <p class="text-slate-500 text-sm">MS Office, typing, internet, data entry, spreadsheet management & office automation tools.</p>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="skill-pill">MS Word</span>
+        <span class="skill-pill">MS Excel</span>
+        <span class="skill-pill">Internet</span>
+      </div>
+    </div>
+
+    <!-- Basic Revision -->
+    <div class="glass-card p-6 flex flex-col gap-3">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center flex-shrink-0 shadow">
+            <i class="fa-solid fa-rotate text-white text-lg"></i>
+          </div>
+          <div>
+            <p class="section-eyebrow">Certification</p>
+            <h3 class="font-bold text-lg text-slate-800">Basic Revision Course</h3>
+          </div>
+        </div>
+        <button onclick="openModal('cert-comp2')" class="flex-shrink-0 w-9 h-9 rounded-full bg-purple-50 hover:bg-purple-100 border border-purple-100 text-purple-500 flex items-center justify-center transition" title="View Certificate">
+          <i class="fa-solid fa-eye text-sm"></i>
+        </button>
+      </div>
+      <div class="glass-card-sm p-3 text-sm">
+        <p class="text-xs text-slate-400 font-medium mb-0.5">Completed</p>
+        <p class="font-bold text-slate-700">2081 BS <span class="text-slate-400 font-normal">(≈ 2024 CE)</span></p>
+      </div>
+      <p class="text-slate-500 text-sm">Advanced revision of computer fundamentals, typing speed enhancement, accounting software basics.</p>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="skill-pill">Typing Speed</span>
+        <span class="skill-pill">Tally</span>
+        <span class="skill-pill">Networking</span>
+      </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Job Experience -->
+  <div class="glass-card p-6 md:p-8">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center flex-shrink-0 shadow">
+        <i class="fa-solid fa-motorcycle text-white text-xl"></i>
+      </div>
+      <div>
+        <p class="section-eyebrow">Professional Experience</p>
+        <h3 class="font-bold text-xl text-slate-800">Sales Consultant — Bajaj Showroom</h3>
+        <p class="text-slate-400 text-sm">Nepal · Motorcycle Dealership</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="glass-card-sm p-4 flex flex-col gap-2">
+        <div class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+          <i class="fa-solid fa-users text-blue-500"></i>
+        </div>
+        <h4 class="font-semibold text-slate-700 text-sm">Client Data Management</h4>
+        <p class="text-xs text-slate-500 leading-relaxed">Maintained detailed records of walk-in clients, tracked follow-ups and converted inquiries to sales using structured data entry workflows.</p>
+      </div>
+      <div class="glass-card-sm p-4 flex flex-col gap-2">
+        <div class="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center">
+          <i class="fa-solid fa-handshake text-teal-500"></i>
+        </div>
+        <h4 class="font-semibold text-slate-700 text-sm">Customer Relations</h4>
+        <p class="text-xs text-slate-500 leading-relaxed">Built long-term relationships by providing post-sale support, managing complaints, and maintaining customer satisfaction for Bajaj bike buyers.</p>
+      </div>
+      <div class="glass-card-sm p-4 flex flex-col gap-2 sm:col-span-2 md:col-span-1">
+        <div class="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center">
+          <i class="fa-solid fa-calculator text-indigo-500"></i>
+        </div>
+        <h4 class="font-semibold text-slate-700 text-sm">Financial Planning</h4>
+        <p class="text-xs text-slate-500 leading-relaxed">Helped customers understand EMI structures, loan options, insurance packages and total cost of ownership for various Bajaj models (Pulsar, Dominar, CT series).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section id="gallery" class="px-4 max-w-5xl mx-auto">
+  <p class="section-eyebrow text-center mb-2">Photo Collection</p>
+  <h2 class="font-display text-3xl md:text-4xl font-extrabold text-center mb-8 grad-text">My Stories</h2>
+
+  <!-- MOBILE: single story viewer -->
+  <div class="md:hidden" id="mobileStoryViewer">
+    <div class="relative rounded-3xl overflow-hidden aspect-[9/16] max-w-xs mx-auto shadow-2xl" id="mobileStoryInner">
+      <!-- Slides -->
+      <div class="story-slide active absolute inset-0" style="background:linear-gradient(160deg,#0f172a,#1e293b)">
+        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+          <div class="text-5xl mb-4">🏔️</div>
+          <h3 class="font-display text-2xl font-bold mb-2">Mountains of Nepal</h3>
+          <p class="text-sm text-white/70">The Himalayas have always inspired me — their stillness mirrors the clarity I seek in life.</p>
+        </div>
+        <div class="absolute top-0 left-0 right-0 p-4 flex gap-1.5" id="mobileProgress"></div>
+        <div class="absolute top-6 left-4 flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center text-white text-xs font-bold">B</div>
+          <span class="text-white text-sm font-semibold">Bikash</span>
+        </div>
+      </div>
+      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#1a1040,#2e1065)">
+        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+          <div class="text-5xl mb-4">🏍️</div>
+          <h3 class="font-display text-2xl font-bold mb-2">Bajaj Rides</h3>
+          <p class="text-sm text-white/70">Every motorcycle tells a story of freedom. At the showroom, I help people write theirs.</p>
+        </div>
+      </div>
+      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#052e16,#064e3b)">
+        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+          <div class="text-5xl mb-4">✍️</div>
+          <h3 class="font-display text-2xl font-bold mb-2">Writing Corner</h3>
+          <p class="text-sm text-white/70">Words that flow from the heart hold a different kind of power. Poetry is my mirror.</p>
+        </div>
+      </div>
+      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#1e1b4b,#312e81)">
+        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+          <div class="text-5xl mb-4">💻</div>
+          <h3 class="font-display text-2xl font-bold mb-2">Digital Skills</h3>
+          <p class="text-sm text-white/70">From data entry to spreadsheets — building digital fluency one skill at a time.</p>
+        </div>
+      </div>
+      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#450a0a,#7f1d1d)">
+        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+          <div class="text-5xl mb-4">🌄</div>
+          <h3 class="font-display text-2xl font-bold mb-2">Sunrise Moments</h3>
+          <p class="text-sm text-white/70">Every new day is a fresh start. The sun doesn't ask if it's ready — it simply rises.</p>
+        </div>
+      </div>
+      <!-- Touch zones -->
+      <div class="absolute left-0 top-0 bottom-0 w-1/3 cursor-pointer z-10" onclick="mobileStoryNav(-1)"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-1/3 cursor-pointer z-10" onclick="mobileStoryNav(1)"></div>
+    </div>
+    <div class="flex justify-center gap-2 mt-4" id="mobileDots"></div>
+  </div>
+
+  <!-- DESKTOP: multi-column grid of story cards -->
+  <div class="hidden md:flex gap-4 items-start" id="desktopStoryGrid">
+    <!-- Arrow left -->
+    <button id="dsLeft" onclick="desktopScroll(-1)" class="flex-shrink-0 self-center w-10 h-10 rounded-full bg-white shadow-lg border border-indigo-100 text-indigo-500 hover:bg-indigo-50 transition flex items-center justify-center">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <!-- Story cards -->
+    <div class="flex-1 grid grid-cols-5 gap-3" id="dsGrid">
+      <!-- Cards injected by JS -->
+    </div>
+    <!-- Arrow right -->
+    <button id="dsRight" onclick="desktopScroll(1)" class="flex-shrink-0 self-center w-10 h-10 rounded-full bg-white shadow-lg border border-indigo-100 text-indigo-500 hover:bg-indigo-50 transition flex items-center justify-center">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
+<!-- ===================== POEMS ===================== -->
+<section id="poems" class="px-4 max-w-5xl mx-auto">
+  <p class="section-eyebrow text-center mb-2">Creative Writing</p>
+  <h2 class="font-display text-3xl md:text-4xl font-extrabold text-center mb-8 grad-text">Poems</h2>
+
+  <div class="max-w-3xl mx-auto">
+    <p class="text-slate-500 text-sm text-center mb-6">A small collection of original Nepali & English poems. Tap any card to read the full piece.</p>
+
+    <!-- Poem cards grid -->
+    <div id="poemGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESOURCES & CONTACT ===================== -->
+<section id="contact" class="px-4 max-w-5xl mx-auto">
+  <p class="section-eyebrow text-center mb-2">Resources & Connect</p>
+  <h2 class="font-display text-3xl md:text-4xl font-extrabold text-center mb-8 grad-text">Resources & Contact</h2>
+
+  <!-- Resource cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+    <div class="glass-card p-6 flex flex-col gap-3">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow">
+        <i class="fa-solid fa-feather-pointed text-white text-xl"></i>
+      </div>
+      <h3 class="font-bold text-lg text-slate-800">Poem Publications</h3>
+      <p class="text-slate-500 text-sm leading-relaxed">A curated collection of published Nepali poems exploring themes of nature, identity, and youth. Available on local literary platforms.</p>
+      <a href="#poems" class="inline-flex items-center gap-1.5 text-indigo-500 font-semibold text-sm hover:underline mt-auto">
+        Read Poems <i class="fa-solid fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+    <div class="glass-card p-6 flex flex-col gap-3">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow">
+        <i class="fa-solid fa-calculator text-white text-xl"></i>
+      </div>
+      <h3 class="font-bold text-lg text-slate-800">Finance Tools</h3>
+      <p class="text-slate-500 text-sm leading-relaxed">EMI calculators, loan comparison sheets, and insurance planning templates developed during my time at the Bajaj Showroom.</p>
+      <a href="#experience" class="inline-flex items-center gap-1.5 text-teal-500 font-semibold text-sm hover:underline mt-auto">
+        View Experience <i class="fa-solid fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Contact icons -->
+  <div class="glass-card p-6 md:p-8">
+    <h3 class="font-bold text-lg text-slate-800 text-center mb-5">Reach Out</h3>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="mailto:bikash@gmail.com" class="contact-icon-btn" title="Gmail">
+        <svg viewBox="0 0 48 48" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="#EA4335"/>
+          <path d="M10 14h28v20H10V14z" fill="white"/>
+          <path d="M10 14l14 13 14-13" stroke="#EA4335" stroke-width="2.5" fill="none"/>
+        </svg>
+        <span class="text-xs font-semibold text-slate-600">Gmail</span>
+      </a>
+      <a href="https://m.me/bikash" target="_blank" class="contact-icon-btn" title="Messenger">
+        <svg viewBox="0 0 48 48" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="url(#msgrGrad)"/>
+          <defs><linearGradient id="msgrGrad" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#00B2FF"/><stop offset="1" stop-color="#006AFF"/></linearGradient></defs>
+          <path d="M24 10C16.27 10 10 15.9 10 23.28c0 4.15 2.06 7.85 5.28 10.28V38l4.8-2.64A14.8 14.8 0 0024 35.55c7.73 0 14-5.9 14-13.27C38 15.9 31.73 10 24 10z" fill="white"/>
+          <path d="M13 26.5l6.5-6.9 3.2 3.4 6-3.4-6.7 6.9-3.2-3.4-5.8 3.4z" fill="url(#msgrGrad)"/>
+        </svg>
+        <span class="text-xs font-semibold text-slate-600">Messenger</span>
+      </a>
+      <a href="https://facebook.com/bikash" target="_blank" class="contact-icon-btn" title="Facebook">
+        <svg viewBox="0 0 48 48" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="#1877F2"/>
+          <path d="M32 24h-5v14h-6V24h-3v-5h3v-3c0-4 2-6 6-6h4v5h-2c-1.5 0-2 .5-2 2v2h4l-1 5z" fill="white"/>
+        </svg>
+        <span class="text-xs font-semibold text-slate-600">Facebook</span>
+      </a>
+      <a href="https://wa.me/9779800000000" target="_blank" class="contact-icon-btn" title="WhatsApp">
+        <svg viewBox="0 0 48 48" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="#25D366"/>
+          <path d="M24 11C16.82 11 11 16.82 11 24c0 2.3.63 4.5 1.72 6.39L11 37l6.82-1.69A13.02 13.02 0 0024 37c7.18 0 13-5.82 13-13S31.18 11 24 11z" fill="white"/>
+          <path d="M30.2 27.3c-.3-.15-1.8-.9-2.1-1-.3-.1-.5-.15-.7.15-.2.3-.8 1-.98 1.2-.18.2-.36.22-.66.07-1.8-.9-3-1.6-4.2-3.62-.32-.55.32-.51.9-1.7.1-.2.05-.37-.02-.52-.08-.15-.7-1.68-.96-2.3-.25-.6-.5-.52-.7-.53h-.6c-.2 0-.52.08-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.1 4.5.71.3 1.27.5 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="#25D366"/>
+        </svg>
+        <span class="text-xs font-semibold text-slate-600">WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="text-center text-slate-400 text-xs mt-8">© 2025 Bikash Thapa Magar · Made with <span class="text-red-400">♥</span> in Nepal</p>
+</section>
+
+<!-- ===================== MODALS ===================== -->
+<!-- Cert +2 -->
+<div id="modal-cert-plus2" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button onclick="closeModal('cert-plus2')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="section-eyebrow mb-1">Certificate Preview</p>
+    <h3 class="font-display font-bold text-xl text-slate-800 mb-4">+2 Level Certificate</h3>
+    <div class="rounded-2xl overflow-hidden border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 h-64 flex flex-col items-center justify-center gap-3">
+      <i class="fa-solid fa-certificate text-5xl text-indigo-400 opacity-60"></i>
+      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Board</p><p class="font-bold text-slate-700">NEB, Nepal</p></div>
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Year</p><p class="font-bold text-slate-700">2080 BS / 2023–24</p></div>
+    </div>
+    <button onclick="closeModal('cert-plus2')" class="mt-5 w-full py-2.5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-semibold text-sm hover:opacity-90 transition">
+      <i class="fa-solid fa-eye-slash mr-1.5"></i> Close Preview
+    </button>
+  </div>
+</div>
+
+<!-- Cert SEE -->
+<div id="modal-cert-see" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button onclick="closeModal('cert-see')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="section-eyebrow mb-1">Certificate Preview</p>
+    <h3 class="font-display font-bold text-xl text-slate-800 mb-4">SEE Certificate</h3>
+    <div class="rounded-2xl overflow-hidden border-2 border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50 h-64 flex flex-col items-center justify-center gap-3">
+      <i class="fa-solid fa-certificate text-5xl text-teal-400 opacity-60"></i>
+      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Board</p><p class="font-bold text-slate-700">CDC, Nepal</p></div>
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Year</p><p class="font-bold text-slate-700">2077 BS / 2020–21</p></div>
+    </div>
+    <button onclick="closeModal('cert-see')" class="mt-5 w-full py-2.5 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-xl font-semibold text-sm hover:opacity-90 transition">
+      <i class="fa-solid fa-eye-slash mr-1.5"></i> Close Preview
+    </button>
+  </div>
+</div>
+
+<!-- Cert Comp1 -->
+<div id="modal-cert-comp1" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button onclick="closeModal('cert-comp1')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="section-eyebrow mb-1">Certificate Preview</p>
+    <h3 class="font-display font-bold text-xl text-slate-800 mb-4">Computer Operator Course</h3>
+    <div class="rounded-2xl overflow-hidden border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-teal-50 h-64 flex flex-col items-center justify-center gap-3">
+      <i class="fa-solid fa-laptop-code text-5xl text-indigo-400 opacity-60"></i>
+      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Completed</p><p class="font-bold text-slate-700">2080 BS</p></div>
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Type</p><p class="font-bold text-slate-700">Vocational</p></div>
+    </div>
+    <button onclick="closeModal('cert-comp1')" class="mt-5 w-full py-2.5 bg-gradient-to-r from-teal-500 to-indigo-500 text-white rounded-xl font-semibold text-sm hover:opacity-90 transition">
+      <i class="fa-solid fa-eye-slash mr-1.5"></i> Close Preview
+    </button>
+  </div>
+</div>
+
+<!-- Cert Comp2 -->
+<div id="modal-cert-comp2" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button onclick="closeModal('cert-comp2')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="section-eyebrow mb-1">Certificate Preview</p>
+    <h3 class="font-display font-bold text-xl text-slate-800 mb-4">Basic Revision Course</h3>
+    <div class="rounded-2xl overflow-hidden border-2 border-purple-100 bg-gradient-to-br from-purple-50 to-pink-50 h-64 flex flex-col items-center justify-center gap-3">
+      <i class="fa-solid fa-laptop-code text-5xl text-purple-400 opacity-60"></i>
+      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Completed</p><p class="font-bold text-slate-700">2081 BS</p></div>
+      <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Type</p><p class="font-bold text-slate-700">Vocational</p></div>
+    </div>
+    <button onclick="closeModal('cert-comp2')" class="mt-5 w-full py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold text-sm hover:opacity-90 transition">
+      <i class="fa-solid fa-eye-slash mr-1.5"></i> Close Preview
+    </button>
+  </div>
+</div>
+
+<!-- Poem Reader Modal -->
+<div id="modal-poem-reader" class="modal-overlay hidden" role="dialog" aria-modal="true">
+  <div class="modal-box max-w-xl">
+    <button onclick="closePoemReader()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <p class="section-eyebrow mb-1" id="poemFullEyebrow">Poem</p>
+    <h3 class="font-display font-bold text-2xl text-slate-800 mb-4" id="poemFullTitle">Title</h3>
+    <div class="max-h-[55vh] overflow-y-auto pr-2">
+      <p class="text-slate-600 leading-relaxed text-sm md:text-base" id="poemFullBody">Body</p>
+    </div>
+    <button onclick="closePoemReader()" class="mt-5 w-full py-2.5 bg-gradient-to-r from-teal-500 to-indigo-500 text-white rounded-xl font-semibold text-sm hover:opacity-90 transition">
+      <i class="fa-solid fa-eye-slash mr-1.5"></i> Close
+    </button>
+  </div>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// ── DATE OF BIRTH ──────────────────────────────────────
+const DOB = new Date(2005, 9, 26); // Oct 26, 2005 (month is 0-indexed)
+
+function calcAge(referenceDate) {
+  const today = referenceDate || new Date();
+  let age = today.getFullYear() - DOB.getFullYear();
+  const m = today.getMonth() - DOB.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < DOB.getDate())) age--;
+  return age;
+}
+
+function ageAtYear(year, month = 3) {
+  // month: 3 = April (typical exam result month); 0-indexed
+  const refDate = new Date(year, month, 1);
+  return calcAge(refDate);
+}
+
+// ── INIT AGE DISPLAYS ──────────────────────────────────
+(function initAges() {
+  const currentAge = calcAge();
+  document.getElementById('heroAge').textContent  = currentAge;
+  document.getElementById('aboutAge').textContent = currentAge;
+
+  // +2: passed 2023 CE (approx April 2024 end of year result → use late 2023)
+  const agePlus2 = ageAtYear(2023, 10); // Nov 2023
+  document.getElementById('ageAtPlus2').textContent = agePlus2 + ' years old';
+
+  // SEE: passed 2020-21 CE (result ≈ mid 2021)
+  const ageSEE = ageAtYear(2021, 6); // July 2021
+  document.getElementById('ageAtSEE').textContent = ageSEE + ' years old';
+})();
+
+
+// ── MODALS ─────────────────────────────────────────────
+function openModal(id) {
+  const el = document.getElementById('modal-' + id);
+  if (el) { el.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+}
+function closeModal(id) {
+  const el = document.getElementById('modal-' + id);
+  if (el) { el.classList.add('hidden'); document.body.style.overflow = ''; }
+}
+// Close on backdrop click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  });
+});
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay:not(.hidden)').forEach(m => {
+      m.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+  }
+});
+
+
+// ── MOBILE STORY VIEWER ────────────────────────────────
+let mobileIdx = 0;
+const mobileSlides = document.querySelectorAll('#mobileStoryViewer .story-slide');
+const mobileDotsEl = document.getElementById('mobileDots');
+
+function buildMobileDots() {
+  mobileDotsEl.innerHTML = '';
+  mobileSlides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'w-2 h-2 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-indigo-500 w-5' : 'bg-slate-300');
+    mobileDotsEl.appendChild(d);
+  });
+}
+
+function updateMobileStory(idx) {
+  mobileSlides.forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+    s.style.zIndex = i === idx ? '2' : '1';
+  });
+  const dots = mobileDotsEl.querySelectorAll('div');
+  dots.forEach((d, i) => {
+    d.className = 'w-2 h-2 rounded-full transition-all duration-300 ' + (i === idx ? 'bg-indigo-500 w-5' : 'bg-slate-300');
+  });
+}
+
+function mobileStoryNav(dir) {
+  mobileIdx = (mobileIdx + dir + mobileSlides.length) % mobileSlides.length;
+  updateMobileStory(mobileIdx);
+}
+
+buildMobileDots();
+
+// Touch swipe support
+let touchStartX = 0;
+const mobileStoryInner = document.getElementById('mobileStoryInner');
+mobileStoryInner.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+mobileStoryInner.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 40) mobileStoryNav(dx < 0 ? 1 : -1);
+});
+
+
+// ── DESKTOP STORY GRID ─────────────────────────────────
+const storyData = [
+  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas — their stillness mirrors clarity.' },
+  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every bike tells a story of freedom.' },
+  { emoji:'✍️', title:'Writing Corner',        color:'linear-gradient(160deg,#052e16,#064e3b)', sub:'Words from the heart hold a different power.' },
+  { emoji:'💻', title:'Digital Skills',        color:'linear-gradient(160deg,#1e1b4b,#312e81)', sub:'Building digital fluency one skill at a time.' },
+  { emoji:'🌄', title:'Sunrise Moments',       color:'linear-gradient(160deg,#450a0a,#7f1d1d)', sub:"The sun doesn't ask if it's ready — it rises." },
+  { emoji:'📖', title:'Study Sessions',        color:'linear-gradient(160deg,#1c1917,#3d2c2c)', sub:'Late nights, highlighters, and ambition.' },
+  { emoji:'🌿', title:'Green Nepal',           color:'linear-gradient(160deg,#022c22,#065f46)', sub:'Lush hills and monsoon rains of home.' },
+  { emoji:'🎵', title:'Music & Mood',          color:'linear-gradient(160deg,#2d1657,#4a1d96)', sub:'A melody for every feeling, every season.' },
+];
+
+let dsOffset = 0;
+const DS_VISIBLE = 5;
+
+function renderDesktopStories() {
+  const grid = document.getElementById('dsGrid');
+  grid.innerHTML = '';
+  for (let i = 0; i < DS_VISIBLE; i++) {
+    const idx = (dsOffset + i) % storyData.length;
+    const s = storyData[idx];
+    const card = document.createElement('div');
+    card.className = 'desktop-story-card flex flex-col items-center justify-center p-4 text-center';
+    card.style.background = s.color;
+    card.innerHTML = `
+      <div class="text-4xl mb-3">${s.emoji}</div>
+      <h4 class="font-display font-bold text-white text-sm leading-tight mb-1.5">${s.title}</h4>
+      <p class="text-white/60 text-[11px] leading-snug">${s.sub}</p>
+      <div class="absolute top-3 left-3 right-3 flex items-center gap-1.5">
+        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">B</div>
+        <span class="text-white/80 text-[10px] font-semibold truncate">Bikash</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  }
+  document.getElementById('dsLeft').disabled  = false;
+  document.getElementById('dsRight').disabled = false;
+}
+
+function desktopScroll(dir) {
+  dsOffset = (dsOffset + dir + storyData.length) % storyData.length;
+  renderDesktopStories();
+}
+
+renderDesktopStories();
+
+
+// ── POEMS (static, read-only display) ──────────────────
+// Each poem has: title, an optional subtitle/eyebrow tag, and a body.
+// To add more poems, just add another object to this array — no UI editing needed.
+const poemsData = [
+  {
+    title: 'मेरो देशको माया',
+    subtitle: 'My Love for My Country',
+    body: `मेरो देशको माटोमा, उगेको छु म फूल जसरी,
+हरियाली पहाड र हिमालको काखमा, बढेको छु म नदी जसरी।
+
+यो भूमिको हरेक धुलोमा, इतिहास लुकेको छ,
+यो आकाशको हरेक ताराले, सपना बुनेको छ।
+
+म जन्मेको हुँ यहीँ, र यहीँ नै बाँच्नेछु,
+मेरो देशको लागि, सधैं उभिनेछु।`
+  },
+  {
+    title: 'पहाडको छायाँमा',
+    subtitle: 'In the Shadow of the Hill',
+    body: `पहाडको छायाँमा बसेर, सोचेको छु धेरै कुरा,
+जीवन भनेको पनि एक यात्रा हो, चढाइ र ओराइको चक्र।
+
+हिउँले छोपिएको टाकुरामा, घाम झुल्किन्छ बिहानै,
+त्यसरी नै हाम्रो जीवनमा पनि, आशा कहिल्यै नथाक्ने।
+
+जति अग्लो पहाड भए पनि, बाटो त छ नै कतैबाट,
+म पनि उक्लिरहनेछु, यो जीवनको यात्रा सम्पूर्ण नभएसम्म।`
+  },
+  {
+    title: 'सूर्योदयको प्रतिक्षा',
+    subtitle: 'Waiting for the Sunrise',
+    body: `रातको अन्धकार जति गहिरो भए पनि,
+उषाको त्यो पहिलो किरण, सधैं आइपुग्छ।
+
+प्रतिक्षा गर्नु पनि एक कला हो,
+जसले धैर्यता र विश्वास सिकाउँछ।
+
+म पनि उभिएको छु, क्षितिजको छेउमा,
+पर्खिरहेको छु, मेरो सूर्योदयको लागि।`
+  }
+];
+
+const poemGrid = document.getElementById('poemGrid');
+
+function renderPoemCards() {
+  poemGrid.innerHTML = '';
+  poemsData.forEach((poem, i) => {
+    const card = document.createElement('div');
+    card.className = 'poem-card glass-card-sm p-5 flex flex-col gap-2';
+    card.addEventListener('click', () => openPoemReader(i));
+    card.innerHTML = `
+      <div class="flex items-start justify-between gap-2">
+        <h3 class="font-display font-bold text-base text-slate-800 leading-snug">${escapeHtml(poem.title)}</h3>
+        <i class="fa-solid fa-feather text-indigo-300 flex-shrink-0 mt-1 text-sm"></i>
+      </div>
+      <p class="text-xs text-indigo-400 font-semibold uppercase tracking-wide">${escapeHtml(poem.subtitle || '')}</p>
+      <p class="poem-body-preview text-slate-500 text-sm leading-relaxed">${escapeHtml(poem.body)}</p>
+      <span class="inline-flex items-center gap-1.5 text-indigo-500 font-semibold text-xs mt-1">
+        Read full poem <i class="fa-solid fa-arrow-right text-[10px]"></i>
+      </span>
+    `;
+    poemGrid.appendChild(card);
+  });
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function openPoemReader(i) {
+  const poem = poemsData[i];
+  if (!poem) return;
+  document.getElementById('poemFullEyebrow').textContent = poem.subtitle || 'Poem';
+  document.getElementById('poemFullTitle').textContent = poem.title;
+  document.getElementById('poemFullBody').textContent = poem.body;
+  openModal('poem-reader');
+}
+
+function closePoemReader() {
+  closeModal('poem-reader');
+}
+
+renderPoemCards();
+
+
+// ── FLOATING NAV ACTIVE STATE ──────────────────────────
+const navLinks = document.querySelectorAll('#floatingNav a');
+const sections = document.querySelectorAll('section[id]');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+sections.forEach(s => io.observe(s));
+</script>
 </body>
 </html>
