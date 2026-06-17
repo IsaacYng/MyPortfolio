@@ -6,7 +6,6 @@
 <title>My Portfolio</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <script>
@@ -56,7 +55,7 @@
   /* Floating Nav */
   #floatingNav {
     position: fixed;
-    bottom: 1.5rem;
+    bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -66,19 +65,33 @@
     border: 1px solid rgba(255,255,255,0.95);
     box-shadow: 0 8px 32px rgba(99,102,241,0.15);
     border-radius: 9999px;
-    padding: 0.6rem 1.4rem;
+    padding: 0.55rem 0.9rem;
     display: flex;
-    gap: 1.5rem;
+    gap: 0.9rem;
     align-items: center;
+    max-width: calc(100vw - 1.5rem);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  #floatingNav::-webkit-scrollbar { display: none; }
   #floatingNav a {
     color: #64748b;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    flex-shrink: 0;
     transition: color 0.2s, transform 0.2s;
   }
   #floatingNav a:hover, #floatingNav a.active {
     color: #6366f1;
     transform: translateY(-2px);
+  }
+  @media (min-width: 480px) {
+    #floatingNav {
+      bottom: 1.5rem;
+      padding: 0.6rem 1.4rem;
+      gap: 1.5rem;
+    }
+    #floatingNav a { font-size: 1.1rem; }
   }
 
   /* Avatar ring */
@@ -281,12 +294,18 @@
   <div class="absolute -top-24 -left-24 w-96 h-96 bg-teal-400 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
   <div class="absolute bottom-0 right-0 w-80 h-80 bg-indigo-400 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
 
-  <div class="glass-card p-8 md:p-12 max-w-4xl w-full mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
+  <div class="glass-card p-5 sm:p-8 md:p-12 max-w-4xl w-full mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 relative z-10">
     <!-- Avatar -->
     <div class="flex-shrink-0 text-center">
       <div class="avatar-ring">
         <div class="w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-teal-100 to-indigo-100 flex items-center justify-center overflow-hidden">
-         
+          <!--
+            HOW TO ADD YOUR PHOTO:
+            Replace the src below with your image URL (e.g. a link to a photo
+            hosted on your own site, like https://yonghangishak.com.np/images/me.jpg).
+            If you don't have one yet, keep the placeholder — it will just show
+            a colored circle instead of breaking the layout.
+          -->
           <img
             src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg"
             alt="Ishak Yonghang"
@@ -429,9 +448,9 @@
         </div>
       </div>
       <div class="flex flex-wrap gap-1.5 mt-1">
-        <span class="skill-pill">Sociology</span>
-        <span class="skill-pill">Rural Development</span>
-        <span class="skill-pill">Nepali</span>
+        <span class="skill-pill">Management</span>
+        <span class="skill-pill">Accounts</span>
+        <span class="skill-pill">Economics</span>
       </div>
     </div>
 
@@ -467,8 +486,8 @@
       </div>
       <div class="flex flex-wrap gap-1.5 mt-1">
         <span class="skill-pill">Math</span>
-        <span class="skill-pill">Economics</span>
-        <span class="skill-pill">Education</span>
+        <span class="skill-pill">Science</span>
+        <span class="skill-pill">Social</span>
       </div>
     </div>
   </div>
@@ -503,8 +522,8 @@
       </div>
       <p class="text-slate-500 text-sm">MS Office, typing, internet, data entry, spreadsheet management & office automation tools.</p>
       <div class="flex flex-wrap gap-1.5">
-        <span class="skill-pill">Hardware</span>
-        <span class="skill-pill">Fundamental</span>
+        <span class="skill-pill">MS Word</span>
+        <span class="skill-pill">MS Excel</span>
         <span class="skill-pill">Internet</span>
       </div>
     </div>
@@ -532,8 +551,8 @@
       <p class="text-slate-500 text-sm">Advanced revision of computer fundamentals, typing speed enhancement, accounting software basics.</p>
       <div class="flex flex-wrap gap-1.5">
         <span class="skill-pill">Typing Speed</span>
-        <span class="skill-pill">MS Word</span>
-        <span class="skill-pill">MS Excel</span>
+        <span class="skill-pill">Tally</span>
+        <span class="skill-pill">Networking</span>
       </div>
     </div>
   </div>
@@ -677,7 +696,7 @@
       </div>
       <h3 class="font-bold text-lg text-slate-800">Poem Publications</h3>
       <p class="text-slate-500 text-sm leading-relaxed">A curated collection of published Nepali poems exploring themes of nature, identity, and youth. Available on local literary platforms.</p>
-      <a href="https://poem.yonghangishak.com.np/" target="_blank" class="inline-flex items-center gap-1.5 text-indigo-500 font-semibold text-sm hover:underline mt-auto">
+      <a href="#poems" class="inline-flex items-center gap-1.5 text-indigo-500 font-semibold text-sm hover:underline mt-auto">
         Read Poems <i class="fa-solid fa-arrow-right text-xs"></i>
       </a>
     </div>
@@ -687,7 +706,7 @@
       </div>
       <h3 class="font-bold text-lg text-slate-800">Finance Tools</h3>
       <p class="text-slate-500 text-sm leading-relaxed">EMI calculators, loan comparison sheets, and insurance planning templates developed during my time at the Bajaj Showroom.</p>
-      <a href="https://finance.yonghangishak.com.np/" target="_blank" class="inline-flex items-center gap-1.5 text-teal-500 font-semibold text-sm hover:underline mt-auto">
+      <a href="#experience" class="inline-flex items-center gap-1.5 text-teal-500 font-semibold text-sm hover:underline mt-auto">
         View Experience <i class="fa-solid fa-arrow-right text-xs"></i>
       </a>
     </div>
@@ -733,7 +752,7 @@
   </div>
 
   <!-- Footer -->
-  <p class="text-center text-slate-400 text-xs mt-8">© 2026 Ishak Yonghang (Limbu) · Made with <span class="text-red-400">♥</span> in Nepal</p>
+  <p class="text-center text-slate-400 text-xs mt-8">© 2025 Ishak Yonghang (Limbu) · Made with <span class="text-red-400">♥</span> in Nepal</p>
 </section>
 
 <!-- ===================== MODALS ===================== -->
@@ -745,7 +764,12 @@
     </button>
     <p class="section-eyebrow mb-1">Certificate Preview</p>
     <h3 class="font-display font-bold text-xl text-slate-800 mb-4">+2 Level Certificate</h3>
-    
+    <!--
+      HOW TO ADD YOUR CERTIFICATE IMAGE:
+      Replace the src below with a direct link to your scanned certificate
+      image (jpg/png), e.g. https://yonghangishak.com.np/certs/plus2.jpg
+      If the link is broken or missing, the placeholder icon box shows instead.
+    -->
     <div class="rounded-2xl overflow-hidden border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 h-64 flex flex-col items-center justify-center gap-3">
       <img
         src="https://yonghangishak.com.np/certs/plus2.jpg"
@@ -993,8 +1017,8 @@ mobileStoryInner.addEventListener('touchend', e => {
 // story object below, e.g. img: 'https://yonghangishak.com.np/photos/hill.jpg'
 // If "img" is missing or the link breaks, the gradient + emoji card shows instead.
 const storyData = [
-  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas — their stillness mirrors clarity.', img:'' },
-  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every bike tells a story of freedom.', img:'ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg' },
+  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas — their stillness mirrors clarity.', img:'ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg' },
+  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every bike tells a story of freedom.', img:'' },
   { emoji:'✍️', title:'Writing Corner',        color:'linear-gradient(160deg,#052e16,#064e3b)', sub:'Words from the heart hold a different power.', img:'' },
   { emoji:'💻', title:'Digital Skills',        color:'linear-gradient(160deg,#1e1b4b,#312e81)', sub:'Building digital fluency one skill at a time.', img:'' },
   { emoji:'🌄', title:'Sunrise Moments',       color:'linear-gradient(160deg,#450a0a,#7f1d1d)', sub:"The sun doesn't ask if it's ready — it rises.", img:'' },
