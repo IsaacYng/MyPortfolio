@@ -299,15 +299,9 @@
     <div class="flex-shrink-0 text-center">
       <div class="avatar-ring">
         <div class="w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-teal-100 to-indigo-100 flex items-center justify-center overflow-hidden">
-          <!--
-            HOW TO ADD YOUR PHOTO:
-            Replace the src below with your image URL (e.g. a link to a photo
-            hosted on your own site, like https://yonghangishak.com.np/images/me.jpg).
-            If you don't have one yet, keep the placeholder — it will just show
-            a colored circle instead of breaking the layout.
-          -->
+          
           <img
-            src="https://yonghangishak.com.np/images/profile.jpg"
+            src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg"
             alt="Ishak Yonghang"
             class="w-full h-full object-cover"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -603,42 +597,9 @@
   <!-- MOBILE: single story viewer -->
   <div class="md:hidden" id="mobileStoryViewer">
     <div class="relative rounded-3xl overflow-hidden aspect-[9/16] max-w-xs mx-auto shadow-2xl" id="mobileStoryInner">
-      <!-- Slides -->
-      <div class="story-slide active absolute inset-0" style="background:linear-gradient(160deg,#0f172a,#1e293b)">
-        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
-          <div class="text-5xl mb-4">🏔️</div>
-          <h3 class="font-display text-2xl font-bold mb-2">Mountains of Nepal</h3>
-          <p class="text-sm text-white/70">The Himalayas have always inspired me — their stillness mirrors the clarity I seek in life.</p>
-        </div>
-      </div>
-      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#1a1040,#2e1065)">
-        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
-          <div class="text-5xl mb-4">🏍️</div>
-          <h3 class="font-display text-2xl font-bold mb-2">Bajaj Rides</h3>
-          <p class="text-sm text-white/70">Every motorcycle tells a story of freedom. At the showroom, I help people write theirs.</p>
-        </div>
-      </div>
-      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#052e16,#064e3b)">
-        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
-          <div class="text-5xl mb-4">✍️</div>
-          <h3 class="font-display text-2xl font-bold mb-2">Writing Corner</h3>
-          <p class="text-sm text-white/70">Words that flow from the heart hold a different kind of power. Poetry is my mirror.</p>
-        </div>
-      </div>
-      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#1e1b4b,#312e81)">
-        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
-          <div class="text-5xl mb-4">💻</div>
-          <h3 class="font-display text-2xl font-bold mb-2">Digital Skills</h3>
-          <p class="text-sm text-white/70">From data entry to spreadsheets — building digital fluency one skill at a time.</p>
-        </div>
-      </div>
-      <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#450a0a,#7f1d1d)">
-        <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
-          <div class="text-5xl mb-4">🌄</div>
-          <h3 class="font-display text-2xl font-bold mb-2">Sunrise Moments</h3>
-          <p class="text-sm text-white/70">Every new day is a fresh start. The sun doesn't ask if it's ready — it simply rises.</p>
-        </div>
-      </div>
+      <!-- Slides are built by JS from the same storyData array used by the
+           desktop grid below, so an image URL you add works on BOTH views. -->
+      <div id="mobileSlidesContainer"></div>
 
       <!-- Story progress bars + avatar header are injected by JS once per render,
            sitting above all slides (not tied to a single slide) -->
@@ -974,9 +935,28 @@ document.addEventListener('keydown', e => {
 });
 
 
+// ── STORY DATA (shared by BOTH mobile viewer and desktop grid) ─────────
+// HOW TO ADD REAL PHOTOS: add an "img" field with a direct image URL to any
+// story object below, e.g. img: 'https://yonghangishak.com.np/photos/hill.jpg'
+// This single array feeds both views, so one URL works everywhere — phone
+// and PC. If "img" is missing or the link breaks, the gradient + emoji
+// card shows instead (no broken image, no blank space).
+const storyData = [
+  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas have always inspired me — their stillness mirrors the clarity I seek in life.', img:'ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg' },
+  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every motorcycle tells a story of freedom. At the showroom, I help people write theirs.', img:'' },
+  { emoji:'✍️', title:'Writing Corner',        color:'linear-gradient(160deg,#052e16,#064e3b)', sub:'Words that flow from the heart hold a different kind of power. Poetry is my mirror.', img:'' },
+  { emoji:'💻', title:'Digital Skills',        color:'linear-gradient(160deg,#1e1b4b,#312e81)', sub:'From data entry to spreadsheets — building digital fluency one skill at a time.', img:'' },
+  { emoji:'🌄', title:'Sunrise Moments',       color:'linear-gradient(160deg,#450a0a,#7f1d1d)', sub:"Every new day is a fresh start. The sun doesn't ask if it's ready — it simply rises.", img:'' },
+  { emoji:'📖', title:'Study Sessions',        color:'linear-gradient(160deg,#1c1917,#3d2c2c)', sub:'Late nights, highlighters, and ambition.', img:'' },
+  { emoji:'🌿', title:'Green Nepal',           color:'linear-gradient(160deg,#022c22,#065f46)', sub:'Lush hills and monsoon rains of home.', img:'' },
+  { emoji:'🎵', title:'Music & Mood',          color:'linear-gradient(160deg,#2d1657,#4a1d96)', sub:'A melody for every feeling, every season.', img:'' },
+];
+
+
 // ── MOBILE STORY VIEWER ────────────────────────────────
+const mobileSlidesContainer = document.getElementById('mobileSlidesContainer');
+let mobileSlides = []; // populated by buildMobileSlides(), re-queried after each build
 let mobileIdx = 0;
-const mobileSlides = document.querySelectorAll('#mobileStoryViewer .story-slide');
 const mobileDotsEl = document.getElementById('mobileDots');
 const mobileProgressEl = document.getElementById('mobileProgress');
 
@@ -985,6 +965,35 @@ let storyTimerId = null;       // requestAnimationFrame handle
 let storyStartTime = null;     // timestamp when current slide started filling
 let storyElapsedAtPause = 0;   // how much time had already elapsed when paused
 let storyPaused = false;
+
+// Build the mobile slides from storyData (same source as desktop). Each
+// slide shows the real photo (s.img) if present; otherwise falls back to
+// the gradient + emoji card, exactly like the desktop grid does.
+function buildMobileSlides() {
+  mobileSlidesContainer.innerHTML = '';
+  storyData.forEach((s, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'story-slide absolute inset-0' + (i === 0 ? ' active' : '');
+    slide.style.background = s.color;
+
+    const photoHtml = s.img
+      ? `<img src="${s.img}" alt="${escapeHtml(s.title)}" class="absolute inset-0 w-full h-full object-cover"
+            onerror="this.remove();" />
+         <div class="absolute inset-0 bg-black/35"></div>`
+      : '';
+
+    slide.innerHTML = `
+      ${photoHtml}
+      <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+        <div class="relative z-[1] text-5xl mb-4">${s.emoji}</div>
+        <h3 class="relative z-[1] font-display text-2xl font-bold mb-2">${escapeHtml(s.title)}</h3>
+        <p class="relative z-[1] text-sm text-white/70">${escapeHtml(s.sub)}</p>
+      </div>
+    `;
+    mobileSlidesContainer.appendChild(slide);
+  });
+  mobileSlides = document.querySelectorAll('#mobileStoryViewer .story-slide');
+}
 
 function buildMobileDots() {
   mobileDotsEl.innerHTML = '';
@@ -1073,6 +1082,7 @@ function mobileStoryNav(dir) {
   startStoryTimer();
 }
 
+buildMobileSlides();
 buildMobileDots();
 buildMobileProgress();
 updateMobileStory(0, { skipProgressReset: true });
@@ -1105,19 +1115,7 @@ mobileStoryInner.addEventListener('touchend', e => {
 
 
 // ── DESKTOP STORY GRID ─────────────────────────────────
-// HOW TO ADD REAL PHOTOS: add an "img" field with a direct image URL to any
-// story object below, e.g. img: 'https://yonghangishak.com.np/photos/hill.jpg'
-// If "img" is missing or the link breaks, the gradient + emoji card shows instead.
-const storyData = [
-  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas — their stillness mirrors clarity.', img:'ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg' },
-  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every bike tells a story of freedom.', img:'' },
-  { emoji:'✍️', title:'Writing Corner',        color:'linear-gradient(160deg,#052e16,#064e3b)', sub:'Words from the heart hold a different power.', img:'' },
-  { emoji:'💻', title:'Digital Skills',        color:'linear-gradient(160deg,#1e1b4b,#312e81)', sub:'Building digital fluency one skill at a time.', img:'' },
-  { emoji:'🌄', title:'Sunrise Moments',       color:'linear-gradient(160deg,#450a0a,#7f1d1d)', sub:"The sun doesn't ask if it's ready — it rises.", img:'' },
-  { emoji:'📖', title:'Study Sessions',        color:'linear-gradient(160deg,#1c1917,#3d2c2c)', sub:'Late nights, highlighters, and ambition.', img:'' },
-  { emoji:'🌿', title:'Green Nepal',           color:'linear-gradient(160deg,#022c22,#065f46)', sub:'Lush hills and monsoon rains of home.', img:'' },
-  { emoji:'🎵', title:'Music & Mood',          color:'linear-gradient(160deg,#2d1657,#4a1d96)', sub:'A melody for every feeling, every season.', img:'' },
-];
+// Uses the same storyData array defined above — one source, both views.
 
 let dsOffset = 0;
 const DS_VISIBLE = 5;
