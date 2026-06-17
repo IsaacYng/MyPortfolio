@@ -6,7 +6,6 @@
 <title>My Portfolio</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <script>
@@ -286,8 +285,14 @@
     <div class="flex-shrink-0 text-center">
       <div class="avatar-ring">
         <div class="w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-teal-100 to-indigo-100 flex items-center justify-center overflow-hidden">
-          <!-- Placeholder SVG avatar -->
-          <svg viewBox="0 0 200 200" xmlns="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" class="w-full h-full">
+         
+          <img
+            src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg"
+            alt="Ishak Yonghang"
+            class="w-full h-full object-cover"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" style="display:none">
             <defs>
               <linearGradient id="avGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#14B8A6"/>
@@ -314,7 +319,7 @@
         <span class="grad-text">Ishak</span><br/>Yonghang (Limbu)
       </h1>
       <p class="text-slate-500 text-base md:text-lg mb-5 max-w-md">
-        Aspiring professional with a passion for customer relations, financial planning & digital tools. Based in Nepal 🇳🇵
+        Aspiring professional with a passion for customer relations, financial planning & digital tools. From Hilihang‑5, now based in Phidim, Nepal 🇳🇵
       </p>
       <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
         <span class="skill-pill"><i class="fa-solid fa-motorcycle mr-1 text-teal-500"></i>Sales Consultant</span>
@@ -341,7 +346,7 @@
     <div class="glass-card p-6 flex flex-col gap-3 md:col-span-2">
       <h3 class="font-bold text-xl text-slate-800 flex items-center gap-2"><i class="fa-solid fa-id-card text-indigo-400"></i> My Story</h3>
       <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-        I'm Ishak Yonghang, born on <strong>October 26, 2005</strong> in Nepal. My journey has taken me from completing my schooling with strong academic results to gaining hands-on experience as a Sales Consultant at a reputed Bajaj Showroom. I believe in continuous learning — having completed computer training courses to stay sharp in today's digital world. Beyond professional life, I find joy in writing poetry, which keeps my creative and emotional intelligence alive.
+        I'm Ishak Yonghang (Limbu), born on <strong>October 26, 2005</strong> in Nepal. I'm a Christian, originally from Hilihang‑5, and currently based in Phidim town. My journey has taken me from completing my schooling with strong academic results to gaining hands-on experience as a Sales Consultant at a reputed Bajaj Showroom. I believe in continuous learning — having completed computer training courses to stay sharp in today's digital world. Beyond professional life, I find joy in writing poetry, which keeps my creative and emotional intelligence alive.
       </p>
       <div class="grid grid-cols-2 gap-3 mt-2">
         <div class="glass-card-sm p-3 text-center">
@@ -357,8 +362,8 @@
           <p class="text-xs text-slate-500 mt-0.5">Certifications</p>
         </div>
         <div class="glass-card-sm p-3 text-center">
-          <p class="font-display text-2xl font-bold grad-text">NP</p>
-          <p class="text-xs text-slate-500 mt-0.5">Nepal 🇳🇵</p>
+          <p class="font-display text-xl font-bold grad-text">Hilihang‑5</p>
+          <p class="text-xs text-slate-500 mt-0.5">Home Village</p>
         </div>
       </div>
     </div>
@@ -373,6 +378,8 @@
         <li class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-teal-400"></i> Creative Writing / Poetry</li>
       </ul>
       <div class="mt-auto">
+        <p class="text-xs text-slate-400 font-medium mb-1.5">Currently Living In</p>
+        <p class="text-sm font-semibold text-slate-700 mb-3"><i class="fa-solid fa-location-dot text-teal-500 mr-1.5"></i>Phidim, Panchthar</p>
         <p class="text-xs text-slate-400 font-medium mb-1.5">Languages</p>
         <div class="flex flex-wrap gap-1.5">
           <span class="skill-pill">Nepali</span>
@@ -585,8 +592,8 @@
         </div>
         <div class="absolute top-0 left-0 right-0 p-4 flex gap-1.5" id="mobileProgress"></div>
         <div class="absolute top-6 left-4 flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center text-white text-xs font-bold">B</div>
-          <span class="text-white text-sm font-semibold">Bikash</span>
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center text-white text-xs font-bold">I</div>
+          <span class="text-white text-sm font-semibold">Ishak</span>
         </div>
       </div>
       <div class="story-slide absolute inset-0" style="background:linear-gradient(160deg,#1a1040,#2e1065)">
@@ -689,7 +696,7 @@
   <div class="glass-card p-6 md:p-8">
     <h3 class="font-bold text-lg text-slate-800 text-center mb-5">Reach Out</h3>
     <div class="flex flex-wrap justify-center gap-3">
-      <a href="mailto:yonghngissac@gmail.com" class="contact-icon-btn" title="Gmail">
+      <a href="mailto:your-email@gmail.com" class="contact-icon-btn" title="Gmail">
         <svg viewBox="0 0 48 48" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" rx="12" fill="#EA4335"/>
           <path d="M10 14h28v20H10V14z" fill="white"/>
@@ -706,7 +713,7 @@
         </svg>
         <span class="text-xs font-semibold text-slate-600">Messenger</span>
       </a>
-      <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="contact-icon-btn" title="Facebook">
+      <a href="https://facebook.com/yonghangisaac" target="_blank" class="contact-icon-btn" title="Facebook">
         <svg viewBox="0 0 48 48" class="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="48" rx="12" fill="#1877F2"/>
           <path d="M32 24h-5v14h-6V24h-3v-5h3v-3c0-4 2-6 6-6h4v5h-2c-1.5 0-2 .5-2 2v2h4l-1 5z" fill="white"/>
@@ -725,7 +732,7 @@
   </div>
 
   <!-- Footer -->
-  <p class="text-center text-slate-400 text-xs mt-8">© 2025 Bikash Thapa Magar · Made with <span class="text-red-400">♥</span> in Nepal</p>
+  <p class="text-center text-slate-400 text-xs mt-8">© 2025 Ishak Yonghang (Limbu) · Made with <span class="text-red-400">♥</span> in Nepal</p>
 </section>
 
 <!-- ===================== MODALS ===================== -->
@@ -737,10 +744,24 @@
     </button>
     <p class="section-eyebrow mb-1">Certificate Preview</p>
     <h3 class="font-display font-bold text-xl text-slate-800 mb-4">+2 Level Certificate</h3>
+    <!--
+      HOW TO ADD YOUR CERTIFICATE IMAGE:
+      Replace the src below with a direct link to your scanned certificate
+      image (jpg/png), e.g. https://yonghangishak.com.np/certs/plus2.jpg
+      If the link is broken or missing, the placeholder icon box shows instead.
+    -->
     <div class="rounded-2xl overflow-hidden border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 h-64 flex flex-col items-center justify-center gap-3">
-      <i class="fa-solid fa-certificate text-5xl text-indigo-400 opacity-60"></i>
-      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
-      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      <img
+        src="https://yonghangishak.com.np/certs/plus2.jpg"
+        alt="+2 Level Certificate"
+        class="w-full h-full object-contain"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="flex-col items-center justify-center gap-3" style="display:none">
+        <i class="fa-solid fa-certificate text-5xl text-indigo-400 opacity-60"></i>
+        <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+        <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      </div>
     </div>
     <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
       <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Board</p><p class="font-bold text-slate-700">NEB, Nepal</p></div>
@@ -760,10 +781,19 @@
     </button>
     <p class="section-eyebrow mb-1">Certificate Preview</p>
     <h3 class="font-display font-bold text-xl text-slate-800 mb-4">SEE Certificate</h3>
+    <!-- Replace src with your SEE certificate image URL -->
     <div class="rounded-2xl overflow-hidden border-2 border-teal-100 bg-gradient-to-br from-teal-50 to-cyan-50 h-64 flex flex-col items-center justify-center gap-3">
-      <i class="fa-solid fa-certificate text-5xl text-teal-400 opacity-60"></i>
-      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
-      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      <img
+        src="https://yonghangishak.com.np/certs/see.jpg"
+        alt="SEE Certificate"
+        class="w-full h-full object-contain"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="flex-col items-center justify-center gap-3" style="display:none">
+        <i class="fa-solid fa-certificate text-5xl text-teal-400 opacity-60"></i>
+        <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+        <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      </div>
     </div>
     <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
       <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Board</p><p class="font-bold text-slate-700">CDC, Nepal</p></div>
@@ -783,10 +813,19 @@
     </button>
     <p class="section-eyebrow mb-1">Certificate Preview</p>
     <h3 class="font-display font-bold text-xl text-slate-800 mb-4">Computer Operator Course</h3>
+    <!-- Replace src with your Computer Operator Course certificate image URL -->
     <div class="rounded-2xl overflow-hidden border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-teal-50 h-64 flex flex-col items-center justify-center gap-3">
-      <i class="fa-solid fa-laptop-code text-5xl text-indigo-400 opacity-60"></i>
-      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
-      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      <img
+        src="https://yonghangishak.com.np/certs/computer-operator.jpg"
+        alt="Computer Operator Course Certificate"
+        class="w-full h-full object-contain"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="flex-col items-center justify-center gap-3" style="display:none">
+        <i class="fa-solid fa-laptop-code text-5xl text-indigo-400 opacity-60"></i>
+        <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+        <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      </div>
     </div>
     <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
       <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Completed</p><p class="font-bold text-slate-700">2080 BS</p></div>
@@ -806,10 +845,19 @@
     </button>
     <p class="section-eyebrow mb-1">Certificate Preview</p>
     <h3 class="font-display font-bold text-xl text-slate-800 mb-4">Basic Revision Course</h3>
+    <!-- Replace src with your Basic Revision Course certificate image URL -->
     <div class="rounded-2xl overflow-hidden border-2 border-purple-100 bg-gradient-to-br from-purple-50 to-pink-50 h-64 flex flex-col items-center justify-center gap-3">
-      <i class="fa-solid fa-laptop-code text-5xl text-purple-400 opacity-60"></i>
-      <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
-      <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      <img
+        src="https://yonghangishak.com.np/certs/basic-revision.jpg"
+        alt="Basic Revision Course Certificate"
+        class="w-full h-full object-contain"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />
+      <div class="flex-col items-center justify-center gap-3" style="display:none">
+        <i class="fa-solid fa-laptop-code text-5xl text-purple-400 opacity-60"></i>
+        <p class="text-slate-500 text-sm font-medium">Certificate Image Placeholder</p>
+        <p class="text-slate-400 text-xs">Replace with your actual certificate image</p>
+      </div>
     </div>
     <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
       <div class="glass-card-sm p-3"><p class="text-xs text-slate-400">Completed</p><p class="font-bold text-slate-700">2081 BS</p></div>
@@ -945,15 +993,18 @@ mobileStoryInner.addEventListener('touchend', e => {
 
 
 // ── DESKTOP STORY GRID ─────────────────────────────────
+// HOW TO ADD REAL PHOTOS: add an "img" field with a direct image URL to any
+// story object below, e.g. img: 'https://yonghangishak.com.np/photos/hill.jpg'
+// If "img" is missing or the link breaks, the gradient + emoji card shows instead.
 const storyData = [
-  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas — their stillness mirrors clarity.' },
-  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every bike tells a story of freedom.' },
-  { emoji:'✍️', title:'Writing Corner',        color:'linear-gradient(160deg,#052e16,#064e3b)', sub:'Words from the heart hold a different power.' },
-  { emoji:'💻', title:'Digital Skills',        color:'linear-gradient(160deg,#1e1b4b,#312e81)', sub:'Building digital fluency one skill at a time.' },
-  { emoji:'🌄', title:'Sunrise Moments',       color:'linear-gradient(160deg,#450a0a,#7f1d1d)', sub:"The sun doesn't ask if it's ready — it rises." },
-  { emoji:'📖', title:'Study Sessions',        color:'linear-gradient(160deg,#1c1917,#3d2c2c)', sub:'Late nights, highlighters, and ambition.' },
-  { emoji:'🌿', title:'Green Nepal',           color:'linear-gradient(160deg,#022c22,#065f46)', sub:'Lush hills and monsoon rains of home.' },
-  { emoji:'🎵', title:'Music & Mood',          color:'linear-gradient(160deg,#2d1657,#4a1d96)', sub:'A melody for every feeling, every season.' },
+  { emoji:'🏔️', title:'Mountains of Nepal',   color:'linear-gradient(160deg,#0f172a,#1e293b)', sub:'The Himalayas — their stillness mirrors clarity.', img:'' },
+  { emoji:'🏍️', title:'Bajaj Rides',           color:'linear-gradient(160deg,#1a1040,#2e1065)', sub:'Every bike tells a story of freedom.', img:'' },
+  { emoji:'✍️', title:'Writing Corner',        color:'linear-gradient(160deg,#052e16,#064e3b)', sub:'Words from the heart hold a different power.', img:'' },
+  { emoji:'💻', title:'Digital Skills',        color:'linear-gradient(160deg,#1e1b4b,#312e81)', sub:'Building digital fluency one skill at a time.', img:'' },
+  { emoji:'🌄', title:'Sunrise Moments',       color:'linear-gradient(160deg,#450a0a,#7f1d1d)', sub:"The sun doesn't ask if it's ready — it rises.", img:'' },
+  { emoji:'📖', title:'Study Sessions',        color:'linear-gradient(160deg,#1c1917,#3d2c2c)', sub:'Late nights, highlighters, and ambition.', img:'' },
+  { emoji:'🌿', title:'Green Nepal',           color:'linear-gradient(160deg,#022c22,#065f46)', sub:'Lush hills and monsoon rains of home.', img:'' },
+  { emoji:'🎵', title:'Music & Mood',          color:'linear-gradient(160deg,#2d1657,#4a1d96)', sub:'A melody for every feeling, every season.', img:'' },
 ];
 
 let dsOffset = 0;
@@ -968,13 +1019,21 @@ function renderDesktopStories() {
     const card = document.createElement('div');
     card.className = 'desktop-story-card flex flex-col items-center justify-center p-4 text-center';
     card.style.background = s.color;
+
+    const photoHtml = s.img
+      ? `<img src="${s.img}" alt="${escapeHtml(s.title)}" class="absolute inset-0 w-full h-full object-cover"
+            onerror="this.remove();" />
+         <div class="absolute inset-0 bg-black/35"></div>`
+      : '';
+
     card.innerHTML = `
-      <div class="text-4xl mb-3">${s.emoji}</div>
-      <h4 class="font-display font-bold text-white text-sm leading-tight mb-1.5">${s.title}</h4>
-      <p class="text-white/60 text-[11px] leading-snug">${s.sub}</p>
-      <div class="absolute top-3 left-3 right-3 flex items-center gap-1.5">
-        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">B</div>
-        <span class="text-white/80 text-[10px] font-semibold truncate">Bikash</span>
+      ${photoHtml}
+      <div class="relative z-[1] text-4xl mb-3">${s.emoji}</div>
+      <h4 class="relative z-[1] font-display font-bold text-white text-sm leading-tight mb-1.5">${s.title}</h4>
+      <p class="relative z-[1] text-white/60 text-[11px] leading-snug">${s.sub}</p>
+      <div class="absolute top-3 left-3 right-3 flex items-center gap-1.5 z-[1]">
+        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-teal-400 to-indigo-400 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">I</div>
+        <span class="text-white/80 text-[10px] font-semibold truncate">Ishak</span>
       </div>
     `;
     grid.appendChild(card);
