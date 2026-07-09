@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en" class="is-loading">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Ishak Yonghang — Aspiring Developer, Poet, and Sales Consultant from Phidim, Nepal."/>
+<meta name="author" content="Ishak Yonghang"/>
+<meta property="og:title" content="Ishak Yonghang | Portfolio"/>
+<meta property="og:url" content="https://yonghangishak.com.np"/>
+<title>Ishak Yonghang | Portfolio</title>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --bg:       #FAF8F5;
+  --bg2:      #FFFFFF;
+  --bg3:      #F3F0EB;
+  --bg4:      #E8E3DA;
+  --text:     #1C2B3A;
+  --text2:    #4A5568;
+  --muted:    #8A95A3;
+  --faint:    #C4CACC;
+
+  --blue:     #1B4E8F;
+  --blue-l:   #EBF2FC;
+  --blue-d:   #103260;
+
+  --gold:     #C8893F;
+  --gold-l:   #FDF3E7;
+  --gold-d:   #9B6520;
+
+  --green:    #2A7A5C;
+  --green-l:  #E6F5EF;
+
+  --rose:     #C0504A;
+  --rose-l:   #FAECEC;
+
+  --border:   rgba(0,0,0,.07);
+  --border2:  rgba(0,0,0,.12);
+
+  --sh1: 0 1px 4px rgba(0,0,0,.05), 0 0 0 1px rgba(0,0,0,.04);
+  --sh2: 0 4px 18px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  --sh3: 0 12px 44px rgba(0,0,0,.10), 0 0 0 1px rgba(0,0,0,.04);
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+::selection { background: var(--blue); color: #fff; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 4px; }
+
+/* ═══════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════ */
+#cur  { width:9px;height:9px;background:var(--blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .15s,background .2s; }
+#ring { width:32px;height:32px;border:1.5px solid var(--blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;opacity:.35;transition:all .35s cubic-bezier(.175,.885,.32,1.5); }
+
+/* ═══════════════════════════════════════
+   TEXTURE
+═══════════════════════════════════════ */
+.grain {
+  position:fixed;inset:0;pointer-events:none;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.022'/%3E%3C/svg%3E");
+  opacity:.6;
+}
+
+/* ═══════════════════════════════════════
+   TOP NAV
+═══════════════════════════════════════ */
+nav {
+  position:sticky;buttom:0;z-index:200;
+  height:62px;padding:0 56px;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(250,248,245,.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo {
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.2rem;font-weight:700;color:var(--blue);
+  text-decoration:none;letter-spacing:.01em;
+}
+.nav-menu { display:flex;gap:2px; }
+.nav-menu a {
+  padding:7px 14px;border-radius:8px;
+  font-size:.75rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:all .2s;cursor:none;
+}
+.nav-menu a:hover { color:var(--text);background:var(--bg3); }
+.nav-menu a.active { color:var(--blue); }
+.nav-right { display:flex;gap:8px;align-items:center; }
+.nav-pill {
+  display:flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:20px;
+  background:var(--green-l);border:1px solid rgba(42,122,92,.2);
+  font-size:.63rem;font-family:'JetBrains Mono',monospace;
+  color:var(--green);letter-spacing:.06em;
+}
+.nav-pill span { width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1;}50%{opacity:.25;} }
+.nav-icon {
+  width:34px;height:34px;border-radius:9px;
+  border:1px solid var(--border2);background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);text-decoration:none;font-size:.78rem;
+  transition:all .2s;box-shadow:var(--sh1);cursor:none;
+}
+.nav-icon:hover { color:var(--blue);border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--sh2); }
+
+/* ═══════════════════════════════════════
+   FLOATING BOTTOM NAV (mobile)
+═══════════════════════════════════════ */
+#floatNav {
+  display:none;
+  position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);
+  z-index:300;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:0 8px 32px rgba(27,78,143,.12);
+  border-radius:9999px;
+  padding:.5rem .8rem;
+  gap:.9rem;align-items:center;
+  max-width:calc(100vw - 1.5rem);
+  overflow-x:auto;scrollbar-width:none;
+}
+#floatNav::-webkit-scrollbar { display:none; }
+#floatNav a {
+  color:var(--muted);font-size:1rem;flex-shrink:0;
+  transition:color .2s,transform .2s;text-decoration:none;
+}
+#floatNav a:hover, #floatNav a.active { color:var(--blue);transform:translateY(-2px); }
+
+/* ═══════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════ */
+.wrap { max-width:1140px;margin:0 auto;padding:0 56px;position:relative;z-index:2; }
+section { padding:88px 0;border-bottom:1px solid var(--border); }
+section:last-of-type { border-bottom:none; }
+
+.sec-label {
+  display:flex;align-items:center;gap:14px;margin-bottom:52px;
+}
+.sec-eyebrow {
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;
+}
+.sec-line { flex:1;height:1px;background:var(--border2); }
+.sec-num {
+  font-family:'Playfair Display',serif;font-style:italic;
+  color:var(--faint);font-size:.9rem;
+}
+
+/* ═══════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════ */
+.card {
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:20px;padding:26px;box-shadow:var(--sh1);
+  transition:all .3s ease;position:relative;overflow:hidden;
+}
+.card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover { box-shadow:var(--sh2);transform:translateY(-3px);border-color:var(--border2); }
+.card:hover::before { opacity:1; }
+
+.btn {
+  padding:12px 24px;border-radius:10px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:.82rem;
+  letter-spacing:.02em;cursor:none;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:all .25s ease;border:none;
+}
+.btn-solid { background:var(--blue);color:#fff;box-shadow:var(--sh1); }
+.btn-solid:hover { background:var(--blue-d);transform:translateY(-3px);box-shadow:var(--sh3); }
+.btn-ghost { background:var(--bg2);color:var(--text2);border:1.5px solid var(--border2);box-shadow:var(--sh1); }
+.btn-ghost:hover { border-color:var(--blue);color:var(--blue);transform:translateY(-3px);box-shadow:var(--sh2); }
+
+.badge {
+  padding:4px 11px;border-radius:20px;
+  font-size:.6rem;font-family:'JetBrains Mono',monospace;
+  letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;
+}
+.badge-green  { background:var(--green-l);color:var(--green);border:1px solid rgba(42,122,92,.2); }
+.badge-blue   { background:var(--blue-l);color:var(--blue);border:1px solid rgba(27,78,143,.2); }
+.badge-gold   { background:var(--gold-l);color:var(--gold-d);border:1px solid rgba(200,137,63,.2); }
+.badge-gray   { background:var(--bg3);color:var(--muted);border:1px solid var(--border2); }
+
+.card-lbl {
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:18px;display:flex;align-items:center;gap:8px;
+}
+.card-lbl::before { content:'';width:14px;height:1px;background:var(--faint); }
+
+.info-row { display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border); }
+.info-row:last-child { border-bottom:none; }
+.ik { font-size:.72rem;color:var(--muted); }
+.iv { font-size:.82rem;color:var(--text);font-weight:500;text-align:right; }
+
+/* ═══════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════ */
+.reveal { opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease; }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.d1{transition-delay:.07s;}.d2{transition-delay:.14s;}.d3{transition-delay:.21s;}.d4{transition-delay:.28s;}
+
+/* ═══════════════════════════════════════
+   PRELOADER / WELCOME ANIMATION
+═══════════════════════════════════════ */
+html.is-loading, html.is-loading body { overflow:hidden;height:100%; }
+
+#preloader {
+  position:fixed;inset:0;z-index:9500;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:clip-path 1s cubic-bezier(.65,0,.35,1), opacity .7s ease .15s;
+}
+#preloader::before {
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.022'/%3E%3C/svg%3E");
+  opacity:.6;
+}
+#preloader.pl-hide {
+  clip-path:inset(0 0 100% 0);
+  opacity:0;
+  pointer-events:none;
+}
+
+.pl-inner { position:relative;text-align:center;padding:0 24px; }
+
+.pl-eyebrow {
+  font-family:'JetBrains Mono',monospace;font-size:.6rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
+  opacity:0;margin-bottom:18px;
+  animation:plFadeUp .8s ease forwards;
+  animation-delay:.1s;
+}
+
+.pl-mark {
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
+  font-size:clamp(2.1rem,6.4vw,3.6rem);line-height:1.08;color:var(--text);
+  letter-spacing:.01em;filter:blur(9px);opacity:0;transform:scale(.94);
+  animation:plClarify 1.5s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay:.28s;
+}
+.pl-mark .pl-last { display:block;color:var(--blue); }
+
+.pl-tagline {
+  margin-top:16px;font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);opacity:0;
+  animation:plFadeUp .9s ease forwards;
+  animation-delay:1.5s;
+}
+
+.pl-rule {
+  margin:34px auto 0;width:150px;height:1px;
+  background:var(--border2);position:relative;overflow:hidden;
+  opacity:0;animation:plFadeUp .7s ease forwards;animation-delay:.9s;
+}
+.pl-rule::after {
+  content:'';position:absolute;top:0;bottom:0;left:-40%;width:40%;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--blue),transparent);
+  animation:plSweep 1.7s ease-in-out infinite;
+  animation-delay:1s;
+}
+
+@keyframes plClarify {
+  0%   { filter:blur(9px); opacity:0;  transform:scale(.94); }
+  55%  { filter:blur(1.5px); opacity:1; transform:scale(1.015); }
+  100% { filter:blur(0);   opacity:1;  transform:scale(1); }
+}
+@keyframes plFadeUp {
+  from { opacity:0;transform:translateY(8px); }
+  to   { opacity:1;transform:translateY(0); }
+}
+@keyframes plSweep {
+  0%   { left:-40%; }
+  100% { left:100%; }
+}
+
+@media(max-width:600px){
+  .pl-rule{ width:110px; }
+}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+#hero { padding:72px 0 80px;position:relative; }
+
+/* Signature watermark "IY" */
+.hero-watermark {
+  position:absolute;right:-20px;top:-20px;
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(180px,22vw,280px);font-weight:800;
+  color:transparent;-webkit-text-stroke:1px rgba(27,78,143,.055);
+  line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em;
+  z-index:0;
+}
+
+.hero-inner {
+  display:grid;grid-template-columns:1fr 400px;
+  gap:64px;align-items:center;position:relative;z-index:1;
+}
+
+.hero-eyebrow {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:5px 13px;border-radius:20px;
+  border:1px solid var(--border2);background:var(--bg2);
+  font-size:.63rem;font-family:'JetBrains Mono',monospace;
+  color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:22px;box-shadow:var(--sh1);
+}
+.hero-eyebrow i { color:var(--blue);font-size:.5rem; }
+
+.hero-h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,5.5vw,5rem);font-weight:800;
+  line-height:.96;margin-bottom:26px;color:var(--text);
+}
+.hero-h1 em { font-style:italic;color:var(--blue); }
+.hero-h1 .outline { color:transparent;-webkit-text-stroke:1.5px var(--faint);font-style:italic; }
+
+.hero-desc {
+  color:var(--text2);font-weight:400;line-height:1.8;
+  margin-bottom:34px;font-size:.95rem;
+  border-left:2.5px solid var(--blue);padding-left:16px;
+  font-style:italic;
+}
+.hero-desc strong { color:var(--text);font-style:normal;font-weight:600; }
+
+.hero-btns { display:flex;gap:10px;flex-wrap:wrap; }
+
+/* Profile card */
+.profile-card {
+  position:relative;background:linear-gradient(145deg,var(--bg2),var(--bg3));
+  border:1px solid var(--border2);border-radius:26px;
+  box-shadow:var(--sh3);overflow:hidden;height:420px;
+}
+.profile-card::before {
+  content:'';position:absolute;top:14px;right:14px;
+  width:90px;height:90px;
+  background-image:radial-gradient(var(--bg4) 1.5px,transparent 1.5px);
+  background-size:10px 10px;border-radius:50%;opacity:.8;
+}
+.profile-card img {
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:88%;height:390px;object-fit:cover;object-position:top;
+  border-radius:18px 18px 0 0;display:block;
+}
+.p-badge {
+  position:absolute;top:18px;right:-14px;
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:13px;padding:10px 14px;box-shadow:var(--sh2);z-index:10;
+  font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--muted);
+}
+.p-badge strong {
+  display:block;font-family:'Playfair Display',serif;
+  font-style:italic;font-size:1.9rem;color:var(--blue);
+  margin-bottom:1px;line-height:1;
+}
+.p-badge2 {
+  position:absolute;bottom:28px;left:-14px;
+  background:var(--green-l);border:1px solid rgba(42,122,92,.25);
+  border-radius:11px;padding:9px 13px;
+  display:flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--green);
+  box-shadow:var(--sh2);z-index:10;font-weight:500;
+}
+.p-badge2::before {
+  content:'';width:6px;height:6px;background:var(--green);
+  border-radius:50%;animation:blink 2s infinite;flex-shrink:0;
+}
+
+/* Stats bar */
+.hero-stats {
+  display:flex;gap:0;margin-top:44px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;box-shadow:var(--sh1);overflow:hidden;
+}
+.hero-stat {
+  flex:1;padding:18px 22px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;gap:3px;
+}
+.hero-stat:last-child { border-right:none; }
+.stat-val {
+  font-family:'Playfair Display',serif;font-size:1.7rem;
+  font-weight:700;font-style:italic;color:var(--blue);
+}
+.stat-key {
+  font-size:.63rem;color:var(--muted);letter-spacing:.07em;
+  text-transform:uppercase;font-family:'JetBrains Mono',monospace;
+}
+
+/* ═══════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════ */
+.about-grid { display:grid;grid-template-columns:1fr 1.5fr;gap:20px; }
+
+.big-age {
+  font-family:'Playfair Display',serif;font-size:3.4rem;
+  font-weight:700;font-style:italic;color:var(--blue);
+  line-height:1;margin:4px 0 2px;
+}
+
+.edu-row {
+  display:flex;gap:16px;align-items:center;
+  padding:18px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:13px;transition:all .3s;cursor:none;margin-bottom:10px;
+}
+.edu-row:last-child { margin-bottom:0; }
+.edu-row:hover { background:var(--bg2);border-color:var(--blue);box-shadow:var(--sh2);transform:translateX(5px); }
+.edu-num {
+  font-family:'Playfair Display',serif;font-size:2rem;
+  font-weight:700;font-style:italic;color:var(--bg4);
+  flex-shrink:0;transition:color .3s;
+}
+.edu-row:hover .edu-num { color:var(--blue); }
+.edu-ttl { font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:2px; }
+.edu-sub { font-size:.69rem;color:var(--muted); }
+
+/* ═══════════════════════════════════════
+   FAMILY TREE
+═══════════════════════════════════════ */
+.ft-card {
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:20px;padding:28px 24px 24px;box-shadow:var(--sh1);
+  position:relative;overflow:hidden;transition:all .3s ease;
+}
+.ft-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.ft-card:hover { box-shadow:var(--sh2);transform:translateY(-3px); }
+.ft-card:hover::before { opacity:1; }
+.ft-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:22px; }
+.ft-lbl {
+  font-family:'JetBrains Mono',monospace;font-size:.58rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:8px;
+}
+.ft-lbl::before { content:'';width:14px;height:1px;background:var(--faint); }
+.ft-legend { display:flex;gap:14px; }
+.ft-legend-item { display:flex;align-items:center;gap:5px;font-size:.59rem;font-family:'JetBrains Mono',monospace;color:var(--muted); }
+.ft-legend-dot { width:7px;height:7px;border-radius:50%;flex-shrink:0; }
+.ft-svg { width:100%;display:block; }
+
+/* ═══════════════════════════════════════
+   POETRY
+═══════════════════════════════════════ */
+.poems-grid { display:grid;grid-template-columns:1fr 1fr;gap:20px; }
+
+.poem-hero-card {
+  background:var(--blue);border-radius:22px;padding:34px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:300px;position:relative;overflow:hidden;
+  box-shadow:var(--sh3);grid-row:span 2;
+}
+.poem-hero-card::before {
+  content:'"';position:absolute;bottom:-30px;right:8px;
+  font-family:'Playfair Display',serif;font-size:12rem;
+  color:rgba(255,255,255,.04);line-height:1;pointer-events:none;
+}
+.poem-big-title {
+  font-family:'Playfair Display',serif;font-size:2.8rem;
+  font-weight:700;font-style:italic;color:var(--gold);line-height:1.1;margin-bottom:8px;
+}
+.poem-big-sub { font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:24px;font-style:italic; }
+
+.poem-card {
+  background:var(--bg2);border:1px solid var(--border);border-radius:18px;
+  padding:24px;box-shadow:var(--sh1);transition:all .3s ease;
+  display:flex;flex-direction:column;gap:12px;position:relative;
+  overflow:hidden;cursor:none;
+}
+.poem-card:hover { box-shadow:var(--sh2);transform:translateY(-3px);border-color:var(--blue); }
+.poem-num { font-family:'Playfair Display',serif;font-style:italic;font-size:1.9rem;font-weight:700;color:var(--bg4);line-height:1; }
+.poem-ttl { font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--text); }
+.poem-preview { font-size:.79rem;color:var(--muted);line-height:1.7;font-style:italic; }
+.poem-tag { display:inline-block;padding:3px 10px;border-radius:20px;font-size:.58rem;font-family:'JetBrains Mono',monospace;letter-spacing:.07em;align-self:flex-start; }
+
+.poem-site-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:9px;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);
+  border:1px solid rgba(255,255,255,.15);
+  font-family:'Inter',sans-serif;font-weight:500;font-size:.79rem;
+  text-decoration:none;cursor:none;transition:all .2s;
+}
+.poem-site-btn:hover { background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.28); }
+
+/* ═══════════════════════════════════════
+   PROJECTS
+═══════════════════════════════════════ */
+.proj-grid { display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px; }
+.proj-card {
+  background:var(--bg2);border:1px solid var(--border);border-radius:20px;
+  padding:28px;display:flex;flex-direction:column;min-height:280px;
+  transition:all .35s cubic-bezier(.175,.885,.32,1.275);
+  position:relative;overflow:hidden;text-decoration:none;color:inherit;
+  cursor:none;box-shadow:var(--sh1);
+}
+.proj-card.feat { background:linear-gradient(150deg,var(--blue-l),#f0f4ff);border-color:rgba(27,78,143,.15); }
+.proj-card.feat:hover { box-shadow:0 16px 48px rgba(27,78,143,.13);border-color:rgba(27,78,143,.28); }
+.proj-card:not(.disabled):not(.feat):hover { box-shadow:var(--sh3);transform:translateY(-6px);border-color:var(--border2); }
+.proj-card.disabled { opacity:.6;cursor:not-allowed; }
+.proj-tag { position:absolute;top:16px;right:16px;padding:4px 10px;border-radius:20px;font-size:.57rem;font-family:'JetBrains Mono',monospace;letter-spacing:.07em;text-transform:uppercase; }
+.proj-icon { width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:22px;flex-shrink:0; }
+.pi-blue   { background:var(--blue-l);color:var(--blue); }
+.pi-gold   { background:var(--gold-l);color:var(--gold); }
+.pi-gray   { background:var(--bg3);color:var(--muted); }
+.proj-ttl { font-size:1.1rem;font-weight:700;margin-bottom:8px;color:var(--text); }
+.proj-desc { font-size:.79rem;color:var(--text2);line-height:1.75;flex:1; }
+.proj-link { display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-family:'JetBrains Mono',monospace;color:var(--blue);letter-spacing:.06em;margin-top:20px;text-decoration:none;transition:gap .2s; }
+.proj-card:hover .proj-link { gap:10px; }
+
+/* ═══════════════════════════════════════
+   GALLERY (STORIES)
+═══════════════════════════════════════ */
+.snap-scroll { display:flex;gap:13px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none; }
+.snap-scroll::-webkit-scrollbar { display:none; }
+.snap-item {
+  flex-shrink:0;width:195px;height:260px;border-radius:18px;overflow:hidden;
+  position:relative;cursor:none;box-shadow:var(--sh1);transition:all .3s;
+}
+.snap-item:hover { box-shadow:var(--sh3);transform:translateY(-6px); }
+.snap-item img { width:100%;height:100%;object-fit:cover;transition:transform .7s; }
+.snap-item:hover img { transform:scale(1.07); }
+.snap-item::after { content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 52%); }
+.snap-label { position:absolute;bottom:12px;left:12px;z-index:2;color:#fff; }
+.snap-label .sn { font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.4); }
+.snap-label .st { font-size:.73rem;font-weight:600;letter-spacing:.04em; }
+.snap-controls { display:flex;gap:8px;margin-top:18px; }
+.snap-btn { width:36px;height:36px;border-radius:9px;background:var(--bg2);border:1px solid var(--border2);color:var(--muted);cursor:none;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.76rem;box-shadow:var(--sh1); }
+.snap-btn:hover { border-color:var(--blue);color:var(--blue);box-shadow:var(--sh2); }
+
+/* ═══════════════════════════════════════
+   TRAINING / CERTS
+═══════════════════════════════════════ */
+.cert-grid { display:grid;grid-template-columns:1fr 1fr;gap:18px; }
+.cert-card {
+  background:var(--bg2);border:1px solid var(--border);border-radius:18px;
+  padding:24px;box-shadow:var(--sh1);display:flex;flex-direction:column;gap:16px;
+  transition:all .3s;
+}
+.cert-card:hover { box-shadow:var(--sh2);transform:translateY(-3px); }
+.cert-icon { width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0; }
+.cert-header { display:flex;align-items:flex-start;justify-content:space-between;gap:10px; }
+.cert-ttl { font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:2px; }
+.cert-sub { font-size:.69rem;color:var(--muted); }
+.cert-tags { display:flex;flex-wrap:wrap;gap:6px; }
+.cert-tag { padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);border-radius:20px;font-size:.63rem;font-weight:500; }
+.cert-view-btn {
+  flex-shrink:0;width:34px;height:34px;border-radius:8px;
+  background:var(--blue-l);border:1px solid rgba(27,78,143,.15);
+  color:var(--blue);display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;cursor:none;transition:all .2s;
+}
+.cert-view-btn:hover { background:var(--blue);color:#fff; }
+
+/* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+.contact-layout { display:grid;grid-template-columns:1fr 1.4fr;gap:26px; }
+.contact-info { display:flex;flex-direction:column;gap:12px; }
+.contact-method {
+  background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+  padding:20px 22px;display:flex;align-items:center;gap:14px;
+  box-shadow:var(--sh1);transition:all .3s;text-decoration:none;color:inherit;cursor:none;
+}
+.contact-method:hover { box-shadow:var(--sh2);transform:translateX(5px);border-color:var(--border2); }
+.cm-icon { width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0; }
+.cmi-fb   { background:#e7effe;color:#1877f2; }
+.cmi-wa   { background:#e6f9f0;color:#25d366; }
+.cmi-mail { background:var(--rose-l);color:var(--rose); }
+.cmi-loc  { background:var(--gold-l);color:var(--gold); }
+.cmi-web  { background:var(--blue-l);color:var(--blue); }
+.cmi-poem { background:var(--gold-l);color:var(--gold); }
+.cm-info { flex:1; }
+.cm-label { font-size:.6rem;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px; }
+.cm-val   { font-size:.88rem;font-weight:600;color:var(--text); }
+.cm-sub   { font-size:.7rem;color:var(--muted);margin-top:1px; }
+.cm-arrow { color:var(--faint);font-size:.78rem;transition:all .25s; }
+.contact-method:hover .cm-arrow { color:var(--blue);transform:translateX(4px); }
+
+.contact-form-wrap {
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:22px;padding:34px;box-shadow:var(--sh1);
+}
+.form-title { font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;font-style:italic;color:var(--text);margin-bottom:5px; }
+.form-sub { font-size:.8rem;color:var(--muted);margin-bottom:26px; }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px; }
+.form-group { display:flex;flex-direction:column;gap:5px;margin-bottom:13px; }
+.form-label { font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text2); }
+.form-input, .form-textarea {
+  padding:11px 15px;border-radius:10px;border:1.5px solid var(--border2);
+  background:var(--bg);font-family:'Inter',sans-serif;font-size:.87rem;
+  color:var(--text);transition:all .2s;outline:none;width:100%;cursor:none;
+}
+.form-input:focus, .form-textarea:focus { border-color:var(--blue);background:var(--bg2);box-shadow:0 0 0 3px rgba(27,78,143,.08); }
+.form-textarea { resize:vertical;min-height:105px;line-height:1.6; }
+.form-submit {
+  width:100%;padding:13px;border-radius:11px;background:var(--blue);color:#fff;
+  border:none;font-family:'Inter',sans-serif;font-weight:700;font-size:.88rem;
+  letter-spacing:.03em;cursor:none;display:flex;align-items:center;justify-content:center;
+  gap:8px;transition:all .25s;box-shadow:var(--sh1);
+}
+.form-submit:hover { background:var(--blue-d);transform:translateY(-2px);box-shadow:var(--sh3); }
+.form-success {
+  display:none;text-align:center;padding:24px;
+  background:var(--green-l);border:1px solid rgba(42,122,92,.2);
+  border-radius:14px;color:var(--green);font-weight:600;font-size:.9rem;margin-top:14px;
+}
+
+/* ═══════════════════════════════════════
+   MODAL
+═══════════════════════════════════════ */
+.modal-overlay {
+  position:fixed;inset:0;background:rgba(28,43,58,.45);
+  backdrop-filter:blur(6px);z-index:500;
+  display:flex;align-items:center;justify-content:center;padding:1rem;
+}
+.modal-overlay.hidden { display:none; }
+.modal-box {
+  background:var(--bg2);border-radius:22px;padding:2rem;
+  max-width:500px;width:100%;box-shadow:0 24px 64px rgba(27,78,143,.15);
+  position:relative;animation:mIn .28s cubic-bezier(.22,1,.36,1);
+}
+@keyframes mIn { from{opacity:0;transform:scale(.93) translateY(20px);}to{opacity:1;transform:scale(1) translateY(0);} }
+.modal-close {
+  position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:8px;
+  background:var(--bg3);border:1px solid var(--border);color:var(--muted);
+  display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s;
+}
+.modal-close:hover { background:var(--bg4);color:var(--text); }
+.modal-title { font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;font-style:italic;color:var(--text);margin-bottom:4px; }
+.modal-eyebrow { font-family:'JetBrains Mono',monospace;font-size:.59rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px; }
+.modal-cert-img {
+  border-radius:16px;overflow:hidden;border:2px solid var(--border);
+  background:var(--bg3);height:220px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;margin-bottom:14px;
+}
+.modal-cert-img img { width:100%;height:100%;object-fit:contain; }
+.modal-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px; }
+.modal-field { background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 12px; }
+.modal-field .mf-lbl { font-size:.62rem;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px; }
+.modal-field .mf-val { font-size:.85rem;font-weight:700;color:var(--text); }
+.modal-btn {
+  width:100%;padding:12px;border-radius:10px;background:var(--blue);color:#fff;
+  border:none;font-family:'Inter',sans-serif;font-weight:600;font-size:.84rem;cursor:none;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;
+}
+.modal-btn:hover { background:var(--blue-d); }
+
+/* poem modal body */
+#poemFullBody { white-space:pre-wrap;font-size:.9rem;color:var(--text2);line-height:1.9; }
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  padding:56px 56px 42px;position:relative;z-index:2;
+  max-width:1140px;margin:0 auto;
+}
+.footer-top { display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px; }
+.footer-name {
+  font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,4rem);
+  font-weight:800;font-style:italic;color:transparent;
+  -webkit-text-stroke:1.5px var(--bg4);letter-spacing:-.02em;
+}
+.footer-socials { display:flex;gap:7px; }
+.footer-social {
+  width:38px;height:38px;border-radius:10px;border:1px solid var(--border2);
+  background:var(--bg2);display:flex;align-items:center;justify-content:center;
+  color:var(--muted);text-decoration:none;font-size:.83rem;
+  transition:all .2s;box-shadow:var(--sh1);cursor:none;
+}
+.footer-social:hover { border-color:var(--blue);color:var(--blue);transform:translateY(-2px);box-shadow:var(--sh2); }
+.footer-divider { height:1px;background:var(--border);margin-bottom:26px; }
+.footer-bottom { display:flex;justify-content:space-between;align-items:center; }
+.footer-txt { font-family:'JetBrains Mono',monospace;font-size:.59rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted); }
+.footer-tag { font-family:'JetBrains Mono',monospace;font-size:.59rem;color:var(--faint);letter-spacing:.1em; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:960px){
+  nav { padding:0 20px; }
+  .nav-menu { display:none; }
+  #floatNav { display:flex; }
+  .wrap { padding:0 20px; }
+  .hero-inner { grid-template-columns:1fr; }
+  .profile-card { display:none; }
+  .hero-stats { flex-direction:column; }
+  .about-grid,.poems-grid,.proj-grid,.contact-layout,.cert-grid { grid-template-columns:1fr; }
+  .poem-hero-card { grid-row:span 1; }
+  footer { padding:36px 20px; }
+  .footer-top { flex-direction:column;align-items:flex-start;gap:16px; }
+  .footer-bottom { flex-direction:column;gap:8px;text-align:center; }
+  .form-row { grid-template-columns:1fr; }
+  section { padding:64px 0; }
+  body { padding-bottom: 72px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── PRELOADER / WELCOME ── -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-inner">
+    <div class="pl-eyebrow">Welcome</div>
+    <div class="pl-mark">Ishak<span class="pl-last">Yonghang</span></div>
+    <div class="pl-rule"></div>
+    <div class="pl-tagline">Verses of Life &amp; Code</div>
+  </div>
+</div>
+
+<div class="grain"></div>
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- ── TOP NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo">Ishak Yonghang</a>
+  <div class="nav-menu">
+    <a href="#about"     class="nav-link">About</a>
+    <a href="#family"    class="nav-link">Family</a>
+    <a href="#poems"     class="nav-link">Poetry</a>
+    <a href="#portfolio" class="nav-link">Portfolio</a>
+    <a href="#training"  class="nav-link">Training</a>
+    <a href="#snapshots" class="nav-link">Life</a>
+    <a href="#contact"   class="nav-link">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-pill"><span></span>Open to Work</div>
+    <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="nav-icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://wa.me/9779820907795"             target="_blank" class="nav-icon"><i class="fab fa-whatsapp"></i></a>
+    <a href="mailto:yonghangissac@gmail.com"                         class="nav-icon"><i class="fas fa-envelope"></i></a>
+  </div>
+</nav>
+
+<!-- ── FLOATING MOBILE NAV ── -->
+<nav id="floatNav" aria-label="Mobile Navigation">
+  <a href="#hero"      title="Home"      class="float-link"><i class="fa-solid fa-house"></i></a>
+  <a href="#about"     title="About"     class="float-link"><i class="fa-solid fa-user"></i></a>
+  <a href="#family"    title="Family"    class="float-link"><i class="fa-solid fa-sitemap"></i></a>
+  <a href="#poems"     title="Poetry"    class="float-link"><i class="fa-solid fa-feather-pointed"></i></a>
+  <a href="#portfolio" title="Portfolio" class="float-link"><i class="fa-solid fa-briefcase"></i></a>
+  <a href="#training"  title="Training"  class="float-link"><i class="fa-solid fa-graduation-cap"></i></a>
+  <a href="#snapshots" title="Gallery"   class="float-link"><i class="fa-solid fa-images"></i></a>
+  <a href="#contact"   title="Contact"   class="float-link"><i class="fa-solid fa-envelope"></i></a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-watermark">IY</div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow reveal d1">
+        <i class="fas fa-map-marker-alt"></i>
+        Phidim, Panchthar &nbsp;·&nbsp; Nepal
+      </div>
+      <h1 class="hero-h1 reveal d2">
+        <em>Ishak</em><br>
+        <span class="outline">Yonghang</span>
+      </h1>
+      <p class="hero-desc reveal d3">
+        "Currently <strong>exploring</strong> the depth of poetry.<br>
+        Growing through every line I learn and every verse I write."
+      </p>
+      <div class="hero-btns reveal d4">
+        <a href="#poems"     class="btn btn-solid"><i class="fas fa-feather-alt"></i> Read Poetry</a>
+        <a href="#contact"   class="btn btn-ghost"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+        <a href="#portfolio" class="btn btn-ghost"><i class="fas fa-briefcase"></i> Portfolio</a>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <div class="profile-card reveal d2">
+        <img src="ISHAK_YONGHANG_07407010109444_profile_pic (1).jpg" alt="Ishak Yonghang"
+          onerror="this.src='https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/484720029_1214268536782792_2219807835874787926_n.jpg'">
+      </div>
+      <div class="p-badge reveal d3"><strong id="hero-age">20</strong>Years Old</div>
+      <div class="p-badge2 reveal d4">Available Now</div>
+    </div>
+  </div>
+
+  <div class="hero-stats reveal" style="transition-delay:.38s;">
+    <div class="hero-stat">
+      <div class="stat-val" id="stat-age">20</div>
+      <div class="stat-key">Years Old</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-val">Class XII</div>
+      <div class="stat-key">Education</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-val">Bajaj</div>
+      <div class="stat-key">Experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-val">Poet</div>
+      <div class="stat-key">&amp; Writer</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section id="about">
+  <div class="sec-label">
+    <span class="sec-eyebrow">About Me</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">01</span>
+  </div>
+
+  <div class="about-grid">
+    <div style="display:flex;flex-direction:column;gap:18px;">
+
+      <div class="card reveal d1">
+        <div class="card-lbl">Personal Identity</div>
+        <div class="big-age" id="card-age">20</div>
+        <div style="font-size:.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:13px;">Born October 26, 2005</div>
+        <div class="info-row"><span class="ik">Father</span><span class="iv">Seru Hang Yonghang</span></div>
+        <div class="info-row"><span class="ik">Mother</span><span class="iv">Ful Kumari Neambang</span></div>
+        <div class="info-row"><span class="ik">Nationality</span><span class="iv">Nepali 🇳🇵</span></div>
+        <div class="info-row"><span class="ik">Religion</span><span class="iv">Christian ✝️</span></div>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-lbl">Location</div>
+        <div class="info-row"><span class="ik">Current</span><span class="iv" style="color:var(--green);">Phidim-1, Panchthar</span></div>
+        <div class="info-row"><span class="ik">Permanent</span><span class="iv">Hilihang-5, Panchthar</span></div>
+        <div class="info-row"><span class="ik">Province</span><span class="iv">Koshi, Nepal</span></div>
+      </div>
+
+      <div class="card reveal d3" style="background:var(--blue);border-color:transparent;">
+        <div class="card-lbl" style="color:rgba(255,255,255,.3);">Professional</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:11px;">
+          <div style="width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:var(--gold);">
+            <i class="fas fa-motorcycle"></i>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:.92rem;color:#fff;">Bajaj Showroom</div>
+            <div style="font-size:.68rem;color:rgba(255,255,255,.4);margin-top:1px;">Sales Consultant · Phidim</div>
+          </div>
+        </div>
+        <div style="font-size:.77rem;color:rgba(255,255,255,.35);font-style:italic;border-left:2px solid rgba(255,255,255,.12);padding-left:11px;">
+          Auto-finance &amp; customer relations experience.
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;">
+
+      <div class="card reveal d1">
+        <div class="card-lbl">Academic Journey</div>
+        <div class="edu-row">
+          <div class="edu-num">12</div>
+          <div>
+            <div class="edu-ttl">Class XII — Humanities</div>
+            <div class="edu-sub">Completed 2080 BS (2023–24) &nbsp;·&nbsp; NEB</div>
+          </div>
+          <div class="badge badge-green">Done</div>
+        </div>
+        <div class="edu-row">
+          <div class="edu-num">10</div>
+          <div>
+            <div class="edu-ttl">SEE — Secondary Education Exam</div>
+            <div class="edu-sub">Completed 2077 BS (2020–21) &nbsp;·&nbsp; NEB</div>
+          </div>
+          <div class="badge badge-green">Done</div>
+        </div>
+      </div>
+
+      <div class="card reveal d2">
+        <div class="card-lbl">Skills &amp; Interests</div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;">
+          <span style="padding:6px 13px;background:var(--gold-l);color:var(--gold-d);border-radius:20px;font-size:.71rem;font-weight:600;">✦ Poetry Writing</span>
+          <span style="padding:6px 13px;background:var(--blue-l);color:var(--blue);border-radius:20px;font-size:.71rem;font-weight:600;">✦ Data Management</span>
+          <span style="padding:6px 13px;background:var(--green-l);color:var(--green);border-radius:20px;font-size:.71rem;font-weight:600;">✦ MS Excel</span>
+          <span style="padding:6px 13px;background:var(--rose-l);color:var(--rose);border-radius:20px;font-size:.71rem;font-weight:600;">✦ MS Word</span>
+          <span style="padding:6px 13px;background:var(--bg3);color:var(--text2);border-radius:20px;font-size:.71rem;font-weight:600;">✦ Sales &amp; Finance</span>
+          <span style="padding:6px 13px;background:var(--bg3);color:var(--text2);border-radius:20px;font-size:.71rem;font-weight:600;">✦ Creative Writing</span>
+        </div>
+      </div>
+
+      <div class="card reveal d3">
+        <div class="card-lbl">Languages</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+          <span class="badge badge-blue">Nepali</span>
+          <span class="badge badge-green">English</span>
+          <span class="badge badge-gold">Hindi</span>
+        </div>
+        <div style="margin-top:20px;">
+          <div class="card-lbl" style="margin-bottom:12px;">About Me</div>
+          <p style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--text2);line-height:1.85;font-style:italic;">
+            I'm Ishak — an aspiring developer and poet from the hills of Panchthar, Nepal. I believe in learning by doing, whether that's writing a line of code or crafting a verse that captures an untranslatable emotion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FAMILY TREE
+══════════════════════════════════════ -->
+<section id="family">
+  <div class="sec-label">
+    <span class="sec-eyebrow">Family Tree</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">02</span>
+  </div>
+
+  <div class="ft-card reveal">
+    <div class="ft-header">
+      <div class="ft-lbl">Three Generations</div>
+      <div class="ft-legend">
+        <div class="ft-legend-item"><div class="ft-legend-dot" style="background:var(--gold);"></div>Paternal</div>
+        <div class="ft-legend-item"><div class="ft-legend-dot" style="background:var(--rose);"></div>Maternal</div>
+        <div class="ft-legend-item"><div class="ft-legend-dot" style="background:var(--blue);"></div>Me</div>
+      </div>
+    </div>
+
+    <svg class="ft-svg" viewBox="0 0 900 575" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="#C4CACC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- Gen labels -->
+      <text x="14" y="87"  font-size="9" font-family="JetBrains Mono, monospace" fill="#8A95A3" letter-spacing="2" text-transform="uppercase">GEN I</text>
+      <text x="14" y="287" font-size="9" font-family="JetBrains Mono, monospace" fill="#8A95A3" letter-spacing="2">GEN II</text>
+      <text x="14" y="487" font-size="9" font-family="JetBrains Mono, monospace" fill="#8A95A3" letter-spacing="2">GEN III</text>
+
+      <!-- Dashed gen lines -->
+      <line x1="60" y1="63"  x2="880" y2="63"  stroke="#E8E3DA" stroke-width="1" stroke-dasharray="4 6"/>
+      <line x1="60" y1="263" x2="880" y2="263" stroke="#E8E3DA" stroke-width="1" stroke-dasharray="4 6"/>
+      <line x1="60" y1="463" x2="880" y2="463" stroke="#E8E3DA" stroke-width="1" stroke-dasharray="4 6"/>
+
+      <!-- Side labels -->
+      <text x="62" y="56" font-size="8.5" font-family="JetBrains Mono, monospace" fill="#C8893F">PATERNAL SIDE</text>
+      <text x="505" y="56" font-size="8.5" font-family="JetBrains Mono, monospace" fill="#C0504A">MATERNAL SIDE</text>
+
+      <!-- Paternal Grandfather -->
+      <g>
+        <rect x="60" y="67" width="155" height="54" rx="11" fill="#FDF3E7" stroke="#C8893F" stroke-width="1.2"/>
+        <text x="137" y="88" text-anchor="middle" font-size="10.5" font-weight="700" font-family="Inter, sans-serif" fill="#9B6520">Grandfather</text>
+        <text x="137" y="104" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#C8893F">Nar Prasad Yonghang</text>
+      </g>
+      <text x="228" y="100" text-anchor="middle" font-size="12" fill="#C4CACC">♥</text>
+      <!-- Paternal Grandmother -->
+      <g>
+        <rect x="240" y="67" width="155" height="54" rx="11" fill="#FAECEC" stroke="#C0504A" stroke-width="1.2"/>
+        <text x="317" y="88" text-anchor="middle" font-size="10.5" font-weight="700" font-family="Inter, sans-serif" fill="#8B2222">Grandmother</text>
+        <text x="317" y="104" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#C0504A">Ganga Maya Lingden</text>
+      </g>
+
+      <!-- Maternal Grandfather -->
+      <g>
+        <rect x="505" y="67" width="155" height="54" rx="11" fill="#FDF3E7" stroke="#C8893F" stroke-width="1.2"/>
+        <text x="582" y="88" text-anchor="middle" font-size="10.5" font-weight="700" font-family="Inter, sans-serif" fill="#9B6520">Grandfather</text>
+        <text x="582" y="104" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#C8893F">Ton Hang Neambang</text>
+      </g>
+      <text x="673" y="100" text-anchor="middle" font-size="12" fill="#C4CACC">♥</text>
+      <!-- Maternal Grandmother -->
+      <g>
+        <rect x="685" y="67" width="155" height="54" rx="11" fill="#FAECEC" stroke="#C0504A" stroke-width="1.2"/>
+        <text x="762" y="88" text-anchor="middle" font-size="10.5" font-weight="700" font-family="Inter, sans-serif" fill="#8B2222">Grandmother</text>
+        <text x="762" y="104" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#C0504A">Man Maya Suhang</text>
+      </g>
+
+      <!-- Paternal grandparents → Father connector -->
+      <line x1="137" y1="121" x2="137" y2="152" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="317" y1="121" x2="317" y2="152" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="137" y1="152" x2="317" y2="152" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="227" y1="152" x2="227" y2="267" stroke="#C4CACC" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Maternal grandparents → Mother connector -->
+      <line x1="582" y1="121" x2="582" y2="152" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="762" y1="121" x2="762" y2="152" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="582" y1="152" x2="762" y2="152" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="672" y1="152" x2="672" y2="267" stroke="#C4CACC" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Father -->
+      <g>
+        <rect x="142" y="267" width="170" height="60" rx="13" fill="#E6F5EF" stroke="#2A7A5C" stroke-width="1.5"/>
+        <text x="227" y="290" text-anchor="middle" font-size="11" font-weight="700" font-family="Inter, sans-serif" fill="#1B4D38">Father</text>
+        <text x="227" y="307" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#2A7A5C">Seru Hang Yonghang</text>
+      </g>
+
+      <!-- Marriage line -->
+      <line x1="312" y1="297" x2="537" y2="297" stroke="#C4CACC" stroke-width="1.2" stroke-dasharray="5 5"/>
+      <text x="425" y="291" text-anchor="middle" font-size="11" fill="#C4CACC">♥</text>
+      <text x="425" y="307" text-anchor="middle" font-size="8.5" font-family="JetBrains Mono, monospace" fill="#C4CACC">married</text>
+
+      <!-- Mother -->
+      <g>
+        <rect x="537" y="267" width="190" height="60" rx="13" fill="#FAECEC" stroke="#C0504A" stroke-width="1.5"/>
+        <text x="632" y="290" text-anchor="middle" font-size="11" font-weight="700" font-family="Inter, sans-serif" fill="#7A2420">Mother</text>
+        <text x="632" y="307" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#C0504A">Ful Kumari Neambang</text>
+      </g>
+
+      <!-- Parents → Ishak -->
+      <line x1="227" y1="327" x2="227" y2="396" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="632" y1="327" x2="632" y2="396" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="227" y1="396" x2="632" y2="396" stroke="#C4CACC" stroke-width="1.2"/>
+      <line x1="430" y1="396" x2="430" y2="462" stroke="#C4CACC" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Ishak node -->
+      <circle cx="430" cy="507" r="50" fill="none" stroke="#1B4E8F" stroke-width="1" stroke-dasharray="3 5" opacity=".35"/>
+      <circle cx="430" cy="507" r="40" fill="#EBF2FC" stroke="#1B4E8F" stroke-width="2"/>
+      <text x="430" y="502" text-anchor="middle" font-size="12" font-weight="700" font-family="Inter, sans-serif" fill="#103260">Ishak</text>
+      <text x="430" y="518" text-anchor="middle" font-size="9" font-family="JetBrains Mono, monospace" fill="#1B4E8F">Yonghang</text>
+      <text x="496" y="497" font-size="9" font-family="JetBrains Mono, monospace" fill="#8A95A3">← Me</text>
+      <rect x="350" y="553" width="160" height="20" rx="10" fill="none" stroke="#E8E3DA" stroke-width="1.2"/>
+      <text x="430" y="567" text-anchor="middle" font-size="8.5" font-family="JetBrains Mono, monospace" fill="#8A95A3">Born · Oct 26, 2005</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     POETRY
+══════════════════════════════════════ -->
+<section id="poems">
+  <div class="sec-label">
+    <span class="sec-eyebrow">Poetry</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">03</span>
+  </div>
+
+  <div class="poems-grid">
+    <div class="poem-hero-card reveal d1">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;">Poet · Writer · Creator</div>
+        <div class="poem-big-title">Verses<br>of Life</div>
+        <p class="poem-big-sub">"Turning raw emotion into words that breathe.<br>Each poem is a moment — honest, searching, alive."</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:.75rem;color:rgba(255,255,255,.3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;">PUBLISHED AT</div>
+        <a href="https://poem.yonghangishak.com.np/" target="_blank" class="poem-site-btn">
+          <i class="fas fa-external-link-alt"></i> poem.yonghangishak.com.np
+        </a>
+      </div>
+    </div>
+
+    <div class="poem-card reveal d2" onclick="openPoemReader(0)">
+      <div class="poem-num">I.</div>
+      <div class="poem-ttl">किनारिएको फुल</div>
+      <p class="poem-preview">"न बयान हुन्छ शब्दले न कुनै रुप छ यो प्रेमको एकोहोरो अनि गहिरो छ प्रेम तिम्रो लागि सदाको..."</p>
+      <span class="poem-tag badge-gold">Love</span>
+    </div>
+
+    <div class="poem-card reveal d3" onclick="openPoemReader(1)">
+      <div class="poem-num">II.</div>
+      <div class="poem-ttl">कफिन</div>
+      <p class="poem-preview">"जहाँ छु म खुसी छु, अन्धकार नै सहि म खुसी छु, जिवन मेरो यहिँ त रहेछ, मृत्यु सँगसगै हिड्दै छु..."</p>
+      <span class="poem-tag badge-green" style="background:var(--green-l);color:var(--green);">Emotion</span>
+    </div>
+
+    <div class="poem-card reveal d2" onclick="openPoemReader(2)" style="background:var(--gold-l);border-color:rgba(200,137,63,.18);">
+      <div class="poem-num" style="color:rgba(200,137,63,.3);">III.</div>
+      <div class="poem-ttl" style="color:var(--gold-d);">नचाहेको सङ्गीत</div>
+      <p class="poem-preview" style="color:var(--gold);">"म त्यहाँ छु, जहाँ कोहि आउन चाहँदैन, म त्योसंग छु, जोसंग केहि बस्न चाहँदैन..."</p>
+      <span class="poem-tag badge-gold">Reflection</span>
+    </div>
+
+    <div class="poem-card reveal d3" style="align-items:center;justify-content:center;text-align:center;background:var(--bg3);border-style:dashed;cursor:none;">
+      <i class="fas fa-feather-alt" style="font-size:1.7rem;color:var(--faint);margin-bottom:12px;"></i>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">More poems await</div>
+      <a href="https://poem.yonghangishak.com.np/" target="_blank" class="btn btn-ghost" style="font-size:.74rem;padding:9px 17px;">Visit Poetry Site</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PORTFOLIO
+══════════════════════════════════════ -->
+<section id="portfolio">
+  <div class="sec-label">
+    <span class="sec-eyebrow">Portfolio</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">04</span>
+  </div>
+
+  <div class="proj-grid">
+    <a href="https://finance.yonghangishak.com.np/" target="_blank" class="proj-card feat reveal d1">
+      <div class="proj-tag badge-green">● Live</div>
+      <div class="proj-icon pi-blue"><i class="fas fa-calculator"></i></div>
+      <div class="proj-ttl">Finance Calculator</div>
+      <p class="proj-desc">A specialized auto-finance calculation tool built for the Bajaj showroom workflow. Fast, accurate, and purpose-built for real daily use in Nepal's motorcycle market.</p>
+      <div class="proj-link">View Live Project <i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <div class="proj-card disabled reveal d2">
+      <div class="proj-tag badge-gold">In Progress</div>
+      <div class="proj-icon pi-gold"><i class="fas fa-pen-nib"></i></div>
+      <div class="proj-ttl">Verses of Life</div>
+      <p class="proj-desc">A digital archive for my poetry collection — designed to feel like flipping through a physical journal with warm, paper-like typography.</p>
+      <div style="margin-top:20px;font-size:.66rem;font-family:'JetBrains Mono',monospace;color:var(--muted);">Developing…</div>
+    </div>
+
+    <div class="proj-card disabled reveal d3">
+      <div class="proj-tag badge-gray">Planned</div>
+      <div class="proj-icon pi-gray"><i class="fas fa-code"></i></div>
+      <div class="proj-ttl">Next Big Project</div>
+      <p class="proj-desc">Something new is brewing. Exploring new territories in web development — tools that actually solve real problems for real people.</p>
+      <div style="margin-top:20px;font-size:.66rem;font-family:'JetBrains Mono',monospace;color:var(--bg4);">In Queue…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TRAINING & CERTS
+══════════════════════════════════════ -->
+<section id="training">
+  <div class="sec-label">
+    <span class="sec-eyebrow">Training &amp; Certifications</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">05</span>
+  </div>
+
+  <div class="cert-grid">
+    <div class="cert-card reveal d1">
+      <div class="cert-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="cert-icon" style="background:linear-gradient(135deg,#EBF2FC,#d0e4f8);color:var(--blue);">
+            <i class="fas fa-computer"></i>
+          </div>
+          <div>
+            <div class="cert-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Certification</div>
+            <div class="cert-ttl">Computer Operator Course</div>
+            <div class="cert-sub">2080 BS &nbsp;·&nbsp; ≈ 2023 CE</div>
+          </div>
+        </div>
+        <button class="cert-view-btn" onclick="openModal('cert-comp1')" title="View Certificate">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <p style="font-size:.8rem;color:var(--text2);">MS Office, typing, internet, data entry, spreadsheet management &amp; office automation tools.</p>
+      <div class="cert-tags">
+        <span class="cert-tag">Basic Hardware</span>
+        <span class="cert-tag">Computer Fundamentals</span>
+        <span class="cert-tag">Internet</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal d2">
+      <div class="cert-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="cert-icon" style="background:linear-gradient(135deg,#f3e8ff,#e9d5ff);color:#7c3aed;">
+            <i class="fas fa-rotate"></i>
+          </div>
+          <div>
+            <div class="cert-eyebrow" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Certification</div>
+            <div class="cert-ttl">Basic Revision Course</div>
+            <div class="cert-sub">2081 BS &nbsp;·&nbsp; ≈ 2024 CE</div>
+          </div>
+        </div>
+        <button class="cert-view-btn" onclick="openModal('cert-comp2')" title="View Certificate">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <p style="font-size:.8rem;color:var(--text2);">Advanced revision of computer fundamentals, typing speed enhancement, accounting software basics.</p>
+      <div class="cert-tags">
+        <span class="cert-tag">Typing Speed</span>
+        <span class="cert-tag">MS Word</span>
+        <span class="cert-tag">MS Excel</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Work experience full-width -->
+  <div class="card reveal" style="margin-top:18px;transition-delay:.15s;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+      <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#FDF3E7,#f8ddb0);display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:var(--gold);">
+        <i class="fas fa-motorcycle"></i>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;">Professional Experience</div>
+        <div style="font-weight:700;font-size:1.05rem;color:var(--text);">Sales Consultant — Bajaj Showroom</div>
+        <div style="font-size:.7rem;color:var(--muted);">Phidim, Panchthar &nbsp;·&nbsp; Nepal</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;">
+        <div style="width:34px;height:34px;border-radius:9px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;color:var(--blue);margin-bottom:10px;font-size:.88rem;"><i class="fas fa-users"></i></div>
+        <div style="font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:5px;">Client Data Management</div>
+        <p style="font-size:.73rem;color:var(--muted);line-height:1.65;">Maintained detailed records of walk-in clients and tracked follow-ups for effective sales conversion.</p>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;">
+        <div style="width:34px;height:34px;border-radius:9px;background:var(--green-l);display:flex;align-items:center;justify-content:center;color:var(--green);margin-bottom:10px;font-size:.88rem;"><i class="fas fa-handshake"></i></div>
+        <div style="font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:5px;">Customer Relations</div>
+        <p style="font-size:.73rem;color:var(--muted);line-height:1.65;">Built long-term relationships by providing post-sale support and managing customer satisfaction for Bajaj buyers.</p>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px;">
+        <div style="width:34px;height:34px;border-radius:9px;background:var(--gold-l);display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:10px;font-size:.88rem;"><i class="fas fa-calculator"></i></div>
+        <div style="font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:5px;">Financial Planning</div>
+        <p style="font-size:.73rem;color:var(--muted);line-height:1.65;">Helped customers understand EMI structures, loan options, and insurance packages for Bajaj models.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     LIFE SNAPSHOTS
+══════════════════════════════════════ -->
+<section id="snapshots">
+  <div class="sec-label">
+    <span class="sec-eyebrow">Life Snapshots</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">06</span>
+  </div>
+
+  <div id="snapScroll" class="snap-scroll reveal">
+    <div class="snap-item">
+      <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/561293822_1380232100186434_1007547191151940630_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=_R0tRAbDbLEQ7kNvwGT3Z_x&_nc_oc=Ado5m5WqmHhbay8-cRthj-ZC93usGdoeIHsoocm9hmN7Wu_Bw0CAGsrxhCg_sXhZj-I&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=L_gcZ6gqd67m_0NHT9EX1Q&_nc_ss=7b2a8&oh=00_Af7wP5X3IrB2mIn-1lBcqHTJVwBGdih17XVQ2UT09GfPiQ&oe=6A1241CB" alt="Phidim Days" loading="lazy">
+      <div class="snap-label"><div class="sn">01</div><div class="st">Phidim Days</div></div>
+    </div>
+    <div class="snap-item">
+      <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/690682071_1540703404139302_864535931862522832_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=gkR1aEgHKAcQ7kNvwGT1pVO&_nc_oc=AdrL6xb40OLmN7x2Xh1OIV6QX09umxiJdALQw0hk2WkyknmRTL7Y05nTklotjbF3hYE&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=bM2-Ico5nfhSs32gjgx-7w&_nc_ss=7b2a8&oh=00_Af4cmTmJ-48a7DA5bzg1ITdqvSswIr-D-Ixyld5f8L8_0Q&oe=6A125840" alt="Travel Log" loading="lazy">
+      <div class="snap-label"><div class="sn">02</div><div class="st">Travel Log</div></div>
+    </div>
+    <div class="snap-item">
+      <img src="https://scontent.fktm19-1.fna.fbcdn.net/v/t39.30808-6/481671045_1204158414460471_5064747988275741588_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=615qGuVWvDcQ7kNvwHE_JpN&_nc_oc=AdoykAKPPZvIAN0KmqxpaOdXCwLQHt0yFRSOjoqR9RrsFTpWJHPMl5MhDDKp15mLF5M&_nc_zt=23&_nc_ht=scontent.fktm19-1.fna&_nc_gid=myIWsS2bNVwn2WDm5lM-yQ&_nc_ss=7b2a8&oh=00_Af6d5FoRbrVkPY2dGfwkYqb4KDozUd34RbGzZKhOfODbsQ&oe=6A12621E" alt="Christmas Day" loading="lazy">
+      <div class="snap-label"><div class="sn">03</div><div class="st">Christmas Day</div></div>
+    </div>
+    <div class="snap-item">
+      <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/483962272_1210845100458469_4876426368775641609_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=DMJZTkEh2EoQ7kNvwGMV7GI&_nc_oc=AdrKB1C6JKx0iR6jzgnUVRuxfFIpra8kFUbLOaztj7FnQlfCY3UKcvWv_Gu2CJOlgG0&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=FStgQLmLYQ5eDihUhyMFwA&_nc_ss=7b2a8&oh=00_Af78fSPbobRTmzBG7dMPtamGMtRK3hWow5lR8qjx8bSrOA&oe=6A126517" alt="Celebrations" loading="lazy">
+      <div class="snap-label"><div class="sn">04</div><div class="st">Celebrations</div></div>
+    </div>
+    <div class="snap-item" style="background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
+      <i class="fas fa-camera" style="font-size:1.4rem;color:var(--muted);"></i>
+      <span style="font-size:.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">More Soon</span>
+    </div>
+  </div>
+
+  <div class="snap-controls">
+    <button class="snap-btn" onclick="document.getElementById('snapScroll').scrollBy({left:-220,behavior:'smooth'})"><i class="fas fa-arrow-left"></i></button>
+    <button class="snap-btn" onclick="document.getElementById('snapScroll').scrollBy({left:220,behavior:'smooth'})"><i class="fas fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact">
+  <div class="sec-label">
+    <span class="sec-eyebrow">Contact</span>
+    <div class="sec-line"></div>
+    <span class="sec-num">07</span>
+  </div>
+
+  <div style="max-width:540px;margin-bottom:40px;" class="reveal">
+    <h2 style="font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;font-style:italic;color:var(--text);line-height:1.1;margin-bottom:10px;">
+      Let's <em style="color:var(--blue);">Connect</em>
+    </h2>
+    <p style="font-size:.9rem;color:var(--text2);line-height:1.8;">
+      Whether you want to talk about a project, share a poem, or just say hello — I'm always happy to hear from you.
+    </p>
+  </div>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <a href="mailto:yonghangissac@gmail.com" class="contact-method reveal d1">
+        <div class="cm-icon cmi-mail"><i class="fas fa-envelope"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Email</div>
+          <div class="cm-val">yonghangissac@gmail.com</div>
+          <div class="cm-sub">Best for longer conversations</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <a href="https://wa.me/9779820907795" target="_blank" class="contact-method reveal d2">
+        <div class="cm-icon cmi-wa"><i class="fab fa-whatsapp"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">WhatsApp</div>
+          <div class="cm-val">+977 9820907795</div>
+          <div class="cm-sub">Quick replies · Usually active</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="contact-method reveal d3">
+        <div class="cm-icon cmi-fb"><i class="fab fa-facebook-f"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Facebook</div>
+          <div class="cm-val">facebook.com/yonghangisaac</div>
+          <div class="cm-sub">Follow for updates &amp; poetry</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <div class="contact-method reveal d1" style="cursor:default;">
+        <div class="cm-icon cmi-loc"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Location</div>
+          <div class="cm-val">Phidim-1, Panchthar</div>
+          <div class="cm-sub">Koshi Province · Nepal</div>
+        </div>
+        <span style="font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--faint);">NP</span>
+      </div>
+
+      <a href="https://poem.yonghangishak.com.np/" target="_blank" class="contact-method reveal d2">
+        <div class="cm-icon cmi-poem"><i class="fas fa-feather-alt"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Poetry Site</div>
+          <div class="cm-val">poem.yonghangishak.com.np</div>
+          <div class="cm-sub">Read all my poems</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+
+      <a href="https://yonghangishak.com.np" target="_blank" class="contact-method reveal d3">
+        <div class="cm-icon cmi-web"><i class="fas fa-globe"></i></div>
+        <div class="cm-info">
+          <div class="cm-label">Website</div>
+          <div class="cm-val">yonghangishak.com.np</div>
+          <div class="cm-sub">Portfolio &amp; Poetry</div>
+        </div>
+        <i class="fas fa-arrow-right cm-arrow"></i>
+      </a>
+    </div>
+
+    <div class="contact-form-wrap reveal d2">
+      <div class="form-title">Send a Message</div>
+      <p class="form-sub">I'll get back to you as soon as possible.</p>
+
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" id="fname" placeholder="Your first name">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" id="lname" placeholder="Your last name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <input type="text" class="form-input" id="subject" placeholder="What's this about?">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" id="message" placeholder="Write your message here..."></textarea>
+      </div>
+
+      <button class="form-submit" onclick="sendMsg()">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+
+      <div class="form-success" id="form-success">
+        <i class="fas fa-check-circle" style="font-size:1.8rem;display:block;margin-bottom:8px;"></i>
+        Message opened in your mail client!
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-name">Ishak Yonghang</div>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/yonghangisaac" target="_blank" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://wa.me/9779820907795"             target="_blank" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:yonghangissac@gmail.com"                          class="footer-social"><i class="fas fa-envelope"></i></a>
+      <a href="https://poem.yonghangishak.com.np/"      target="_blank" class="footer-social"><i class="fas fa-feather-alt"></i></a>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <div class="footer-txt">Phidim, Panchthar · Nepal · 2026</div>
+    <div class="footer-tag">Aspiring Developer &amp; Poet &nbsp;·&nbsp; Go Your Dream</div>
+    <div class="footer-txt">© Ishak Yonghang</div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     MODALS — CERTS
+══════════════════════════════════════ -->
+<div id="modal-cert-comp1" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('cert-comp1')"><i class="fas fa-xmark"></i></button>
+    <div class="modal-eyebrow">Certificate Preview</div>
+    <div class="modal-title">Computer Operator Course</div>
+    <div class="modal-cert-img" style="margin-top:14px;">
+      <img src="https://yonghangishak.com.np/certs/computer-operator.jpg" alt="Computer Operator Certificate"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div style="display:none;flex-direction:column;align-items:center;gap:8px;color:var(--muted);">
+        <i class="fas fa-certificate" style="font-size:2.5rem;color:var(--blue);opacity:.5;"></i>
+        <span style="font-size:.8rem;">Certificate image placeholder</span>
+        <span style="font-size:.7rem;color:var(--faint);">Upload your certificate to /certs/</span>
+      </div>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-field"><div class="mf-lbl">Completed</div><div class="mf-val">2080 BS</div></div>
+      <div class="modal-field"><div class="mf-lbl">Type</div><div class="mf-val">Vocational</div></div>
+    </div>
+    <button class="modal-btn" onclick="closeModal('cert-comp1')"><i class="fas fa-eye-slash"></i> Close</button>
+  </div>
+</div>
+
+<div id="modal-cert-comp2" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('cert-comp2')"><i class="fas fa-xmark"></i></button>
+    <div class="modal-eyebrow">Certificate Preview</div>
+    <div class="modal-title">Basic Revision Course</div>
+    <div class="modal-cert-img" style="margin-top:14px;">
+      <img src="https://yonghangishak.com.np/certs/basic-revision.jpg" alt="Basic Revision Certificate"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div style="display:none;flex-direction:column;align-items:center;gap:8px;color:var(--muted);">
+        <i class="fas fa-certificate" style="font-size:2.5rem;opacity:.5;color:#7c3aed;"></i>
+        <span style="font-size:.8rem;">Certificate image placeholder</span>
+      </div>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-field"><div class="mf-lbl">Completed</div><div class="mf-val">2081 BS</div></div>
+      <div class="modal-field"><div class="mf-lbl">Type</div><div class="mf-val">Vocational</div></div>
+    </div>
+    <button class="modal-btn" onclick="closeModal('cert-comp2')"><i class="fas fa-eye-slash"></i> Close</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL — POEM READER
+══════════════════════════════════════ -->
+<div id="modal-poem-reader" class="modal-overlay hidden">
+  <div class="modal-box" style="max-width:540px;">
+    <button class="modal-close" onclick="closeModal('poem-reader')"><i class="fas fa-xmark"></i></button>
+    <div class="modal-eyebrow" id="poemModalEyebrow">Poem</div>
+    <div class="modal-title" id="poemModalTitle">Title</div>
+    <div style="max-height:52vh;overflow-y:auto;padding-right:4px;margin:16px 0;">
+      <p id="poemFullBody"></p>
+    </div>
+    <button class="modal-btn" onclick="closeModal('poem-reader')"><i class="fas fa-eye-slash"></i> Close</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=(mx-4.5)+'px'; cur.style.top=(my-4.5)+'px';
+});
+(function animRing(){
+  rx+=(mx-rx-16)*.12; ry+=(my-ry-16)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.contact-method,.edu-row,.snap-item,.card,.poem-card,.proj-card,.cert-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.transform='scale(2.2)'; ring.style.transform='scale(1.6)'; cur.style.background='var(--gold)'; ring.style.borderColor='var(--gold)'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.transform='scale(1)'; ring.style.transform='scale(1)'; cur.style.background='var(--blue)'; ring.style.borderColor='var(--blue)'; });
+});
+
+/* ── AGE ── */
+(function(){
+  const b=new Date(2005,9,26), n=new Date();
+  let a=n.getFullYear()-b.getFullYear();
+  if(n.getMonth()<b.getMonth()||(n.getMonth()===b.getMonth()&&n.getDate()<b.getDate())) a--;
+  ['hero-age','card-age','stat-age'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=a; });
+})();
+
+/* ── NAV ACTIVE ── */
+const allNavLinks = document.querySelectorAll('.nav-link,.float-link');
+const secs = document.querySelectorAll('section[id]');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      allNavLinks.forEach(l=>l.classList.remove('active'));
+      document.querySelectorAll('[href="#'+e.target.id+'"]').forEach(l=>l.classList.add('active'));
+    }
+  });
+},{threshold:.3});
+secs.forEach(s=>io.observe(s));
+
+/* ── REVEAL ──
+   Hero-section reveals are intentionally excluded here: they are triggered
+   in sequence by the preloader once the welcome animation finishes, so the
+   page doesn't "jump" to its final state underneath the loading screen. */
+const rev = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.target.closest('#hero')) return;
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>rev.observe(el));
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.closest('#hero')) return;
+    if(el.getBoundingClientRect().top<window.innerHeight) el.classList.add('visible');
+  });
+});
+
+/* ── PRELOADER / WELCOME SEQUENCE ──
+   Keeps the welcome animation on screen for a minimum of 2.2s so its calm
+   rhythm always completes, then sweeps the preloader away and reveals the
+   hero content in a gentle staggered sequence. */
+(function(){
+  const preloader = document.getElementById('preloader');
+  if(!preloader){ document.documentElement.classList.remove('is-loading'); return; }
+
+  const MIN_VISIBLE_MS = 2200;
+  const startedAt = Date.now();
+
+  function revealHero(){
+    document.querySelectorAll('#hero .reveal').forEach(el=>el.classList.add('visible'));
+  }
+
+  function dismissPreloader(){
+    const elapsed = Date.now() - startedAt;
+    const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
+    setTimeout(()=>{
+      preloader.classList.add('pl-hide');
+      document.documentElement.classList.remove('is-loading');
+      // let the sweep-away transition begin, then bring the hero copy in
+      setTimeout(revealHero, 180);
+      preloader.addEventListener('transitionend', function te(ev){
+        if(ev.propertyName !== 'clip-path') return;
+        preloader.removeEventListener('transitionend', te);
+        preloader.remove();
+      });
+    }, remaining);
+  }
+
+  if(document.readyState === 'complete'){
+    dismissPreloader();
+  } else {
+    window.addEventListener('load', dismissPreloader);
+  }
+})();
+
+/* ── MODALS ── */
+function openModal(id){
+  const el=document.getElementById('modal-'+id);
+  if(el){ el.classList.remove('hidden'); document.body.style.overflow='hidden'; }
+}
+function closeModal(id){
+  const el=document.getElementById('modal-'+id);
+  if(el){ el.classList.add('hidden'); document.body.style.overflow=''; }
+}
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',function(e){ if(e.target===this){ this.classList.add('hidden'); document.body.style.overflow=''; } });
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.modal-overlay:not(.hidden)').forEach(m=>{ m.classList.add('hidden'); document.body.style.overflow=''; });
+});
+
+/* ── POEMS ── */
+const poemsData = [
+  {
+    title:'किनारिएको फुल', sub:'Love Poem',
+    body:`न बयान हुन्छ शब्दले
+न कुनै रुप छ यो प्रेमको
+एकोहोरो अनि गहिरो
+छ प्रेम तिम्रो लागि सदाको
+अश्रुको मृदुलय छ सधै
+फेरि आउँछौ कि भनि आफै
+मन भित्र बनाउछु पिन्जडा शब्दको आफै
+वाल्यकालको उकाली देख्छु म छर्लङ्गै
+कति सुन्दर त्यो बिनोदको सुस्केरा
+त्यो खुशीको योजना 
+त्यो किनारिको संरचना 
+तर खै किन हुदैछ अचेल बेदना
+खै त्यो फर्किन्छ कि भनि दोभानमा छु
+मेट्टि जाने सपना आशाले कोर्दै छु
+रित बुझाउने आशा तस्विर हेरि धित बुझाउदै छु
+खै किन हो बाल्यकाल सम्झि म आफै बौलाउदै छु ।`
+  },
+  {
+    title:'कफिन', sub:'Emotion',
+    body:`जहाँ छु म खुसी छु,
+अन्धकार नै सहि म खुसी छु,
+जिवन मेरो यहिँ त रहेछ,
+मृत्यु सँगसगै हिड्दै छु,
+यो मृत्युदेखि डराउँछन् सबै,
+तर म त सुन्दर देख्दैछु ।
+
+जहाँ छु म अराममा छु,
+कफिन भित्र नै सहि म आराममा छु,
+छलमा बाचेको रहेछु आजसम्म,
+म त चुँडिएको पात झैँ जर्दैछु,
+म खुसी छु आज हेर,
+किनकि म भित्र भित्रै मर्दैछु ।`
+  },
+  {
+    title:'नचाहेको सङ्गीत', sub:'Reflection',
+    body:`म त्यहाँ छु,
+जहाँ कोहि आउन चाहँदैन,
+म त्योसंग छु,
+जोसंग केहि बस्न चाहँदैन,
+म त्यसको प्रतिक्षामा छु,
+जससंग कोहि नजर जुधाउन चाहँदैन,
+म त्यसलाई सुन्दर मान्छु,
+दुनियाँ जसलाई कुरुप ठान्दछ,
+हो त्यसको प्रतिक्षामा छु,
+जसलाई दुनियाँले मृत्यु भनि जान्दछ,
+हो म मृत्युकै प्रतिक्षामा छु,
+जस देखि दुनियाँ भाग्दछ ।`
+  }
+];
+
+function openPoemReader(i){
+  const p=poemsData[i]; if(!p) return;
+  document.getElementById('poemModalEyebrow').textContent=p.sub||'Poem';
+  document.getElementById('poemModalTitle').textContent=p.title;
+  document.getElementById('poemFullBody').textContent=p.body;
+  openModal('poem-reader');
+}
+
+/* ── CONTACT FORM ── */
+function sendMsg(){
+  const fname=document.getElementById('fname').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const msg=document.getElementById('message').value.trim();
+  if(!fname||!email||!msg){ alert('Please fill in your name, email and message.'); return; }
+  const subject=document.getElementById('subject').value||'Message from Portfolio';
+  const lname=document.getElementById('lname').value;
+  const body='From: '+fname+' '+lname+'\nEmail: '+email+'\n\n'+msg;
+  window.location.href='mailto:yonghangissac@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  document.getElementById('form-success').style.display='block';
+  ['fname','lname','email','subject','message'].forEach(id=>document.getElementById(id).value='');
+}
+</script>
+</body>
+</html>
