@@ -30,7 +30,24 @@
     background: var(--paper);
     color: var(--ink);
     font-family: 'Karla', sans-serif;
+    position: relative;
   }
+
+  /* subtle paper grain for warmth/texture */
+  body::before{
+    content:"";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    opacity: 0.5; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+
+  /* soft aurora colour blobs behind the top of the page */
+  .aurora{ position: absolute; z-index: 0; border-radius: 999px; filter: blur(70px); pointer-events: none; }
+  .aurora-1{ top: -140px; left: -120px; width: 420px; height: 420px; background: radial-gradient(circle, var(--gold), transparent 70%); opacity: .55; }
+  .aurora-2{ top: -80px; right: -160px; width: 460px; height: 460px; background: radial-gradient(circle, var(--sky), transparent 70%); opacity: .45; }
+  .aurora-3{ top: 480px; left: 40%; width: 380px; height: 380px; background: radial-gradient(circle, var(--marigold), transparent 70%); opacity: .28; }
+
+  header, main, nav, footer, section, .rule{ position: relative; z-index: 1; }
 
   .font-display{ font-family: 'Fraunces', serif; }
   .font-np{ font-family: 'Noto Serif Devanagari', serif; }
@@ -70,13 +87,14 @@
   .poem-copy:hover{ color: var(--sky); }
   .poem-copy svg{ width: 14px; height: 14px; }
 
-  /* interest rows — outlined, not filled cartoon badges */
-  .interest{ display: grid; grid-template-columns: 3rem 1fr; gap: 1.1rem; padding: 1.5rem 0; }
+  /* interest rows — soft tinted circle, refined not cartoonish */
+  .interest{ display: grid; grid-template-columns: 3.25rem 1fr; gap: 1.1rem; padding: 1.6rem 0; }
   .interest:not(:last-child){ border-bottom: 1px solid var(--line); }
   .interest .mark{
-    width: 3rem; height: 3rem; border-radius: 999px;
+    width: 3.25rem; height: 3.25rem; border-radius: 999px;
     display: flex; align-items: center; justify-content: center;
-    border: 1.5px solid currentColor; background: transparent;
+    border: 1.5px solid currentColor;
+    background: color-mix(in srgb, currentColor 14%, var(--paper));
   }
 
   .btn-ask{ background: var(--forest); color: var(--paper); transition: transform .18s ease, background .18s ease; }
@@ -87,21 +105,26 @@
   input:focus, textarea:focus{ outline: 2px solid var(--sky); outline-offset: 1px; border-color: var(--sky); }
   a:focus-visible, button:focus-visible{ outline: 2px solid var(--sky); outline-offset: 2px; }
 
-  /* portrait frame */
+  /* portrait frame — layered depth, two offset panels */
   .portrait-wrap{ position: relative; width: 100%; max-width: 300px; }
   .portrait-wrap::before{
-    content:""; position:absolute; inset: 14px -14px -14px 14px;
-    border: 1.5px solid var(--gold); border-radius: 4px; z-index: 0;
+    content:""; position:absolute; inset: 22px -22px -22px 22px;
+    background: var(--gold); border-radius: 6px; z-index: 0;
+  }
+  .portrait-wrap::after{
+    content:""; position:absolute; inset: 11px -11px -11px 11px;
+    border: 1.5px solid var(--forest); border-radius: 6px; z-index: 0;
   }
   .portrait-img{
     position: relative; z-index: 1; width: 100%; aspect-ratio: 4/5;
-    object-fit: cover; border-radius: 4px; background: var(--forest);
-    display: block;
+    object-fit: cover; border-radius: 6px; background: var(--forest);
+    display: block; box-shadow: 0 18px 40px -18px rgba(31,75,63,0.45);
   }
   .portrait-fallback{
     position: relative; z-index: 1; width: 100%; aspect-ratio: 4/5;
-    border-radius: 4px; display: none; align-items: center; justify-content: center;
+    border-radius: 6px; display: none; align-items: center; justify-content: center;
     background: linear-gradient(160deg, var(--forest), var(--meadow-2));
+    box-shadow: 0 18px 40px -18px rgba(31,75,63,0.45);
   }
   .portrait-fallback span{
     font-family: 'Fraunces', serif; font-weight: 600; font-size: 3.5rem; color: var(--paper);
@@ -120,6 +143,20 @@
 
   .signature{ font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; }
 
+  /* facts strip */
+  .facts{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  @media (max-width: 640px){ .facts{ grid-template-columns: repeat(2, 1fr); } }
+  .facts .fact-num{ font-family:'Fraunces', serif; font-weight: 600; font-size: 2.1rem; line-height: 1; }
+  .facts .fact-label{ font-size: .82rem; margin-top: .4rem; color: rgba(33,54,42,0.65); }
+
+  /* pull quote divider */
+  .pull-quote{ position: relative; padding: 0 0 0 2rem; }
+  .pull-quote .glyph{
+    position: absolute; left: -0.5rem; top: -1.6rem;
+    font-family: 'Fraunces', serif; font-size: 6rem; line-height: 1;
+    color: var(--gold); opacity: .55; font-weight: 600;
+  }
+
   /* single, restrained load-in for the hero only */
   .hero-in{ animation: rise .7s cubic-bezier(.2,.8,.2,1) both; }
   .hero-in.delay-1{ animation-delay: .08s; }
@@ -137,6 +174,7 @@
       <nav class="hidden sm:flex gap-6 text-sm font-semibold" id="site-nav">
         <a href="#about" data-nav="about">About</a>
         <a href="#poems" data-nav="poems">Poems</a>
+        <a href="#writings" data-nav="writings">Writings</a>
         <a href="#interests" data-nav="interests">Interests</a>
       </nav>
     </div>
@@ -144,6 +182,9 @@
 
   <!-- ============ HERO ============ -->
   <a id="top"></a>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
   <header class="section-pad px-6">
     <div class="container-w mx-auto">
       <div class="flex flex-wrap gap-3 mb-12">
@@ -170,6 +211,25 @@
           <img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Portrait of Ishak Yonghang" class="portrait-img" id="portrait-img"
                onerror="this.style.display='none'; document.getElementById('portrait-fallback').style.display='flex';">
           <div class="portrait-fallback" id="portrait-fallback"><span>IY</span></div>
+        </div>
+      </div>
+
+      <div class="facts mt-16 pt-10 hero-in delay-2" style="border-top:1px solid var(--line)">
+        <div>
+          <div class="fact-num" style="color:var(--forest)">2</div>
+          <div class="fact-label">Languages I write in</div>
+        </div>
+        <div>
+          <div class="fact-num" style="color:var(--sky-2)">3</div>
+          <div class="fact-label">Poems on this page</div>
+        </div>
+        <div>
+          <div class="fact-num" style="color:var(--marigold)">Panchthar</div>
+          <div class="fact-label">Multiple Campus, Art</div>
+        </div>
+        <div>
+          <div class="fact-num" style="color:var(--meadow-2)">Hilhang-5</div>
+          <div class="fact-label">Subhang, where I'm from</div>
         </div>
       </div>
     </div>
@@ -289,6 +349,74 @@ I worry about being The Prodigal Son.</p>
 कापेका हात र रुझेका आँखाले
 कलम म बन्द गर्छु यही ।।</p>
         </div>
+        <div class="poem-block">
+          <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">एउटा एनाको दुईटा प्रतिबिम्ब</h3>
+          <div class="poem-tools mb-4">
+            <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
+            <button class="poem-copy" data-copy-target="poem-np-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span data-copy-label>Copy</span>
+            </button>
+          </div>
+          <p class="poem-text font-np text-xl" id="poem-np-3" style="color:var(--ink)" lang="ne">म दैडिरहेको छु दुइटा सोचमा
+म भौतारिएको छु अन्योलताको विचमा
+
+नशा नशा नशा देऊ मलाई
+खुल्ला पन्छी झै उड्न देऊ मलाई
+न त रोग छ मसँग
+न त कुनै बोझ छ
+रहस्य त तिमी
+दुर्वल त तिमी छौ तर
+म कुन माटोबाट बनिएको हु
+
+नशा नशा नशा देऊ मलाई
+यो जिवनको अर्थ देऊ मलाई
+म किन छु कहाँबाट हु
+बताऊ मलाई
+म मर्दैछु यसैले अव
+कोही आइ बचाउ मलाई</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WRITINGS ============ -->
+  <section id="writings" class="section-pad px-6">
+    <div class="container-w mx-auto">
+      <div class="mb-10">
+        <h2 class="font-display font-semibold text-3xl mb-2" style="color:var(--forest)">Writings</h2>
+        <p style="color:rgba(33,54,42,0.7)">Shorter reflections, outside of verse.</p>
+      </div>
+
+      <div class="poem-block">
+        <h3 class="font-display font-semibold text-2xl mb-4" style="color:var(--forest)">Self-Realization</h3>
+        <p class="text-lg leading-relaxed" style="color:var(--ink)">
+          My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul
+          laughed, and I realized I am a shadow. I laughed too, because I am not
+          Isaac — I am Ishak.
+        </p>
+      </div>
+
+      <div class="poem-block">
+        <p class="text-sm mb-4 uppercase tracking-wide" style="color:rgba(33,54,42,0.5)">Untitled</p>
+        <p class="text-lg leading-relaxed" style="color:var(--ink)">
+          In this cursed world, everyone is a puppet. No matter how much you try
+          to escape, you lose every time. You can't find the mastermind, but I
+          see something of that mastermind, and it looks like desire.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PULL QUOTE ============ -->
+  <section class="px-6 py-16" style="background: var(--paper-2);">
+    <div class="container-w mx-auto">
+      <div class="pull-quote">
+        <span class="glyph" aria-hidden="true">&ldquo;</span>
+        <p class="font-display text-2xl sm:text-3xl leading-snug max-w-xl" style="color:var(--forest)">
+          I want to go back to my father's house.
+        </p>
+        <p class="mt-3 text-sm" style="color:rgba(33,54,42,0.6)">— from <em>The Gossip Rope</em></p>
       </div>
     </div>
   </section>
