@@ -143,6 +143,8 @@
   .poem-panel{ display: block; }
   .poem-block:not(:last-child){ margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--line); }
   .poem-text{ white-space: pre-line; line-height: 1.85; max-width: 42rem; }
+  .poem-stanza{ display: block; white-space: pre-line; margin-bottom: 1.7em; break-inside: avoid-column; -webkit-column-break-inside: avoid; }
+  .poem-stanza:last-child{ margin-bottom: 0; }
 
   /* poem card — fills the wide empty space beside short lines with a
      tinted two-tone panel + accent spine, instead of bare blank page */
@@ -541,6 +543,29 @@ I worry about being The Prodigal Son.</p>
       if(lines.length >= MIN_LINES_FOR_COLUMNS){
         block.classList.add('poem-columns');
       }
+
+      // wrap each stanza (blank-line-separated group) in its own block so
+      // the two-column layout never splits a verse in half
+      var rawLines = textEl.textContent.replace(/\r/g, '').split('\n');
+      var stanzas = []; var current = [];
+      rawLines.forEach(function(line){
+        if(line.trim() === ''){
+          if(current.length){ stanzas.push(current); current = []; }
+        } else {
+          current.push(line);
+        }
+      });
+      if(current.length){ stanzas.push(current); }
+      if(stanzas.length > 1){
+        textEl.dataset.rawText = textEl.textContent.trim();
+        textEl.innerHTML = '';
+        stanzas.forEach(function(linesArr){
+          var s = document.createElement('span');
+          s.className = 'poem-stanza';
+          s.textContent = linesArr.join('\n');
+          textEl.appendChild(s);
+        });
+      }
     }
   });
 
@@ -551,7 +576,7 @@ I worry about being The Prodigal Son.</p>
       var target = document.getElementById(targetId);
       var label = btn.querySelector('[data-copy-label]');
       if(!target) return;
-      var text = target.textContent.trim();
+      var text = (target.dataset.rawText || target.textContent).trim();
       var reset = function(){ label.textContent = 'Copy'; };
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(function(){
