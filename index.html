@@ -144,6 +144,28 @@
   .poem-block:not(:last-child){ margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--line); }
   .poem-text{ white-space: pre-line; line-height: 1.85; max-width: 42rem; }
 
+  /* poem card — fills the wide empty space beside short lines with a
+     tinted two-tone panel + accent spine, instead of bare blank page */
+  .poem-card{
+    --accent: var(--sky-2);
+    background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 10%, var(--paper)), var(--paper) 60%);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 2rem 2rem 2rem 1.75rem;
+  }
+  @media (max-width: 640px){ .poem-card{ padding: 1.5rem 1.25rem 1.5rem 1.1rem; } }
+  .poem-card .poem-text{ max-width: 46rem; }
+
+  /* long poems automatically flow into two reading columns on wide
+     screens — toggled by JS based on line count, no manual work needed */
+  @media (min-width: 800px){
+    .poem-columns .poem-text{
+      column-count: 2; column-gap: 3rem; column-rule: 1px solid var(--line);
+      max-width: none;
+    }
+  }
+  .poem-card:not(:last-child){ border-bottom: none; margin-bottom: 2.25rem; padding-bottom: 2rem; }
+
   .signature{ font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; }
 
   /* facts strip */
@@ -271,7 +293,7 @@
 
       <h3 class="text-sm font-semibold uppercase tracking-wide mb-6" style="color:var(--sky-2)">English</h3>
       <div class="poem-panel is-active" data-panel="en">
-        <div class="poem-block">
+        <div class="poem-block poem-card" style="--accent: var(--sky-2)">
           <h3 class="font-display font-semibold text-2xl mb-1" style="color:var(--forest)">The Gossip Rope</h3>
           <div class="poem-tools mb-4">
             <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
@@ -314,7 +336,7 @@ I worry about being The Prodigal Son.</p>
 
       <h3 class="text-sm font-semibold uppercase tracking-wide mb-6 mt-14" style="color:var(--sky-2)">Nepali</h3>
       <div class="poem-panel is-active" data-panel="np">
-        <div class="poem-block">
+        <div class="poem-block poem-card" style="--accent: var(--gold)">
           <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">अश्रु बिपनाको</h3>
           <div class="poem-tools mb-4">
             <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
@@ -335,7 +357,7 @@ I worry about being The Prodigal Son.</p>
 बिलाउने त्यो कलमलाई
 नव जिवनको शुभकामना छ है।</p>
         </div>
-        <div class="poem-block">
+        <div class="poem-block poem-card" style="--accent: var(--marigold)">
           <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">सुक्ष्म स्पन्दन</h3>
           <div class="poem-tools mb-4">
             <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
@@ -352,7 +374,7 @@ I worry about being The Prodigal Son.</p>
 कापेका हात र रुझेका आँखाले
 कलम म बन्द गर्छु यही ।।</p>
         </div>
-        <div class="poem-block">
+        <div class="poem-block poem-card" style="--accent: var(--meadow-2)">
           <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">एउटा एनाको दुईटा प्रतिबिम्ब</h3>
           <div class="poem-tools mb-4">
             <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
@@ -503,14 +525,21 @@ I worry about being The Prodigal Son.</p>
   // -- footer year --
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-  // -- poem stats: line count + word count --
+  // -- poem stats: line count + word count, and auto two-column layout
+  // for long poems (any current or future .poem-block gets this for free) --
+  var LONG_POEM_LINE_THRESHOLD = 12;
   document.querySelectorAll('.poem-block').forEach(function(block){
     var textEl = block.querySelector('.poem-text');
     var statsEl = block.querySelector('[data-stats]');
-    if(textEl && statsEl){
+    if(textEl){
       var lines = textEl.textContent.trim().split('\n').filter(function(l){ return l.trim().length > 0; });
       var words = textEl.textContent.trim().split(/\s+/).filter(Boolean);
-      statsEl.textContent = lines.length + ' lines · ' + words.length + ' words';
+      if(statsEl){
+        statsEl.textContent = lines.length + ' lines · ' + words.length + ' words';
+      }
+      if(lines.length > LONG_POEM_LINE_THRESHOLD){
+        block.classList.add('poem-columns');
+      }
     }
   });
 
