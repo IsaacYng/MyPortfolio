@@ -525,9 +525,10 @@ I worry about being The Prodigal Son.</p>
   // -- footer year --
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-  // -- poem stats: line count + word count, and auto two-column layout
-  // for long poems (any current or future .poem-block gets this for free) --
-  var LONG_POEM_LINE_THRESHOLD = 12;
+  // -- poem stats: line count + word count, and two-column layout for
+  // every poem on wide screens (any current or future .poem-block gets
+  // this automatically — no manual work needed per poem) --
+  var MIN_LINES_FOR_COLUMNS = 4;
   document.querySelectorAll('.poem-block').forEach(function(block){
     var textEl = block.querySelector('.poem-text');
     var statsEl = block.querySelector('[data-stats]');
@@ -537,7 +538,7 @@ I worry about being The Prodigal Son.</p>
       if(statsEl){
         statsEl.textContent = lines.length + ' lines · ' + words.length + ' words';
       }
-      if(lines.length > LONG_POEM_LINE_THRESHOLD){
+      if(lines.length >= MIN_LINES_FOR_COLUMNS){
         block.classList.add('poem-columns');
       }
     }
