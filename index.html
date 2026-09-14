@@ -54,7 +54,8 @@
   .font-display{ font-family: 'Fraunces', serif; }
   .font-np{ font-family: 'Noto Serif Devanagari', serif; }
 
-  .container-w{ max-width: 800px; }
+  .container-w{ max-width: 960px; }
+  @media (min-width: 1280px){ .container-w{ max-width: 1080px; } }
   .section-pad{ padding-top: 5.5rem; padding-bottom: 5.5rem; }
   @media (max-width: 640px){ .section-pad{ padding-top: 3.5rem; padding-bottom: 3.5rem; } }
 
@@ -141,7 +142,7 @@
   .poem-tab.is-active{ background: var(--forest); color: var(--paper); border-color: var(--forest); }
   .poem-panel{ display: block; }
   .poem-block:not(:last-child){ margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--line); }
-  .poem-text{ white-space: pre-line; line-height: 1.85; }
+  .poem-text{ white-space: pre-line; line-height: 1.85; max-width: 42rem; }
 
   .signature{ font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; }
 
