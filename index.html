@@ -1,310 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ishak Yonghang — Poet &amp; Art Student</title>
-<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#FBF6EC',
+          card: '#F3E9D8',
+          ink: '#2A2118',
+          marigold: { DEFAULT: '#CC7A1F', dark: '#A9621A', light: '#E9AE63' },
+          maroon: { DEFAULT: '#7A2B2B', light: '#9C4A3F' },
+          pine: { DEFAULT: '#2F5D53', light: '#4B7C6F' },
+          line: '#E3D5BC',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Work Sans', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
 <style>
-  :root{
-    --paper:      #FBF4E4;
-    --paper-2:    #F4E9D3;
-    --ink:        #21362A;
-    --forest:     #1F4B3F;
-    --meadow:     #4C9A6A;
-    --meadow-2:   #2F7A54;
-    --gold:       #E8AC3E;
-    --sky:        #3E8FB0;
-    --sky-2:      #2A6E8A;
-    --marigold:   #E4632F;
-    --line:       rgba(33,54,42,0.16);
+  html { scroll-behavior: smooth; }
+  body { background-color: #FBF6EC; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-body { font-family: 'Work Sans', sans-serif; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .rise-in > * { opacity: 0; animation: rise 0.7s ease-out forwards; }
+  .rise-in > *:nth-child(1) { animation-delay: 0.05s; }
+  .rise-in > *:nth-child(2) { animation-delay: 0.18s; }
+  .rise-in > *:nth-child(3) { animation-delay: 0.31s; }
+  .rise-in > *:nth-child(4) { animation-delay: 0.44s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise-in > * { animation: none; opacity: 1; }
+    html { scroll-behavior: auto; }
   }
 
-  * { box-sizing: border-box; }
-
-  html, body{ overflow-x: hidden; width: 100%; }
-
-  body{
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Karla', sans-serif;
-    position: relative;
+  :focus-visible {
+    outline: 2px solid #CC7A1F;
+    outline-offset: 2px;
   }
 
-  /* subtle paper grain for warmth/texture */
-  body::before{
-    content:"";
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    opacity: 0.5; mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  .poem-text {
+    line-height: 2;
+    letter-spacing: 0.01em;
   }
-
-  /* soft aurora colour blobs behind the top of the page */
-  .aurora{ position: absolute; z-index: 0; border-radius: 999px; filter: blur(70px); pointer-events: none; }
-  .aurora-1{ top: -140px; left: -120px; width: 420px; height: 420px; background: radial-gradient(circle, var(--gold), transparent 70%); opacity: .55; }
-  .aurora-2{ top: -80px; right: -160px; width: 460px; height: 460px; background: radial-gradient(circle, var(--sky), transparent 70%); opacity: .45; }
-  .aurora-3{ top: 480px; left: 40%; width: 380px; height: 380px; background: radial-gradient(circle, var(--marigold), transparent 70%); opacity: .28; }
-
-  header, main, nav, footer, section, .rule{ position: relative; z-index: 1; }
-
-  .font-display{ font-family: 'Fraunces', serif; }
-  .font-np{ font-family: 'Noto Serif Devanagari', serif; }
-
-  .container-w{ max-width: 960px; }
-  @media (min-width: 1280px){ .container-w{ max-width: 1080px; } }
-  .section-pad{ padding-top: 5.5rem; padding-bottom: 5.5rem; }
-  @media (max-width: 640px){ .section-pad{ padding-top: 3.5rem; padding-bottom: 3.5rem; } }
-
-  .rule{ height: 1px; background: var(--line); }
-
-  .chip{ display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--forest); }
-  .chip .dot{ width: 6px; height: 6px; border-radius: 999px; flex: none; }
-
-  nav a{ color: var(--forest); opacity: .75; transition: opacity .15s ease, color .15s ease; }
-  nav a:hover{ opacity: 1; }
-  nav a.is-current{ opacity: 1; color: var(--marigold); }
-
-  html{ scroll-behavior: smooth; }
-
-  #back-to-top{
-    position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 30;
-    width: 2.75rem; height: 2.75rem; border-radius: 999px;
-    background: var(--forest); color: var(--paper);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transform: translateY(8px);
-    transition: opacity .2s ease, transform .2s ease;
-    border: none; cursor: pointer;
-  }
-  #back-to-top.is-visible{ opacity: 1; pointer-events: auto; transform: none; }
-
-  .poem-tools{ display:flex; align-items:center; gap: .9rem; }
-  .poem-copy{
-    display: inline-flex; align-items: center; gap: .35rem;
-    font-size: .82rem; font-weight: 600; color: var(--sky-2);
-    background: transparent; border: none; cursor: pointer; padding: 0;
-  }
-  .poem-copy:hover{ color: var(--sky); }
-  .poem-copy svg{ width: 14px; height: 14px; }
-
-  /* interest rows — soft tinted circle, refined not cartoonish */
-  .interest{ display: grid; grid-template-columns: 3.25rem 1fr; gap: 1.1rem; padding: 1.6rem 0; }
-  .interest:not(:last-child){ border-bottom: 1px solid var(--line); }
-  .interest .mark{
-    width: 3.25rem; height: 3.25rem; border-radius: 999px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1.5px solid currentColor;
-    background: color-mix(in srgb, currentColor 14%, var(--paper));
-  }
-
-  .btn-ask{ background: var(--forest); color: var(--paper); transition: transform .18s ease, background .18s ease; }
-  .btn-ask:hover{ background: var(--meadow-2); transform: translateY(-1px); }
-
-  input, textarea{ background: var(--paper); border: 1px solid var(--line); color: var(--ink); }
-  input::placeholder, textarea::placeholder{ color: rgba(33,54,42,0.45); }
-  input:focus, textarea:focus{ outline: 2px solid var(--sky); outline-offset: 1px; border-color: var(--sky); }
-  a:focus-visible, button:focus-visible{ outline: 2px solid var(--sky); outline-offset: 2px; }
-
-  /* portrait frame — layered depth, two offset panels */
-  .portrait-wrap{ position: relative; width: 100%; max-width: 300px; }
-  .portrait-wrap::before{
-    content:""; position:absolute; inset: 22px -22px -22px 22px;
-    background: var(--gold); border-radius: 6px; z-index: 0;
-  }
-  .portrait-wrap::after{
-    content:""; position:absolute; inset: 11px -11px -11px 11px;
-    border: 1.5px solid var(--forest); border-radius: 6px; z-index: 0;
-  }
-  .portrait-img{
-    position: relative; z-index: 1; width: 100%; aspect-ratio: 4/5;
-    object-fit: cover; border-radius: 6px; background: var(--forest);
-    display: block; box-shadow: 0 18px 40px -18px rgba(31,75,63,0.45);
-  }
-  .portrait-fallback{
-    position: relative; z-index: 1; width: 100%; aspect-ratio: 4/5;
-    border-radius: 6px; display: none; align-items: center; justify-content: center;
-    background: linear-gradient(160deg, var(--forest), var(--meadow-2));
-    box-shadow: 0 18px 40px -18px rgba(31,75,63,0.45);
-  }
-  .portrait-fallback span{
-    font-family: 'Fraunces', serif; font-weight: 600; font-size: 3.5rem; color: var(--paper);
-  }
-
-  /* poem tabs */
-  .poem-tab{
-    padding: .55rem 1.1rem; border-radius: 999px; font-size: .9rem; font-weight: 600;
-    border: 1px solid var(--line); color: var(--forest); background: transparent;
-    cursor: pointer; transition: background .15s ease, color .15s ease;
-  }
-  .poem-tab.is-active{ background: var(--forest); color: var(--paper); border-color: var(--forest); }
-  .poem-panel{ display: block; }
-  .poem-block:not(:last-child){ margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--line); }
-  .poem-text{ white-space: pre-line; line-height: 1.85; max-width: 42rem; }
-  .poem-stanza{ display: block; white-space: pre-line; margin-bottom: 1.7em; break-inside: avoid-column; -webkit-column-break-inside: avoid; }
-  .poem-stanza:last-child{ margin-bottom: 0; }
-
-  /* poem card — fills the wide empty space beside short lines with a
-     tinted two-tone panel + accent spine, instead of bare blank page */
-  .poem-card{
-    --accent: var(--sky-2);
-    background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 10%, var(--paper)), var(--paper) 60%);
-    border-left: 4px solid var(--accent);
-    border-radius: 4px;
-    padding: 2rem 2rem 2rem 1.75rem;
-  }
-  @media (max-width: 640px){ .poem-card{ padding: 1.5rem 1.25rem 1.5rem 1.1rem; } }
-  .poem-card .poem-text{ max-width: 46rem; }
-
-  /* long poems automatically flow into two reading columns on wide
-     screens — toggled by JS based on line count, no manual work needed */
-  @media (min-width: 800px){
-    .poem-columns .poem-text{
-      column-count: 2; column-gap: 3rem; column-rule: 1px solid var(--line);
-      max-width: none;
-    }
-  }
-  .poem-card:not(:last-child){ border-bottom: none; margin-bottom: 2.25rem; padding-bottom: 2rem; }
-
-  .signature{ font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; }
-
-  /* facts strip */
-  .facts{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-  @media (max-width: 640px){ .facts{ grid-template-columns: repeat(2, 1fr); } }
-  .facts .fact-num{ font-family:'Fraunces', serif; font-weight: 600; font-size: 2.1rem; line-height: 1; }
-  .facts .fact-label{ font-size: .82rem; margin-top: .4rem; color: rgba(33,54,42,0.65); }
-
-  /* pull quote divider */
-  .pull-quote{ position: relative; padding: 0 0 0 2rem; }
-  .pull-quote .glyph{
-    position: absolute; left: -0.5rem; top: -1.6rem;
-    font-family: 'Fraunces', serif; font-size: 6rem; line-height: 1;
-    color: var(--gold); opacity: .55; font-weight: 600;
-  }
-
-  /* single, restrained load-in for the hero only */
-  .hero-in{ animation: rise .7s cubic-bezier(.2,.8,.2,1) both; }
-  .hero-in.delay-1{ animation-delay: .08s; }
-  .hero-in.delay-2{ animation-delay: .16s; }
-  @keyframes rise{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform:none; } }
-  @media (prefers-reduced-motion: reduce){ .hero-in{ animation: none; } }
 </style>
 </head>
-<body class="antialiased">
+<body class="font-body text-ink antialiased">
 
-  <!-- ============ NAV ============ -->
-  <div class="px-6 pt-6 pb-2 sticky top-0 z-20" style="background:rgba(251,244,228,0.92); backdrop-filter: blur(6px);">
-    <div class="container-w mx-auto flex items-center justify-between">
-      <a href="#top" class="font-display font-semibold" style="color:var(--forest)">Ishak Yonghang</a>
-      <nav class="hidden sm:flex gap-6 text-sm font-semibold" id="site-nav">
-        <a href="#about" data-nav="about">About</a>
-        <a href="#poems" data-nav="poems">Poems</a>
-        <a href="#writings" data-nav="writings">Writings</a>
-        <a href="#interests" data-nav="interests">Interests</a>
-      </nav>
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-40 backdrop-blur bg-paper/90 border-b border-line">
+  <nav class="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+    <a href="#top" class="font-display text-lg tracking-tight">Ishak Yonghang</a>
+    <button id="menuBtn" class="md:hidden p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <ul id="navLinks" class="hidden md:flex items-center gap-8 text-sm">
+      <li><a href="#poetry" class="hover:text-marigold-dark transition-colors">Poetry</a></li>
+      <li><a href="#contact" class="inline-flex items-center px-4 py-2 rounded-full bg-ink text-paper hover:bg-marigold-dark transition-colors">Get in touch</a></li>
+    </ul>
+  </nav>
+  <ul id="navLinksMobile" class="hidden md:hidden flex-col gap-1 px-6 pb-4 text-sm">
+    <li><a href="#poetry" class="block py-2">Poetry</a></li>
+    <li><a href="#contact" class="block py-2">Get in touch</a></li>
+  </ul>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="max-w-6xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-20">
+  <div class="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-16 items-center rise-in">
+
+    <div>
+      <p class="text-marigold-dark font-medium mb-4">Hilhang-5, Subhang · Panchthar, Nepal</p>
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6">
+        I write poetry, study art, and sit with questions that don't have easy answers.
+      </h1>
+      <p class="text-lg text-ink/75 max-w-xl mb-8">
+        My name is Ishak Yonghang. I was born in Hilhang-5, Subhang, and I study
+        art at Panchthar Multiple Campus. I write poetry — in English and
+        Nepali — and spend a lot of my time sitting with problems that don't
+        have obvious solutions.
+      </p>
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <span class="px-4 py-2 rounded-full bg-card border border-line">
+          <span id="age">—</span> years old
+        </span>
+        <span class="px-4 py-2 rounded-full bg-card border border-line">Poet</span>
+        <span class="px-4 py-2 rounded-full bg-card border border-line">Art Student</span>
+      </div>
     </div>
+
+    <div class="flex justify-center md:justify-end">
+      <div class="relative w-56 h-56 md:w-72 md:h-72">
+        <div class="absolute inset-0 rounded-full border-2 border-marigold-light -rotate-6"></div>
+        <img
+          src="https://placehold.co/600x600/F3E9D8/2A2118?text=Photo"
+          alt="Portrait of Ishak Yonghang"
+          class="w-full h-full object-cover rounded-full border-4 border-paper shadow-xl shadow-ink/10"
+        />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ POETRY ============ -->
+<section id="poetry" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-line">
+  <div class="flex items-end justify-between mb-10 gap-4 flex-wrap">
+    <div>
+      <h2 class="font-display text-3xl md:text-4xl mb-3">Creative corner</h2>
+      <p class="text-ink/70 max-w-md">A small shelf of poems and short writings, kept exactly as they came to me.</p>
+    </div>
+    <a href="#" class="text-sm font-medium text-maroon border-b border-maroon/40 hover:border-maroon pb-0.5 whitespace-nowrap">
+      Visit more of my writing
+    </a>
   </div>
 
-  <!-- ============ HERO ============ -->
-  <a id="top"></a>
-  <div class="aurora aurora-1"></div>
-  <div class="aurora aurora-2"></div>
-  <div class="aurora aurora-3"></div>
-  <header class="section-pad px-6">
-    <div class="container-w mx-auto">
-      <div class="flex flex-wrap gap-3 mb-12">
-        <span class="chip"><span class="dot" style="background:var(--meadow)"></span>Hilhang-5, Subhang · Panchthar, Nepal</span>
-        <span class="chip"><span class="dot" style="background:var(--gold)"></span>Art Student, Panchthar Multiple Campus</span>
-      </div>
+  <div class="grid gap-6">
 
-      <div class="grid md:grid-cols-[1fr_auto] gap-12 items-start">
-        <div class="hero-in">
-          <h1 class="font-display font-semibold leading-[1.03] text-5xl sm:text-6xl md:text-7xl" style="color:var(--forest)">
-            Ishak Yonghang
-          </h1>
-          <p class="mt-6 text-lg md:text-xl leading-relaxed max-w-md hero-in delay-1" style="color:var(--ink)">
-            I write poetry, work through problems that don't have clean answers yet,
-            and study art in Panchthar. This page is a short introduction to who I am.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3 hero-in delay-2">
-            <a href="#poems" class="btn-ask inline-block px-6 py-3 rounded-full font-semibold text-sm">Read my poems</a>
-            <a href="#interests" class="inline-block px-6 py-3 rounded-full font-semibold text-sm border" style="border-color:var(--forest); color:var(--forest)">What I'm into</a>
-          </div>
-        </div>
-
-        <div class="portrait-wrap justify-self-center hero-in delay-1">
-          <img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Portrait of Ishak Yonghang" class="portrait-img" id="portrait-img"
-               onerror="this.style.display='none'; document.getElementById('portrait-fallback').style.display='flex';">
-          <div class="portrait-fallback" id="portrait-fallback"><span>IY</span></div>
-        </div>
-      </div>
-
-      <div class="facts mt-16 pt-10 hero-in delay-2" style="border-top:1px solid var(--line)">
-        <div>
-          <div class="fact-num" style="color:var(--forest)">2</div>
-          <div class="fact-label">Languages I write in</div>
-        </div>
-        <div>
-          <div class="fact-num" style="color:var(--sky-2)">3</div>
-          <div class="fact-label">Poems on this page</div>
-        </div>
-        <div>
-          <div class="fact-num" style="color:var(--marigold)">Panchthar</div>
-          <div class="fact-label">Multiple Campus, Art</div>
-        </div>
-        <div>
-          <div class="fact-num" style="color:var(--meadow-2)">Hilhang-5</div>
-          <div class="fact-label">Subhang, where I'm from</div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div class="rule container-w mx-auto"></div>
-
-  <!-- ============ ABOUT ============ -->
-  <section id="about" class="section-pad px-6">
-    <div class="container-w mx-auto grid md:grid-cols-[0.55fr_1fr] gap-10">
-      <h2 class="font-display font-semibold text-3xl" style="color:var(--forest)">About</h2>
-      <div class="space-y-5 text-lg leading-relaxed max-w-xl">
-        <p>
-          I was born in Hilhang-5, Subhang, and I currently study as an art student
-          at Panchthar Multiple Campus. Alongside coursework, I spend a lot of my
-          time writing — poems mostly, in both English and Nepali — and sitting with
-          problems that don't have obvious solutions.
-        </p>
-        <p>
-          I'm a Christian, and my faith in Jesus shapes a lot of how I think and
-          write, including several of the poems on this page.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <div class="rule container-w mx-auto"></div>
-
-  <!-- ============ POEMS ============ -->
-  <section id="poems" class="section-pad px-6">
-    <div class="container-w mx-auto">
-      <div class="mb-10">
-        <h2 class="font-display font-semibold text-3xl mb-2" style="color:var(--forest)">Poems</h2>
-        <p style="color:rgba(33,54,42,0.7)">A few pieces, in English and Nepali.</p>
-      </div>
-
-      <h3 class="text-sm font-semibold uppercase tracking-wide mb-6" style="color:var(--sky-2)">English</h3>
-      <div class="poem-panel is-active" data-panel="en">
-        <div class="poem-block poem-card" style="--accent: var(--sky-2)">
-          <h3 class="font-display font-semibold text-2xl mb-1" style="color:var(--forest)">The Gossip Rope</h3>
-          <div class="poem-tools mb-4">
-            <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
-            <button class="poem-copy" data-copy-target="poem-gossip-rope">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-              <span data-copy-label>Copy</span>
-            </button>
-          </div>
-          <p class="poem-text text-lg" id="poem-gossip-rope" style="color:var(--ink)">I am not upset with this cursed world,
+    <!-- Featured poem -->
+    <article class="bg-card rounded-2xl border-l-4 border-marigold p-8 md:p-10">
+      <p class="text-sm text-marigold-dark font-medium mb-2">Poem — English</p>
+      <h3 class="font-display text-2xl mb-5">The Gossip Rope</h3>
+      <p class="font-display italic text-lg poem-text whitespace-pre-line text-ink/85 max-w-2xl">I am not upset with this cursed world,
 But something is growing in my forehead.
 
 That is not a dream, that is a peace.
@@ -333,21 +168,15 @@ O it's a gossip rope.
 I want to go back, I want to see a dream,
 I want to go back to my father's house,
 I worry about being The Prodigal Son.</p>
-        </div>
-      </div>
+    </article>
 
-      <h3 class="text-sm font-semibold uppercase tracking-wide mb-6 mt-14" style="color:var(--sky-2)">Nepali</h3>
-      <div class="poem-panel is-active" data-panel="np">
-        <div class="poem-block poem-card" style="--accent: var(--gold)">
-          <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">अश्रु बिपनाको</h3>
-          <div class="poem-tools mb-4">
-            <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
-            <button class="poem-copy" data-copy-target="poem-np-1">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-              <span data-copy-label>Copy</span>
-            </button>
-          </div>
-          <p class="poem-text font-np text-xl" id="poem-np-1" style="color:var(--ink)" lang="ne">सगर् छुन सागर छोड्नु पर्छ सबैलाई
+    <div>
+      <p class="text-sm text-pine font-medium mb-4 uppercase tracking-wide">Nepali</p>
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <article class="bg-card rounded-2xl border-l-4 border-pine p-8">
+          <h3 class="font-display text-xl mb-4" lang="ne">अश्रु बिपनाको</h3>
+          <p class="font-display italic poem-text whitespace-pre-line text-ink/85" lang="ne">सगर् छुन सागर छोड्नु पर्छ सबैलाई
 पङक्ति पङक्ति लख्नलाई पनि
 बलि हुनुपर्छ मसिलाई
 चुडिएपछि त नाभि आमाबाट
@@ -358,34 +187,22 @@ I worry about being The Prodigal Son.</p>
 फेरी अन्जान भई
 बिलाउने त्यो कलमलाई
 नव जिवनको शुभकामना छ है।</p>
-        </div>
-        <div class="poem-block poem-card" style="--accent: var(--marigold)">
-          <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">सुक्ष्म स्पन्दन</h3>
-          <div class="poem-tools mb-4">
-            <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
-            <button class="poem-copy" data-copy-target="poem-np-2">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-              <span data-copy-label>Copy</span>
-            </button>
-          </div>
-          <p class="poem-text font-np text-xl" id="poem-np-2" style="color:var(--ink)" lang="ne">नबढ्छ ढुक्ढुकी नरोकिन्छ कहिँ
+        </article>
+
+        <article class="bg-card rounded-2xl border-l-4 border-marigold p-8">
+          <h3 class="font-display text-xl mb-4" lang="ne">सुक्ष्म स्पन्दन</h3>
+          <p class="font-display italic poem-text whitespace-pre-line text-ink/85" lang="ne">नबढ्छ ढुक्ढुकी नरोकिन्छ कहिँ
 शिशिर उहि बसन्त त्यहीँ
 गुलाबको पत्र झै
 सयौ सुन्दर पानामा सजिएकी तिमी
 म उहि तिमी त्यही
 कापेका हात र रुझेका आँखाले
 कलम म बन्द गर्छु यही ।।</p>
-        </div>
-        <div class="poem-block poem-card" style="--accent: var(--meadow-2)">
-          <h3 class="font-display font-semibold text-2xl mb-1 font-np" style="color:var(--forest)" lang="ne">एउटा एनाको दुईटा प्रतिबिम्ब</h3>
-          <div class="poem-tools mb-4">
-            <span class="text-sm" style="color:rgba(33,54,42,0.55)" data-stats></span>
-            <button class="poem-copy" data-copy-target="poem-np-3">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-              <span data-copy-label>Copy</span>
-            </button>
-          </div>
-          <p class="poem-text font-np text-xl" id="poem-np-3" style="color:var(--ink)" lang="ne">म दैडिरहेको छु दुइटा सोचमा
+        </article>
+
+        <article class="md:col-span-2 bg-card rounded-2xl border-l-4 border-maroon p-8">
+          <h3 class="font-display text-xl mb-4" lang="ne">एउटा एनाको दुईटा प्रतिबिम्ब</h3>
+          <p class="font-display italic poem-text whitespace-pre-line text-ink/85" lang="ne">म दैडिरहेको छु दुइटा सोचमा
 म भौतारिएको छु अन्योलताको विचमा
 
 नशा नशा नशा देऊ मलाई
@@ -402,218 +219,95 @@ I worry about being The Prodigal Son.</p>
 बताऊ मलाई
 म मर्दैछु यसैले अव
 कोही आइ बचाउ मलाई</p>
-        </div>
+        </article>
+
       </div>
     </div>
-  </section>
 
-  <!-- ============ WRITINGS ============ -->
-  <section id="writings" class="section-pad px-6">
-    <div class="container-w mx-auto">
-      <div class="mb-10">
-        <h2 class="font-display font-semibold text-3xl mb-2" style="color:var(--forest)">Writings</h2>
-        <p style="color:rgba(33,54,42,0.7)">Shorter reflections, outside of verse.</p>
-      </div>
+    <div>
+      <p class="text-sm text-maroon font-medium mb-4 uppercase tracking-wide">Writings</p>
+      <div class="grid md:grid-cols-2 gap-6">
 
-      <div class="poem-block">
-        <h3 class="font-display font-semibold text-2xl mb-4" style="color:var(--forest)">Self-Realization</h3>
-        <p class="text-lg leading-relaxed" style="color:var(--ink)">
-          My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul
-          laughed, and I realized I am a shadow. I laughed too, because I am not
-          Isaac — I am Ishak.
-        </p>
-      </div>
+        <article class="bg-card rounded-2xl border-l-4 border-maroon p-8">
+          <h3 class="font-display text-xl mb-4">Self-Realization</h3>
+          <p class="poem-text text-ink/80">
+            My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul
+            laughed, and I realized I am a shadow. I laughed too, because I am not
+            Isaac — I am Ishak.
+          </p>
+        </article>
 
-      <div class="poem-block">
-        <p class="text-sm mb-4 uppercase tracking-wide" style="color:rgba(33,54,42,0.5)">Untitled</p>
-        <p class="text-lg leading-relaxed" style="color:var(--ink)">
-          In this cursed world, everyone is a puppet. No matter how much you try
-          to escape, you lose every time. You can't find the mastermind, but I
-          see something of that mastermind, and it looks like desire.
-        </p>
+        <article class="bg-card rounded-2xl border-l-4 border-ink p-8">
+          <p class="text-sm text-ink/50 font-medium mb-2 uppercase tracking-wide">Untitled</p>
+          <p class="poem-text text-ink/80">
+            In this cursed world, everyone is a puppet. No matter how much you try
+            to escape, you lose every time. You can't find the mastermind, but I
+            see something of that mastermind, and it looks like desire.
+          </p>
+        </article>
+
       </div>
     </div>
-  </section>
 
-  <!-- ============ PULL QUOTE ============ -->
-  <section class="px-6 py-16" style="background: var(--paper-2);">
-    <div class="container-w mx-auto">
-      <div class="pull-quote">
-        <span class="glyph" aria-hidden="true">&ldquo;</span>
-        <p class="font-display text-2xl sm:text-3xl leading-snug max-w-xl" style="color:var(--forest)">
-          I want to go back to my father's house.
-        </p>
-        <p class="mt-3 text-sm" style="color:rgba(33,54,42,0.6)">— from <em>The Gossip Rope</em></p>
-      </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-line">
+  <div class="max-w-xl">
+    <h2 class="font-display text-3xl md:text-4xl mb-4">Get in touch</h2>
+    <p class="text-ink/70 mb-8">
+      A line about a poem, a question, or just to say hello — reach me here.
+    </p>
+    <div class="flex flex-wrap gap-3">
+        <a href="https://www.facebook.com/share/1EUwF7wYP4/" target="_blank" rel="noopener" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-card border border-line hover:border-marigold transition-colors text-sm font-medium">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.2c0-.9.3-1.5 1.6-1.5H16.6V4.1C16.2 4 15.1 3.9 14 3.9c-2.3 0-3.9 1.4-3.9 4v2.6H7.6v3H10.1V21h3.4z"/></svg>
+          Facebook
+        </a>
+        <a href="https://wa.me/9779820907795" target="_blank" rel="noopener" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-card border border-line hover:border-pine transition-colors text-sm font-medium">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.9-.7-.7-1.2-1.6-1.5-2.2-.1-.3 0-.4.1-.6.2-.2.4-.4.6-.6.2-.2.2-.4.1-.6-.1-.2-.6-1.4-.8-1.9-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3.1 4.9 4.2 2.9 1.1 2.9.7 3.4.7.5 0 1.6-.6 1.8-1.2.2-.6.2-1.1.2-1.2 0-.1-.2-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l5-1.4c1.5.8 3.2 1.3 5 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+          WhatsApp
+        </a>
+        <a href="mailto:Yonghangissac@gmail.com" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-card border border-line hover:border-maroon transition-colors text-sm font-medium">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 013.5 4h17A1.5 1.5 0 0122 5.5v13a1.5 1.5 0 01-1.5 1.5h-17A1.5 1.5 0 012 18.5v-13zm2.2.5l7.3 5.3c.3.2.7.2 1 0L19.8 6H4.2z"/></svg>
+          Gmail
+        </a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <div class="rule container-w mx-auto"></div>
-
-  <!-- ============ INTERESTS ============ -->
-  <section id="interests" class="section-pad px-6">
-    <div class="container-w mx-auto">
-      <h2 class="font-display font-semibold text-3xl mb-2" style="color:var(--forest)">What I'm into</h2>
-      <p class="text-base mb-2" style="color:rgba(33,54,42,0.7)">Four things that take up most of my attention, for better or worse.</p>
-
-      <div class="mt-8">
-        <div class="interest" style="color:var(--gold)">
-          <div class="mark">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20c4-9 9-14 16-16-2 7-7 12-16 16Z"/><path d="M4 20c2-2 5-4 8-5"/></svg>
-          </div>
-          <div>
-            <h3 class="font-display font-semibold text-xl mb-1" style="color:var(--forest)">Poetry</h3>
-            <p class="leading-relaxed" style="color:rgba(33,54,42,0.85)">
-              I write when I'm calm, when I'm happy, and when I'm carrying something
-              heavier — the poem changes shape depending on which one it is.
-            </p>
-          </div>
-        </div>
-
-        <div class="interest" style="color:var(--sky-2)">
-          <div class="mark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 1 1 3.6 2.7c-.9.4-1.8 1-1.8 2.3"/><path d="M12 17h.01"/></svg>
-          </div>
-          <div>
-            <h3 class="font-display font-semibold text-xl mb-1" style="color:var(--forest)">Unsolved problems</h3>
-            <p class="leading-relaxed" style="color:rgba(33,54,42,0.85)">
-              I like sitting with questions nobody's cleanly answered yet — riddles,
-              logic knots, the odd unsolved puzzle.
-            </p>
-          </div>
-        </div>
-
-        <div class="interest" style="color:var(--meadow-2)">
-          <div class="mark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20c3-6 6-9 8-9s5 3 8 9"/><circle cx="12" cy="7" r="3"/></svg>
-          </div>
-          <div>
-            <h3 class="font-display font-semibold text-xl mb-1" style="color:var(--forest)">Nature, when I remember to look up</h3>
-            <p class="leading-relaxed" style="color:rgba(33,54,42,0.85)">
-              I genuinely love being outside. My phone and computer pull me away
-              from it more often than I'd like — working on that balance.
-            </p>
-          </div>
-        </div>
-
-        <div class="interest" style="color:var(--marigold)">
-          <div class="mark">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="9" rx="4"/><circle cx="8" cy="12.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="16" cy="12.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <div>
-            <h3 class="font-display font-semibold text-xl mb-1" style="color:var(--forest)">Free Fire, now and then</h3>
-            <p class="leading-relaxed" style="color:rgba(33,54,42,0.85)">
-              Not a serious gamer — just a match or two when I want to switch my
-              brain off for twenty minutes.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="px-6 pb-10">
-    <div class="container-w mx-auto pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style="border-top:1px solid var(--line)">
-      <span class="signature text-lg" style="color:var(--forest)">Ishak Yonghang</span>
-      <span class="text-sm" style="color:rgba(33,54,42,0.6)">Hilhang-5, Subhang — Panchthar, Nepal · <span id="footer-year"></span></span>
-    </div>
-  </footer>
-
-  <button id="back-to-top" aria-label="Back to top" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'});">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
-  </button>
+<footer class="max-w-6xl mx-auto px-6 md:px-10 py-10 border-t border-line text-sm text-ink/50 flex flex-wrap justify-between gap-2">
+  <span>© <span id="year"></span> Ishak Yonghang. Built in Phidim, Nepal.</span>
+  <a href="#top" class="hover:text-ink">Back to top</a>
+</footer>
 
 <script>
-  // -- footer year --
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-  // -- poem stats: line count + word count, and two-column layout for
-  // every poem on wide screens (any current or future .poem-block gets
-  // this automatically — no manual work needed per poem) --
-  var MIN_LINES_FOR_COLUMNS = 4;
-  document.querySelectorAll('.poem-block').forEach(function(block){
-    var textEl = block.querySelector('.poem-text');
-    var statsEl = block.querySelector('[data-stats]');
-    if(textEl){
-      var lines = textEl.textContent.trim().split('\n').filter(function(l){ return l.trim().length > 0; });
-      var words = textEl.textContent.trim().split(/\s+/).filter(Boolean);
-      if(statsEl){
-        statsEl.textContent = lines.length + ' lines · ' + words.length + ' words';
-      }
-      if(lines.length >= MIN_LINES_FOR_COLUMNS){
-        block.classList.add('poem-columns');
-      }
-
-      // wrap each stanza (blank-line-separated group) in its own block so
-      // the two-column layout never splits a verse in half
-      var rawLines = textEl.textContent.replace(/\r/g, '').split('\n');
-      var stanzas = []; var current = [];
-      rawLines.forEach(function(line){
-        if(line.trim() === ''){
-          if(current.length){ stanzas.push(current); current = []; }
-        } else {
-          current.push(line);
-        }
-      });
-      if(current.length){ stanzas.push(current); }
-      if(stanzas.length > 1){
-        textEl.dataset.rawText = textEl.textContent.trim();
-        textEl.innerHTML = '';
-        stanzas.forEach(function(linesArr){
-          var s = document.createElement('span');
-          s.className = 'poem-stanza';
-          s.textContent = linesArr.join('\n');
-          textEl.appendChild(s);
-        });
-      }
-    }
+  // Mobile nav toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navLinksMobile.classList.contains('flex');
+    navLinksMobile.classList.toggle('hidden', isOpen);
+    navLinksMobile.classList.toggle('flex', !isOpen);
+    menuBtn.setAttribute('aria-expanded', String(!isOpen));
   });
 
-  // -- copy poem to clipboard --
-  document.querySelectorAll('.poem-copy').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var targetId = btn.getAttribute('data-copy-target');
-      var target = document.getElementById(targetId);
-      var label = btn.querySelector('[data-copy-label]');
-      if(!target) return;
-      var text = (target.dataset.rawText || target.textContent).trim();
-      var reset = function(){ label.textContent = 'Copy'; };
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(text).then(function(){
-          label.textContent = 'Copied';
-          setTimeout(reset, 1600);
-        }).catch(function(){
-          label.textContent = 'Press Ctrl+C';
-          setTimeout(reset, 1600);
-        });
-      }
-    });
-  });
-
-  // -- active nav link on scroll --
-  var navLinks = document.querySelectorAll('#site-nav a[data-nav]');
-  var sections = Array.prototype.map.call(navLinks, function(link){
-    return document.getElementById(link.dataset.nav);
-  }).filter(Boolean);
-
-  if('IntersectionObserver' in window && sections.length){
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          navLinks.forEach(function(link){
-            link.classList.toggle('is-current', link.dataset.nav === entry.target.id);
-          });
-        }
-      });
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-    sections.forEach(function(sec){ observer.observe(sec); });
+  // Dynamic, exact age from birth date
+  function calculateAge(birthDate) {
+    const now = new Date();
+    let years = now.getFullYear() - birthDate.getFullYear();
+    const hasHadBirthdayThisYear =
+      now.getMonth() > birthDate.getMonth() ||
+      (now.getMonth() === birthDate.getMonth() && now.getDate() >= birthDate.getDate());
+    if (!hasHadBirthdayThisYear) years -= 1;
+    return years;
   }
+  const birthDate = new Date(2005, 9, 26); // October 26, 2005
+  document.getElementById('age').textContent = calculateAge(birthDate);
 
-  // -- back-to-top visibility --
-  var backToTop = document.getElementById('back-to-top');
-  window.addEventListener('scroll', function(){
-    backToTop.classList.toggle('is-visible', window.scrollY > 500);
-  }, { passive: true });
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>
