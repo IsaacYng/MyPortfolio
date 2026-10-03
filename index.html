@@ -1,154 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ishak Yonghang — Poet &amp; Art Student</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          paper: '#FBF6EC',
-          card: '#F3E9D8',
-          ink: '#2A2118',
-          marigold: { DEFAULT: '#CC7A1F', dark: '#A9621A', light: '#E9AE63' },
-          maroon: { DEFAULT: '#7A2B2B', light: '#9C4A3F' },
-          pine: { DEFAULT: '#2F5D53', light: '#4B7C6F' },
-          line: '#E3D5BC',
-        },
-        fontFamily: {
-          display: ['Fraunces', 'serif'],
-          body: ['Work Sans', 'sans-serif'],
-        },
-      },
-    },
-  };
-</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="description" content="Ishak Yonghang — sales consultant, web developer, art student and poet from Phidim, Panchthar, Nepal."/>
+<meta name="author" content="Ishak Yonghang"/>
+<meta property="og:title" content="Ishak Yonghang"/>
+<meta property="og:url" content="https://yonghangishak.com.np"/>
+<title>Ishak Yonghang — Phidim, Panchthar</title>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-  html { scroll-behavior: smooth; }
-  body { background-color: #FBF6EC; }
-  .font-display { font-family: 'Fraunces', serif; }
-  .font-body { font-family: 'Work Sans', sans-serif; }
+:root{
+  --mist:#E4EAE9;
+  --paper:#F7F9F8;
+  --ink:#1C2A33;
+  --ink-2:#3A4A54;
+  --slate:#5E6D75;
+  --line:#CDD6D5;
+  --ridge-1:#C7D2D1;
+  --ridge-2:#A9B9B9;
+  --ridge-3:#8496A0;
+  --rhodo:#B8233A;
+  --rhodo-dark:#8F1A2C;
+  --tea:#3D6A51;
+  --tea-soft:#DCE8E0;
+  --night:#16222B;
+  --night-2:#22323D;
+  --display:'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif:'Newsreader', Georgia, 'Times New Roman', serif;
+  --nep:'Noto Serif Devanagari', 'Mangal', 'Kohinoor Devanagari', serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.0625rem;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--rhodo);outline-offset:3px;border-radius:4px}
+::selection{background:var(--rhodo);color:#fff}
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .rise-in > * { opacity: 0; animation: rise 0.7s ease-out forwards; }
-  .rise-in > *:nth-child(1) { animation-delay: 0.05s; }
-  .rise-in > *:nth-child(2) { animation-delay: 0.18s; }
-  .rise-in > *:nth-child(3) { animation-delay: 0.31s; }
-  .rise-in > *:nth-child(4) { animation-delay: 0.44s; }
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+.sans{font-family:var(--display)}
+.nep{font-family:var(--nep)}
 
-  @media (prefers-reduced-motion: reduce) {
-    .rise-in > * { animation: none; opacity: 1; }
-    html { scroll-behavior: auto; }
-  }
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(228,234,233,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s,background .2s}
+.nav.scrolled{border-bottom-color:var(--line);background:rgba(247,249,248,.9)}
+.nav-in{height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
+.brand b{color:var(--rhodo);font-weight:800}
+.links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;font-family:var(--display);font-size:.9rem}
+.links::-webkit-scrollbar{display:none}
+.links a{text-decoration:none;padding:8px 12px;border-radius:999px;color:var(--ink-2);white-space:nowrap;transition:background .2s,color .2s}
+.links a:hover{background:rgba(28,42,51,.07);color:var(--ink)}
+.links a.active{color:var(--rhodo)}
+.links a.cta{background:var(--ink);color:var(--paper)}
+.links a.cta:hover{background:var(--rhodo)}
+@media(max-width:720px){
+  .nav-in{height:auto;padding-top:10px;padding-bottom:8px;flex-direction:column;align-items:stretch;gap:4px}
+  .links{margin:0 -12px}
+  html{scroll-padding-top:calc(100px + env(safe-area-inset-top,0px))}
+}
 
-  :focus-visible {
-    outline: 2px solid #CC7A1F;
-    outline-offset: 2px;
-  }
+/* ---------- hero ---------- */
+.hero{background:var(--mist);position:relative;overflow:hidden;margin-bottom:-1px}
+.hero-in{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(28px,5vw,64px);align-items:end;padding-top:clamp(40px,8vw,96px);position:relative;z-index:2}
+.place{font-family:var(--display);font-size:.95rem;color:var(--slate);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.place::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rhodo)}
+.name{font-family:var(--display);font-weight:800;font-size:clamp(3.4rem,11.5vw,8.6rem);line-height:.86;letter-spacing:-.045em;color:var(--ink)}
+.name span{display:block}
+.name span:last-child{padding-left:.5em}
+.lede{font-size:clamp(1.12rem,1.9vw,1.32rem);line-height:1.55;color:var(--ink-2);max-width:34ch;margin-top:28px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{font-family:var(--display);font-weight:600;font-size:.95rem;text-decoration:none;padding:13px 22px;border-radius:999px;border:1.5px solid var(--ink);display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s,border-color .2s;cursor:pointer;background:none;color:var(--ink)}
+.btn.fill{background:var(--ink);color:var(--paper)}
+.btn.fill:hover{background:var(--rhodo);border-color:var(--rhodo)}
+.btn:not(.fill):hover{background:var(--ink);color:var(--paper)}
 
-  .poem-text {
-    line-height: 2;
-    letter-spacing: 0.01em;
-  }
+.portrait{justify-self:end;width:min(100%,320px)}
+.arch{aspect-ratio:4/5;border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--ridge-1);position:relative;box-shadow:0 30px 60px -30px rgba(28,42,51,.45)}
+.arch img{width:100%;height:100%;object-fit:cover}
+.arch .ph{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;font-family:var(--display);font-size:5rem;font-weight:800;color:var(--ridge-3);letter-spacing:-.04em}
+.facts{display:flex;gap:22px;margin-top:18px;font-family:var(--display)}
+.facts div{font-size:.82rem;color:var(--slate);line-height:1.3}
+.facts strong{display:block;font-size:1.5rem;color:var(--ink);font-weight:600;letter-spacing:-.02em}
+
+.ridges{overflow:visible;display:block;width:100%;height:auto;margin-top:clamp(-40px,-4vw,-10px);position:relative;z-index:1}
+.ridges path{transform-origin:bottom;animation:rise 1.1s cubic-bezier(.2,.7,.2,1) both}
+.ridges path:nth-child(1){animation-delay:.05s}
+.ridges path:nth-child(2){animation-delay:.2s}
+.ridges path:nth-child(3){animation-delay:.35s}
+.ridges path:nth-child(4){animation-delay:.5s}
+@keyframes rise{from{transform:translateY(40%);opacity:0}to{transform:none;opacity:1}}
+
+@media(max-width:820px){
+  .hero-in{grid-template-columns:1fr}
+  .portrait{justify-self:stretch;width:100%;display:flex;gap:22px;align-items:flex-end}
+  .arch{width:132px;flex-shrink:0}
+  .hero-in{padding-bottom:28px}
+  .arch .ph{font-size:2.6rem;padding-bottom:16px}
+  .facts{flex-direction:column;gap:10px;margin-top:0}
+  .facts strong{font-size:1.2rem;display:inline;margin-right:6px}
+}
+
+/* ---------- sections ---------- */
+section{padding:clamp(64px,9vw,112px) 0}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(20px,4vw,56px);margin-bottom:clamp(36px,5vw,56px);align-items:end}
+.head h2{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:.95;letter-spacing:-.035em}
+.head p{color:var(--slate);max-width:52ch}
+@media(max-width:720px){.head{grid-template-columns:1fr}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(32px,5vw,72px)}
+.story p{font-size:clamp(1.15rem,1.8vw,1.3rem);line-height:1.65;max-width:58ch}
+.story p+p{margin-top:1em;color:var(--ink-2)}
+.idlist{display:grid;grid-template-columns:auto 1fr;gap:12px 24px;font-family:var(--display);font-size:.95rem;border-top:1.5px solid var(--ink);padding-top:20px}
+.idlist dt{color:var(--slate)}
+.idlist dd{font-weight:500}
+.sub{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.01em;margin:44px 0 16px}
+.timeline{list-style:none;border-left:1.5px solid var(--line);margin-left:6px}
+.timeline li{position:relative;padding:0 0 22px 24px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.timeline li.now::before{background:var(--rhodo);border-color:var(--rhodo)}
+.timeline .t{font-family:var(--display);font-weight:600}
+.timeline .d{font-size:.95rem;color:var(--slate)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{font-family:var(--display);font-size:.88rem;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:#fff}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+
+/* work */
+.work{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.job{display:grid;grid-template-columns:1fr 1.6fr;gap:clamp(24px,4vw,56px);padding-bottom:clamp(40px,6vw,64px);border-bottom:1px solid var(--line);margin-bottom:clamp(40px,6vw,64px)}
+.job h3{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3vw,2.1rem);letter-spacing:-.025em;line-height:1.05}
+.job .where{font-family:var(--display);color:var(--slate);margin-top:8px;font-size:.95rem}
+.duties{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.duties h4{font-family:var(--display);font-weight:600;font-size:1rem;margin-bottom:6px;padding-top:12px;border-top:3px solid var(--tea)}
+.duties p{font-size:.98rem;color:var(--ink-2);line-height:1.55}
+@media(max-width:860px){.job{grid-template-columns:1fr}.duties{grid-template-columns:1fr}}
+
+.projects{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:20px}
+.proj{border:1.5px solid var(--ink);border-radius:20px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:12px;background:var(--paper)}
+.proj.main{grid-row:span 2;background:var(--ink);color:var(--paper);border-color:var(--ink);position:relative;overflow:hidden}
+.proj.main .status{background:var(--tea-soft);color:var(--tea)}
+.proj.quiet{border-style:dashed;border-color:var(--ridge-3);background:transparent}
+.status{align-self:flex-start;font-family:var(--display);font-size:.8rem;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--mist);color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.status.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tea)}
+.proj h3{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.025em;line-height:1.05}
+.proj p{line-height:1.55;max-width:46ch}
+.proj.main p{color:#C9D3D6}
+.proj .go{margin-top:auto;padding-top:12px}
+.proj.main .btn{border-color:var(--paper);color:var(--paper)}
+.proj.main .btn:hover{background:var(--paper);color:var(--ink)}
+.calc{margin-top:8px;border-radius:14px;background:var(--night-2);padding:18px;font-family:var(--display);font-size:.92rem;display:grid;gap:10px}
+.calc .row{display:flex;justify-content:space-between;color:#AEBBC0}
+.calc .row b{color:var(--paper);font-weight:600}
+.calc .total{border-top:1px solid #3B4D59;padding-top:10px;color:var(--paper)}
+.calc .total b{color:#F2A5B1;font-size:1.2rem}
+@media(max-width:860px){.projects{grid-template-columns:1fr}.proj.main{grid-row:auto}}
+
+/* training + snapshots */
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.cert{border:1px solid var(--line);border-radius:16px;padding:22px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.cert h3{font-family:var(--display);font-weight:600;font-size:1.12rem;line-height:1.25}
+.cert .s{font-family:var(--display);font-size:.88rem;color:var(--slate)}
+.cert p{font-size:.95rem;color:var(--ink-2)}
+.cert .tags span{font-size:.78rem;padding:3px 10px;background:var(--paper)}
+.cert button{margin-top:auto;align-self:flex-start;font-family:var(--display);font-weight:600;font-size:.88rem;background:none;border:none;color:var(--rhodo);cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:4px}
+.empty{font-family:var(--display);color:var(--slate);padding:28px;border:1.5px dashed var(--line);border-radius:16px;text-align:center}
+
+.snaps{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin}
+.snap{flex:0 0 clamp(220px,28vw,300px);aspect-ratio:3/4;border-radius:16px;overflow:hidden;position:relative;scroll-snap-align:start;background:var(--mist)}
+.snap img{width:100%;height:100%;object-fit:cover}
+.snap figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(22,34,43,.82));color:#fff;font-family:var(--display);font-size:.92rem}
+.snap.more{display:flex;align-items:center;justify-content:center;border:1.5px dashed var(--ridge-2);background:transparent;font-family:var(--display);color:var(--slate)}
+
+/* poetry — night */
+.night{background:var(--night);color:#E8EDEE;padding-top:0}
+.night-ridge{overflow:visible;display:block;width:100%;height:auto;background:var(--paper);margin-bottom:clamp(48px,7vw,88px)}
+.night .head h2{color:#fff}
+.night .head p{color:#9FB0B7}
+.featured{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);padding-bottom:clamp(48px,7vw,80px);border-bottom:1px solid #2E3F4A}
+.featured .meta{font-family:var(--display);color:#F2A5B1;font-size:.95rem;margin-bottom:10px}
+.featured h3{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.4rem);letter-spacing:-.035em;line-height:.95;color:#fff}
+.featured .intro{margin-top:18px;color:#9FB0B7;max-width:36ch}
+.verse{font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1.85;white-space:pre-line;color:#DCE3E5;max-height:23em;overflow:hidden;position:relative;transition:max-height .5s ease}
+.verse.open{max-height:80em}
+.verse:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5em;background:linear-gradient(transparent,var(--night))}
+.more-btn{margin-top:14px;font-family:var(--display);font-weight:600;background:none;border:none;color:#F2A5B1;cursor:pointer;font-size:.95rem;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:820px){.featured{grid-template-columns:1fr}}
+
+.shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:clamp(40px,6vw,64px)}
+.poem{background:none;border:none;color:inherit;text-align:left;cursor:pointer;padding:24px clamp(16px,2.4vw,28px) 28px;border-left:1px solid #2E3F4A;display:flex;flex-direction:column;gap:12px;transition:background .25s}
+.poem:hover{background:var(--night-2)}
+.poem .k{font-family:var(--display);font-size:.82rem;color:#8FA1A9}
+.poem h4{font-family:var(--nep);font-weight:500;font-size:1.45rem;color:#fff;line-height:1.4}
+.poem p{font-family:var(--nep);font-size:.98rem;line-height:1.9;color:#B9C5CA;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.poem .r{margin-top:auto;font-family:var(--display);font-size:.88rem;color:#F2A5B1}
+@media(max-width:960px){.shelf{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.shelf{grid-template-columns:1fr}.poem{border-left:none;border-top:1px solid #2E3F4A;padding-left:0;padding-right:0}}
+
+.prose{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin-top:clamp(48px,7vw,80px)}
+.prose blockquote{font-size:clamp(1.15rem,2vw,1.35rem);line-height:1.6;color:#DCE3E5;padding-left:20px;border-left:3px solid var(--rhodo)}
+.prose cite{display:block;margin-top:12px;font-style:normal;font-family:var(--display);font-size:.88rem;color:#8FA1A9}
+@media(max-width:720px){.prose{grid-template-columns:1fr}}
+.poem-site{margin-top:clamp(48px,7vw,72px);display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:24px 28px;border-radius:20px;background:var(--night-2)}
+.poem-site p{font-family:var(--display);color:#C9D3D6}
+.night .btn{border-color:#E8EDEE;color:#E8EDEE}
+.night .btn:hover{background:#fff;color:var(--night)}
+
+/* family */
+.tree{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative}
+.side{border:1px solid var(--line);border-radius:20px;padding:24px;background:#fff}
+.side h3{font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--slate);margin-bottom:16px}
+.couple{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-family:var(--display)}
+.couple + .couple{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
+.couple .role{width:100%;font-size:.82rem;color:var(--slate)}
+.couple strong{font-weight:600;font-size:1.08rem}
+.couple .amp{color:var(--rhodo)}
+.me{grid-column:1/-1;justify-self:center;text-align:center;font-family:var(--display);padding:20px 36px;border-radius:999px;background:var(--ink);color:var(--paper);position:relative}
+.me::before{content:"";position:absolute;left:50%;top:-21px;height:21px;width:1.5px;background:var(--ridge-3)}
+.me strong{display:block;font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.me span{font-size:.85rem;color:#AEBBC0}
+@media(max-width:720px){.tree{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--mist)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,5vw,72px)}
+.ways{list-style:none;display:grid;gap:4px}
+.ways a,.ways div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:var(--display)}
+.ways a:hover strong{color:var(--rhodo)}
+.ways span{color:var(--slate);font-size:.9rem;flex-shrink:0}
+.ways strong{font-weight:600;font-size:1.02rem;text-align:right;overflow-wrap:anywhere;transition:color .2s}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--paper);padding:clamp(22px,3vw,32px);border-radius:20px}
+form .full{grid-column:1/-1}
+label{font-family:var(--display);font-size:.88rem;color:var(--ink-2);display:grid;gap:6px}
+input,textarea{font:inherit;font-family:var(--serif);font-size:1rem;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+input:focus,textarea:focus{outline:none;border-color:var(--ink)}
+textarea{min-height:130px;resize:vertical}
+.form-note{font-family:var(--display);font-size:.9rem;color:var(--tea);display:none}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr}}
+@media(max-width:480px){form{grid-template-columns:1fr}}
+
+footer{background:var(--ink);color:#AEBBC0;font-family:var(--display);font-size:.9rem;padding:32px 0 calc(32px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer strong{color:var(--paper);font-weight:600}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(22,34,43,.72);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.sheet{background:var(--paper);border-radius:20px;max-width:620px;width:100%;max-height:88vh;overflow:auto;padding:clamp(24px,4vw,40px);position:relative}
+.sheet .x{position:sticky;top:0;float:right;font-family:var(--display);font-weight:600;background:var(--ink);color:var(--paper);border:none;border-radius:999px;padding:8px 16px;cursor:pointer}
+.sheet .k{font-family:var(--display);color:var(--rhodo);font-size:.9rem}
+.sheet h3{font-family:var(--nep);font-weight:500;font-size:1.8rem;margin:6px 0 20px;line-height:1.4}
+.sheet h3.lat{font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+.sheet .body{font-family:var(--nep);font-size:1.1rem;line-height:2.1;white-space:pre-line;color:var(--ink-2)}
+.sheet img{border-radius:12px;margin-top:6px}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ridges path{animation:none}
+  .verse{transition:none}
+}
 </style>
 </head>
-<body class="font-body text-ink antialiased">
+<body>
 
-<!-- ============ NAV ============ -->
-<header class="sticky top-0 z-40 backdrop-blur bg-paper/90 border-b border-line">
-  <nav class="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-    <a href="#top" class="font-display text-lg tracking-tight">Ishak Yonghang</a>
-    <button id="menuBtn" class="md:hidden p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
-    <ul id="navLinks" class="hidden md:flex items-center gap-8 text-sm">
-      <li><a href="#poetry" class="hover:text-marigold-dark transition-colors">Poetry</a></li>
-      <li><a href="#contact" class="inline-flex items-center px-4 py-2 rounded-full bg-ink text-paper hover:bg-marigold-dark transition-colors">Get in touch</a></li>
-    </ul>
-  </nav>
-  <ul id="navLinksMobile" class="hidden md:hidden flex-col gap-1 px-6 pb-4 text-sm">
-    <li><a href="#poetry" class="block py-2">Poetry</a></li>
-    <li><a href="#contact" class="block py-2">Get in touch</a></li>
-  </ul>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">Ishak Yonghang<b>.</b></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#poetry">Poetry</a>
+      <a href="#training">Training</a>
+      <a href="#family">Family</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section id="top" class="max-w-6xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-20">
-  <div class="grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-16 items-center rise-in">
-
+<main>
+<!-- HERO -->
+<section class="hero" id="top" style="padding:0">
+  <div class="wrap hero-in">
     <div>
-      <p class="text-marigold-dark font-medium mb-4">Hilhang-5, Subhang · Panchthar, Nepal</p>
-      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.08] mb-6">
-        I write poetry, study art, and sit with questions that don't have easy answers.
-      </h1>
-      <p class="text-lg text-ink/75 max-w-xl mb-8">
-        My name is Ishak Yonghang. I was born in Hilhang-5, Subhang, and I study
-        art at Panchthar Multiple Campus. I write poetry — in English and
-        Nepali — and spend a lot of my time sitting with problems that don't
-        have obvious solutions.
-      </p>
-      <div class="flex flex-wrap items-center gap-3 text-sm">
-        <span class="px-4 py-2 rounded-full bg-card border border-line">
-          <span id="age">—</span> years old
-        </span>
-        <span class="px-4 py-2 rounded-full bg-card border border-line">Poet</span>
-        <span class="px-4 py-2 rounded-full bg-card border border-line">Art Student</span>
+      <p class="place">Phidim, Panchthar, Nepal</p>
+      <h1 class="name"><span>Ishak</span><span>Yonghang</span></h1>
+      <p class="lede">I sell Bajaj motorcycles in Phidim, build the web tools our showroom runs on, study art, and write poems in Nepali and English.</p>
+      <div class="actions">
+        <a href="#work" class="btn fill">See my work</a>
+        <a href="#poetry" class="btn">Read my poems</a>
       </div>
     </div>
-
-    <div class="flex justify-center md:justify-end">
-      <div class="relative w-56 h-56 md:w-72 md:h-72">
-        <div class="absolute inset-0 rounded-full border-2 border-marigold-light -rotate-6"></div>
-        <img
-          src="https://placehold.co/600x600/F3E9D8/2A2118?text=Photo"
-          alt="Portrait of Ishak Yonghang"
-          class="w-full h-full object-cover rounded-full border-4 border-paper shadow-xl shadow-ink/10"
-        />
+    <div class="portrait">
+      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div></div>
+      <div class="facts">
+        <div><strong id="age">20</strong>years old</div>
+        <div><strong>Bajaj</strong>sales &amp; web</div>
+        <div><strong>3</strong>languages</div>
       </div>
     </div>
+  </div>
+  <svg class="ridges" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="var(--ridge-1)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/>
+    <path fill="var(--ridge-2)" d="M0 150 L140 108 L260 136 L400 92 L520 130 L660 100 L780 140 L920 96 L1060 132 L1180 104 L1300 138 L1440 112 V220 H0Z"/>
+    <path fill="var(--ridge-3)" d="M0 176 L160 142 L300 170 L460 134 L600 166 L760 140 L900 172 L1040 146 L1200 176 L1340 150 L1440 166 V220 H0Z"/>
+    <path fill="var(--paper)" d="M0 204 L180 180 L360 200 L540 176 L720 198 L900 178 L1080 200 L1260 182 L1440 196 V232 H0Z"/>
+  </svg>
+</section>
 
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="head">
+      <h2>From the hills of Panchthar</h2>
+      <p>Born in Hilihang-5, Subhang. Working in Phidim. Learning by doing, one line of code and one verse at a time.</p>
+    </div>
+    <div class="about-grid">
+      <div class="story">
+        <p>I'm Ishak. By day I'm a sales consultant at Samriddhi And Brothers Auto, the Bajaj dealership in Phidim-1, helping people choose a bike and understand the EMI, loan and insurance options that come with it.</p>
+        <p>I also build the showroom's web tools on my own: the admin panel, the customer site and the finance calculator. Outside work I study art at Panchthar Multiple Campus and write poetry about the questions that don't have easy answers.</p>
+
+        <h3 class="sub">Education</h3>
+        <ol class="timeline">
+          <li class="now"><div class="t">Art student, Panchthar Multiple Campus</div><div class="d">Currently studying</div></li>
+          <li><div class="t">Class XII, Humanities</div><div class="d">Completed 2080 BS (2023–24), NEB</div></li>
+          <li><div class="t">SEE, Secondary Education Examination</div><div class="d">Completed 2077 BS (2020–21), NEB</div></li>
+        </ol>
+      </div>
+      <div>
+        <dl class="idlist">
+          <dt>Born</dt><dd>October 26, 2005</dd>
+          <dt>Lives in</dt><dd>Phidim-1, Panchthar</dd>
+          <dt>Home</dt><dd>Hilihang-5, Subhang</dd>
+          <dt>Province</dt><dd>Koshi, Nepal</dd>
+          <dt>Nationality</dt><dd>Nepali</dd>
+          <dt>Faith</dt><dd>Christian</dd>
+        </dl>
+        <h3 class="sub">Skills</h3>
+        <div class="tags">
+          <span>Sales &amp; finance</span><span>Customer relations</span><span>HTML &amp; CSS</span><span>JavaScript</span><span>Firebase</span><span>Data management</span><span>MS Excel</span><span>MS Word</span><span>Poetry</span><span>Creative writing</span>
+        </div>
+        <h3 class="sub">Languages</h3>
+        <div class="tags"><span>Nepali</span><span>English</span><span>Hindi</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ============ POETRY ============ -->
-<section id="poetry" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-line">
-  <div class="flex items-end justify-between mb-10 gap-4 flex-wrap">
-    <div>
-      <h2 class="font-display text-3xl md:text-4xl mb-3">Creative corner</h2>
-      <p class="text-ink/70 max-w-md">A small shelf of poems and short writings, kept exactly as they came to me.</p>
+<!-- WORK -->
+<section id="work" class="work">
+  <div class="wrap">
+    <div class="head">
+      <h2>Work</h2>
+      <p>The showroom floor and the code behind it. Most of what I build exists because I needed it at work first.</p>
     </div>
-    <a href="#" class="text-sm font-medium text-maroon border-b border-maroon/40 hover:border-maroon pb-0.5 whitespace-nowrap">
-      Visit more of my writing
-    </a>
+
+    <div class="job">
+      <div>
+        <h3>Sales Consultant &amp; in-house web developer</h3>
+        <p class="where">Samriddhi And Brothers Auto Pvt. Ltd.<br/>Bajaj authorized dealer, Phidim-1</p>
+      </div>
+      <div class="duties">
+        <div><h4>Client records</h4><p>Keep detailed records of walk-in customers and follow up with them until they're ready to buy.</p></div>
+        <div><h4>Customer relations</h4><p>Support Bajaj buyers after the sale so they come back, and send their friends.</p></div>
+        <div><h4>Financial planning</h4><p>Walk customers through EMI structures, loan options and insurance for every model.</p></div>
+      </div>
+    </div>
+
+    <div class="projects">
+      <article class="proj main">
+        <span class="status live">Live</span>
+        <h3>Finance Calculator</h3>
+        <p>An auto-finance tool built for the showroom's daily work. Enter a model and down payment, get an EMI plan a customer can understand on the spot.</p>
+        <div class="calc" aria-hidden="true">
+          <div class="row">Model <b>Bajaj Pulsar</b></div>
+          <div class="row">Down payment <b>30%</b></div>
+          <div class="row">Tenure <b>24 months</b></div>
+          <div class="row total">Monthly EMI <b>Calculated instantly</b></div>
+        </div>
+        <div class="go"><a class="btn" href="https://finance.yonghangishak.com.np/" target="_blank" rel="noopener">Open the calculator</a></div>
+      </article>
+      <article class="proj">
+        <span class="status">In progress</span>
+        <h3>Verses of Life</h3>
+        <p>A home for my poetry collection, designed to feel like turning the pages of a journal.</p>
+        <div class="go"><a class="btn" href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener">Visit the poetry site</a></div>
+      </article>
+      <article class="proj quiet">
+        <span class="status">Planned</span>
+        <h3>Next project</h3>
+        <p>Another tool that solves a real problem for real people. Still taking shape.</p>
+      </article>
+    </div>
   </div>
+</section>
 
-  <div class="grid gap-6">
+<!-- TRAINING -->
+<section id="training">
+  <div class="wrap">
+    <div class="head">
+      <h2>Training</h2>
+      <p>Courses and certificates I've completed. Tap one to see the certificate.</p>
+    </div>
+    <div class="certs" id="certGrid"><div class="empty">Loading certificates…</div></div>
 
-    <!-- Featured poem -->
-    <article class="bg-card rounded-2xl border-l-4 border-marigold p-8 md:p-10">
-      <p class="text-sm text-marigold-dark font-medium mb-2">Poem — English</p>
-      <h3 class="font-display text-2xl mb-5">The Gossip Rope</h3>
-      <p class="font-display italic text-lg poem-text whitespace-pre-line text-ink/85 max-w-2xl">I am not upset with this cursed world,
+    <h3 class="sub" style="margin-top:72px">Life snapshots</h3>
+    <div class="snaps" id="snapScroll"><figure class="snap more">Loading photos…</figure></div>
+  </div>
+</section>
+
+<!-- POETRY -->
+<section id="poetry" class="night">
+  <svg class="night-ridge" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="var(--night)" d="M0 70 L150 30 L300 64 L460 18 L620 60 L780 26 L940 66 L1100 22 L1260 58 L1440 30 V132 H0Z"/>
+  </svg>
+  <div class="wrap">
+    <div class="head">
+      <h2>Verses of life</h2>
+      <p>Raw feeling turned into words. Kept exactly as they came to me, in English and in Nepali.</p>
+    </div>
+
+    <div class="featured">
+      <div>
+        <p class="meta">Poem in English</p>
+        <h3>The Gossip Rope</h3>
+        <p class="intro">About fear, sleep, and wanting to go back to my father's house.</p>
+      </div>
+      <div>
+        <div class="verse" id="gossip">I am not upset with this cursed world,
 But something is growing in my forehead.
-
 That is not a dream, that is a peace.
 I see a rope, I see a hill,
 Which help each other to climb.
 
 I fear to sleep, I fear to dream,
 'Cause this is a coffin.
-
 I want to be alert, I want to take care,
 But someone forces me to fall asleep,
 Someone forces me to see a dream.
@@ -157,26 +449,179 @@ I see the calm, I feel the pain,
 My heart is burned
 Please pull me some,
 'Cause this feels like an exit button.
-
 Oh, it is a dream, oh, it is a fear,
 Oh, it is a gossip rope.
 
 Sometimes I feel, it's not a curse,
 It's not a dream, it's not a force,
 O it's a gossip rope.
-
 I want to go back, I want to see a dream,
 I want to go back to my father's house,
-I worry about being The Prodigal Son.</p>
-    </article>
+I worry about being The Prodigal Son.</div>
+        <button class="more-btn" id="gossipBtn" aria-expanded="false" aria-controls="gossip">Read the whole poem</button>
+      </div>
+    </div>
 
-    <div>
-      <p class="text-sm text-pine font-medium mb-4 uppercase tracking-wide">Nepali</p>
-      <div class="grid md:grid-cols-2 gap-6">
+    <div class="shelf" id="shelf"></div>
 
-        <article class="bg-card rounded-2xl border-l-4 border-pine p-8">
-          <h3 class="font-display text-xl mb-4" lang="ne">अश्रु बिपनाको</h3>
-          <p class="font-display italic poem-text whitespace-pre-line text-ink/85" lang="ne">सगर् छुन सागर छोड्नु पर्छ सबैलाई
+    <div class="prose">
+      <blockquote>My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul laughed, and I realized I am a shadow. I laughed too, because I am not Isaac — I am Ishak.<cite>Self-realization</cite></blockquote>
+      <blockquote>In this cursed world, everyone is a puppet. No matter how much you try to escape, you lose every time. You can't find the mastermind, but I see something of that mastermind, and it looks like desire.<cite>Untitled</cite></blockquote>
+    </div>
+
+    <div class="poem-site">
+      <p>More poems live at poem.yonghangishak.com.np</p>
+      <a class="btn" href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener">Read more poems</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAMILY -->
+<section id="family">
+  <div class="wrap">
+    <div class="head">
+      <h2>Family</h2>
+      <p>Three generations, two sides, one name I carry forward.</p>
+    </div>
+    <div class="tree">
+      <div class="side">
+        <h3>Father's side</h3>
+        <div class="couple"><span class="role">Grandparents</span><strong>Nar Prasad Yonghang</strong><span class="amp">&amp;</span><strong>Ganga Maya Lingden</strong></div>
+        <div class="couple"><span class="role">Father</span><strong>Seru Hang Yonghang</strong></div>
+      </div>
+      <div class="side">
+        <h3>Mother's side</h3>
+        <div class="couple"><span class="role">Grandparents</span><strong>Ton Hang Neambang</strong><span class="amp">&amp;</span><strong>Man Maya Suhang</strong></div>
+        <div class="couple"><span class="role">Mother</span><strong>Ful Kumari Neambang</strong></div>
+      </div>
+      <div class="me"><strong>Ishak Yonghang</strong><span>Born October 26, 2005</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="head">
+      <h2>Say hello</h2>
+      <p>About a project, a bike, a poem, or nothing in particular. WhatsApp gets the quickest reply.</p>
+    </div>
+    <div class="contact-grid">
+      <ul class="ways">
+        <li><a href="https://wa.me/9779820907795" target="_blank" rel="noopener"><span>WhatsApp</span><strong>+977 9820907795</strong></a></li>
+        <li><a href="mailto:yonghangissac@gmail.com"><span>Email</span><strong>yonghangissac@gmail.com</strong></a></li>
+        <li><a href="https://www.facebook.com/yonghangisaac" target="_blank" rel="noopener"><span>Facebook</span><strong>yonghangisaac</strong></a></li>
+        <li><a href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener"><span>Poetry</span><strong>poem.yonghangishak.com.np</strong></a></li>
+        <li><div><span>Showroom</span><strong>Phidim-1, Panchthar, Koshi</strong></div></li>
+      </ul>
+      <form id="contactForm" novalidate>
+        <label>First name<input id="fname" autocomplete="given-name" required/></label>
+        <label>Last name<input id="lname" autocomplete="family-name"/></label>
+        <label class="full">Email<input id="email" type="email" autocomplete="email" required/></label>
+        <label class="full">Subject<input id="subject"/></label>
+        <label class="full">Message<textarea id="message" required></textarea></label>
+        <div class="full" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+          <button type="submit" class="btn fill">Send message</button>
+          <span class="form-note" id="formNote">Your email app has opened with the message.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><strong>Ishak Yonghang</strong> — built in Phidim, Nepal</span>
+    <span>© <span id="year">2026</span> · Go your dream</span>
+  </div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal" id="poemModal" role="dialog" aria-modal="true" aria-labelledby="poemTitle">
+  <div class="sheet">
+    <button class="x" data-close>Close</button>
+    <p class="k" id="poemKind"></p>
+    <h3 id="poemTitle"></h3>
+    <div class="body" id="poemBody"></div>
+  </div>
+</div>
+<div class="modal" id="certModal" role="dialog" aria-modal="true" aria-labelledby="certTitle">
+  <div class="sheet">
+    <button class="x" data-close>Close</button>
+    <p class="k" id="certSub"></p>
+    <h3 class="lat" id="certTitle"></h3>
+    <img id="certImg" alt="Certificate"/>
+  </div>
+</div>
+
+<script>
+/* age + year */
+(function(){
+  const b=new Date(2005,9,26),n=new Date();
+  let a=n.getFullYear()-b.getFullYear();
+  if(n.getMonth()<b.getMonth()||(n.getMonth()===b.getMonth()&&n.getDate()<b.getDate()))a--;
+  document.getElementById('age').textContent=a;
+  document.getElementById('year').textContent=n.getFullYear();
+})();
+
+/* nav state */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+const navLinks=document.querySelectorAll('.links a');
+const spy=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){navLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));}
+}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>spy.observe(s));
+
+/* featured poem */
+const g=document.getElementById('gossip'),gb=document.getElementById('gossipBtn');
+gb.addEventListener('click',()=>{const o=g.classList.toggle('open');gb.textContent=o?'Show less':'Read the whole poem';gb.setAttribute('aria-expanded',o);});
+
+/* poems */
+const poems=[
+ {t:'किनारिएको फुल',k:'Love',b:`न बयान हुन्छ शब्दले
+न कुनै रुप छ यो प्रेमको
+एकोहोरो अनि गहिरो
+छ प्रेम तिम्रो लागि सदाको
+अश्रुको मृदुलय छ सधै
+फेरि आउँछौ कि भनि आफै
+मन भित्र बनाउछु पिन्जडा शब्दको आफै
+वाल्यकालको उकाली देख्छु म छर्लङ्गै
+कति सुन्दर त्यो बिनोदको सुस्केरा
+त्यो खुशीको योजना
+त्यो किनारिको संरचना
+तर खै किन हुदैछ अचेल बेदना
+खै त्यो फर्किन्छ कि भनि दोभानमा छु
+मेट्टि जाने सपना आशाले कोर्दै छु
+रित बुझाउने आशा तस्विर हेरि धित बुझाउदै छु
+खै किन हो बाल्यकाल सम्झि म आफै बौलाउदै छु ।`},
+ {t:'कफिन',k:'Emotion',b:`जहाँ छु म खुसी छु,
+अन्धकार नै सहि म खुसी छु,
+जिवन मेरो यहिँ त रहेछ,
+मृत्यु सँगसगै हिड्दै छु,
+यो मृत्युदेखि डराउँछन् सबै,
+तर म त सुन्दर देख्दैछु ।
+
+जहाँ छु म अराममा छु,
+कफिन भित्र नै सहि म आराममा छु,
+छलमा बाचेको रहेछु आजसम्म,
+म त चुँडिएको पात झैँ जर्दैछु,
+म खुसी छु आज हेर,
+किनकि म भित्र भित्रै मर्दैछु ।`},
+ {t:'नचाहेको सङ्गीत',k:'Reflection',b:`म त्यहाँ छु,
+जहाँ कोहि आउन चाहँदैन,
+म त्योसंग छु,
+जोसंग केहि बस्न चाहँदैन,
+म त्यसको प्रतिक्षामा छु,
+जससंग कोहि नजर जुधाउन चाहँदैन,
+म त्यसलाई सुन्दर मान्छु,
+दुनियाँ जसलाई कुरुप ठान्दछ,
+हो त्यसको प्रतिक्षामा छु,
+जसलाई दुनियाँले मृत्यु भनि जान्दछ,
+हो म मृत्युकै प्रतिक्षामा छु,
+जस देखि दुनियाँ भाग्दछ ।`},
+ {t:'अश्रु बिपनाको',k:'Farewell',b:`सगर् छुन सागर छोड्नु पर्छ सबैलाई
 पङक्ति पङक्ति लख्नलाई पनि
 बलि हुनुपर्छ मसिलाई
 चुडिएपछि त नाभि आमाबाट
@@ -186,25 +631,16 @@ I worry about being The Prodigal Son.</p>
 अन्जान पानामा काहनी लेखी
 फेरी अन्जान भई
 बिलाउने त्यो कलमलाई
-नव जिवनको शुभकामना छ है।</p>
-        </article>
-
-        <article class="bg-card rounded-2xl border-l-4 border-marigold p-8">
-          <h3 class="font-display text-xl mb-4" lang="ne">सुक्ष्म स्पन्दन</h3>
-          <p class="font-display italic poem-text whitespace-pre-line text-ink/85" lang="ne">नबढ्छ ढुक्ढुकी नरोकिन्छ कहिँ
+नव जिवनको शुभकामना छ है।`},
+ {t:'सुक्ष्म स्पन्दन',k:'Love',b:`नबढ्छ ढुक्ढुकी नरोकिन्छ कहिँ
 शिशिर उहि बसन्त त्यहीँ
 गुलाबको पत्र झै
 सयौ सुन्दर पानामा सजिएकी तिमी
 म उहि तिमी त्यही
 कापेका हात र रुझेका आँखाले
-कलम म बन्द गर्छु यही ।।</p>
-        </article>
-
-        <article class="md:col-span-2 bg-card rounded-2xl border-l-4 border-maroon p-8">
-          <h3 class="font-display text-xl mb-4" lang="ne">एउटा एनाको दुईटा प्रतिबिम्ब</h3>
-          <p class="font-display italic poem-text whitespace-pre-line text-ink/85" lang="ne">म दैडिरहेको छु दुइटा सोचमा
+कलम म बन्द गर्छु यही ।।`},
+ {t:'एउटा एनाको दुईटा प्रतिबिम्ब',k:'Reflection',b:`म दैडिरहेको छु दुइटा सोचमा
 म भौतारिएको छु अन्योलताको विचमा
-
 नशा नशा नशा देऊ मलाई
 खुल्ला पन्छी झै उड्न देऊ मलाई
 न त रोग छ मसँग
@@ -212,102 +648,107 @@ I worry about being The Prodigal Son.</p>
 रहस्य त तिमी
 दुर्वल त तिमी छौ तर
 म कुन माटोबाट बनिएको हु
-
 नशा नशा नशा देऊ मलाई
 यो जिवनको अर्थ देऊ मलाई
 म किन छु कहाँबाट हु
 बताऊ मलाई
 म मर्दैछु यसैले अव
-कोही आइ बचाउ मलाई</p>
-        </article>
-
-      </div>
-    </div>
-
-    <div>
-      <p class="text-sm text-maroon font-medium mb-4 uppercase tracking-wide">Writings</p>
-      <div class="grid md:grid-cols-2 gap-6">
-
-        <article class="bg-card rounded-2xl border-l-4 border-maroon p-8">
-          <h3 class="font-display text-xl mb-4">Self-Realization</h3>
-          <p class="poem-text text-ink/80">
-            My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul
-            laughed, and I realized I am a shadow. I laughed too, because I am not
-            Isaac — I am Ishak.
-          </p>
-        </article>
-
-        <article class="bg-card rounded-2xl border-l-4 border-ink p-8">
-          <p class="text-sm text-ink/50 font-medium mb-2 uppercase tracking-wide">Untitled</p>
-          <p class="poem-text text-ink/80">
-            In this cursed world, everyone is a puppet. No matter how much you try
-            to escape, you lose every time. You can't find the mastermind, but I
-            see something of that mastermind, and it looks like desire.
-          </p>
-        </article>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ============ CONTACT ============ -->
-<section id="contact" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-line">
-  <div class="max-w-xl">
-    <h2 class="font-display text-3xl md:text-4xl mb-4">Get in touch</h2>
-    <p class="text-ink/70 mb-8">
-      A line about a poem, a question, or just to say hello — reach me here.
-    </p>
-    <div class="flex flex-wrap gap-3">
-        <a href="https://www.facebook.com/share/1EUwF7wYP4/" target="_blank" rel="noopener" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-card border border-line hover:border-marigold transition-colors text-sm font-medium">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.2c0-.9.3-1.5 1.6-1.5H16.6V4.1C16.2 4 15.1 3.9 14 3.9c-2.3 0-3.9 1.4-3.9 4v2.6H7.6v3H10.1V21h3.4z"/></svg>
-          Facebook
-        </a>
-        <a href="https://wa.me/9779820907795" target="_blank" rel="noopener" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-card border border-line hover:border-pine transition-colors text-sm font-medium">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.9-.7-.7-1.2-1.6-1.5-2.2-.1-.3 0-.4.1-.6.2-.2.4-.4.6-.6.2-.2.2-.4.1-.6-.1-.2-.6-1.4-.8-1.9-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3.1 4.9 4.2 2.9 1.1 2.9.7 3.4.7.5 0 1.6-.6 1.8-1.2.2-.6.2-1.1.2-1.2 0-.1-.2-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l5-1.4c1.5.8 3.2 1.3 5 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-          WhatsApp
-        </a>
-        <a href="mailto:Yonghangissac@gmail.com" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-card border border-line hover:border-maroon transition-colors text-sm font-medium">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 013.5 4h17A1.5 1.5 0 0122 5.5v13a1.5 1.5 0 01-1.5 1.5h-17A1.5 1.5 0 012 18.5v-13zm2.2.5l7.3 5.3c.3.2.7.2 1 0L19.8 6H4.2z"/></svg>
-          Gmail
-        </a>
-    </div>
-  </div>
-</section>
-
-<footer class="max-w-6xl mx-auto px-6 md:px-10 py-10 border-t border-line text-sm text-ink/50 flex flex-wrap justify-between gap-2">
-  <span>© <span id="year"></span> Ishak Yonghang. Built in Phidim, Nepal.</span>
-  <a href="#top" class="hover:text-ink">Back to top</a>
-</footer>
-
-<script>
-  // Mobile nav toggle
-  const menuBtn = document.getElementById('menuBtn');
-  const navLinksMobile = document.getElementById('navLinksMobile');
-  menuBtn.addEventListener('click', () => {
-    const isOpen = navLinksMobile.classList.contains('flex');
-    navLinksMobile.classList.toggle('hidden', isOpen);
-    navLinksMobile.classList.toggle('flex', !isOpen);
-    menuBtn.setAttribute('aria-expanded', String(!isOpen));
+कोही आइ बचाउ मलाई`}
+];
+const shelf=document.getElementById('shelf');
+poems.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='poem';b.type='button';
+  b.innerHTML=`<span class="k">${p.k}</span><h4>${p.t}</h4><p>${p.b.split('\n').slice(0,3).join(' ')}</p><span class="r">Read poem</span>`;
+  b.addEventListener('click',()=>{
+    document.getElementById('poemKind').textContent=p.k;
+    document.getElementById('poemTitle').textContent=p.t;
+    document.getElementById('poemBody').textContent=p.b;
+    openModal('poemModal',b);
   });
+  shelf.appendChild(b);
+});
 
-  // Dynamic, exact age from birth date
-  function calculateAge(birthDate) {
-    const now = new Date();
-    let years = now.getFullYear() - birthDate.getFullYear();
-    const hasHadBirthdayThisYear =
-      now.getMonth() > birthDate.getMonth() ||
-      (now.getMonth() === birthDate.getMonth() && now.getDate() >= birthDate.getDate());
-    if (!hasHadBirthdayThisYear) years -= 1;
-    return years;
-  }
-  const birthDate = new Date(2005, 9, 26); // October 26, 2005
-  document.getElementById('age').textContent = calculateAge(birthDate);
+/* modals */
+let lastFocus=null;
+function openModal(id,from){lastFocus=from||document.activeElement;const m=document.getElementById(id);m.classList.add('open');document.body.style.overflow='hidden';m.querySelector('[data-close]').focus();}
+function closeModals(){document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'));document.body.style.overflow='';if(lastFocus)lastFocus.focus();}
+window.openModal=openModal;
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.hasAttribute('data-close'))closeModals();}));
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModals();});
 
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
+/* contact */
+document.getElementById('contactForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  if(!v('fname')||!v('email')||!v('message')){alert('Please add your name, email and message.');return;}
+  const body='From: '+v('fname')+' '+v('lname')+'\nEmail: '+v('email')+'\n\n'+v('message');
+  location.href='mailto:yonghangissac@gmail.com?subject='+encodeURIComponent(v('subject')||'Message from your portfolio')+'&body='+encodeURIComponent(body);
+  document.getElementById('formNote').style.display='inline';
+  e.target.reset();
+});
 </script>
 
+<!-- Firebase: profile photo, snapshots, certificates (managed in admin.html) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import { getFirestore, doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyD0Uc2UxGt0MmOBk8IG0TZPQCmij6p5gqE",
+  authDomain: "myportfolio-e77ba.firebaseapp.com",
+  projectId: "myportfolio-e77ba",
+  storageBucket: "myportfolio-e77ba.firebasestorage.app",
+  messagingSenderId: "741383996320",
+  appId: "1:741383996320:web:0fded52449d58e1d1b1ac5",
+  measurementId: "G-JYR3BKGF26"
+});
+const db = getFirestore(app);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+(async () => {
+  try {
+    const s = await getDoc(doc(db,'site','profile'));
+    if (s.exists() && s.data().photoURL)
+      document.getElementById('profileCard').innerHTML = `<img src="${esc(s.data().photoURL)}" alt="Ishak Yonghang">`;
+  } catch(e) {}
+})();
+
+(async () => {
+  const w = document.getElementById('snapScroll');
+  const more = `<figure class="snap more">More soon</figure>`;
+  try {
+    const d = await getDocs(query(collection(db,'snapshots'), orderBy('order','asc')));
+    let h = '';
+    d.forEach(x => { const it = x.data();
+      h += `<figure class="snap"><img src="${esc(it.url)}" alt="${esc(it.title||'Snapshot')}" loading="lazy"><figcaption>${esc(it.title||'')}</figcaption></figure>`; });
+    w.innerHTML = h + more;
+  } catch(e) { w.innerHTML = `<figure class="snap more">Photos couldn't load. Refresh to try again.</figure>`; }
+})();
+
+(async () => {
+  const g = document.getElementById('certGrid');
+  try {
+    const d = await getDocs(query(collection(db,'certs'), orderBy('order','asc')));
+    if (d.empty) { g.innerHTML = `<div class="empty">Certificates will appear here once added.</div>`; return; }
+    g.innerHTML = '';
+    d.forEach(x => { const it = x.data();
+      const c = document.createElement('article'); c.className = 'cert';
+      c.innerHTML = `<h3>${esc(it.title)}</h3><span class="s">${esc(it.sub)}</span>
+        ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
+        <div class="tags">${(it.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+        ${it.url ? `<button type="button">View certificate</button>` : ''}`;
+      const b = c.querySelector('button');
+      if (b) b.addEventListener('click', () => {
+        document.getElementById('certTitle').textContent = it.title || '';
+        document.getElementById('certSub').textContent = it.sub || '';
+        document.getElementById('certImg').src = it.url;
+        window.openModal('certModal', b);
+      });
+      g.appendChild(c);
+    });
+  } catch(e) { g.innerHTML = `<div class="empty">Certificates couldn't load. Refresh to try again.</div>`; }
+})();
+</script>
 </body>
 </html>
