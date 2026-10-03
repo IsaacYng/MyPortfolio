@@ -255,6 +255,23 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line-2);bor
 .pk-seg button{border:none;background:transparent;padding:7px 18px;border-radius:7px;font-weight:600;font-size:.9rem;color:var(--muted)}
 .pk-seg button:first-child{font-family:var(--nep)}
 .pk-seg button[aria-checked="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(22,34,43,.14)}
+.np-help{font-family:var(--nep);font-size:.92rem;line-height:1.75;color:var(--ink-2);background:#fff;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:8px 12px;margin-top:10px;max-width:68ch}
+.pre{display:flex;align-items:stretch;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;background:#fff}
+.pre span{display:flex;align-items:center;padding:0 10px;background:var(--bg);color:var(--muted);font-size:.9rem;border-right:1px solid var(--line-2);white-space:nowrap}
+.pre input{border:none;border-radius:0;min-width:0}
+.pre:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,34,43,.08)}
+.pre input:focus{box-shadow:none}
+.test-links{display:flex;gap:10px;flex-wrap:wrap}
+.faq{overflow:hidden}
+.qa{border-top:1px solid var(--line)}
+.qa:first-child{border-top:none}
+.qa summary{list-style:none;cursor:pointer;padding:15px 20px;font-family:var(--nep);font-weight:500;font-size:1rem;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"";width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);flex-shrink:0;transition:transform .2s}
+.qa[open] summary::after{transform:rotate(-135deg)}
+.qa[open] summary{color:var(--accent)}
+.qa p{padding:0 20px 16px;font-family:var(--nep);line-height:1.85;color:var(--ink-2)}
+.visit{margin-bottom:18px}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -409,8 +426,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <a data-go="certs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>Certificates<span class="ct" id="ctC">–</span></a>
       <div class="nav-label">SETTINGS</div>
       <a data-go="backup"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Backup &amp; restore</a>
+      <a data-go="contact"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Contact details</a>
       <a data-go="storage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>Storage &amp; limits</a>
       <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account &amp; security</a>
+      <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>मद्दत / Help</a>
       <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
     </nav>
     <div class="side-store" data-go="storage" title="Storage used">
@@ -446,7 +465,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <main class="content">
       <!-- HOME -->
       <section data-page="overview">
-        <div class="ph"><div><h1 id="hello">Welcome back</h1><p>Everything you can change on your site, in one place. Changes go live as soon as you save.</p></div><a class="btn" href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a></div>
+        <div class="ph"><div><h1 id="hello">Welcome back</h1><p>Everything you can change on your site, in one place. Changes go live as soon as you save.</p><p class="np-help" lang="ne">यहाँबाट सुरु गर्नुहोस्। “Getting started” का काम एक-एक गरी सक्नुहोस्, सकेपछि ✓ लाग्छ।</p></div><a class="btn" href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a></div>
         <div class="hero-o">
           <div class="card">
             <div class="card-h"><h2>Getting started</h2><span class="meta" id="stepsMeta"></span></div>
@@ -462,6 +481,13 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             </div>
           </div>
         </div>
+        <div class="card visit">
+          <div class="card-h"><h2>Visitors</h2><span class="pill">Google Analytics · free</span></div>
+          <div class="card-b" style="display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+            <p class="help" style="font-size:.92rem;max-width:56ch">See how many people visit, which poems they open and what they share. Today's visitors show under “Realtime”; daily totals appear within a day.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn primary" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg>Open visitor dashboard</a><a class="btn" href="https://console.firebase.google.com/project/myportfolio-e77ba/analytics" target="_blank" rel="noopener">Firebase view</a></div>
+          </div>
+        </div>
         <div class="stats">
           <div class="stat" data-go="poems"><span>Poems</span><b id="stP">–</b><small id="stPs">on the site</small></div>
           <div class="stat" data-go="verses"><span>Bible verses</span><b id="stV">–</b><small id="stVs">in the slider</small></div>
@@ -473,7 +499,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- SECTIONS -->
       <section data-page="sections" hidden>
-        <div class="ph"><div><h1>Site sections</h1><p>Change the other parts of your site without touching code. Each box saves on its own.</p></div></div>
+        <div class="ph"><div><h1>Site sections</h1><p>Change the other parts of your site without touching code. Each box saves on its own.</p><p class="np-help" lang="ne">बक्सको नाम थिचेर खोल्नुहोस्। भित्रको कुनै वस्तु थिचेर सम्पादन गर्नुहोस्, अनि त्यही बक्सको रातो Save थिच्नुहोस्।</p></div></div>
         <div class="card sec-card collapsed" id="card-heroLines">
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Poem lines in the hero</h2><span class="pill" id="q-heroLines"></span></div>
           <div class="card-b"><p class="help" style="margin-bottom:14px">The lines that type themselves under your name at the top of the site. Choose short lines from your poems.</p><div class="rows-ed" id="ed-heroLines"></div><button class="btn" type="button" id="add-heroLines" style="margin-top:12px">+ Add</button></div>
@@ -498,7 +524,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- BACKUP -->
       <section data-page="backup" hidden>
-        <div class="ph"><div><h1>Backup &amp; restore</h1><p>Save a copy of everything on your site to your phone. If something is deleted by mistake, you can bring it back from that file.</p></div></div>
+        <div class="ph"><div><h1>Backup &amp; restore</h1><p>Save a copy of everything on your site to your phone. If something is deleted by mistake, you can bring it back from that file.</p><p class="np-help" lang="ne">महिनामा एक पटक Download backup थिच्नुहोस्। केही मेटियो भने यही फाइलबाट Restore गर्न सकिन्छ।</p></div></div>
         <div class="card">
           <div class="card-h"><h2>Download a backup</h2><span class="meta" id="bkLast">Never backed up on this device</span></div>
           <div class="card-b">
@@ -519,7 +545,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- ABOUT -->
       <section data-page="about" hidden>
-        <div class="ph"><div><h1>About me</h1><p>The “From the hills of Panchthar” section of your site: the heading, your story and the details card.</p></div></div>
+        <div class="ph"><div><h1>About me</h1><p>The “From the hills of Panchthar” section of your site: the heading, your story and the details card.</p><p class="np-help" lang="ne">तपाईंको परिचय र विवरण। अनुच्छेद छुट्याउन बीचमा एउटा खाली लाइन छोड्नुहोस्, अनि Save about me थिच्नुहोस्।</p></div></div>
         <div class="card">
           <div class="card-h"><h2>Heading &amp; story</h2><span class="meta" id="abMeta"></span></div>
           <div class="card-b form">
@@ -541,7 +567,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- POEMS -->
       <section data-page="poems" hidden>
-        <div class="ph"><div><h1>Poems</h1><p>Shown in the poetry section, grouped by mood. “The Gossip Rope” stays as the featured poem.</p></div><span class="pill" id="poQuota"></span></div>
+        <div class="ph"><div><h1>Poems</h1><p>Shown in the poetry section, grouped by mood. “The Gossip Rope” stays as the featured poem.</p><p class="np-help" lang="ne">भाषा छान्नुहोस्, शीर्षक र कविता लेख्नुहोस्, अनि Publish poem थिच्नुहोस्। लेख्दै गर्दा कविता यही फोनमा आफैं सेभ हुन्छ।</p></div><span class="pill" id="poQuota"></span></div>
         <div class="note info" id="importCard" hidden><div style="flex:1"><b>Start with your current poems.</b> Your site shows 6 poems built into the page. Import them once so you can edit them here.</div><button class="btn primary" id="pImport" type="button"><span class="spin"></span><span class="bt">Import 6 poems</span></button></div>
         <div class="card">
           <div class="card-h"><h2 id="poFormTitle">Write a new poem</h2></div>
@@ -580,7 +606,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- VERSES -->
       <section data-page="verses" hidden>
-        <div class="ph"><div><h1>Bible verses</h1><p>Shown one at a time in the verse slider on the About section. Visitors can share each verse as an image.</p></div><span class="pill" id="vQuota"></span></div>
+        <div class="ph"><div><h1>Bible verses</h1><p>Shown one at a time in the verse slider on the About section. Visitors can share each verse as an image.</p><p class="np-help" lang="ne">बाइबलको पद र सन्दर्भ (जस्तै यर्मिया ३३:३) लेखेर Add verse थिच्नुहोस्। साइटको स्लाइडरमा देखिन्छ।</p></div><span class="pill" id="vQuota"></span></div>
         <div class="card">
           <div class="card-h"><h2 id="vFormTitle">Add a verse</h2></div>
           <div class="card-b form">
@@ -597,7 +623,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- NOW -->
       <section data-page="now" hidden>
-        <div class="ph"><div><h1>Right now</h1><p>The “Right now / अहिले” card under the hero. Leave a box empty to hide it on the site.</p></div></div>
+        <div class="ph"><div><h1>Right now</h1><p>The “Right now / अहिले” card under the hero. Leave a box empty to hide it on the site.</p><p class="np-help" lang="ne">अहिले के पढ्दै, लेख्दै, सिक्दै हुनुहुन्छ लेख्नुहोस्। चाहिँदैन भने बक्स खाली छोड्नुहोस्, अनि Save changes थिच्नुहोस्।</p></div></div>
         <div class="card">
           <div class="card-h"><h2>What you're up to</h2><span class="meta" id="nMeta"></span></div>
           <div class="card-b form">
@@ -615,7 +641,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- PHOTOS -->
       <section data-page="snaps" hidden>
-        <div class="ph"><div><h1>Photos</h1><p>The “Life snapshots” strip on your site. Photos are shrunk automatically and stored in Cloud Storage.</p></div><span class="pill" id="sQuota"></span></div>
+        <div class="ph"><div><h1>Photos</h1><p>The “Life snapshots” strip on your site. Photos are shrunk automatically and stored in Cloud Storage.</p><p class="np-help" lang="ne">Choose थिचेर फोटो छान्नुहोस्। फोटो आफैं सानो बनिन्छ। “Photo ready” देखिएपछि Add photo थिच्नुहोस्।</p></div><span class="pill" id="sQuota"></span></div>
         <div class="card">
           <div class="card-h"><h2 id="sFormTitle">Add a photo</h2></div>
           <div class="card-b form">
@@ -635,7 +661,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- CERTIFICATES -->
       <section data-page="certs" hidden>
-        <div class="ph"><div><h1>Certificates</h1><p>Listed in the Training section. Visitors can tap one to view the image.</p></div><span class="pill" id="cQuota"></span></div>
+        <div class="ph"><div><h1>Certificates</h1><p>Listed in the Training section. Visitors can tap one to view the image.</p><p class="np-help" lang="ne">कोर्सको नाम लेख्नुहोस्, प्रमाणपत्रको फोटो छान्नुहोस्, अनि Add certificate थिच्नुहोस्।</p></div><span class="pill" id="cQuota"></span></div>
         <div class="card">
           <div class="card-h"><h2 id="cFormTitle">Add a certificate</h2></div>
           <div class="card-b form">
@@ -663,9 +689,34 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
       </section>
 
+      <!-- CONTACT -->
+      <section data-page="contact" hidden>
+        <div class="ph"><div><h1>Contact details</h1><p>Used by every “Chat”, email and Facebook button on your site, the contact card and the “Save my contact” QR code.</p><p class="np-help" lang="ne">नम्बर, इमेल वा फेसबुक बदल्दा साइटका सबै ठाउँ र “Save my contact” QR कोडमा आफैं बदलिन्छ।</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2>How people reach you</h2><span class="meta" id="ctMeta"></span></div>
+          <div class="card-b form">
+            <label class="field"><span class="lab">WhatsApp number <em>with country code, e.g. 9779820907795</em></span><div class="pre"><span>+</span><input id="ctWa" inputmode="numeric" placeholder="9779820907795" maxlength="15"/></div></label>
+            <p class="help" id="ctWaPrev"></p>
+            <label class="field"><span class="lab">Email</span><input id="ctEmail" type="email" inputmode="email" placeholder="yonghangissac@gmail.com" maxlength="80"/></label>
+            <label class="field"><span class="lab">Facebook <em>username or profile link</em></span><div class="pre"><span>facebook.com/</span><input id="ctFb" placeholder="yonghangisaac" maxlength="80" autocapitalize="off"/></div></label>
+            <label class="field"><span class="lab">Location <em>shown in the contact list</em></span><input id="ctPlace" placeholder="Phidim-1, Panchthar, Koshi" maxlength="60"/></label>
+            <div class="test-links"><a class="btn" id="ctTestWa" target="_blank" rel="noopener">Test WhatsApp</a><a class="btn" id="ctTestFb" target="_blank" rel="noopener">Test Facebook</a></div>
+          </div>
+          <div class="card-f"><button class="btn" id="ctUndo" type="button">Undo changes</button><button class="btn accent" id="ctSave" type="button"><span class="spin"></span><span class="bt">Save contact details</span></button></div>
+        </div>
+      </section>
+
+      <!-- HELP -->
+      <section data-page="help" hidden>
+        <div class="ph"><div><h1 lang="ne">मद्दत</h1><p>Short answers in Nepali for everything in this console.</p></div></div>
+        <div class="card faq" lang="ne">
+          <details class="qa"><summary>नयाँ कविता कसरी थप्ने?</summary><p>तल Poems थिच्नुहोस् → नेपाली वा English छान्नुहोस् → शीर्षक र कविता लेख्नुहोस् → रातो Publish poem थिच्नुहोस्। तुरुन्तै साइटमा देखिन्छ।</p></details><details class="qa"><summary>कविता पछि कुनै दिनमा प्रकाशित गर्ने?</summary><p>Poems मा “More options” खोल्नुहोस् → “Publish on a date” मा मिति छान्नुहोस् → Schedule poem थिच्नुहोस्। त्यो दिन बिहानदेखि आफैं साइटमा आउँछ।</p></details><details class="qa"><summary>लेख्दै गरेको कविता हरायो?</summary><p>पब्लिश नगरेको कविता यही फोनमा आफैं सेभ हुन्छ। Poems पेज फेरि खोल्दा “Unpublished draft restored” लेखिएर फर्किन्छ।</p></details><details class="qa"><summary>फोटो किन अपलोड भएन?</summary><p>फोटो क्लाउडमा मात्र छ भने पहिले Gallery मा खोलेर डाउनलोड गर्नुहोस्। अझै भएन भने फोटोको screenshot लिएर त्यो अपलोड गर्नुहोस्।</p></details><details class="qa"><summary>बटन किन थिच्न मिल्दैन?</summary><p>सीमा पुगेको हुन सक्छ। बटनको छेउमा कारण लेखिएको हुन्छ, जस्तै “Limit reached”। पुरानो वस्तु मेटाएपछि फेरि थप्न मिल्छ।</p></details><details class="qa"><summary>“Permission denied” आयो भने?</summary><p>Firebase को Firestore Rules वा Storage Rules ठीकसँग राखिएको छैन। Rules फेरि paste गरेर Publish गर्नुहोस्।</p></details><details class="qa"><summary>सेभ गरेँ तर साइटमा देखिएन?</summary><p>साइट खोलेर तलतिर तानेर refresh गर्नुहोस्। ब्राउजरले पुरानो पेज सम्झिएको हुन सक्छ।</p></details><details class="qa"><summary>क्रम (order) कसरी मिलाउने?</summary><p>सूचीमा ↑ ↓ थिच्नुहोस्। क्रम तुरुन्तै सेभ हुन्छ।</p></details><details class="qa"><summary>ब्याकअप कसरी लिने?</summary><p>More → Backup & restore → Download backup। फाइल फोनमा सुरक्षित राख्नुहोस्, महिनामा एक पटक लिनुहोस्।</p></details><details class="qa"><summary>गल्तीले सबै मेटियो भने?</summary><p>Backup & restore → Restore from a backup → आफ्नो ब्याकअप फाइल छान्नुहोस् → Restore। सबै फर्किन्छ।</p></details><details class="qa"><summary>कति जनाले साइट हेरे?</summary><p>Home को “Visitors” बक्समा Open visitor dashboard थिच्नुहोस्। Google Analytics मा आजका र पुराना visitor देखिन्छन्।</p></details><details class="qa"><summary>पैसा लाग्छ कि?</summary><p>यो console ले सबै कुरा Firebase को निःशुल्क सीमाभित्र राख्छ र बढी भए रोक्छ। सुरक्षाका लागि Google Cloud मा $1 को budget alert पनि राख्नुहोस्।</p></details>
+        </div>
+      </section>
+
       <!-- STORAGE -->
       <section data-page="storage" hidden>
-        <div class="ph"><div><h1>Storage &amp; limits</h1><p>Your project is on the Blaze plan, but this console keeps every part of your site inside the free usage. Anything that would go over is blocked.</p></div><span class="pill" id="planPill2">Checking…</span></div>
+        <div class="ph"><div><h1>Storage &amp; limits</h1><p>Your project is on the Blaze plan, but this console keeps every part of your site inside the free usage. Anything that would go over is blocked.</p><p class="np-help" lang="ne">यो हिसाब मात्र हो, यहाँ केही गर्नु पर्दैन। बार रातो भयो भने पुरानो फोटो मेटाउनुहोस्।</p></div><span class="pill" id="planPill2">Checking…</span></div>
         <div class="note warn" id="regionNote"><div><b>Important:</b> Cloud Storage is only free when your bucket is in <b>us-central1</b>, <b>us-east1</b> or <b>us-west1</b>. Check it once in Google Cloud Console → Cloud Storage → Buckets → “Location”. Also set a $1 budget alert in Billing so Google emails you if anything is ever charged.</div></div>
         <div class="note info" id="migRow" hidden><div style="flex:1"><b><span id="migN">0</span> older photo(s)</b> are stored inside the database. Moving them to Cloud Storage frees database space and makes your site faster.</div><button class="btn primary" id="migBtn" type="button"><span class="spin"></span><span class="bt">Move to Cloud Storage</span></button></div>
         <div class="card">
@@ -702,7 +753,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- ACCOUNT -->
       <section data-page="account" hidden>
-        <div class="ph"><div><h1>Account &amp; security</h1><p>Your sign-in details and password.</p></div></div>
+        <div class="ph"><div><h1>Account &amp; security</h1><p>Your sign-in details and password.</p><p class="np-help" lang="ne">पासवर्ड बदल्ने र साइन आउट गर्ने ठाउँ। 👁 थिच्दा पासवर्ड देखिन्छ।</p></div></div>
         <div class="card">
           <div class="card-h"><h2>Profile</h2></div>
           <div class="card-b">
@@ -857,7 +908,7 @@ document.querySelectorAll('[data-max]').forEach(el => {
 const setVal = (id, v) => { const el=$(id); el.value = v ?? ''; if (el._cnt) el._cnt(); };
 
 /* ---------- unsaved changes ---------- */
-const FORMS = { sections:[], about:['abTitleIn','abLeadIn','abBodyIn'], poems:['poTitle','poMood','poBody'], verses:['vText','vRef'], snaps:['sTitle'], certs:['cTitle','cSub','cDesc','cTags'] };
+const FORMS = { contact:['ctWa','ctEmail','ctFb','ctPlace'], sections:[], about:['abTitleIn','abLeadIn','abBodyIn'], poems:['poTitle','poMood','poBody'], verses:['vText','vRef'], snaps:['sTitle'], certs:['cTitle','cSub','cDesc','cTags'] };
 const dirty = new Set();
 Object.entries(FORMS).forEach(([pg,ids]) => ids.forEach(id => document.getElementById(id).addEventListener('input', () => dirty.add(pg))));
 const clean = pg => dirty.delete(pg);
@@ -865,7 +916,7 @@ let currentPage = 'overview';
 addEventListener('beforeunload', e => { if ([...dirty].some(p => p!=='poems')) { e.preventDefault(); e.returnValue=''; } });
 
 /* ---------- navigation ---------- */
-const titles = { sections:'Site sections', backup:'Backup & restore', overview:'Home', about:'About me', poems:'Poems', verses:'Bible verses', now:'Right now', snaps:'Photos', certs:'Certificates', storage:'Storage & limits', account:'Account & security' };
+const titles = { contact:'Contact details', help:'Help', sections:'Site sections', backup:'Backup & restore', overview:'Home', about:'About me', poems:'Poems', verses:'Bible verses', now:'Right now', snaps:'Photos', certs:'Certificates', storage:'Storage & limits', account:'Account & security' };
 async function go(p){
   if (!titles[p]) p='overview';
   if (p !== currentPage && dirty.has(currentPage) && currentPage !== 'poems') {
@@ -896,7 +947,7 @@ const DEF_VERSES = [
   {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
   {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
 ];
-const D = { extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
+const D = { contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
 const monthKey = () => new Date().toISOString().slice(0,7);
 const uploadsThisMonth = () => (D.usageDoc && D.usageDoc.month===monthKey()) ? (D.usageDoc.uploads||0) : 0;
 const isStored = x => !!(x && x.path);
@@ -910,6 +961,7 @@ function usage(){
   if (D.now) { u.verse += docBytes('now', D.now); u.docs++; }
   if (D.about) { u.text += docBytes('about', D.about); u.docs++; }
   if (D.extras) { u.text += docBytes('extras', D.extras); u.docs++; }
+  if (D.contact) { u.text += docBytes('contact', D.contact); u.docs++; }
   u.gcs = 0; u.gcsFiles = 0; u.legacy = 0;
   ['snapshots','certs'].forEach(col => D[col].forEach(x => {
     if (isLegacy(x)) { const img = bytes(x.url); u.photo += img; u.legacy++; u.text += docBytes(x.id, strip(x)) - img; }
@@ -1245,10 +1297,41 @@ onAuthStateChanged(auth, async user => {
   fillAccount(user); armIdle();
   const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
   go((location.hash||'').slice(1) || 'overview');
-  const r = await Promise.allSettled([loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
+  const r = await Promise.allSettled([loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
   D.loaded = true; refreshAll();
   if (r.some(x => x.status==='rejected')) setStatus(false,'Some data failed to load'); else setStatus(true,'Connected');
 });
+
+/* =========================================================
+   CONTACT → site/contact { wa, email, fb, place }
+   ========================================================= */
+const CONTACT_DEF = { wa:'9779820907795', email:'yonghangissac@gmail.com', fb:'yonghangisaac', place:'Phidim-1, Panchthar, Koshi' };
+const fmtPhone = d => { d=String(d||'').replace(/\D/g,''); return d.startsWith('977') ? '+977 '+d.slice(3) : (d?'+'+d:''); };
+const fbUser = v => String(v||'').trim().replace(/^https?:\/\/(www\.|m\.)?facebook\.com\//i,'').replace(/[/?#].*$/,'');
+function ctPreview(){
+  const wa=$('ctWa').value.replace(/\D/g,''), fb=fbUser($('ctFb').value);
+  $('ctWaPrev').textContent = wa ? 'Shown on your site as '+fmtPhone(wa) : '';
+  $('ctTestWa').href = wa ? 'https://wa.me/'+wa : '#'; $('ctTestFb').href = fb ? 'https://www.facebook.com/'+fb : '#';
+}
+function fillContact(c){ setVal('ctWa',c.wa); setVal('ctEmail',c.email); setVal('ctFb',c.fb); setVal('ctPlace',c.place); ctPreview(); clean('contact'); }
+async function loadContact(){
+  const d = await getDoc(doc(db,'site','contact')); D.contact = d.exists()? d.data() : null;
+  fillContact({...CONTACT_DEF, ...(D.contact||{})});
+  $('ctMeta').textContent = D.contact ? 'Live on your site' : 'Showing what your site uses now';
+}
+['ctWa','ctFb'].forEach(id => $(id).addEventListener('input', ctPreview));
+$('ctWa').addEventListener('input', () => { const v=$('ctWa').value, c=v.replace(/\D/g,''); if (v!==c) $('ctWa').value=c; ctPreview(); });
+$('ctUndo').addEventListener('click', () => { fillContact({...CONTACT_DEF, ...(D.contact||{})}); toast('Changes undone'); });
+$('ctSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
+  const x = { wa:$('ctWa').value.replace(/\D/g,''), email:$('ctEmail').value.trim(), fb:fbUser($('ctFb').value), place:$('ctPlace').value.trim() };
+  if (x.wa.length < 10 || x.wa.length > 15) { $('ctWa').focus(); throw userErr('Enter the full WhatsApp number with country code, e.g. 9779820907795.'); }
+  if (!validEmail(x.email)) { $('ctEmail').focus(); throw userErr('That email address doesn\u2019t look right.'); }
+  if (!/^[A-Za-z0-9.\-]{3,80}$/.test(x.fb)) { $('ctFb').focus(); throw userErr('Facebook needs a username like yonghangisaac (letters, numbers, dots).'); }
+  if (!x.place) { $('ctPlace').focus(); throw userErr('Add a location.'); }
+  assertSpace(D.contact?docBytes('contact',D.contact):0, docBytes('contact',x));
+  await setDoc(doc(db,'site','contact'), x); D.contact=x; clean('contact'); $('ctMeta').textContent='Live on your site';
+  toast('Saved — every button and the contact QR now use these details'); refreshAll();
+}));
 
 /* =========================================================
    ROW EDITOR — small reusable list editor
@@ -1414,7 +1497,7 @@ $('bkBtn').addEventListener('click', async e => {
   const btn=e.currentTarget; btnLoad(btn,true,'Preparing…');
   try {
     const cols={}; for (const c of ['poems','snapshots','certs']) { const q=await getDocs(collection(db,c)); cols[c]=q.docs.map(d=>({id:d.id,...d.data()})); }
-    const site={}; for (const s of ['verse','now','about','extras']) { const d=await getDoc(doc(db,'site',s)); if (d.exists()) site[s]=d.data(); }
+    const site={}; for (const s of ['verse','now','about','extras','contact']) { const d=await getDoc(doc(db,'site',s)); if (d.exists()) site[s]=d.data(); }
     const data={ app:'yonghangishak-console', version:1, created:new Date().toISOString(), collections:cols, site };
     const name='yonghangishak-backup-'+new Date().toISOString().slice(0,10)+'.json';
     const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'})); a.download=name; document.body.appendChild(a); a.click(); a.remove();
@@ -1450,10 +1533,10 @@ $('rsBtn').addEventListener('click', async () => {
       cur.docs.forEach(x=>{ if(!keep.has(x.id)) ops.push(['del',c,x.id]); });
       (cols[c]||[]).forEach(x=>{ const {id,...rest}=x; ops.push(['set',c,id,rest]); });
     }
-    Object.entries(d.site||{}).forEach(([k,v])=>{ if(['verse','now','about','extras'].includes(k)) ops.push(['set','site',k,v]); });
+    Object.entries(d.site||{}).forEach(([k,v])=>{ if(['verse','now','about','extras','contact'].includes(k)) ops.push(['set','site',k,v]); });
     for (let i=0;i<ops.length;i+=400){ const bt=writeBatch(db); ops.slice(i,i+400).forEach(o=> o[0]==='del'? bt.delete(doc(db,o[1],o[2])) : bt.set(doc(db,o[1],o[2]),o[3])); await bt.commit(); }
     toast('Backup restored'); restoreData=null; $('rsName').textContent='Choose a backup file'; $('rsInfo').textContent='A .json file downloaded from this page';
-    await Promise.allSettled([loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs')]); refreshAll();
+    await Promise.allSettled([loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs')]); refreshAll();
   } catch(err){ toast(err.userMsg||explain(err),true); btn.disabled=false; }
   btnLoad(btn,false,'Restore this backup'); $('rsBtn').disabled=!restoreData;
 });
