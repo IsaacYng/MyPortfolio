@@ -620,6 +620,19 @@ async function decode(file){
   try { return await loadImg(url); } catch(_){} finally { setTimeout(()=>URL.revokeObjectURL(url), 2000); }
   return await loadImg(await readAsDataURL(file));
 }
+// HEIC/HEIF (Samsung & iPhone "high efficiency" photos): convert to JPG in the browser.
+let heicLib=null;
+function loadHeicLib(){
+  if (window.heic2any) return Promise.resolve(window.heic2any);
+  if (heicLib) return heicLib;
+  heicLib = new Promise((res,rej)=>{ const sc=document.createElement('script'); sc.src='https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js'; sc.onload=()=>window.heic2any?res(window.heic2any):rej(new Error('lib')); sc.onerror=()=>{ heicLib=null; rej(new Error('lib')); }; document.head.appendChild(sc); });
+  return heicLib;
+}
+async function heicToJpeg(file){
+  const conv = await loadHeicLib();
+  const out = await conv({ blob:file, toType:'image/jpeg', quality:.86 });
+  return Array.isArray(out) ? out[0] : out;
+}
 async function compress(file){
   const name=(file.name||'').toLowerCase(), type=(file.type||'').toLowerCase();
   if (!file.size) throw new Error('This photo isn\u2019t fully on your phone yet (it may be in the cloud). Open it in Gallery first, then try again.');
@@ -627,10 +640,16 @@ async function compress(file){
   let img;
   try { img = await decode(file); }
   catch(_){
-    if (heic) throw new Error('This is a HEIC photo, which browsers can\u2019t open. Take a screenshot of it or turn off \u201CHigh efficiency pictures\u201D in camera settings, then try again.');
-    // small JPG/PNG/WebP that the canvas can't read: store it as-is
-    if (/image\/(jpeg|png|webp)/.test(type) && file.size*1.37 <= MAX_BYTES/0.75) return await readAsDataURL(file);
-    throw new Error('Couldn\u2019t open this photo. Try another one, or take a screenshot of it and upload that.');
+    if (heic) {
+      if (window.__onHeic) window.__onHeic();
+      try { img = await decode(await heicToJpeg(file)); }
+      catch(e2){ throw new Error(e2 && e2.message==='lib' ? 'Couldn\u2019t load the HEIC converter. Check your internet and try again.' : 'Couldn\u2019t convert this HEIC photo. Take a screenshot of it and upload that instead.'); }
+    }
+    else {
+      // small JPG/PNG/WebP that the canvas can't read: store it as-is
+      if (/image\/(jpeg|png|webp)/.test(type) && file.size*1.37 <= MAX_BYTES/0.75) return await readAsDataURL(file);
+      throw new Error('Couldn\u2019t open this photo. Try another one, or take a screenshot of it and upload that.');
+    }
   }
   const W = img.naturalWidth || img.width, H = img.naturalHeight || img.height;
   let max=1400, q=.82, out='';
@@ -650,7 +669,7 @@ const pick = {};
 document.querySelectorAll('.drop').forEach(box => {
   const k = box.dataset.img, im = box.querySelector('img'), inp = box.querySelector('input[type=file]'), urlIn = document.querySelector(`.img-url[data-for="${k}"]`), label = box.querySelector('.dt b'), sub = box.querySelector('.dt span');
   const st = pick[k] = { value:'', set(v){ this.value=v||''; im.src=this.value; box.classList.toggle('has',!!this.value); label.textContent=this.value?'Image selected':'Upload a photo'; sub.textContent=this.value?(this.value.startsWith('data:')?Math.round(this.value.length*.75/1024)+' KB, ready to save':'From link'):'Resized automatically to fit'; urlIn.value=this.value.startsWith('data:')?'':this.value; } };
-  inp.addEventListener('change', async () => { const f=inp.files[0]; if(!f) return; label.textContent='Processing photo…'; sub.textContent=f.name||''; try{ st.set(await compress(f)); toast('Photo ready — now press Add'); }catch(e){ st.set(''); toast(e.message||explain(e),true); } inp.value=''; });
+  inp.addEventListener('change', async () => { const f=inp.files[0]; if(!f) return; label.textContent='Processing photo…'; sub.textContent=f.name||''; window.__onHeic=()=>{ label.textContent='Converting HEIC photo…'; sub.textContent='This can take a few seconds'; }; try{ st.set(await compress(f)); toast('Photo ready — now press Add'); }catch(e){ st.set(''); toast(e.message||explain(e),true); } inp.value=''; });
   urlIn.addEventListener('input', () => { const v=urlIn.value.trim(); st.value=v; im.src=v; box.classList.toggle('has',!!v); label.textContent=v?'Image selected':'Upload a photo'; sub.textContent=v?'From link':'Resized automatically to fit'; });
 });
 
