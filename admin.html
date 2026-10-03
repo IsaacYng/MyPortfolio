@@ -207,6 +207,28 @@ input[type=search]{width:100%;padding:11px 13px;border:1px solid var(--line-2);b
 .fact .icon-btn{color:var(--muted);border:1px solid var(--line)}
 .fact .icon-btn:hover{color:var(--accent);background:var(--accent-soft)}
 @media(max-width:600px){.fact{grid-template-columns:1fr auto;padding:12px;border:1px solid var(--line);border-radius:10px;background:#FAFBFB}.fact input:nth-child(2){grid-column:1/2}.fact .icon-btn{grid-row:1/3;grid-column:2}}
+.rows-ed{display:grid;gap:12px}
+.re-row{border:1px solid var(--line);border-radius:12px;background:#FAFBFB;padding:14px;display:grid;gap:12px}
+.re-head{display:flex;align-items:center;gap:6px}
+.re-head b{font-size:.82rem;color:var(--muted);font-weight:600;margin-right:auto}
+.re-head .icon-btn{width:34px;height:34px;color:var(--muted);border:1px solid var(--line);background:#fff}
+.re-head .icon-btn:hover{color:var(--ink)}
+.re-head .icon-btn.del:hover{color:var(--accent);background:var(--accent-soft)}
+.re-head .icon-btn:disabled{opacity:.35}
+.re-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.re-grid .full{grid-column:1/-1}
+.re-grid .field>.lab{font-size:.8rem}
+.re-grid textarea{min-height:70px}
+select{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:16px;color:var(--ink)}
+input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:16px;color:var(--ink)}
+.badge.sched{background:#E8EEF7;color:#2F5B94}
+@media(max-width:600px){.re-grid{grid-template-columns:1fr}}
+.sec-card .card-h{cursor:pointer;user-select:none}
+.sec-card .card-h::after{content:"";width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin-left:4px;transition:transform .2s}
+.sec-card .card-h h2{margin-right:auto}
+.sec-card:not(.collapsed) .card-h::after{transform:rotate(-135deg)}
+.sec-card.collapsed .card-b,.sec-card.collapsed .card-f{display:none}
+.sec-card.collapsed .card-h{border-bottom:none}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -353,12 +375,14 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
       <div class="nav-label">CONTENT</div>
       <a data-go="about"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>About me</a>
+      <a data-go="sections"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>Site sections</a>
       <a data-go="poems"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Poems<span class="ct" id="ctP">–</span></a>
       <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg>Bible verses<span class="ct" id="ctV">–</span></a>
       <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Right now</a>
       <a data-go="snaps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Photos<span class="ct" id="ctS">–</span></a>
       <a data-go="certs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>Certificates<span class="ct" id="ctC">–</span></a>
       <div class="nav-label">SETTINGS</div>
+      <a data-go="backup"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Backup &amp; restore</a>
       <a data-go="storage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>Storage &amp; limits</a>
       <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account &amp; security</a>
       <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
@@ -421,6 +445,52 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
       </section>
 
+      <!-- SECTIONS -->
+      <section data-page="sections" hidden>
+        <div class="ph"><div><h1>Site sections</h1><p>Change the other parts of your site without touching code. Each box saves on its own.</p></div></div>
+        <div class="card sec-card collapsed" id="card-heroLines">
+          <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Poem lines in the hero</h2><span class="pill" id="q-heroLines"></span></div>
+          <div class="card-b"><p class="help" style="margin-bottom:14px">The lines that type themselves under your name at the top of the site. Choose short lines from your poems.</p><div class="rows-ed" id="ed-heroLines"></div><button class="btn" type="button" id="add-heroLines" style="margin-top:12px">+ Add</button></div>
+          <div class="card-f"><span class="help" id="m-heroLines"></span><button class="btn" type="button" id="undo-heroLines">Undo changes</button><button class="btn accent" type="button" id="save-heroLines"><span class="spin"></span><span class="bt">Save</span></button></div>
+        </div>
+        <div class="card sec-card collapsed" id="card-cares">
+          <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>What I care about</h2><span class="pill" id="q-cares"></span></div>
+          <div class="card-b"><p class="help" style="margin-bottom:14px">The cards in the About section. Turn on “Dark card” for the one you want to stand out.</p><div class="rows-ed" id="ed-cares"></div><button class="btn" type="button" id="add-cares" style="margin-top:12px">+ Add</button></div>
+          <div class="card-f"><span class="help" id="m-cares"></span><button class="btn" type="button" id="undo-cares">Undo changes</button><button class="btn accent" type="button" id="save-cares"><span class="spin"></span><span class="bt">Save</span></button></div>
+        </div>
+        <div class="card sec-card collapsed" id="card-education">
+          <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Education</h2><span class="pill" id="q-education"></span></div>
+          <div class="card-b"><p class="help" style="margin-bottom:14px">Your studies, oldest first. Mark the one you are doing now as “Current”.</p><div class="rows-ed" id="ed-education"></div><button class="btn" type="button" id="add-education" style="margin-top:12px">+ Add</button></div>
+          <div class="card-f"><span class="help" id="m-education"></span><button class="btn" type="button" id="undo-education">Undo changes</button><button class="btn accent" type="button" id="save-education"><span class="spin"></span><span class="bt">Save</span></button></div>
+        </div>
+        <div class="card sec-card collapsed" id="card-skills">
+          <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Skills</h2><span class="pill" id="q-skills"></span></div>
+          <div class="card-b"><p class="help" style="margin-bottom:14px">The colourful skill tiles. Put several skills in one tile, separated by commas.</p><div class="rows-ed" id="ed-skills"></div><button class="btn" type="button" id="add-skills" style="margin-top:12px">+ Add</button></div>
+          <div class="card-f"><span class="help" id="m-skills"></span><button class="btn" type="button" id="undo-skills">Undo changes</button><button class="btn accent" type="button" id="save-skills"><span class="spin"></span><span class="bt">Save</span></button></div>
+        </div>
+      </section>
+
+      <!-- BACKUP -->
+      <section data-page="backup" hidden>
+        <div class="ph"><div><h1>Backup &amp; restore</h1><p>Save a copy of everything on your site to your phone. If something is deleted by mistake, you can bring it back from that file.</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2>Download a backup</h2><span class="meta" id="bkLast">Never backed up on this device</span></div>
+          <div class="card-b">
+            <p style="margin-bottom:12px">Includes your poems, verses, “Right now”, About me, site sections, photo and certificate details.</p>
+            <div class="note info"><div>Photos themselves stay safe in Cloud Storage — the backup keeps their links. Download a fresh backup about once a month, and after big changes.</div></div>
+          </div>
+          <div class="card-f"><button class="btn accent" type="button" id="bkBtn"><span class="spin"></span><span class="bt">Download backup</span></button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Restore from a backup</h2></div>
+          <div class="card-b form">
+            <div class="note warn"><div><b>Careful:</b> restoring replaces your current poems, verses, photos list, certificates and sections with what is in the backup file.</div></div>
+            <div class="drop" style="border-style:solid"><div class="dt"><b id="rsName">Choose a backup file</b><span id="rsInfo">A .json file downloaded from this page</span></div><label class="btn file"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Choose<input type="file" id="rsFile" accept="application/json,.json"/></label></div>
+          </div>
+          <div class="card-f"><button class="btn danger" type="button" id="rsBtn" disabled><span class="spin"></span><span class="bt">Restore this backup</span></button></div>
+        </div>
+      </section>
+
       <!-- ABOUT -->
       <section data-page="about" hidden>
         <div class="ph"><div><h1>About me</h1><p>The “From the hills of Panchthar” section of your site: the heading, your story and the details card.</p></div></div>
@@ -467,6 +537,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
               <div class="form" style="margin-top:14px">
                 <label class="field"><span class="lab">Link name <em>a–z, 0–9 and dashes</em></span><input id="poSlug" placeholder="kafin" autocapitalize="off" autocomplete="off" spellcheck="false" data-max="slug"/></label>
                 <p class="help" id="poLinkPrev">Link: yonghangishak.com.np/?poem=…</p>
+                <label class="field"><span class="lab">Publish on a date <em>optional — leave empty to publish now</em></span><input type="date" id="poDate"/></label>
+                <p class="help" id="poDateHelp">The poem appears on your site automatically from that morning.</p>
                 <label class="check"><input type="checkbox" id="poPub" checked/>Show this poem on the site</label>
               </div>
             </details>
@@ -759,7 +831,7 @@ document.querySelectorAll('[data-max]').forEach(el => {
 const setVal = (id, v) => { const el=$(id); el.value = v ?? ''; if (el._cnt) el._cnt(); };
 
 /* ---------- unsaved changes ---------- */
-const FORMS = { about:['abTitleIn','abLeadIn','abBodyIn'], poems:['poTitle','poMood','poBody'], verses:['vText','vRef'], snaps:['sTitle'], certs:['cTitle','cSub','cDesc','cTags'] };
+const FORMS = { sections:[], about:['abTitleIn','abLeadIn','abBodyIn'], poems:['poTitle','poMood','poBody'], verses:['vText','vRef'], snaps:['sTitle'], certs:['cTitle','cSub','cDesc','cTags'] };
 const dirty = new Set();
 Object.entries(FORMS).forEach(([pg,ids]) => ids.forEach(id => document.getElementById(id).addEventListener('input', () => dirty.add(pg))));
 const clean = pg => dirty.delete(pg);
@@ -767,7 +839,7 @@ let currentPage = 'overview';
 addEventListener('beforeunload', e => { if ([...dirty].some(p => p!=='poems')) { e.preventDefault(); e.returnValue=''; } });
 
 /* ---------- navigation ---------- */
-const titles = { overview:'Home', about:'About me', poems:'Poems', verses:'Bible verses', now:'Right now', snaps:'Photos', certs:'Certificates', storage:'Storage & limits', account:'Account & security' };
+const titles = { sections:'Site sections', backup:'Backup & restore', overview:'Home', about:'About me', poems:'Poems', verses:'Bible verses', now:'Right now', snaps:'Photos', certs:'Certificates', storage:'Storage & limits', account:'Account & security' };
 async function go(p){
   if (!titles[p]) p='overview';
   if (p !== currentPage && dirty.has(currentPage) && currentPage !== 'poems') {
@@ -798,7 +870,7 @@ const DEF_VERSES = [
   {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
   {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
 ];
-const D = { about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
+const D = { extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
 const monthKey = () => new Date().toISOString().slice(0,7);
 const uploadsThisMonth = () => (D.usageDoc && D.usageDoc.month===monthKey()) ? (D.usageDoc.uploads||0) : 0;
 const isStored = x => !!(x && x.path);
@@ -811,6 +883,7 @@ function usage(){
   if (D.versesSaved) { u.verse += docBytes('verse', {verses:D.verses}); u.docs++; }
   if (D.now) { u.verse += docBytes('now', D.now); u.docs++; }
   if (D.about) { u.text += docBytes('about', D.about); u.docs++; }
+  if (D.extras) { u.text += docBytes('extras', D.extras); u.docs++; }
   u.gcs = 0; u.gcsFiles = 0; u.legacy = 0;
   ['snapshots','certs'].forEach(col => D[col].forEach(x => {
     if (isLegacy(x)) { const img = bytes(x.url); u.photo += img; u.legacy++; u.text += docBytes(x.id, strip(x)) - img; }
@@ -914,12 +987,14 @@ function refreshGuards(){
 function renderSteps(){
   const steps = [
     ['about', !!D.about, 'Check your “About me”', 'Your story and details on the site'],
+    ['sections', !!D.extras, 'Review your site sections', 'Hero lines, cards, education and skills'],
     ['poems', D.poems.length>0, 'Bring your poems into the console', 'Import the poems already on your site'],
     ['now', !!D.now, 'Fill in “Right now”', 'What you\u2019re reading, writing and learning'],
     ['verses', D.versesSaved, 'Choose your Bible verses', 'Shown in the verse slider'],
     ['snaps', D.snapshots.length>0, 'Add a photo', 'For the life snapshots strip'],
     ['certs', D.certs.length>0, 'Add a certificate', 'Optional — for the Training section']
   ];
+  const bk=lastBackup(); steps.push(['backup', bk && Date.now()-bk < 30*864e5, bk ? 'Back up again (monthly)' : 'Download your first backup', bk ? 'Last one was '+Math.floor((Date.now()-bk)/864e5)+' days ago' : 'Keeps your content safe']);
   const done = steps.filter(s=>s[1]).length;
   $('stepsMeta').textContent = `${done} of ${steps.length} done`;
   $('steps').innerHTML = steps.map(([go,ok,t,s]) => `<a class="step ${ok?'done':''}" data-go="${go}"><span class="ck">${I.check}</span><span class="st"><b>${t}</b><span>${s}</span></span>${I.chev}</a>`).join('');
@@ -983,7 +1058,7 @@ async function shrink(file, onStage){
   return out;
 }
 const pick = {};
-document.querySelectorAll('.drop').forEach(box => {
+document.querySelectorAll('.drop[data-img]').forEach(box => {
   const k = box.dataset.img, im = box.querySelector('img'), inp = box.querySelector('input[type=file]'), urlIn = document.querySelector(`.img-url[data-for="${k}"]`), label = box.querySelector('.dt b'), sub = box.querySelector('.dt span');
   const st = pick[k] = { value:'', set(v){ this.value=v||''; im.src=this.value; box.classList.toggle('has',!!this.value);
     label.textContent = this.value ? 'Photo ready' : 'Choose a photo';
@@ -1144,9 +1219,175 @@ onAuthStateChanged(auth, async user => {
   fillAccount(user); armIdle();
   const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
   go((location.hash||'').slice(1) || 'overview');
-  const r = await Promise.allSettled([loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
+  const r = await Promise.allSettled([loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
   D.loaded = true; refreshAll();
   if (r.some(x => x.status==='rejected')) setStatus(false,'Some data failed to load'); else setStatus(true,'Connected');
+});
+
+/* =========================================================
+   ROW EDITOR — small reusable list editor
+   ========================================================= */
+function RowEditor(key, { fields, max, noun }){
+  const box=$('ed-'+key), addBtn=$('add-'+key), q=$('q-'+key);
+  addBtn.textContent = '+ Add '+noun;
+  const quota=()=>{ const n=box.children.length; q.textContent=`${n} / ${max}`; q.className='pill'+(n>=max?' full':''); addBtn.disabled=n>=max;
+    [...box.children].forEach((r,i)=>{ r.querySelector('.re-head b').textContent=noun[0].toUpperCase()+noun.slice(1)+' '+(i+1); r.querySelector('[data-a=up]').disabled=i===0; r.querySelector('[data-a=down]').disabled=i===box.children.length-1; }); };
+  const mark=()=>dirty.add('sections');
+  function row(v={}){
+    const r=document.createElement('div'); r.className='re-row';
+    r.innerHTML=`<div class="re-head"><b></b><button type="button" class="icon-btn" data-a="up" aria-label="Move up">${I.up}</button><button type="button" class="icon-btn" data-a="down" aria-label="Move down">${I.down}</button><button type="button" class="icon-btn del" data-a="del" aria-label="Remove">${I.del}</button></div><div class="re-grid"></div>`;
+    const g=r.querySelector('.re-grid');
+    fields.forEach(f=>{
+      const w=document.createElement('label'); w.className='field'+(f.full?' full':''); 
+      if(f.type==='check'){ w.className='check'+(f.full?' full':''); w.innerHTML=`<input type="checkbox" data-k="${f.key}"/>${f.label}`; w.querySelector('input').checked=!!v[f.key]; }
+      else {
+        w.innerHTML=`<span class="lab">${f.label}${f.hint?` <em>${f.hint}</em>`:''}</span>`;
+        let el;
+        if(f.type==='select'){ el=document.createElement('select'); el.innerHTML=f.options.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join(''); el.value=v[f.key]??f.options[0][0]; }
+        else { el=document.createElement(f.type==='textarea'?'textarea':'input'); if(f.ph) el.placeholder=f.ph; if(f.max) el.maxLength=f.max; el.value=Array.isArray(v[f.key])?v[f.key].join(', '):(v[f.key]??''); if(f.lang){ el.lang=f.lang; } }
+        el.dataset.k=f.key; w.appendChild(el);
+      }
+      g.appendChild(w);
+    });
+    r.addEventListener('input',mark); r.addEventListener('change',mark);
+    r.querySelector('.re-head').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; mark();
+      if(b.dataset.a==='del') r.remove(); if(b.dataset.a==='up'&&r.previousElementSibling) box.insertBefore(r,r.previousElementSibling); if(b.dataset.a==='down'&&r.nextElementSibling) box.insertBefore(r.nextElementSibling,r); quota(); });
+    return r;
+  }
+  addBtn.addEventListener('click',()=>{ if(box.children.length>=max) return; const r=row(); box.appendChild(r); quota(); mark(); const f=r.querySelector('input,textarea'); f&&f.focus(); });
+  return {
+    set(list){ box.innerHTML=''; (list||[]).forEach(v=>box.appendChild(row(v))); quota(); },
+    get(){ return [...box.children].map(r=>{ const o={}; r.querySelectorAll('[data-k]').forEach(el=>{ const f=fields.find(x=>x.key===el.dataset.k); o[el.dataset.k]= el.type==='checkbox'?el.checked : f.type==='list'? el.value.split(',').map(s=>s.trim()).filter(Boolean).slice(0,f.maxItems||8) : el.value.trim(); }); return o; }); }
+  };
+}
+
+/* =========================================================
+   SITE SECTIONS → site/extras { heroLines, cares, education, skills }
+   ========================================================= */
+const ICON_OPTS=[['cross','✝ Cross'],['pen','✎ Pen'],['book','📖 Book'],['landmark','🏛 Government'],['question','? Question'],['heart','♡ Heart'],['star','☆ Star'],['music','♪ Music'],['globe','🌐 Globe'],['users','👥 People'],['cap','🎓 Study'],['briefcase','💼 Work'],['sheet','▦ Spreadsheet'],['doc','📄 Document'],['camera','📷 Camera']];
+const EXTRAS_DEF = {
+  heroLines:[
+    {text:'I see a rope, I see a hill, which help each other to climb.',source:'The Gossip Rope',lang:'en'},
+    {text:'न बयान हुन्छ शब्दले, न कुनै रुप छ यो प्रेमको',source:'किनारिएको फुल',lang:'ne'},
+    {text:'I want to go back to my father’s house.',source:'The Gossip Rope',lang:'en'},
+    {text:'म त्यसलाई सुन्दर मान्छु, दुनियाँ जसलाई कुरुप ठान्दछ',source:'नचाहेको सङ्गीत',lang:'ne'},
+    {text:'खुल्ला पन्छी झै उड्न देऊ मलाई',source:'एउटा एनाको दुईटा प्रतिबिम्ब',lang:'ne'},
+    {text:'That is not a dream, that is a peace.',source:'The Gossip Rope',lang:'en'}],
+  cares:[
+    {title:'Faith',text:"I'm a Christian and I believe in Jesus. You'll find that faith in my poems too, like the Prodigal Son in The Gossip Rope.",icon:'cross',featured:true},
+    {title:'Poetry',text:'Poems in Nepali and English about love, loss and longing, written honestly and left unpolished on purpose.',icon:'pen',featured:false},
+    {title:'Political science',text:'What I study at Panchthar Multiple Campus: how a country is governed, and how people and power shape each other.',icon:'landmark',featured:false},
+    {title:'Big questions',text:"Who am I, and why am I here? I like sitting with problems that don't have obvious answers.",icon:'question',featured:false}],
+  education:[
+    {year:'2077 BS',title:'SEE',detail:'Secondary Education Examination',status:'Completed, NEB',current:false},
+    {year:'2080 BS',title:'Class XII, Humanities',detail:'Higher secondary, 2023–24',status:'Completed, NEB',current:false},
+    {year:'Now',title:'Political science',detail:'Panchthar Multiple Campus, Phidim',status:'Currently studying',current:true}],
+  skills:[
+    {title:'Writing',text:'Poems and short writing in Nepali and English.',chips:['Poetry','Creative writing'],color:'dark',icon:'pen',wide:true},
+    {title:'Sales & customers',text:'What I use every day at the showroom.',chips:['Sales & finance','Customer relations','Data management'],color:'red',icon:'users',wide:true},
+    {title:'MS Excel',text:'Sheets, lists, records',chips:[],color:'green',icon:'sheet',wide:false},
+    {title:'MS Word',text:'Letters and documents',chips:[],color:'blue',icon:'doc',wide:false}]
+};
+const SEC = {
+  heroLines: { noun:'line', max:12, req:'text', ed: RowEditor('heroLines',{ noun:'line', max:12, fields:[
+    {key:'text',label:'Line',type:'textarea',full:true,max:120,ph:'A short line from one of your poems'},
+    {key:'source',label:'From poem',max:60,ph:'कफिन'},
+    {key:'lang',label:'Language',type:'select',options:[['ne','नेपाली'],['en','English']]} ]}) },
+  cares: { noun:'card', max:6, req:'title', ed: RowEditor('cares',{ noun:'card', max:6, fields:[
+    {key:'title',label:'Title',max:40,ph:'Faith'},
+    {key:'icon',label:'Icon',type:'select',options:ICON_OPTS},
+    {key:'text',label:'Text',type:'textarea',full:true,max:220},
+    {key:'featured',label:'Dark card (stands out)',type:'check',full:true} ]}) },
+  education: { noun:'study', max:8, req:'title', ed: RowEditor('education',{ noun:'study', max:8, fields:[
+    {key:'year',label:'Year',max:20,ph:'2080 BS'},
+    {key:'title',label:'Title',max:60,ph:'Class XII, Humanities'},
+    {key:'detail',label:'Detail',max:80,ph:'Higher secondary, 2023–24'},
+    {key:'status',label:'Status',max:40,ph:'Completed, NEB'},
+    {key:'current',label:'Current (I study this now)',type:'check',full:true} ]}) },
+  skills: { noun:'tile', max:8, req:'title', ed: RowEditor('skills',{ noun:'tile', max:8, fields:[
+    {key:'title',label:'Title',max:40,ph:'Writing'},
+    {key:'icon',label:'Icon',type:'select',options:ICON_OPTS},
+    {key:'text',label:'Short description',full:true,max:90},
+    {key:'chips',label:'Skills',hint:'comma separated, up to 6',type:'list',full:true,max:200,maxItems:6,ph:'Poetry, Creative writing'},
+    {key:'color',label:'Colour',type:'select',options:[['dark','Dark'],['red','Red'],['green','Green'],['blue','Blue'],['gold','Gold']]},
+    {key:'wide',label:'Wide tile',type:'check'} ]}) }
+};
+document.querySelectorAll('.sec-card .card-h').forEach(hd => {
+  const t=()=>{ const c=hd.parentElement.classList.toggle('collapsed'); hd.setAttribute('aria-expanded', !c); };
+  hd.addEventListener('click', t); hd.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); } });
+});
+async function loadExtras(){
+  const d = await getDoc(doc(db,'site','extras'));
+  D.extras = d.exists() ? d.data() : null;
+  Object.keys(SEC).forEach(k => { SEC[k].ed.set((D.extras && Array.isArray(D.extras[k])) ? D.extras[k] : EXTRAS_DEF[k]); $('m-'+k).textContent = (D.extras && D.extras[k]) ? 'Live on your site' : 'Showing what your site has now'; });
+  clean('sections');
+}
+Object.keys(SEC).forEach(k => {
+  $('undo-'+k).addEventListener('click', () => { SEC[k].ed.set((D.extras && Array.isArray(D.extras[k])) ? D.extras[k] : EXTRAS_DEF[k]); toast('Changes undone'); });
+  $('save-'+k).addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
+    const list = SEC[k].ed.get();
+    const bad = list.findIndex(x => !x[SEC[k].req]);
+    if (bad >= 0) throw userErr(`${SEC[k].noun[0].toUpperCase()+SEC[k].noun.slice(1)} ${bad+1} is missing its ${SEC[k].req==='text'?'line':'title'}. Fill it in or remove it.`);
+    if (!list.length) throw userErr('Keep at least one, or the section will look empty.');
+    const next = { ...(D.extras||{}), [k]: list };
+    assertSpace(D.extras?docBytes('extras',D.extras):0, docBytes('extras',next));
+    await setDoc(doc(db,'site','extras'), { [k]: list }, { merge:true });
+    D.extras = next; $('m-'+k).textContent='Live on your site'; clean('sections'); toast('Saved — refresh your site to see it'); refreshAll();
+  }));
+});
+
+/* =========================================================
+   BACKUP & RESTORE
+   ========================================================= */
+const BK_KEY='iy-last-backup';
+const lastBackup = () => { try { return +localStorage.getItem(BK_KEY)||0; } catch(_){ return 0; } };
+function showLastBackup(){ const t=lastBackup(); $('bkLast').textContent = t ? 'Last backup: '+new Date(t).toLocaleDateString('en-US',{dateStyle:'medium'}) : 'Never backed up on this device'; }
+$('bkBtn').addEventListener('click', async e => {
+  const btn=e.currentTarget; btnLoad(btn,true,'Preparing…');
+  try {
+    const cols={}; for (const c of ['poems','snapshots','certs']) { const q=await getDocs(collection(db,c)); cols[c]=q.docs.map(d=>({id:d.id,...d.data()})); }
+    const site={}; for (const s of ['verse','now','about','extras']) { const d=await getDoc(doc(db,'site',s)); if (d.exists()) site[s]=d.data(); }
+    const data={ app:'yonghangishak-console', version:1, created:new Date().toISOString(), collections:cols, site };
+    const name='yonghangishak-backup-'+new Date().toISOString().slice(0,10)+'.json';
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,1)],{type:'application/json'})); a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    try{ localStorage.setItem(BK_KEY, Date.now()); }catch(_){}
+    showLastBackup(); refreshAll(); toast('Backup downloaded — keep the file safe');
+  } catch(err){ toast(explain(err),true); }
+  btnLoad(btn,false,'Download backup');
+});
+let restoreData=null;
+$('rsFile').addEventListener('change', async () => {
+  const f=$('rsFile').files[0]; restoreData=null; $('rsBtn').disabled=true; if(!f) return;
+  try {
+    const d=JSON.parse(await f.text());
+    if (d.app!=='yonghangishak-console' || !d.collections) throw new Error('bad');
+    restoreData=d; $('rsName').textContent=f.name;
+    const c=d.collections; $('rsInfo').textContent=`From ${new Date(d.created).toLocaleDateString('en-US',{dateStyle:'medium'})} · ${(c.poems||[]).length} poems · ${(c.snapshots||[]).length} photos · ${(c.certs||[]).length} certificates`;
+    $('rsBtn').disabled=false;
+  } catch(_){ $('rsName').textContent='That file is not a backup from this console'; $('rsInfo').textContent='Choose a .json file downloaded from “Download backup”.'; }
+  $('rsFile').value='';
+});
+$('rsBtn').addEventListener('click', async () => {
+  if (!restoreData) return;
+  if (!await ask('Restore this backup?','Your current content will be replaced with the backup. This cannot be undone.','Restore')) return;
+  const btn=$('rsBtn'); btnLoad(btn,true,'Restoring…');
+  try {
+    const d=restoreData, cols=d.collections;
+    let size=0; Object.entries(cols).forEach(([c,list])=>(list||[]).forEach(x=>{ size+=docBytes(x.id, (({id,...r})=>r)(x)); })); Object.entries(d.site||{}).forEach(([k,v])=>size+=docBytes(k,v));
+    if (size > LIMITS.budget) throw userErr(`This backup is ${fmtB(size)}, more than the ${fmtB(LIMITS.budget)} limit. It can't be restored.`);
+    if ((cols.poems||[]).length>LIMITS.count.poems || (cols.snapshots||[]).length>LIMITS.count.snapshots || (cols.certs||[]).length>LIMITS.count.certs) throw userErr('This backup has more items than the limits allow.');
+    const ops=[];
+    for (const c of ['poems','snapshots','certs']) {
+      const cur=await getDocs(collection(db,c)); const keep=new Set((cols[c]||[]).map(x=>x.id));
+      cur.docs.forEach(x=>{ if(!keep.has(x.id)) ops.push(['del',c,x.id]); });
+      (cols[c]||[]).forEach(x=>{ const {id,...rest}=x; ops.push(['set',c,id,rest]); });
+    }
+    Object.entries(d.site||{}).forEach(([k,v])=>{ if(['verse','now','about','extras'].includes(k)) ops.push(['set','site',k,v]); });
+    for (let i=0;i<ops.length;i+=400){ const bt=writeBatch(db); ops.slice(i,i+400).forEach(o=> o[0]==='del'? bt.delete(doc(db,o[1],o[2])) : bt.set(doc(db,o[1],o[2]),o[3])); await bt.commit(); }
+    toast('Backup restored'); restoreData=null; $('rsName').textContent='Choose a backup file'; $('rsInfo').textContent='A .json file downloaded from this page';
+    await Promise.allSettled([loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs')]); refreshAll();
+  } catch(err){ toast(err.userMsg||explain(err),true); btn.disabled=false; }
+  btnLoad(btn,false,'Restore this backup'); $('rsBtn').disabled=!restoreData;
 });
 
 /* =========================================================
@@ -1195,12 +1436,16 @@ $('abSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', as
    POEMS → collection "poems"
    ========================================================= */
 const P = { edit:null };
+const fmtDay = t => new Date(t).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+const isFuture = x => x.publishAt && x.publishAt > Date.now();
+$('poDate').min = new Date().toISOString().slice(0,10);
+$('poDate').addEventListener('change', () => { const v=$('poDate').value; $('poSave').querySelector('.bt').textContent = P.edit ? 'Save changes' : (v && new Date(v+'T06:00:00') > Date.now() ? 'Schedule poem' : 'Publish poem'); $('poDateHelp').textContent = v ? 'Appears on your site on '+fmtDay(new Date(v+'T06:00:00'))+' (morning).' : 'The poem appears on your site automatically from that morning.'; });
 const SITE = 'https://yonghangishak.com.np';
 $('poSearch').addEventListener('input', () => drawPoems());
 // sitemap with every published poem, ready to upload to GitHub
 $('smBtn').addEventListener('click', () => {
   const today = new Date().toISOString().slice(0,10);
-  const slugs = ['the-gossip-rope', ...(D.poems.length ? D.poems.filter(x=>x.published!==false).map(x=>x.slug) : BUILTIN_POEMS.map(x=>x.slug))];
+  const slugs = ['the-gossip-rope', ...(D.poems.length ? D.poems.filter(x=>x.published!==false && !isFuture(x)).map(x=>x.slug) : BUILTIN_POEMS.map(x=>x.slug))];
   const urls = [SITE+'/', ...slugs.map(s => SITE+'/?poem='+encodeURIComponent(s))];
   const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.map(u=>`  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join('\n') + '\n</urlset>\n';
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([xml],{type:'application/xml'})); a.download='sitemap.xml'; document.body.appendChild(a); a.click(); a.remove();
@@ -1229,19 +1474,21 @@ async function loadPoems(){
 }
 function drawPoems(){
   const it=D.poems, live=it.filter(x=>x.published!==false).length;
-  $('poMeta').textContent = it.length ? `${live} published${it.length>live?' · '+(it.length-live)+' hidden':''}` : '';
+  const sch = it.filter(isFuture).length, hid = it.filter(x=>x.published===false).length;
+  $('poMeta').textContent = it.length ? [`${it.length-sch-hid} live`, sch?`${sch} scheduled`:'', hid?`${hid} hidden`:''].filter(Boolean).join(' · ') : '';
   $('importCard').hidden = it.length>0;
   $('moodList').innerHTML=[...new Set(['Love','Emotion','Reflection','Farewell','Faith','Hope',...it.map(x=>x.mood).filter(Boolean)])].map(m=>`<option value="${esc(m)}">`).join('');
   const q = ($('poSearch').value||'').trim().toLowerCase();
   const rows = it.map((x,i)=>({x,i})).filter(({x}) => !q || (x.title||'').toLowerCase().includes(q) || (x.mood||'').toLowerCase().includes(q) || (x.slug||'').includes(q));
   $('poList').innerHTML = !it.length ? blank('No poems here yet','Your site is still showing its built-in poems. Import them above, or write a new one.')
     : !rows.length ? blank('No matches','Try a different word.')
-    : rows.map(({x,i})=>{ const ne=x.lang!=='en'; return `<div class="tr noimg ${P.edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span><div style="min-width:0"><div class="t ${ne?'ne':''}" lang="${ne?'ne':'en'}">${esc(x.title)}${x.published===false?'<span class="badge draft">Hidden</span>':''}</div><div class="s">${esc(x.mood||'No mood')} · ${ne?'Nepali':'English'} · ${fmtB(docBytes(x.id,strip(x)))}</div></div>${ops(i,it.length, x.published===false?null:SITE+'/?poem='+encodeURIComponent(x.slug))}</div>`; }).join('');
+    : rows.map(({x,i})=>{ const ne=x.lang!=='en'; return `<div class="tr noimg ${P.edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span><div style="min-width:0"><div class="t ${ne?'ne':''}" lang="${ne?'ne':'en'}">${esc(x.title)}${x.published===false?'<span class="badge draft">Hidden</span>':isFuture(x)?`<span class="badge sched">${fmtDay(x.publishAt)}</span>`:''}</div><div class="s">${esc(x.mood||'No mood')} · ${ne?'Nepali':'English'} · ${fmtB(docBytes(x.id,strip(x)))}</div></div>${ops(i,it.length, x.published===false||isFuture(x)?null:SITE+'/?poem='+encodeURIComponent(x.slug))}</div>`; }).join('');
 }
-function resetPoem(){ clean('poems'); P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); }
+function resetPoem(){ clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); }
 $('poCancel').addEventListener('click', resetPoem);
 $('poSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
-  const d={ title:$('poTitle').value.trim(), mood:$('poMood').value.trim(), lang:poLang(), slug:$('poSlug').value.trim().replace(/^-|-$/g,''), body:$('poBody').value.replace(/\s+$/,''), published:$('poPub').checked };
+  const dv=$('poDate').value, pAt = dv ? new Date(dv+'T06:00:00').getTime() : null;
+  const d={ title:$('poTitle').value.trim(), mood:$('poMood').value.trim(), lang:poLang(), slug:$('poSlug').value.trim().replace(/^-|-$/g,''), body:$('poBody').value.replace(/\s+$/,''), published:$('poPub').checked, publishAt: pAt && pAt > Date.now() ? pAt : null };
   if(!d.title) { $('poTitle').focus(); throw userErr('Add a title for the poem.'); }
   if(!d.body.trim()) { $('poBody').focus(); throw userErr('Write the poem first.'); }
   if(!d.slug) d.slug = slugify(d.title) || ('poem-'+Date.now().toString(36));
@@ -1252,14 +1499,14 @@ $('poSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', as
   const order = old ? old.order : (D.poems.length?Math.max(...D.poems.map(x=>x.order||0))+1:1);
   assertSpace(old?docBytes(old.id,strip(old)):0, docBytes(P.edit||'new-poem-id-xxxxxxxx', {...d, order}));
   if(old){ await updateDoc(doc(db,'poems',P.edit), d); toast('Poem updated'); }
-  else { await addDoc(collection(db,'poems'), {...d, order}); toast(d.published?'Poem published':'Poem saved as hidden'); }
+  else { await addDoc(collection(db,'poems'), {...d, order}); toast(!d.published?'Poem saved as hidden':d.publishAt?'Poem scheduled for '+fmtDay(d.publishAt):'Poem published'); }
   clearDraft(); resetPoem(); await loadPoems(); refreshAll();
 }));
 $('poList').addEventListener('click', async e => {
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const i=+b.closest('.tr').dataset.i, x=D.poems[i], act=b.dataset.act;
   try{
-    if(act==='edit'){ P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poCancel').hidden=false; drawPoems(); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
+    if(act==='edit'){ $('poDate').value = isFuture(x) ? new Date(x.publishAt).toISOString().slice(0,10) : ''; P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poCancel').hidden=false; drawPoems(); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
     if(act==='del'){ if(!await ask('Delete this poem?',`“${x.title}” will be removed from the site.`)) return; await deleteDoc(doc(db,'poems',x.id)); if(P.edit===x.id) resetPoem(); toast('Poem deleted'); }
     if(act==='up'||act==='down'){ const j=act==='up'?i-1:i+1; if(j<0||j>=D.poems.length) return; const arr=D.poems.slice(); [arr[i],arr[j]]=[arr[j],arr[i]]; const bt=writeBatch(db); arr.forEach((y,k)=>bt.update(doc(db,'poems',y.id),{order:k+1})); await bt.commit(); toast('Order saved'); }
     await loadPoems(); refreshAll();
@@ -1417,7 +1664,7 @@ async function migrate(){
 }
 $('migBtn').addEventListener('click', migrate);
 
-setLang('ne'); linkPrev(); restoreDraft();
+setLang('ne'); linkPrev(); restoreDraft(); showLastBackup();
 
 </script>
 </body>
