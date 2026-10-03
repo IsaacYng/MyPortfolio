@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="description" content="Ishak Yonghang — sales consultant, art student and poet from Phidim, Panchthar, Nepal."/>
+<meta name="description" content="Ishak Yonghang — poet, art student and follower of Jesus from Phidim, Panchthar, Nepal."/>
 <meta name="author" content="Ishak Yonghang"/>
 <meta property="og:title" content="Ishak Yonghang"/>
 <meta property="og:url" content="https://yonghangishak.com.np"/>
@@ -170,6 +170,17 @@ section{padding:clamp(64px,9vw,112px) 0}
   .edu{grid-template-columns:1fr;gap:26px}
   .edu::before{left:40px;right:auto;top:0;bottom:0;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--ridge-2) 0 8px,transparent 8px 14px)}
 }
+.likes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.like{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px;transition:transform .2s,box-shadow .2s}
+.like:hover{transform:translateY(-3px);box-shadow:0 18px 34px -22px rgba(28,42,51,.45)}
+.like h4{font-family:var(--display);font-weight:800;font-size:1.2rem;letter-spacing:-.02em;margin-top:6px}
+.like p{font-size:.98rem;color:var(--ink-2);line-height:1.55}
+.l-ic{width:46px;height:46px;border-radius:15px;background:var(--mist);color:var(--ink);display:flex;align-items:center;justify-content:center}
+.like.faith{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.like.faith p{color:#C9D3D6}
+.like.faith .l-ic{background:var(--rhodo);color:#fff}
+@media(max-width:960px){.likes{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.likes{grid-template-columns:1fr}}
 .sl-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(24px,4vw,48px)}
 @media(max-width:860px){.sl-grid{grid-template-columns:1fr}}
 .skills{display:grid;gap:12px}
@@ -340,19 +351,19 @@ footer .wrap{align-items:center}
     <nav class="links" aria-label="Sections">
       <span class="pill" id="pill" aria-hidden="true"></span>
       <a href="#about">About</a>
+      <a href="#poetry">Poetry</a>
       <a href="#work">Work</a>
       <a href="#training">Training</a>
-      <a href="#poetry">Poetry</a>
       <a href="#contact">Contact</a>
-    </nav>
+</nav>
     <a href="https://wa.me/9779820907795" target="_blank" rel="noopener" class="nav-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Chat</span></a>
   </div>
 </header>
 <nav class="tabbar" aria-label="Sections">
   <a href="#about"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>About</span></a>
+  <a href="#poetry"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>Poetry</span></a>
   <a href="#work"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg><span>Work</span></a>
   <a href="#training"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg><span>Training</span></a>
-  <a href="#poetry"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>Poetry</span></a>
   <a href="#contact"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Contact</span></a>
 </nav>
 
@@ -364,19 +375,19 @@ footer .wrap{align-items:center}
       <p class="place">Phidim, Panchthar, Nepal</p>
       <h1 class="name"><span>Ishak</span><span>Yonghang</span></h1>
       <p class="name-np" lang="ne">इशाक योङहाङ</p>
-      <p class="lede">I help people in Phidim find the right Bajaj motorcycle. After work, I study art and write poems in Nepali and English.</p>
+      <p class="lede">I write poems in Nepali and English, study art in Phidim, and follow Jesus. Mostly I write about love, loss, and the questions that don't have easy answers.</p>
       <div class="actions">
-        <a href="https://wa.me/9779820907795" target="_blank" rel="noopener" class="btn fill"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>Chat on WhatsApp</a>
-        <a href="#poetry" class="btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 7h6"/></svg>Read my poems</a>
+        <a href="#poetry" class="btn fill"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 7h6"/></svg>Read my poems</a>
+        <a href="https://wa.me/9779820907795" target="_blank" rel="noopener" class="btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>Say hello</a>
       </div>
     </div>
     <div class="portrait">
       <div class="frame">
-      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bc" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><circle cx="60" cy="60" r="58" fill="var(--rhodo)"/><text font-family="Bricolage Grotesque, system-ui, sans-serif" font-size="12.5" font-weight="600" letter-spacing="1" fill="#fff"><textPath href="#bc" textLength="272" lengthAdjust="spacingAndGlyphs">ask me about bajaj bikes ✦ phidim ✦ </textPath></text><path d="M60 46 l5 10 11 1.5 -8 7.5 2 11 -10-5.3 -10 5.3 2-11 -8-7.5 11-1.5z" fill="#fff"/></svg>
+      <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bc" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><circle cx="60" cy="60" r="58" fill="var(--rhodo)"/><text font-family="Bricolage Grotesque, system-ui, sans-serif" font-size="12.5" font-weight="600" letter-spacing="1" fill="#fff"><textPath href="#bc" textLength="272" lengthAdjust="spacingAndGlyphs">poetry ✦ faith ✦ art ✦ phidim ✦ </textPath></text><path d="M56.5 42h7v11h10v7h-10v18h-7V60h-10v-7h10z" fill="#fff"/></svg>
       <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div><img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Ishak Yonghang" onerror="this.remove()" style="position:relative"/></div>
       <div class="facts">
         <div><strong id="age">20</strong><span>years old</span></div>
-        <div><strong>Bajaj</strong><span>sales</span></div>
+        <div><strong>Poet</strong><span>&amp; writer</span></div>
         <div><strong>3</strong><span>languages</span></div>
       </div>
       </div>
@@ -395,12 +406,12 @@ footer .wrap{align-items:center}
   <div class="wrap">
     <div class="head">
       <h2>From the hills of Panchthar</h2>
-      <p>Born in Hilihang-5, Subhang. Working in Phidim. Learning by doing, one conversation and one verse at a time.</p>
+      <p>Born in Hilihang-5, Subhang. Living in Phidim. Learning by doing, one verse at a time.</p>
     </div>
     <div class="about-grid">
       <div class="story">
-        <p>I'm Ishak. By day I'm a sales consultant at Samriddhi And Brothers Auto, the Bajaj dealership in Phidim-1, helping people choose a bike and understand the EMI, loan and insurance options that come with it.</p>
-        <p>Outside work I study art at Panchthar Multiple Campus and write poetry about the questions that don't have easy answers.</p>
+        <p>I'm Ishak, a poet and art student from the hills of Panchthar. I write in Nepali and English, and I keep my poems exactly as they come to me.</p>
+        <p>I'm a Christian and I believe in Jesus. I study art at Panchthar Multiple Campus, and for now I work as a sales consultant at the Bajaj showroom in Phidim.</p>
       </div>
       <dl class="idlist">
         <dt>Born</dt><dd>October 26, 2005</dd>
@@ -410,6 +421,14 @@ footer .wrap{align-items:center}
         <dt>Nationality</dt><dd>Nepali</dd>
         <dt>Faith</dt><dd>Christian</dd>
       </dl>
+    </div>
+
+    <h3 class="sub">What I care about</h3>
+    <div class="likes">
+      <article class="like faith"><span class="l-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M5 8h14"/></svg></span><h4>Faith</h4><p>I'm a Christian and I believe in Jesus. You'll find that faith in my poems too, like the Prodigal Son in The Gossip Rope.</p></article>
+      <article class="like"><span class="l-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><h4>Poetry</h4><p>Poems in Nepali and English about love, loss and longing, written honestly and left unpolished on purpose.</p></article>
+      <article class="like"><span class="l-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a10 10 0 1 1 10-10c0 2.8-2.2 4-4.5 4H15a2 2 0 0 0-1.5 3.3A2 2 0 0 1 12 22z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15.5" cy="7.5" r="1"/></svg></span><h4>Art</h4><p>I'm studying art at Panchthar Multiple Campus and learning to see the world a little more carefully.</p></article>
+      <article class="like"><span class="l-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span><h4>Big questions</h4><p>Who am I, and why am I here? I like sitting with problems that don't have obvious answers.</p></article>
     </div>
 
     <h3 class="sub" style="margin-bottom:30px">Education</h3>
@@ -441,9 +460,9 @@ footer .wrap{align-items:center}
       <div>
         <h3 class="sub">Skills</h3>
         <div class="skills">
+          <div class="sk"><span class="sk-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><div><h4>Writing</h4><div class="tags"><span>Poetry</span><span>Creative writing</span></div></div></div>
           <div class="sk"><span class="sk-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><div><h4>Sales &amp; customers</h4><div class="tags"><span>Sales &amp; finance</span><span>Customer relations</span><span>Data management</span></div></div></div>
           <div class="sk"><span class="sk-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><div><h4>Office tools</h4><div class="tags"><span>MS Excel</span><span>MS Word</span></div></div></div>
-          <div class="sk"><span class="sk-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><div><h4>Writing</h4><div class="tags"><span>Poetry</span><span>Creative writing</span></div></div></div>
         </div>
       </div>
       <div>
@@ -455,57 +474,6 @@ footer .wrap{align-items:center}
         </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- WORK -->
-<section id="work" class="work">
-  <div class="wrap">
-    <div class="head">
-      <h2>Work</h2>
-      <p>Every day on the showroom floor: meeting customers, explaining finance, and staying in touch after the sale.</p>
-    </div>
-
-    <div class="job" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
-      <div>
-        <h3>Sales Consultant</h3>
-        <p class="where">Samriddhi And Brothers Auto Pvt. Ltd.<br/>Bajaj authorized dealer, Phidim-1</p>
-      </div>
-      <div class="duties">
-        <div><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><h4>Client records</h4><p>Keep detailed records of walk-in customers and follow up with them until they're ready to buy.</p></div>
-        <div><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><h4>Customer relations</h4><p>Support Bajaj buyers after the sale so they come back, and send their friends.</p></div>
-        <div><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></svg></span><h4>Financial planning</h4><p>Walk customers through EMI structures, loan options and insurance for every model.</p></div>
-      </div>
-    </div>
-
-    <h3 class="sub" style="margin-top:clamp(48px,7vw,72px)">More projects</h3>
-    <div class="more-proj" style="margin-top:0">
-      <a class="mp dark" href="https://finance.yonghangishak.com.np/" target="_blank" rel="noopener">
-        <h3>Finance Calculator</h3>
-        <p>Check the EMI, down payment and loan plan for any Bajaj model before you visit the showroom.</p>
-        <span class="u">finance.yonghangishak.com.np <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-      </a>
-      <a class="mp" href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener">
-        <h3>Verses of Life</h3>
-        <p>My full poetry collection, in Nepali and English, kept in one place.</p>
-        <span class="u">poem.yonghangishak.com.np <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- TRAINING -->
-<section id="training">
-  <div class="wrap">
-    <div class="head">
-      <h2>Training</h2>
-      <p>Courses and certificates I've completed. Tap one to see the certificate.</p>
-    </div>
-    <div class="certs" id="certGrid"><div class="empty">Loading certificates…</div></div>
-
-    <h3 class="sub" style="margin-top:72px">Life snapshots</h3>
-    <div class="snaps" id="snapScroll"><figure class="snap more">Loading photos…</figure></div>
   </div>
 </section>
 
@@ -570,12 +538,63 @@ I worry about being The Prodigal Son.</div>
   </div>
 </section>
 
+<!-- WORK -->
+<section id="work" class="work">
+  <div class="wrap">
+    <div class="head">
+      <h2>Work</h2>
+      <p>My current job. Every day on the showroom floor: meeting customers, explaining finance, and staying in touch after the sale.</p>
+    </div>
+
+    <div class="job" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
+      <div>
+        <h3>Sales Consultant</h3>
+        <p class="where">Samriddhi And Brothers Auto Pvt. Ltd.<br/>Bajaj authorized dealer, Phidim-1</p>
+      </div>
+      <div class="duties">
+        <div><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span><h4>Client records</h4><p>Keep detailed records of walk-in customers and follow up with them until they're ready to buy.</p></div>
+        <div><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><h4>Customer relations</h4><p>Support Bajaj buyers after the sale so they come back, and send their friends.</p></div>
+        <div><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></svg></span><h4>Financial planning</h4><p>Walk customers through EMI structures, loan options and insurance for every model.</p></div>
+      </div>
+    </div>
+
+    <h3 class="sub" style="margin-top:clamp(48px,7vw,72px)">More projects</h3>
+    <div class="more-proj" style="margin-top:0">
+      <a class="mp dark" href="https://finance.yonghangishak.com.np/" target="_blank" rel="noopener">
+        <h3>Finance Calculator</h3>
+        <p>Check the EMI, down payment and loan plan for any Bajaj model before you visit the showroom.</p>
+        <span class="u">finance.yonghangishak.com.np <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+      </a>
+      <a class="mp" href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener">
+        <h3>Verses of Life</h3>
+        <p>My full poetry collection, in Nepali and English, kept in one place.</p>
+        <span class="u">poem.yonghangishak.com.np <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section id="training">
+  <div class="wrap">
+    <div class="head">
+      <h2>Training</h2>
+      <p>Courses and certificates I've completed. Tap one to see the certificate.</p>
+    </div>
+    <div class="certs" id="certGrid"><div class="empty">Loading certificates…</div></div>
+
+    <h3 class="sub" style="margin-top:72px">Life snapshots</h3>
+    <div class="snaps" id="snapScroll"><figure class="snap more">Loading photos…</figure></div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="head">
       <h2>Say hello</h2>
-      <p>About a bike, a poem, or nothing in particular. WhatsApp gets the quickest reply.</p>
+      <p>About a poem, faith, art, or nothing in particular. WhatsApp gets the quickest reply.</p>
     </div>
     <div class="contact-grid">
       <a class="wa" href="https://wa.me/9779820907795" target="_blank" rel="noopener">
@@ -682,7 +701,7 @@ document.getElementById('saveContact').addEventListener('click',()=>{
   setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('Contact file downloaded. Open it to save.');
 });
 document.getElementById('sharePage').addEventListener('click',async()=>{
-  const data={title:'Ishak Yonghang',text:'Ishak Yonghang, Bajaj sales consultant and poet from Phidim',url:location.href.split('#')[0]};
+  const data={title:'Ishak Yonghang',text:'Ishak Yonghang, poet and art student from Phidim',url:location.href.split('#')[0]};
   if(navigator.share){try{await navigator.share(data);}catch(e){}return;}
   try{await navigator.clipboard.writeText(data.url);showToast('Link copied');}catch(e){showToast(data.url);}
 });
