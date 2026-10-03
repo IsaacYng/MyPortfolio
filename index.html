@@ -643,15 +643,15 @@ footer .wrap{align-items:center}
 <section id="about">
   <div class="wrap">
     <div class="head">
-      <h2>From the hills of Panchthar</h2>
-      <p>Born in Hilihang-5, Subhang. Living in Phidim. Learning by doing, one verse at a time.</p>
+      <h2 id="abTitle">From the hills of Panchthar</h2>
+      <p id="abLead">Born in Hilihang-5, Subhang. Living in Phidim. Learning by doing, one verse at a time.</p>
     </div>
     <div class="about-grid">
-      <div class="story">
+      <div class="story" id="abStory">
         <p>I'm Ishak, a poet and political science student from the hills of Panchthar. I write in Nepali and English, and I keep my poems exactly as they come to me.</p>
         <p>I'm a Christian and I believe in Jesus. I study political science at Panchthar Multiple Campus, and for now I work as a sales consultant at the Bajaj showroom in Phidim.</p>
       </div>
-      <dl class="idlist">
+      <dl class="idlist" id="abFacts">
         <dt>Born</dt><dd>October 26, 2005</dd>
         <dt>Lives in</dt><dd>Phidim-1, Panchthar</dd>
         <dt>Home</dt><dd>Hilihang-5, Subhang</dd>
@@ -1479,6 +1479,18 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
     const list = [];
     d.forEach(x => { const it = x.data(); if (it.title && it.body && it.published !== false) list.push({ s: it.slug || x.id, t: it.title, k: it.mood || '', b: it.body, ne: it.lang !== 'en' }); });
     if (list.length) window.setPoems(list);
+  } catch(e) {}
+})();
+
+(async () => {
+  try {
+    const a = await getDoc(doc(db,'site','about'));
+    if (!a.exists()) return;
+    const d = a.data();
+    if (d.title) document.getElementById('abTitle').textContent = d.title;
+    if (d.lead !== undefined) { const el=document.getElementById('abLead'); el.textContent = d.lead; el.hidden = !d.lead; }
+    if (d.body) document.getElementById('abStory').innerHTML = d.body.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => '<p>'+esc(t).replace(/\n/g,'<br>')+'</p>').join('');
+    if (Array.isArray(d.facts)) { const dl=document.getElementById('abFacts'); dl.innerHTML = d.facts.filter(f=>f&&f.k&&f.v).map(f => '<dt>'+esc(f.k)+'</dt><dd>'+esc(f.v)+'</dd>').join(''); dl.hidden = !dl.children.length; }
   } catch(e) {}
 })();
 
