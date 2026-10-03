@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="robots" content="noindex, nofollow"/>
+<meta name="theme-color" content="#E4EAE9"/>
+<title>Admin — Ishak Yonghang</title>
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --mist:#E4EAE9;--paper:#F7F9F8;--card:#FFFFFF;--ink:#1C2A33;--ink-2:#3A4A54;--slate:#55646C;--line:#CDD6D5;
+  --rhodo:#B8233A;--rhodo-dark:#8F1A2C;--tea:#3D6A51;--tea-soft:#DCE8E0;--deep:#1C2A33;
+  --display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --nep:'Noto Serif Devanagari','Mangal',serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5;min-height:100vh}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--rhodo);outline-offset:2px;border-radius:6px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+[hidden]{display:none !important}
+
+/* login */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--mist)}
+.login-card{width:100%;max-width:380px;background:var(--card);border-radius:28px;padding:30px 24px;box-shadow:0 30px 60px -36px rgba(28,42,51,.55)}
+.mono{width:48px;height:48px;border-radius:15px;background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;margin-bottom:18px}
+.login h1{font-weight:800;font-size:1.7rem;letter-spacing:-.03em;line-height:1.1}
+.login p{color:var(--slate);margin:6px 0 22px}
+
+/* fields */
+label{display:grid;gap:6px;font-weight:600;font-size:.88rem;color:var(--ink-2)}
+label small{font-weight:400;color:var(--slate)}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);font-weight:400;font-size:1rem}
+input:focus,textarea:focus{outline:none;border-color:var(--ink)}
+textarea{min-height:110px;resize:vertical}
+textarea.ne,input.ne{font-family:var(--nep);line-height:1.8}
+.fields{display:grid;gap:14px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row2{grid-template-columns:1fr}}
+
+.btn{text-decoration:none;color:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 20px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.fill{background:var(--rhodo);border-color:var(--rhodo);color:#fff}
+.btn.fill:hover{background:var(--rhodo-dark);border-color:var(--rhodo-dark)}
+.btn.ghost{border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn.small{min-height:38px;padding:7px 14px;font-size:.88rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.wide{width:100%}
+.err{color:var(--rhodo);font-size:.9rem;min-height:1.4em}
+
+/* app */
+.top{position:sticky;top:0;z-index:20;background:rgba(247,249,248,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:12px;height:64px}
+.top .mono{width:38px;height:38px;border-radius:12px;font-size:.85rem;margin:0}
+.top h1{font-weight:800;font-size:1.1rem;letter-spacing:-.02em;line-height:1.1}
+.top h1 span{display:block;font-weight:400;font-size:.78rem;color:var(--slate);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top .sp{flex:1}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0 12px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex-shrink:0;padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font-weight:600;font-size:.9rem;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+
+main{padding:22px 0 80px}
+.panel h2{font-weight:800;font-size:1.6rem;letter-spacing:-.03em}
+.panel .hint{color:var(--slate);margin:4px 0 20px;font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px}
+.card + .card{margin-top:14px}
+.card h3{font-weight:700;font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.card h3 .tag{font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--tea-soft);color:var(--tea)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+.list{display:grid;gap:10px}
+.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:18px;background:var(--paper)}
+.item.editing{border-color:var(--rhodo);box-shadow:0 0 0 3px rgba(184,35,58,.12)}
+.thumb{width:56px;height:56px;border-radius:12px;object-fit:cover;background:var(--mist)}
+.num{width:34px;height:34px;border-radius:50%;background:var(--mist);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.item .t{font-weight:600;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.item .t.ne{font-family:var(--nep);font-weight:500}
+.item .s{font-size:.82rem;color:var(--slate)}
+.item-btns{display:flex;gap:4px}
+.ib{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.ib:hover{border-color:var(--ink)}
+.ib.del:hover{border-color:var(--rhodo);color:var(--rhodo)}
+.ib:disabled{opacity:.35;cursor:default}
+@media(max-width:480px){.item{grid-template-columns:auto 1fr}.item-btns{grid-column:1/-1;justify-content:flex-end}}
+.empty{padding:22px;text-align:center;color:var(--slate);border:1.5px dashed var(--line);border-radius:18px}
+
+.img-pick{display:grid;gap:10px}
+.img-prev{display:none;width:100%;max-height:220px;object-fit:contain;border-radius:14px;background:var(--mist)}
+.img-prev.show{display:block}
+.or{display:flex;align-items:center;gap:10px;color:var(--slate);font-size:.82rem}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.file-btn{position:relative;overflow:hidden}
+.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:50;background:var(--deep);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.92rem;transition:opacity .25s,transform .25s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--rhodo)}
+.loading{color:var(--slate);padding:12px 0}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section class="login" id="loginView">
+  <form class="login-card" id="loginForm">
+    <div class="mono">IY</div>
+    <h1>Admin login</h1>
+    <p>Only Ishak can sign in here.</p>
+    <div class="fields">
+      <label>Email<input type="email" id="lEmail" autocomplete="username" required/></label>
+      <label>Password<input type="password" id="lPass" autocomplete="current-password" required/></label>
+      <p class="err" id="lErr" role="alert"></p>
+      <button class="btn fill wide" type="submit" id="lBtn">Sign in</button>
+    </div>
+  </form>
+</section>
+
+<!-- APP -->
+<div id="appView" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="top-in">
+        <div class="mono">IY</div>
+        <h1>Admin<span id="who"></span></h1>
+        <div class="sp"></div>
+        <a class="btn ghost small" href="/" target="_blank" rel="noopener">View site</a>
+        <button class="btn ghost small" id="logout" type="button">Log out</button>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Sections">
+        <button role="tab" data-tab="verses" aria-selected="true">Bible verses</button>
+        <button role="tab" data-tab="now" aria-selected="false">Right now</button>
+        <button role="tab" data-tab="certs" aria-selected="false">Certificates</button>
+        <button role="tab" data-tab="snaps" aria-selected="false">Snapshots</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- VERSES -->
+    <section class="panel" data-panel="verses">
+      <h2>Bible verses</h2>
+      <p class="hint">These slide on the About section of the site. Use the arrows to change the order.</p>
+      <div class="card">
+        <h3 id="vFormTitle">Add a verse</h3>
+        <div class="fields">
+          <label>Verse<textarea id="vText" class="ne" lang="ne" placeholder="मलाई पुकार्, र म तँलाई जवाफ दिनेछु…"></textarea></label>
+          <label>Reference<input id="vRef" class="ne" lang="ne" placeholder="यर्मिया ३३:३"/></label>
+        </div>
+        <div class="actions">
+          <button class="btn fill" id="vSave" type="button">Add verse</button>
+          <button class="btn ghost" id="vCancel" type="button" hidden>Cancel</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>On the site <span class="tag" id="vCount">0</span></h3>
+        <div class="list" id="vList"><p class="loading">Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- NOW -->
+    <section class="panel" data-panel="now" hidden>
+      <h2>Right now <span style="font-family:var(--nep);font-weight:500;color:var(--tea);font-size:.8em">अहिले</span></h2>
+      <p class="hint">Leave a box empty to hide it on the site.</p>
+      <div class="card">
+        <div class="fields">
+          <label>Reading<input id="nReading" placeholder="The Bible"/></label>
+          <label>Writing<input id="nWriting" placeholder="New poems in Nepali and English"/></label>
+          <label>Learning<input id="nLearning" placeholder="Political science at Panchthar Multiple Campus"/></label>
+          <label>Working<input id="nWorking" placeholder="Sales consultant at Bajaj, Phidim"/></label>
+          <label>Updated <small>shown as “Updated …”</small><input id="nUpdated" placeholder="October 2026"/></label>
+        </div>
+        <div class="actions">
+          <button class="btn fill" id="nSave" type="button">Save</button>
+          <button class="btn ghost" id="nToday" type="button">Set to this month</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTS -->
+    <section class="panel" data-panel="certs" hidden>
+      <h2>Certificates</h2>
+      <p class="hint">Shown in the Training section. Add a photo of the certificate so visitors can open it.</p>
+      <div class="card">
+        <h3 id="cFormTitle">Add a certificate</h3>
+        <div class="fields">
+          <label>Course name<input id="cTitle" placeholder="Computer Basics Training"/></label>
+          <label>Given by / year<input id="cSub" placeholder="CTEVT, 2024"/></label>
+          <label>Short description <small>optional</small><textarea id="cDesc" style="min-height:80px"></textarea></label>
+          <label>Tags <small>separate with commas</small><input id="cTags" placeholder="MS Word, MS Excel"/></label>
+          <div class="img-pick" data-img="c">
+            <label>Certificate image</label>
+            <img class="img-prev" alt="Preview"/>
+            <label class="btn ghost file-btn">Choose photo<input type="file" accept="image/*"/></label>
+            <div class="or">or paste an image link</div>
+            <input class="img-url" placeholder="https://…"/>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn fill" id="cSave" type="button">Add certificate</button>
+          <button class="btn ghost" id="cCancel" type="button" hidden>Cancel</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>On the site <span class="tag" id="cCount">0</span></h3>
+        <div class="list" id="cList"><p class="loading">Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- SNAPSHOTS -->
+    <section class="panel" data-panel="snaps" hidden>
+      <h2>Life snapshots</h2>
+      <p class="hint">Photos in the scrolling strip under Training.</p>
+      <div class="card">
+        <h3 id="sFormTitle">Add a photo</h3>
+        <div class="fields">
+          <label>Caption<input id="sTitle" placeholder="Tinjure hills, 2026"/></label>
+          <div class="img-pick" data-img="s">
+            <label>Photo</label>
+            <img class="img-prev" alt="Preview"/>
+            <label class="btn ghost file-btn">Choose photo<input type="file" accept="image/*"/></label>
+            <div class="or">or paste an image link</div>
+            <input class="img-url" placeholder="https://…"/>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn fill" id="sSave" type="button">Add photo</button>
+          <button class="btn ghost" id="sCancel" type="button" hidden>Cancel</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>On the site <span class="tag" id="sCount">0</span></h3>
+        <div class="list" id="sList"><p class="loading">Loading…</p></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyD0Uc2UxGt0MmOBk8IG0TZPQCmij6p5gqE",
+  authDomain: "myportfolio-e77ba.firebaseapp.com",
+  projectId: "myportfolio-e77ba",
+  storageBucket: "myportfolio-e77ba.firebasestorage.app",
+  messagingSenderId: "741383996320",
+  appId: "1:741383996320:web:0fded52449d58e1d1b1ac5"
+});
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- helpers ---------- */
+let tt;
+function toast(msg, bad=false){ const t=$('toast'); t.textContent=msg; t.classList.toggle('bad',bad); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'), bad?5000:2400); }
+function explain(e){
+  const c = e && e.code || '';
+  if (c.includes('permission-denied')) return 'Not allowed. Check the Firestore rules (see setup guide).';
+  if (c.includes('invalid-credential') || c.includes('wrong-password') || c.includes('user-not-found')) return 'Wrong email or password.';
+  if (c.includes('too-many-requests')) return 'Too many tries. Wait a few minutes.';
+  if (c.includes('network')) return 'No internet connection.';
+  if (c.includes('operation-not-allowed')) return 'Turn on Email/Password sign-in in Firebase Authentication.';
+  if (c.includes('invalid-argument') || (e.message||'').includes('longer than')) return 'That image is too big. Try a smaller photo.';
+  return (e && e.message) ? e.message : 'Something went wrong.';
+}
+async function busy(btn, fn){ const t=btn.textContent; btn.disabled=true; btn.textContent='Saving…'; try{ await fn(); } catch(e){ toast(explain(e), true); console.error(e); } btn.disabled=false; btn.textContent=t; }
+const ic = {
+  up:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>',
+  down:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+  del:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>'
+};
+function itemButtons(i, n){
+  return `<div class="item-btns">
+    <button class="ib" data-act="up" aria-label="Move up" ${i===0?'disabled':''}>${ic.up}</button>
+    <button class="ib" data-act="down" aria-label="Move down" ${i===n-1?'disabled':''}>${ic.down}</button>
+    <button class="ib" data-act="edit" aria-label="Edit">${ic.edit}</button>
+    <button class="ib del" data-act="del" aria-label="Delete">${ic.del}</button>
+  </div>`;
+}
+
+/* ---------- image picker: compress photos so they fit in Firestore ---------- */
+const MAX_BYTES = 750 * 1024;
+function compress(file){
+  return new Promise((res, rej) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.naturalWidth, h = img.naturalHeight, max = 1400, q = .8, out = '';
+      for (let tries = 0; tries < 8; tries++) {
+        const sc = Math.min(1, max / Math.max(w, h));
+        const c = document.createElement('canvas'); c.width = Math.round(w*sc); c.height = Math.round(h*sc);
+        const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(img, 0, 0, c.width, c.height);
+        out = c.toDataURL('image/jpeg', q);
+        if (out.length * .75 <= MAX_BYTES) return res(out);
+        if (q > .55) q -= .1; else max = Math.round(max * .8);
+      }
+      res(out);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('Could not read that image.')); };
+    img.src = url;
+  });
+}
+const pickers = {};
+document.querySelectorAll('.img-pick').forEach(box => {
+  const key = box.dataset.img, prev = box.querySelector('.img-prev'), file = box.querySelector('input[type=file]'), urlIn = box.querySelector('.img-url');
+  const st = pickers[key] = { value:'', set(v){ this.value=v||''; prev.src=this.value; prev.classList.toggle('show', !!this.value); urlIn.value = this.value.startsWith('data:') ? '' : this.value; } };
+  file.addEventListener('change', async () => {
+    const f = file.files[0]; if (!f) return;
+    toast('Preparing photo…');
+    try { st.set(await compress(f)); toast('Photo ready'); } catch(e){ toast(explain(e), true); }
+    file.value = '';
+  });
+  urlIn.addEventListener('input', () => { const v = urlIn.value.trim(); st.value = v; prev.src = v; prev.classList.toggle('show', !!v); });
+});
+
+/* ---------- auth ---------- */
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault(); $('lErr').textContent=''; $('lBtn').disabled=true;
+  try { await signInWithEmailAndPassword(auth, $('lEmail').value.trim(), $('lPass').value); }
+  catch(err){ $('lErr').textContent = explain(err); }
+  $('lBtn').disabled=false;
+});
+$('logout').addEventListener('click', () => signOut(auth));
+onAuthStateChanged(auth, user => {
+  $('loginView').hidden = !!user; $('appView').hidden = !user;
+  if (user) { $('who').textContent = user.email; loadVerses(); loadNow(); loadList('certs'); loadList('snapshots'); }
+});
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x===b));
+  document.querySelectorAll('.panel').forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab);
+  scrollTo({top:0, behavior:'smooth'});
+}));
+
+/* ---------- VERSES (site/verse → verses[]) ---------- */
+let verses = [], vEdit = -1;
+const DEFAULT_VERSES = [
+  {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
+  {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
+];
+async function loadVerses(){
+  try {
+    const d = await getDoc(doc(db,'site','verse'));
+    const data = d.exists() ? d.data() : {};
+    verses = Array.isArray(data.verses) ? data.verses : (data.text ? [{text:data.text, ref:data.ref||''}] : DEFAULT_VERSES.slice());
+  } catch(e){ toast(explain(e), true); verses = DEFAULT_VERSES.slice(); }
+  drawVerses();
+}
+function drawVerses(){
+  $('vCount').textContent = verses.length;
+  $('vList').innerHTML = verses.length ? verses.map((v,i) => `<div class="item ${i===vEdit?'editing':''}" data-i="${i}"><span class="num">${i+1}</span><div><div class="t ne" lang="ne">${esc(v.text)}</div><div class="s ne" lang="ne">${esc(v.ref)}</div></div>${itemButtons(i, verses.length)}</div>`).join('') : '<p class="empty">No verses yet. Add one above.</p>';
+}
+const saveVerses = () => setDoc(doc(db,'site','verse'), { verses });
+function resetVerseForm(){ vEdit=-1; $('vText').value=''; $('vRef').value=''; $('vSave').textContent='Add verse'; $('vFormTitle').textContent='Add a verse'; $('vCancel').hidden=true; drawVerses(); }
+$('vSave').addEventListener('click', e => busy(e.currentTarget, async () => {
+  const text = $('vText').value.trim(), ref = $('vRef').value.trim();
+  if (!text) { toast('Write the verse first', true); return; }
+  const before = verses.slice();
+  if (vEdit >= 0) verses[vEdit] = {text, ref}; else verses.push({text, ref});
+  try { await saveVerses(); } catch(err){ verses = before; throw err; }
+  toast(vEdit >= 0 ? 'Verse updated' : 'Verse added'); resetVerseForm();
+}));
+$('vCancel').addEventListener('click', resetVerseForm);
+$('vList').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-act]'); if (!b) return;
+  const i = +b.closest('.item').dataset.i, act = b.dataset.act, before = verses.slice();
+  if (act === 'edit') { vEdit=i; $('vText').value=verses[i].text; $('vRef').value=verses[i].ref||''; $('vSave').textContent='Save changes'; $('vFormTitle').textContent='Edit verse '+(i+1); $('vCancel').hidden=false; drawVerses(); $('vText').focus(); scrollTo({top:0,behavior:'smooth'}); return; }
+  if (act === 'del') { if (!confirm('Delete this verse?')) return; verses.splice(i,1); if (vEdit===i) resetVerseForm(); }
+  if (act === 'up' && i>0) [verses[i-1],verses[i]] = [verses[i],verses[i-1]];
+  if (act === 'down' && i<verses.length-1) [verses[i+1],verses[i]] = [verses[i],verses[i+1]];
+  drawVerses();
+  try { await saveVerses(); toast(act==='del'?'Deleted':'Order saved'); } catch(err){ verses = before; drawVerses(); toast(explain(err), true); }
+});
+
+/* ---------- RIGHT NOW (site/now) ---------- */
+const nowKeys = ['reading','writing','learning','working','updated'];
+const nowId = k => 'n' + k[0].toUpperCase() + k.slice(1);
+async function loadNow(){
+  try {
+    const d = await getDoc(doc(db,'site','now'));
+    const data = d.exists() ? d.data() : {};
+    nowKeys.forEach(k => { $(nowId(k)).value = data[k] ?? $(nowId(k)).placeholder; });
+  } catch(e){ toast(explain(e), true); }
+}
+$('nToday').addEventListener('click', () => { $('nUpdated').value = new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'}); });
+$('nSave').addEventListener('click', e => busy(e.currentTarget, async () => {
+  const data = {}; nowKeys.forEach(k => data[k] = $(nowId(k)).value.trim());
+  await setDoc(doc(db,'site','now'), data); toast('Saved. Refresh the site to see it.');
+}));
+
+/* ---------- CERTS + SNAPSHOTS (collections with order) ---------- */
+const cfg = {
+  certs: { list:'cList', count:'cCount', save:'cSave', cancel:'cCancel', title:'cFormTitle', pick:'c', noun:'certificate',
+    read: () => ({ title:$('cTitle').value.trim(), sub:$('cSub').value.trim(), desc:$('cDesc').value.trim(), tags:$('cTags').value.split(',').map(t=>t.trim()).filter(Boolean), url:pickers.c.value }),
+    fill: it => { $('cTitle').value=it.title||''; $('cSub').value=it.sub||''; $('cDesc').value=it.desc||''; $('cTags').value=(it.tags||[]).join(', '); pickers.c.set(it.url); },
+    clear: () => { ['cTitle','cSub','cDesc','cTags'].forEach(id=>$(id).value=''); pickers.c.set(''); },
+    ok: d => d.title ? '' : 'Add the course name',
+    row: it => `<div class="t">${esc(it.title)}</div><div class="s">${esc(it.sub||'')}</div>` },
+  snapshots: { list:'sList', count:'sCount', save:'sSave', cancel:'sCancel', title:'sFormTitle', pick:'s', noun:'photo',
+    read: () => ({ title:$('sTitle').value.trim(), url:pickers.s.value }),
+    fill: it => { $('sTitle').value=it.title||''; pickers.s.set(it.url); },
+    clear: () => { $('sTitle').value=''; pickers.s.set(''); },
+    ok: d => d.url ? '' : 'Choose a photo first',
+    row: it => `<div class="t">${esc(it.title||'No caption')}</div>` }
+};
+const state = { certs:{ items:[], edit:null }, snapshots:{ items:[], edit:null } };
+
+async function loadList(col){
+  try {
+    const snap = await getDocs(query(collection(db,col), orderBy('order','asc')));
+    state[col].items = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+  } catch(e){ toast(explain(e), true); state[col].items = []; }
+  drawList(col);
+}
+function drawList(col){
+  const c = cfg[col], items = state[col].items;
+  $(c.count).textContent = items.length;
+  $(c.list).innerHTML = items.length ? items.map((it,i) => `<div class="item ${state[col].edit===it.id?'editing':''}" data-i="${i}">${it.url?`<img class="thumb" src="${esc(it.url)}" alt="">`:`<span class="num">${i+1}</span>`}<div>${c.row(it)}</div>${itemButtons(i, items.length)}</div>`).join('') : `<p class="empty">Nothing here yet. Add your first ${c.noun} above.</p>`;
+}
+function resetForm(col){ const c=cfg[col]; state[col].edit=null; c.clear(); $(c.save).textContent='Add '+c.noun; $(c.title).textContent='Add a '+c.noun; $(c.cancel).hidden=true; drawList(col); }
+Object.keys(cfg).forEach(col => {
+  const c = cfg[col];
+  $(c.save).addEventListener('click', e => busy(e.currentTarget, async () => {
+    const data = c.read(), msg = c.ok(data);
+    if (msg) { toast(msg, true); return; }
+    const st = state[col];
+    if (st.edit) { await updateDoc(doc(db,col,st.edit), data); toast('Updated'); }
+    else { const order = st.items.length ? Math.max(...st.items.map(x=>x.order||0)) + 1 : 1; await addDoc(collection(db,col), {...data, order}); toast('Added'); }
+    resetForm(col); await loadList(col);
+  }));
+  $(c.cancel).addEventListener('click', () => resetForm(col));
+  $(c.list).addEventListener('click', async e => {
+    const b = e.target.closest('button[data-act]'); if (!b) return;
+    const st = state[col], i = +b.closest('.item').dataset.i, it = st.items[i], act = b.dataset.act;
+    try {
+      if (act === 'edit') { st.edit = it.id; c.fill(it); $(c.save).textContent='Save changes'; $(c.title).textContent='Edit '+c.noun; $(c.cancel).hidden=false; drawList(col); scrollTo({top:0,behavior:'smooth'}); return; }
+      if (act === 'del') { if (!confirm('Delete this '+c.noun+'?')) return; await deleteDoc(doc(db,col,it.id)); if (st.edit===it.id) resetForm(col); toast('Deleted'); }
+      if (act === 'up' || act === 'down') {
+        const j = act==='up' ? i-1 : i+1; if (j<0 || j>=st.items.length) return;
+        const arr = st.items.slice(); [arr[i],arr[j]] = [arr[j],arr[i]];
+        const batch = writeBatch(db); arr.forEach((x,k) => batch.update(doc(db,col,x.id), {order:k+1})); await batch.commit(); toast('Order saved');
+      }
+      await loadList(col);
+    } catch(err){ toast(explain(err), true); }
+  });
+});
+</script>
+</body>
+</html>
