@@ -4,245 +4,363 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="robots" content="noindex, nofollow"/>
-<meta name="theme-color" content="#E4EAE9"/>
-<title>Admin — Ishak Yonghang</title>
+<meta name="theme-color" content="#16222B"/>
+<title>Admin Console — Ishak Yonghang</title>
 <link rel="icon" type="image/png" href="/favicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --mist:#E4EAE9;--paper:#F7F9F8;--card:#FFFFFF;--ink:#1C2A33;--ink-2:#3A4A54;--slate:#55646C;--line:#CDD6D5;
-  --rhodo:#B8233A;--rhodo-dark:#8F1A2C;--tea:#3D6A51;--tea-soft:#DCE8E0;--deep:#1C2A33;
+  --bg:#F3F5F5;--panel:#FFFFFF;--side:#16222B;--side-2:#1F2E38;--side-txt:#A9B7BD;
+  --ink:#16222B;--ink-2:#3A4A54;--muted:#66757D;--line:#E1E6E7;--line-2:#CDD6D7;
+  --accent:#B8233A;--accent-2:#9A1D31;--accent-soft:#FBEDEF;--ok:#2F6B4C;--ok-soft:#E5F1EA;--warn:#9A6212;
   --display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
   --nep:'Noto Serif Devanagari','Mangal',serif;
-  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --r:10px;
+  box-sizing:border-box;
 }
 *,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5;min-height:100vh}
-button,input,textarea,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--rhodo);outline-offset:2px;border-radius:6px}
-.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 [hidden]{display:none !important}
+svg{flex-shrink:0}
 
-/* login */
-.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--mist)}
-.login-card{width:100%;max-width:380px;background:var(--card);border-radius:28px;padding:30px 24px;box-shadow:0 30px 60px -36px rgba(28,42,51,.55)}
-.mono{width:48px;height:48px;border-radius:15px;background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;margin-bottom:18px}
-.login h1{font-weight:800;font-size:1.7rem;letter-spacing:-.03em;line-height:1.1}
-.login p{color:var(--slate);margin:6px 0 22px}
+/* ---------- login ---------- */
+.login{min-height:100%;display:grid;grid-template-columns:1.05fr 1fr}
+.login-art{background:var(--side);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.login-art .brand{display:flex;align-items:center;gap:12px;font-weight:600}
+.login-art h2{font-weight:700;font-size:2.4rem;line-height:1.05;letter-spacing:-.03em;max-width:12ch;position:relative;z-index:1}
+.login-art p{color:var(--side-txt);margin-top:12px;max-width:34ch;position:relative;z-index:1}
+.login-art svg.r{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto}
+.login-form{display:flex;align-items:center;justify-content:center;padding:32px 24px}
+.lf{width:100%;max-width:360px}
+.lf h1{font-weight:700;font-size:1.6rem;letter-spacing:-.02em}
+.lf .sub{color:var(--muted);margin:4px 0 26px}
+.lf .mono{display:none}
+@media(max-width:820px){.login{grid-template-columns:1fr}.login-art{display:none}.lf .mono{display:flex;margin-bottom:20px}}
+.mono{width:36px;height:36px;border-radius:9px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;letter-spacing:-.02em}
 
-/* fields */
-label{display:grid;gap:6px;font-weight:600;font-size:.88rem;color:var(--ink-2)}
-label small{font-weight:400;color:var(--slate)}
-input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);font-weight:400;font-size:1rem}
-input:focus,textarea:focus{outline:none;border-color:var(--ink)}
-textarea{min-height:110px;resize:vertical}
-textarea.ne,input.ne{font-family:var(--nep);line-height:1.8}
-.fields{display:grid;gap:14px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:480px){.row2{grid-template-columns:1fr}}
+/* ---------- fields ---------- */
+.field{display:grid;gap:6px}
+.field>span{font-weight:600;font-size:.84rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:10px}
+.field>span em{font-style:normal;font-weight:400;color:var(--muted)}
+input,textarea{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:#fff;font-size:.95rem;transition:border-color .15s,box-shadow .15s}
+input:hover,textarea:hover{border-color:#B4C0C2}
+input:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,34,43,.08)}
+textarea{min-height:96px;resize:vertical}
+.ne{font-family:var(--nep);line-height:1.8}
+.form{display:grid;gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.help{font-size:.8rem;color:var(--muted)}
 
-.btn{text-decoration:none;color:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 20px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .15s}
-.btn:active{transform:scale(.97)}
-.btn.fill{background:var(--rhodo);border-color:var(--rhodo);color:#fff}
-.btn.fill:hover{background:var(--rhodo-dark);border-color:var(--rhodo-dark)}
-.btn.ghost{border-color:var(--line)}
-.btn.ghost:hover{border-color:var(--ink)}
-.btn.small{min-height:38px;padding:7px 14px;font-size:.88rem}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn.wide{width:100%}
-.err{color:var(--rhodo);font-size:.9rem;min-height:1.4em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 14px;border-radius:8px;border:1px solid var(--line-2);background:#fff;font-weight:600;font-size:.88rem;cursor:pointer;text-decoration:none;color:var(--ink);white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.btn:hover{background:#F6F8F8;border-color:#B4C0C2}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.primary:hover{background:#26363F}
+.btn.danger{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.danger:hover{background:var(--accent-2)}
+.btn.block{width:100%;height:42px}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.err{color:var(--accent);font-size:.86rem;min-height:1.3em}
 
-/* app */
-.top{position:sticky;top:0;z-index:20;background:rgba(247,249,248,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.top-in{display:flex;align-items:center;gap:12px;height:64px}
-.top .mono{width:38px;height:38px;border-radius:12px;font-size:.85rem;margin:0}
-.top h1{font-weight:800;font-size:1.1rem;letter-spacing:-.02em;line-height:1.1}
-.top h1 span{display:block;font-weight:400;font-size:.78rem;color:var(--slate);max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.top .sp{flex:1}
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:10px 0 12px}
-.tabs::-webkit-scrollbar{display:none}
-.tabs button{flex-shrink:0;padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font-weight:600;font-size:.9rem;cursor:pointer}
-.tabs button[aria-selected="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+/* ---------- layout ---------- */
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100%}
+.side{background:var(--side);color:var(--side-txt);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;padding:18px 12px}
+.side .brand{display:flex;align-items:center;gap:10px;padding:4px 8px 22px;color:#fff;font-weight:600}
+.side .brand small{display:block;font-weight:400;font-size:.75rem;color:var(--side-txt)}
+.nav-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;color:#6F8088;padding:14px 10px 6px}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--side-txt);text-decoration:none;font-weight:500;cursor:pointer;transition:background .15s,color .15s}
+.nav a:hover{background:var(--side-2);color:#fff}
+.nav a.on{background:var(--side-2);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+.nav a .ct{margin-left:auto;font-size:.75rem;background:rgba(255,255,255,.08);padding:1px 8px;border-radius:999px}
+.side .me{margin-top:auto;border-top:1px solid #26363F;padding:14px 8px 4px;display:flex;align-items:center;gap:10px}
+.av{width:32px;height:32px;border-radius:50%;background:#2B3D49;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.8rem}
+.me .who{min-width:0;flex:1}
+.me .who b{display:block;color:#fff;font-weight:500;font-size:.85rem}
+.me .who span{display:block;font-size:.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid transparent;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.side .icon-btn:hover{background:var(--side-2);color:#fff}
 
-main{padding:22px 0 80px}
-.panel h2{font-weight:800;font-size:1.6rem;letter-spacing:-.03em}
-.panel .hint{color:var(--slate);margin:4px 0 20px;font-size:.95rem}
-.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px}
-.card + .card{margin-top:14px}
-.card h3{font-weight:700;font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.card h3 .tag{font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--tea-soft);color:var(--tea)}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.main{min-width:0;display:flex;flex-direction:column}
+.bar{height:60px;display:flex;align-items:center;gap:12px;padding:0 28px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.crumb{color:var(--muted);font-size:.86rem}
+.crumb b{color:var(--ink);font-weight:600}
+.bar .sp{flex:1}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;color:var(--muted)}
+.status i{width:8px;height:8px;border-radius:50%;background:#B4C0C2}
+.status.ok i{background:#3E9A68;box-shadow:0 0 0 3px rgba(62,154,104,.15)}
+.status.bad i{background:var(--accent)}
+.menu-btn{display:none}
+.content{padding:28px;max-width:980px;width:100%}
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.ph h1{font-weight:700;font-size:1.55rem;letter-spacing:-.02em;line-height:1.2}
+.ph p{color:var(--muted);margin-top:2px}
 
-.list{display:grid;gap:10px}
-.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:18px;background:var(--paper)}
-.item.editing{border-color:var(--rhodo);box-shadow:0 0 0 3px rgba(184,35,58,.12)}
-.thumb{width:56px;height:56px;border-radius:12px;object-fit:cover;background:var(--mist)}
-.num{width:34px;height:34px;border-radius:50%;background:var(--mist);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
-.item .t{font-weight:600;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.item .t.ne{font-family:var(--nep);font-weight:500}
-.item .s{font-size:.82rem;color:var(--slate)}
-.item-btns{display:flex;gap:4px}
-.ib{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.ib:hover{border-color:var(--ink)}
-.ib.del:hover{border-color:var(--rhodo);color:var(--rhodo)}
-.ib:disabled{opacity:.35;cursor:default}
-@media(max-width:480px){.item{grid-template-columns:auto 1fr}.item-btns{grid-column:1/-1;justify-content:flex-end}}
-.empty{padding:22px;text-align:center;color:var(--slate);border:1.5px dashed var(--line);border-radius:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+.card+.card{margin-top:18px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.card-h h2{font-weight:600;font-size:.98rem}
+.card-h .meta{font-size:.8rem;color:var(--muted)}
+.card-b{padding:18px}
+.card-f{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--line);background:#FAFBFB;border-radius:0 0 var(--r) var(--r)}
 
-.img-pick{display:grid;gap:10px}
-.img-prev{display:none;width:100%;max-height:220px;object-fit:contain;border-radius:14px;background:var(--mist)}
-.img-prev.show{display:block}
-.or{display:flex;align-items:center;gap:10px;color:var(--slate);font-size:.82rem}
-.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
-.file-btn{position:relative;overflow:hidden}
-.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+/* overview */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:border-color .15s}
+.stat:hover{border-color:var(--line-2)}
+.stat span{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+.stat b{display:block;font-weight:700;font-size:1.7rem;letter-spacing:-.02em;margin-top:6px}
+.stat small{font-size:.78rem;color:var(--muted)}
+.rows{display:grid}
+.rows a{display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.rows a:first-child{border-top:none}
+.rows a:hover{background:#FAFBFB}
+.rows .ri{width:34px;height:34px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--ink-2)}
+.rows .rt b{display:block;font-weight:600}
+.rows .rt span{font-size:.82rem;color:var(--muted)}
+.rows .chev{margin-left:auto;color:var(--muted)}
+@media(max-width:900px){.stats{grid-template-columns:1fr 1fr}}
 
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:50;background:var(--deep);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.92rem;transition:opacity .25s,transform .25s;max-width:calc(100% - 32px);text-align:center}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.toast.bad{background:var(--rhodo)}
-.loading{color:var(--slate);padding:12px 0}
+/* table list */
+.tbl{display:grid}
+.tr{display:grid;grid-template-columns:28px 52px 1fr auto;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid var(--line)}
+.tr:first-child{border-top:none}
+.tr.noimg{grid-template-columns:28px 1fr auto}
+.tr.editing{background:var(--accent-soft)}
+.tr .n{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;text-align:center}
+.tr img{width:52px;height:40px;object-fit:cover;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+.tr .ph-img{width:52px;height:40px;border-radius:6px;background:var(--bg);border:1px dashed var(--line-2)}
+.tr .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tr .t.ne{font-family:var(--nep);font-weight:500}
+.tr .s{font-size:.82rem;color:var(--muted)}
+.tr .ops{display:flex;gap:2px}
+.tr .ops .icon-btn{color:var(--muted)}
+.tr .ops .icon-btn:hover{background:var(--bg);color:var(--ink)}
+.tr .ops .icon-btn.del:hover{background:var(--accent-soft);color:var(--accent)}
+.tr .ops .icon-btn:disabled{opacity:.3;cursor:default;background:transparent}
+.badge{display:inline-flex;align-items:center;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--bg);color:var(--ink-2);margin-left:6px;vertical-align:1px}
+.blank{padding:34px 18px;text-align:center;color:var(--muted)}
+.blank b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.skel{height:14px;border-radius:6px;background:linear-gradient(90deg,#EEF1F1,#F7F9F9,#EEF1F1);background-size:200% 100%;animation:sh 1.2s infinite;margin:18px}
+@keyframes sh{to{background-position:-200% 0}}
+@media(max-width:560px){.tr{grid-template-columns:44px 1fr;gap:10px}.tr.noimg{grid-template-columns:1fr}.tr .n{display:none}.tr .ops{grid-column:1/-1;justify-content:flex-end;margin-top:-4px}}
+
+/* image picker */
+.drop{border:1px dashed var(--line-2);border-radius:8px;padding:14px;display:flex;align-items:center;gap:14px;background:#FAFBFB}
+.drop img{width:88px;height:66px;object-fit:cover;border-radius:6px;background:var(--bg);display:none}
+.drop.has img{display:block}
+.drop .dt{flex:1;min-width:0}
+.drop .dt b{display:block;font-weight:600;font-size:.88rem}
+.drop .dt span{font-size:.8rem;color:var(--muted)}
+.file{position:relative;overflow:hidden}
+.file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.or{font-size:.78rem;color:var(--muted);text-align:center;margin:2px 0}
+
+/* dialog + toast */
+.dlg{position:fixed;inset:0;z-index:60;background:rgba(22,34,43,.45);display:flex;align-items:center;justify-content:center;padding:20px}
+.dlg-b{background:#fff;border-radius:12px;max-width:400px;width:100%;box-shadow:0 30px 60px -20px rgba(22,34,43,.5)}
+.dlg-b .in{padding:20px 20px 6px}
+.dlg-b h3{font-weight:600;font-size:1.05rem}
+.dlg-b p{color:var(--muted);margin-top:4px}
+.toast{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;padding:11px 16px;border-radius:8px;font-weight:500;font-size:.88rem;box-shadow:0 14px 30px -12px rgba(22,34,43,.5);opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;pointer-events:none;max-width:calc(100% - 40px)}
+.toast.show{opacity:1;transform:none}
+.toast i{width:8px;height:8px;border-radius:50%;background:#5BC08A;flex-shrink:0}
+.toast.bad i{background:#F08A9A}
+
+/* mobile */
+@media(max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;left:0;top:0;bottom:0;width:260px;z-index:40;transform:translateX(-100%);transition:transform .25s;padding-top:calc(18px + env(safe-area-inset-top,0px))}
+  .side.open{transform:none;box-shadow:20px 0 50px rgba(0,0,0,.3)}
+  .scrim{position:fixed;inset:0;background:rgba(22,34,43,.4);z-index:35}
+  .menu-btn{display:inline-flex}
+  .bar{padding:0 14px;padding-top:env(safe-area-inset-top,0px);height:calc(56px + env(safe-area-inset-top,0px))}
+  .bar .hide-sm{display:none}
+  .content{padding:18px 14px 40px}
+  .toast{left:14px;right:14px;justify-content:center}
+  input,textarea{font-size:16px}
+}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<section class="login" id="loginView">
-  <form class="login-card" id="loginForm">
-    <div class="mono">IY</div>
-    <h1>Admin login</h1>
-    <p>Only Ishak can sign in here.</p>
-    <div class="fields">
-      <label>Email<input type="email" id="lEmail" autocomplete="username" required/></label>
-      <label>Password<input type="password" id="lPass" autocomplete="current-password" required/></label>
-      <p class="err" id="lErr" role="alert"></p>
-      <button class="btn fill wide" type="submit" id="lBtn">Sign in</button>
+<!-- ============ LOGIN ============ -->
+<div class="login" id="loginView">
+  <aside class="login-art">
+    <div class="brand"><span class="mono">IY</span>Ishak Yonghang</div>
+    <div>
+      <h2>Content console</h2>
+      <p>Manage the verses, updates, certificates and photos shown on yonghangishak.com.np.</p>
     </div>
-  </form>
-</section>
-
-<!-- APP -->
-<div id="appView" hidden>
-  <header class="top">
-    <div class="wrap">
-      <div class="top-in">
-        <div class="mono">IY</div>
-        <h1>Admin<span id="who"></span></h1>
-        <div class="sp"></div>
-        <a class="btn ghost small" href="/" target="_blank" rel="noopener">View site</a>
-        <button class="btn ghost small" id="logout" type="button">Log out</button>
+    <svg class="r" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#1F2E38" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/>
+      <path fill="#26384A" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/>
+    </svg>
+  </aside>
+  <div class="login-form">
+    <form class="lf" id="loginForm" novalidate>
+      <div class="mono">IY</div>
+      <h1>Sign in</h1>
+      <p class="sub">Use your admin account to continue.</p>
+      <div class="form">
+        <label class="field"><span>Email</span><input type="email" id="lEmail" autocomplete="username" required/></label>
+        <label class="field"><span>Password</span><input type="password" id="lPass" autocomplete="current-password" required/></label>
+        <p class="err" id="lErr" role="alert"></p>
+        <button class="btn primary block" type="submit" id="lBtn">Sign in</button>
       </div>
-      <nav class="tabs" role="tablist" aria-label="Sections">
-        <button role="tab" data-tab="verses" aria-selected="true">Bible verses</button>
-        <button role="tab" data-tab="now" aria-selected="false">Right now</button>
-        <button role="tab" data-tab="certs" aria-selected="false">Certificates</button>
-        <button role="tab" data-tab="snaps" aria-selected="false">Snapshots</button>
-      </nav>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <!-- VERSES -->
-    <section class="panel" data-panel="verses">
-      <h2>Bible verses</h2>
-      <p class="hint">These slide on the About section of the site. Use the arrows to change the order.</p>
-      <div class="card">
-        <h3 id="vFormTitle">Add a verse</h3>
-        <div class="fields">
-          <label>Verse<textarea id="vText" class="ne" lang="ne" placeholder="मलाई पुकार्, र म तँलाई जवाफ दिनेछु…"></textarea></label>
-          <label>Reference<input id="vRef" class="ne" lang="ne" placeholder="यर्मिया ३३:३"/></label>
-        </div>
-        <div class="actions">
-          <button class="btn fill" id="vSave" type="button">Add verse</button>
-          <button class="btn ghost" id="vCancel" type="button" hidden>Cancel</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3>On the site <span class="tag" id="vCount">0</span></h3>
-        <div class="list" id="vList"><p class="loading">Loading…</p></div>
-      </div>
-    </section>
-
-    <!-- NOW -->
-    <section class="panel" data-panel="now" hidden>
-      <h2>Right now <span style="font-family:var(--nep);font-weight:500;color:var(--tea);font-size:.8em">अहिले</span></h2>
-      <p class="hint">Leave a box empty to hide it on the site.</p>
-      <div class="card">
-        <div class="fields">
-          <label>Reading<input id="nReading" placeholder="The Bible"/></label>
-          <label>Writing<input id="nWriting" placeholder="New poems in Nepali and English"/></label>
-          <label>Learning<input id="nLearning" placeholder="Political science at Panchthar Multiple Campus"/></label>
-          <label>Working<input id="nWorking" placeholder="Sales consultant at Bajaj, Phidim"/></label>
-          <label>Updated <small>shown as “Updated …”</small><input id="nUpdated" placeholder="October 2026"/></label>
-        </div>
-        <div class="actions">
-          <button class="btn fill" id="nSave" type="button">Save</button>
-          <button class="btn ghost" id="nToday" type="button">Set to this month</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- CERTS -->
-    <section class="panel" data-panel="certs" hidden>
-      <h2>Certificates</h2>
-      <p class="hint">Shown in the Training section. Add a photo of the certificate so visitors can open it.</p>
-      <div class="card">
-        <h3 id="cFormTitle">Add a certificate</h3>
-        <div class="fields">
-          <label>Course name<input id="cTitle" placeholder="Computer Basics Training"/></label>
-          <label>Given by / year<input id="cSub" placeholder="CTEVT, 2024"/></label>
-          <label>Short description <small>optional</small><textarea id="cDesc" style="min-height:80px"></textarea></label>
-          <label>Tags <small>separate with commas</small><input id="cTags" placeholder="MS Word, MS Excel"/></label>
-          <div class="img-pick" data-img="c">
-            <label>Certificate image</label>
-            <img class="img-prev" alt="Preview"/>
-            <label class="btn ghost file-btn">Choose photo<input type="file" accept="image/*"/></label>
-            <div class="or">or paste an image link</div>
-            <input class="img-url" placeholder="https://…"/>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn fill" id="cSave" type="button">Add certificate</button>
-          <button class="btn ghost" id="cCancel" type="button" hidden>Cancel</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3>On the site <span class="tag" id="cCount">0</span></h3>
-        <div class="list" id="cList"><p class="loading">Loading…</p></div>
-      </div>
-    </section>
-
-    <!-- SNAPSHOTS -->
-    <section class="panel" data-panel="snaps" hidden>
-      <h2>Life snapshots</h2>
-      <p class="hint">Photos in the scrolling strip under Training.</p>
-      <div class="card">
-        <h3 id="sFormTitle">Add a photo</h3>
-        <div class="fields">
-          <label>Caption<input id="sTitle" placeholder="Tinjure hills, 2026"/></label>
-          <div class="img-pick" data-img="s">
-            <label>Photo</label>
-            <img class="img-prev" alt="Preview"/>
-            <label class="btn ghost file-btn">Choose photo<input type="file" accept="image/*"/></label>
-            <div class="or">or paste an image link</div>
-            <input class="img-url" placeholder="https://…"/>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn fill" id="sSave" type="button">Add photo</button>
-          <button class="btn ghost" id="sCancel" type="button" hidden>Cancel</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3>On the site <span class="tag" id="sCount">0</span></h3>
-        <div class="list" id="sList"><p class="loading">Loading…</p></div>
-      </div>
-    </section>
-  </main>
+    </form>
+  </div>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- ============ APP ============ -->
+<div class="app" id="appView" hidden>
+  <aside class="side" id="side">
+    <div class="brand"><span class="mono">IY</span><div>Ishak Yonghang<small>Content console</small></div></div>
+    <nav class="nav" aria-label="Sections">
+      <div class="nav-label">GENERAL</div>
+      <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Overview</a>
+      <div class="nav-label">CONTENT</div>
+      <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M6 8h12"/></svg>Bible verses<span class="ct" id="ctV">–</span></a>
+      <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Right now</a>
+      <a data-go="certs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>Certificates<span class="ct" id="ctC">–</span></a>
+      <a data-go="snaps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Snapshots<span class="ct" id="ctS">–</span></a>
+      <div class="nav-label">SITE</div>
+      <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+    </nav>
+    <div class="me">
+      <span class="av" id="av">IY</span>
+      <div class="who"><b>Admin</b><span id="who"></span></div>
+      <button class="icon-btn" id="logout" title="Log out" aria-label="Log out"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <div class="main">
+    <header class="bar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="crumb"><span class="hide-sm">Console / </span><b id="crumb">Overview</b></div>
+      <div class="sp"></div>
+      <span class="status" id="status"><i></i><span>Connecting…</span></span>
+    </header>
+
+    <div class="content">
+      <!-- OVERVIEW -->
+      <section data-page="overview">
+        <div class="ph"><div><h1 id="hello">Welcome back</h1><p>Everything you can change on the site, in one place.</p></div><a class="btn" href="/" target="_blank" rel="noopener">View live site</a></div>
+        <div class="stats">
+          <div class="stat" data-go="verses"><span>Bible verses</span><b id="stV">–</b><small>in the slider</small></div>
+          <div class="stat" data-go="certs"><span>Certificates</span><b id="stC">–</b><small>in Training</small></div>
+          <div class="stat" data-go="snaps"><span>Snapshots</span><b id="stS">–</b><small>photos</small></div>
+          <div class="stat" data-go="now"><span>Right now</span><b id="stN" style="font-size:1.05rem;margin-top:10px">–</b><small>last updated</small></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Quick actions</h2></div>
+          <div class="rows">
+            <a data-go="now"><span class="ri"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="rt"><b>Update “Right now”</b><span>What you're reading, writing and learning</span></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></a>
+            <a data-go="verses"><span class="ri"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M6 8h12"/></svg></span><span class="rt"><b>Add a Bible verse</b><span>Shown in the verse slider on About</span></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></a>
+            <a data-go="certs"><span class="ri"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg></span><span class="rt"><b>Add a certificate</b><span>With a photo visitors can open</span></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></a>
+            <a data-go="snaps"><span class="ri"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/></svg></span><span class="rt"><b>Add a snapshot</b><span>Photos for the life snapshots strip</span></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- VERSES -->
+      <section data-page="verses" hidden>
+        <div class="ph"><div><h1>Bible verses</h1><p>Shown one at a time in the verse slider on the About section.</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2 id="vFormTitle">New verse</h2></div>
+          <div class="card-b form">
+            <label class="field"><span>Verse</span><textarea id="vText" class="ne" lang="ne" placeholder="मलाई पुकार्, र म तँलाई जवाफ दिनेछु…"></textarea></label>
+            <label class="field"><span>Reference</span><input id="vRef" class="ne" lang="ne" placeholder="यर्मिया ३३:३"/></label>
+          </div>
+          <div class="card-f"><button class="btn" id="vCancel" type="button" hidden>Cancel</button><button class="btn primary" id="vSave" type="button">Add verse</button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Published</h2><span class="meta" id="vMeta"></span></div>
+          <div class="tbl" id="vList"><div class="skel"></div><div class="skel"></div></div>
+        </div>
+      </section>
+
+      <!-- NOW -->
+      <section data-page="now" hidden>
+        <div class="ph"><div><h1>Right now</h1><p>The “Right now / अहिले” card under the hero. Empty fields are hidden on the site.</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2>Current status</h2><span class="meta" id="nMeta"></span></div>
+          <div class="card-b form">
+            <div class="grid2">
+              <label class="field"><span>Reading</span><input id="nReading" placeholder="The Bible"/></label>
+              <label class="field"><span>Writing</span><input id="nWriting" placeholder="New poems in Nepali and English"/></label>
+              <label class="field"><span>Learning</span><input id="nLearning" placeholder="Political science at Panchthar Multiple Campus"/></label>
+              <label class="field"><span>Working</span><input id="nWorking" placeholder="Sales consultant at Bajaj, Phidim"/></label>
+            </div>
+            <label class="field"><span>Updated <em>shown as “Updated …”</em></span><input id="nUpdated" placeholder="October 2026"/></label>
+          </div>
+          <div class="card-f"><button class="btn" id="nToday" type="button">Use this month</button><button class="btn primary" id="nSave" type="button">Save changes</button></div>
+        </div>
+      </section>
+
+      <!-- CERTS -->
+      <section data-page="certs" hidden>
+        <div class="ph"><div><h1>Certificates</h1><p>Listed in the Training section. Visitors can tap one to view the image.</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2 id="cFormTitle">New certificate</h2></div>
+          <div class="card-b form">
+            <div class="grid2">
+              <label class="field"><span>Course name</span><input id="cTitle" placeholder="Computer Basics Training"/></label>
+              <label class="field"><span>Issued by / year</span><input id="cSub" placeholder="CTEVT, 2024"/></label>
+            </div>
+            <label class="field"><span>Description <em>optional</em></span><textarea id="cDesc" style="min-height:72px"></textarea></label>
+            <label class="field"><span>Tags <em>comma separated</em></span><input id="cTags" placeholder="MS Word, MS Excel"/></label>
+            <div class="field"><span>Certificate image</span>
+              <div class="drop" data-img="c"><img alt=""/><div class="dt"><b>Upload a photo</b><span>Resized automatically to fit</span></div><label class="btn file">Choose file<input type="file" accept="image/*"/></label></div>
+              <p class="or">or paste an image link</p>
+              <input class="img-url" data-for="c" placeholder="https://"/>
+            </div>
+          </div>
+          <div class="card-f"><button class="btn" id="cCancel" type="button" hidden>Cancel</button><button class="btn primary" id="cSave" type="button">Add certificate</button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Published</h2><span class="meta" id="cMeta"></span></div>
+          <div class="tbl" id="cList"><div class="skel"></div><div class="skel"></div></div>
+        </div>
+      </section>
+
+      <!-- SNAPSHOTS -->
+      <section data-page="snaps" hidden>
+        <div class="ph"><div><h1>Life snapshots</h1><p>The scrolling photo strip under Training.</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2 id="sFormTitle">New snapshot</h2></div>
+          <div class="card-b form">
+            <label class="field"><span>Caption</span><input id="sTitle" placeholder="Phidim, 2026"/></label>
+            <div class="field"><span>Photo</span>
+              <div class="drop" data-img="s"><img alt=""/><div class="dt"><b>Upload a photo</b><span>Resized automatically to fit</span></div><label class="btn file">Choose file<input type="file" accept="image/*"/></label></div>
+              <p class="or">or paste an image link</p>
+              <input class="img-url" data-for="s" placeholder="https://"/>
+            </div>
+          </div>
+          <div class="card-f"><button class="btn" id="sCancel" type="button" hidden>Cancel</button><button class="btn primary" id="sSave" type="button">Add snapshot</button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Published</h2><span class="meta" id="sMeta"></span></div>
+          <div class="tbl" id="sList"><div class="skel"></div><div class="skel"></div></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- confirm dialog -->
+<div class="dlg" id="dlg" hidden role="dialog" aria-modal="true" aria-labelledby="dlgT">
+  <div class="dlg-b">
+    <div class="in"><h3 id="dlgT">Delete item?</h3><p id="dlgP">This can't be undone.</p></div>
+    <div class="card-f" style="background:#fff;border-top:none"><button class="btn" id="dlgNo" type="button">Cancel</button><button class="btn danger" id="dlgYes" type="button">Delete</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span id="toastT"></span></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
@@ -257,55 +375,76 @@ const app = initializeApp({
   messagingSenderId: "741383996320",
   appId: "1:741383996320:web:0fded52449d58e1d1b1ac5"
 });
-const auth = getAuth(app);
-const db = getFirestore(app);
+const auth = getAuth(app), db = getFirestore(app);
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-/* ---------- helpers ---------- */
+/* ---------- ui helpers ---------- */
 let tt;
-function toast(msg, bad=false){ const t=$('toast'); t.textContent=msg; t.classList.toggle('bad',bad); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'), bad?5000:2400); }
+function toast(msg, bad=false){ const t=$('toast'); $('toastT').textContent=msg; t.classList.toggle('bad',bad); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'), bad?5200:2600); }
+function setStatus(ok, txt){ const s=$('status'); s.className='status '+(ok?'ok':'bad'); s.querySelector('span').textContent=txt; }
 function explain(e){
-  const c = e && e.code || '';
-  if (c.includes('permission-denied')) return 'Not allowed. Check the Firestore rules (see setup guide).';
-  if (c.includes('invalid-credential') || c.includes('wrong-password') || c.includes('user-not-found')) return 'Wrong email or password.';
-  if (c.includes('too-many-requests')) return 'Too many tries. Wait a few minutes.';
-  if (c.includes('network')) return 'No internet connection.';
-  if (c.includes('operation-not-allowed')) return 'Turn on Email/Password sign-in in Firebase Authentication.';
-  if (c.includes('invalid-argument') || (e.message||'').includes('longer than')) return 'That image is too big. Try a smaller photo.';
-  return (e && e.message) ? e.message : 'Something went wrong.';
+  const c = (e && e.code) || '';
+  if (c.includes('permission-denied')) return 'Permission denied — check the Firestore rules.';
+  if (c.includes('invalid-credential') || c.includes('wrong-password') || c.includes('user-not-found') || c.includes('invalid-email')) return 'Incorrect email or password.';
+  if (c.includes('too-many-requests')) return 'Too many attempts. Try again in a few minutes.';
+  if (c.includes('network') || c.includes('unavailable')) return 'Network error. Check your connection.';
+  if (c.includes('operation-not-allowed')) return 'Enable Email/Password sign-in in Firebase Authentication.';
+  if (c.includes('invalid-argument') || /longer than|too large/i.test(e.message||'')) return 'Image is too large. Try a smaller photo.';
+  return (e && e.message) || 'Something went wrong.';
 }
-async function busy(btn, fn){ const t=btn.textContent; btn.disabled=true; btn.textContent='Saving…'; try{ await fn(); } catch(e){ toast(explain(e), true); console.error(e); } btn.disabled=false; btn.textContent=t; }
-const ic = {
-  up:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>',
-  down:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
-  edit:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
-  del:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>'
+async function busy(btn, fn){ const t=btn.textContent; btn.disabled=true; btn.textContent='Saving…'; try{ await fn(); setStatus(true,'Synced'); } catch(e){ toast(explain(e), true); console.error(e); } btn.disabled=false; btn.textContent=t; }
+function ask(title, text, yes='Delete'){
+  return new Promise(res => {
+    $('dlgT').textContent=title; $('dlgP').textContent=text; $('dlgYes').textContent=yes; $('dlg').hidden=false; $('dlgNo').focus();
+    const done = v => { $('dlg').hidden=true; $('dlgYes').onclick=$('dlgNo').onclick=null; res(v); };
+    $('dlgYes').onclick=()=>done(true); $('dlgNo').onclick=()=>done(false);
+    $('dlg').onclick=e=>{ if(e.target.id==='dlg') done(false); };
+  });
+}
+const I = {
+  up:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>',
+  down:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+  edit:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+  del:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>'
 };
-function itemButtons(i, n){
-  return `<div class="item-btns">
-    <button class="ib" data-act="up" aria-label="Move up" ${i===0?'disabled':''}>${ic.up}</button>
-    <button class="ib" data-act="down" aria-label="Move down" ${i===n-1?'disabled':''}>${ic.down}</button>
-    <button class="ib" data-act="edit" aria-label="Edit">${ic.edit}</button>
-    <button class="ib del" data-act="del" aria-label="Delete">${ic.del}</button>
-  </div>`;
-}
+const ops = (i,n) => `<div class="ops">
+  <button class="icon-btn" data-act="up" title="Move up" aria-label="Move up" ${i===0?'disabled':''}>${I.up}</button>
+  <button class="icon-btn" data-act="down" title="Move down" aria-label="Move down" ${i===n-1?'disabled':''}>${I.down}</button>
+  <button class="icon-btn" data-act="edit" title="Edit" aria-label="Edit">${I.edit}</button>
+  <button class="icon-btn del" data-act="del" title="Delete" aria-label="Delete">${I.del}</button></div>`;
+const blank = (t,s) => `<div class="blank"><b>${t}</b>${s}</div>`;
 
-/* ---------- image picker: compress photos so they fit in Firestore ---------- */
-const MAX_BYTES = 750 * 1024;
+/* ---------- navigation ---------- */
+const titles = { overview:'Overview', verses:'Bible verses', now:'Right now', certs:'Certificates', snaps:'Snapshots' };
+function go(p){
+  document.querySelectorAll('[data-page]').forEach(s => s.hidden = s.dataset.page !== p);
+  document.querySelectorAll('.nav a[data-go]').forEach(a => a.classList.toggle('on', a.dataset.go === p));
+  $('crumb').textContent = titles[p]; closeMenu(); scrollTo({top:0});
+  try { history.replaceState(null,'','#'+p); } catch(e){}
+}
+document.addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (a) { e.preventDefault(); go(a.dataset.go); } });
+const side=$('side'), scrim=$('scrim');
+function closeMenu(){ side.classList.remove('open'); scrim.hidden=true; }
+$('menuBtn').addEventListener('click', () => { side.classList.add('open'); scrim.hidden=false; });
+scrim.addEventListener('click', closeMenu);
+addEventListener('keydown', e => { if (e.key==='Escape') { closeMenu(); if(!$('dlg').hidden) $('dlgNo').click(); } });
+
+/* ---------- image picker (compressed so it fits in Firestore, no Storage needed) ---------- */
+const MAX_BYTES = 750*1024;
 function compress(file){
   return new Promise((res, rej) => {
     const img = new Image(), url = URL.createObjectURL(file);
     img.onload = () => {
       URL.revokeObjectURL(url);
-      let w = img.naturalWidth, h = img.naturalHeight, max = 1400, q = .8, out = '';
-      for (let tries = 0; tries < 8; tries++) {
-        const sc = Math.min(1, max / Math.max(w, h));
-        const c = document.createElement('canvas'); c.width = Math.round(w*sc); c.height = Math.round(h*sc);
-        const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(img, 0, 0, c.width, c.height);
+      let max=1400, q=.8, out='';
+      for (let k=0; k<8; k++){
+        const sc = Math.min(1, max/Math.max(img.naturalWidth, img.naturalHeight));
+        const c = document.createElement('canvas'); c.width=Math.round(img.naturalWidth*sc); c.height=Math.round(img.naturalHeight*sc);
+        const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(img,0,0,c.width,c.height);
         out = c.toDataURL('image/jpeg', q);
-        if (out.length * .75 <= MAX_BYTES) return res(out);
-        if (q > .55) q -= .1; else max = Math.round(max * .8);
+        if (out.length*.75 <= MAX_BYTES) return res(out);
+        if (q > .55) q -= .1; else max = Math.round(max*.8);
       }
       res(out);
     };
@@ -313,149 +452,134 @@ function compress(file){
     img.src = url;
   });
 }
-const pickers = {};
-document.querySelectorAll('.img-pick').forEach(box => {
-  const key = box.dataset.img, prev = box.querySelector('.img-prev'), file = box.querySelector('input[type=file]'), urlIn = box.querySelector('.img-url');
-  const st = pickers[key] = { value:'', set(v){ this.value=v||''; prev.src=this.value; prev.classList.toggle('show', !!this.value); urlIn.value = this.value.startsWith('data:') ? '' : this.value; } };
-  file.addEventListener('change', async () => {
-    const f = file.files[0]; if (!f) return;
-    toast('Preparing photo…');
-    try { st.set(await compress(f)); toast('Photo ready'); } catch(e){ toast(explain(e), true); }
-    file.value = '';
-  });
-  urlIn.addEventListener('input', () => { const v = urlIn.value.trim(); st.value = v; prev.src = v; prev.classList.toggle('show', !!v); });
+const pick = {};
+document.querySelectorAll('.drop').forEach(box => {
+  const k = box.dataset.img, im = box.querySelector('img'), inp = box.querySelector('input[type=file]'), urlIn = document.querySelector(`.img-url[data-for="${k}"]`), label = box.querySelector('.dt b'), sub = box.querySelector('.dt span');
+  const st = pick[k] = { value:'', set(v){ this.value=v||''; im.src=this.value; box.classList.toggle('has',!!this.value); label.textContent=this.value?'Image selected':'Upload a photo'; sub.textContent=this.value?(this.value.startsWith('data:')?Math.round(this.value.length*.75/1024)+' KB, ready to save':'From link'):'Resized automatically to fit'; urlIn.value=this.value.startsWith('data:')?'':this.value; } };
+  inp.addEventListener('change', async () => { const f=inp.files[0]; if(!f) return; sub.textContent='Processing…'; try{ st.set(await compress(f)); }catch(e){ toast(explain(e),true); st.set(''); } inp.value=''; });
+  urlIn.addEventListener('input', () => { const v=urlIn.value.trim(); st.value=v; im.src=v; box.classList.toggle('has',!!v); label.textContent=v?'Image selected':'Upload a photo'; sub.textContent=v?'From link':'Resized automatically to fit'; });
 });
 
 /* ---------- auth ---------- */
 $('loginForm').addEventListener('submit', async e => {
-  e.preventDefault(); $('lErr').textContent=''; $('lBtn').disabled=true;
-  try { await signInWithEmailAndPassword(auth, $('lEmail').value.trim(), $('lPass').value); }
-  catch(err){ $('lErr').textContent = explain(err); }
-  $('lBtn').disabled=false;
+  e.preventDefault(); $('lErr').textContent='';
+  const em=$('lEmail').value.trim(), pw=$('lPass').value;
+  if (!em || !pw) { $('lErr').textContent='Enter your email and password.'; return; }
+  $('lBtn').disabled=true; $('lBtn').textContent='Signing in…';
+  try { await signInWithEmailAndPassword(auth, em, pw); } catch(err){ $('lErr').textContent = explain(err); }
+  $('lBtn').disabled=false; $('lBtn').textContent='Sign in';
 });
-$('logout').addEventListener('click', () => signOut(auth));
-onAuthStateChanged(auth, user => {
+$('logout').addEventListener('click', async () => { if (await ask('Log out?','You will need to sign in again to make changes.','Log out')) signOut(auth); });
+onAuthStateChanged(auth, async user => {
   $('loginView').hidden = !!user; $('appView').hidden = !user;
-  if (user) { $('who').textContent = user.email; loadVerses(); loadNow(); loadList('certs'); loadList('snapshots'); }
+  if (!user) return;
+  $('who').textContent = user.email; $('av').textContent = (user.email||'A')[0].toUpperCase();
+  const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
+  const start = (location.hash||'').slice(1); go(titles[start] ? start : 'overview');
+  try { await Promise.all([loadVerses(), loadNow(), loadList('certs'), loadList('snapshots')]); setStatus(true,'Connected'); }
+  catch(e){ setStatus(false,'Offline'); }
 });
 
-/* ---------- tabs ---------- */
-document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x===b));
-  document.querySelectorAll('.panel').forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab);
-  scrollTo({top:0, behavior:'smooth'});
-}));
-
-/* ---------- VERSES (site/verse → verses[]) ---------- */
-let verses = [], vEdit = -1;
-const DEFAULT_VERSES = [
+/* ---------- VERSES → site/verse { verses: [...] } ---------- */
+let verses=[], vEdit=-1;
+const DEF = [
   {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
   {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
 ];
+let versesSaved = false;
 async function loadVerses(){
-  try {
-    const d = await getDoc(doc(db,'site','verse'));
-    const data = d.exists() ? d.data() : {};
-    verses = Array.isArray(data.verses) ? data.verses : (data.text ? [{text:data.text, ref:data.ref||''}] : DEFAULT_VERSES.slice());
-  } catch(e){ toast(explain(e), true); verses = DEFAULT_VERSES.slice(); }
+  try { const d = await getDoc(doc(db,'site','verse')); const x = d.exists()?d.data():{}; versesSaved = d.exists();
+    verses = Array.isArray(x.verses) ? x.verses : (x.text ? [{text:x.text, ref:x.ref||''}] : DEF.slice());
+  } catch(e){ toast(explain(e),true); verses = DEF.slice(); throw e; }
   drawVerses();
 }
 function drawVerses(){
-  $('vCount').textContent = verses.length;
-  $('vList').innerHTML = verses.length ? verses.map((v,i) => `<div class="item ${i===vEdit?'editing':''}" data-i="${i}"><span class="num">${i+1}</span><div><div class="t ne" lang="ne">${esc(v.text)}</div><div class="s ne" lang="ne">${esc(v.ref)}</div></div>${itemButtons(i, verses.length)}</div>`).join('') : '<p class="empty">No verses yet. Add one above.</p>';
+  $('ctV').textContent = $('stV').textContent = verses.length;
+  $('vMeta').textContent = versesSaved ? verses.length+' total' : 'Showing site defaults — not saved yet';
+  $('vList').innerHTML = verses.length ? verses.map((v,i)=>`<div class="tr noimg ${i===vEdit?'editing':''}" data-i="${i}"><span class="n">${i+1}</span><div><div class="t ne" lang="ne">${esc(v.text)}</div><div class="s ne" lang="ne">${esc(v.ref)}</div></div>${ops(i,verses.length)}</div>`).join('') : blank('No verses yet','Add your first verse above.');
 }
-const saveVerses = () => setDoc(doc(db,'site','verse'), { verses });
-function resetVerseForm(){ vEdit=-1; $('vText').value=''; $('vRef').value=''; $('vSave').textContent='Add verse'; $('vFormTitle').textContent='Add a verse'; $('vCancel').hidden=true; drawVerses(); }
+const saveVerses = async () => { await setDoc(doc(db,'site','verse'), { verses }); versesSaved = true; };
+function resetV(){ vEdit=-1; $('vText').value=''; $('vRef').value=''; $('vSave').textContent='Add verse'; $('vFormTitle').textContent='New verse'; $('vCancel').hidden=true; drawVerses(); }
 $('vSave').addEventListener('click', e => busy(e.currentTarget, async () => {
-  const text = $('vText').value.trim(), ref = $('vRef').value.trim();
+  const text=$('vText').value.trim(), ref=$('vRef').value.trim();
   if (!text) { toast('Write the verse first', true); return; }
-  const before = verses.slice();
-  if (vEdit >= 0) verses[vEdit] = {text, ref}; else verses.push({text, ref});
-  try { await saveVerses(); } catch(err){ verses = before; throw err; }
-  toast(vEdit >= 0 ? 'Verse updated' : 'Verse added'); resetVerseForm();
+  const before = verses.slice(); const editing = vEdit>=0;
+  if (editing) verses[vEdit]={text,ref}; else verses.push({text,ref});
+  try { await saveVerses(); } catch(err){ verses=before; throw err; }
+  toast(editing?'Verse updated':'Verse added'); resetV();
 }));
-$('vCancel').addEventListener('click', resetVerseForm);
+$('vCancel').addEventListener('click', resetV);
 $('vList').addEventListener('click', async e => {
-  const b = e.target.closest('button[data-act]'); if (!b) return;
-  const i = +b.closest('.item').dataset.i, act = b.dataset.act, before = verses.slice();
-  if (act === 'edit') { vEdit=i; $('vText').value=verses[i].text; $('vRef').value=verses[i].ref||''; $('vSave').textContent='Save changes'; $('vFormTitle').textContent='Edit verse '+(i+1); $('vCancel').hidden=false; drawVerses(); $('vText').focus(); scrollTo({top:0,behavior:'smooth'}); return; }
-  if (act === 'del') { if (!confirm('Delete this verse?')) return; verses.splice(i,1); if (vEdit===i) resetVerseForm(); }
-  if (act === 'up' && i>0) [verses[i-1],verses[i]] = [verses[i],verses[i-1]];
-  if (act === 'down' && i<verses.length-1) [verses[i+1],verses[i]] = [verses[i],verses[i+1]];
+  const b=e.target.closest('button[data-act]'); if(!b) return;
+  const i=+b.closest('.tr').dataset.i, act=b.dataset.act, before=verses.slice();
+  if (act==='edit'){ vEdit=i; $('vText').value=verses[i].text; $('vRef').value=verses[i].ref||''; $('vSave').textContent='Save changes'; $('vFormTitle').textContent='Edit verse '+(i+1); $('vCancel').hidden=false; drawVerses(); scrollTo({top:0,behavior:'smooth'}); $('vText').focus(); return; }
+  if (act==='del'){ if(!await ask('Delete this verse?','It will be removed from the site.')) return; verses.splice(i,1); if(vEdit===i) resetV(); }
+  if (act==='up'&&i>0) [verses[i-1],verses[i]]=[verses[i],verses[i-1]];
+  if (act==='down'&&i<verses.length-1) [verses[i+1],verses[i]]=[verses[i],verses[i+1]];
   drawVerses();
-  try { await saveVerses(); toast(act==='del'?'Deleted':'Order saved'); } catch(err){ verses = before; drawVerses(); toast(explain(err), true); }
+  try { await saveVerses(); drawVerses(); toast(act==='del'?'Verse deleted':'Order saved'); } catch(err){ verses=before; drawVerses(); toast(explain(err),true); }
 });
 
-/* ---------- RIGHT NOW (site/now) ---------- */
-const nowKeys = ['reading','writing','learning','working','updated'];
-const nowId = k => 'n' + k[0].toUpperCase() + k.slice(1);
+/* ---------- RIGHT NOW → site/now ---------- */
+const NK=['reading','writing','learning','working','updated'], nid=k=>'n'+k[0].toUpperCase()+k.slice(1);
 async function loadNow(){
-  try {
-    const d = await getDoc(doc(db,'site','now'));
-    const data = d.exists() ? d.data() : {};
-    nowKeys.forEach(k => { $(nowId(k)).value = data[k] ?? $(nowId(k)).placeholder; });
-  } catch(e){ toast(explain(e), true); }
+  try { const d=await getDoc(doc(db,'site','now')); const x=d.exists()?d.data():{};
+    NK.forEach(k => $(nid(k)).value = x[k] ?? $(nid(k)).placeholder);
+    $('stN').textContent = x.updated || 'Not set'; $('nMeta').textContent = d.exists() ? 'Live on site' : 'Showing site defaults — not saved yet';
+  } catch(e){ toast(explain(e),true); throw e; }
 }
 $('nToday').addEventListener('click', () => { $('nUpdated').value = new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'}); });
 $('nSave').addEventListener('click', e => busy(e.currentTarget, async () => {
-  const data = {}; nowKeys.forEach(k => data[k] = $(nowId(k)).value.trim());
-  await setDoc(doc(db,'site','now'), data); toast('Saved. Refresh the site to see it.');
+  const x={}; NK.forEach(k => x[k]=$(nid(k)).value.trim());
+  await setDoc(doc(db,'site','now'), x); $('stN').textContent = x.updated || 'Not set'; $('nMeta').textContent='Live on site'; toast('Saved — refresh the site to see it');
 }));
 
-/* ---------- CERTS + SNAPSHOTS (collections with order) ---------- */
-const cfg = {
-  certs: { list:'cList', count:'cCount', save:'cSave', cancel:'cCancel', title:'cFormTitle', pick:'c', noun:'certificate',
-    read: () => ({ title:$('cTitle').value.trim(), sub:$('cSub').value.trim(), desc:$('cDesc').value.trim(), tags:$('cTags').value.split(',').map(t=>t.trim()).filter(Boolean), url:pickers.c.value }),
-    fill: it => { $('cTitle').value=it.title||''; $('cSub').value=it.sub||''; $('cDesc').value=it.desc||''; $('cTags').value=(it.tags||[]).join(', '); pickers.c.set(it.url); },
-    clear: () => { ['cTitle','cSub','cDesc','cTags'].forEach(id=>$(id).value=''); pickers.c.set(''); },
-    ok: d => d.title ? '' : 'Add the course name',
-    row: it => `<div class="t">${esc(it.title)}</div><div class="s">${esc(it.sub||'')}</div>` },
-  snapshots: { list:'sList', count:'sCount', save:'sSave', cancel:'sCancel', title:'sFormTitle', pick:'s', noun:'photo',
-    read: () => ({ title:$('sTitle').value.trim(), url:pickers.s.value }),
-    fill: it => { $('sTitle').value=it.title||''; pickers.s.set(it.url); },
-    clear: () => { $('sTitle').value=''; pickers.s.set(''); },
-    ok: d => d.url ? '' : 'Choose a photo first',
-    row: it => `<div class="t">${esc(it.title||'No caption')}</div>` }
+/* ---------- CERTS + SNAPSHOTS (ordered collections) ---------- */
+const C = {
+  certs: { list:'cList', meta:'cMeta', ct:'ctC', st:'stC', save:'cSave', cancel:'cCancel', title:'cFormTitle', noun:'certificate',
+    read:()=>({ title:$('cTitle').value.trim(), sub:$('cSub').value.trim(), desc:$('cDesc').value.trim(), tags:$('cTags').value.split(',').map(t=>t.trim()).filter(Boolean), url:pick.c.value }),
+    fill:it=>{ $('cTitle').value=it.title||''; $('cSub').value=it.sub||''; $('cDesc').value=it.desc||''; $('cTags').value=(it.tags||[]).join(', '); pick.c.set(it.url); },
+    clear:()=>{ ['cTitle','cSub','cDesc','cTags'].forEach(i=>$(i).value=''); pick.c.set(''); },
+    check:d=>d.title?'':'Add the course name',
+    row:it=>`<div class="t">${esc(it.title)}${it.tags&&it.tags.length?`<span class="badge">${esc(it.tags[0])}${it.tags.length>1?' +'+(it.tags.length-1):''}</span>`:''}</div><div class="s">${esc(it.sub||'—')}</div>` },
+  snapshots: { list:'sList', meta:'sMeta', ct:'ctS', st:'stS', save:'sSave', cancel:'sCancel', title:'sFormTitle', noun:'snapshot',
+    read:()=>({ title:$('sTitle').value.trim(), url:pick.s.value }),
+    fill:it=>{ $('sTitle').value=it.title||''; pick.s.set(it.url); },
+    clear:()=>{ $('sTitle').value=''; pick.s.set(''); },
+    check:d=>d.url?'':'Choose a photo first',
+    row:it=>`<div class="t">${esc(it.title||'Untitled')}</div><div class="s">${it.url&&it.url.startsWith('data:')?'Uploaded photo':'Linked image'}</div>` }
 };
-const state = { certs:{ items:[], edit:null }, snapshots:{ items:[], edit:null } };
-
+const S = { certs:{items:[],edit:null}, snapshots:{items:[],edit:null} };
 async function loadList(col){
-  try {
-    const snap = await getDocs(query(collection(db,col), orderBy('order','asc')));
-    state[col].items = snap.docs.map(d => ({ id:d.id, ...d.data() }));
-  } catch(e){ toast(explain(e), true); state[col].items = []; }
+  try { const q=await getDocs(query(collection(db,col), orderBy('order','asc'))); S[col].items=q.docs.map(d=>({id:d.id,...d.data()})); }
+  catch(e){ S[col].items=[]; toast(explain(e),true); drawList(col); throw e; }
   drawList(col);
 }
 function drawList(col){
-  const c = cfg[col], items = state[col].items;
-  $(c.count).textContent = items.length;
-  $(c.list).innerHTML = items.length ? items.map((it,i) => `<div class="item ${state[col].edit===it.id?'editing':''}" data-i="${i}">${it.url?`<img class="thumb" src="${esc(it.url)}" alt="">`:`<span class="num">${i+1}</span>`}<div>${c.row(it)}</div>${itemButtons(i, items.length)}</div>`).join('') : `<p class="empty">Nothing here yet. Add your first ${c.noun} above.</p>`;
+  const c=C[col], it=S[col].items;
+  $(c.ct).textContent=$(c.st).textContent=it.length; $(c.meta).textContent=it.length+' total';
+  $(c.list).innerHTML = it.length ? it.map((x,i)=>`<div class="tr ${S[col].edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span>${x.url?`<img src="${esc(x.url)}" alt="" loading="lazy">`:'<span class="ph-img"></span>'}<div>${c.row(x)}</div>${ops(i,it.length)}</div>`).join('') : blank('Nothing here yet',`Add your first ${c.noun} above.`);
 }
-function resetForm(col){ const c=cfg[col]; state[col].edit=null; c.clear(); $(c.save).textContent='Add '+c.noun; $(c.title).textContent='Add a '+c.noun; $(c.cancel).hidden=true; drawList(col); }
-Object.keys(cfg).forEach(col => {
-  const c = cfg[col];
+function resetL(col){ const c=C[col]; S[col].edit=null; c.clear(); $(c.save).textContent='Add '+c.noun; $(c.title).textContent='New '+c.noun; $(c.cancel).hidden=true; drawList(col); }
+Object.keys(C).forEach(col => {
+  const c=C[col];
   $(c.save).addEventListener('click', e => busy(e.currentTarget, async () => {
-    const data = c.read(), msg = c.ok(data);
-    if (msg) { toast(msg, true); return; }
-    const st = state[col];
-    if (st.edit) { await updateDoc(doc(db,col,st.edit), data); toast('Updated'); }
-    else { const order = st.items.length ? Math.max(...st.items.map(x=>x.order||0)) + 1 : 1; await addDoc(collection(db,col), {...data, order}); toast('Added'); }
-    resetForm(col); await loadList(col);
+    const d=c.read(), m=c.check(d); if(m){ toast(m,true); return; }
+    const st=S[col];
+    if (st.edit){ await updateDoc(doc(db,col,st.edit), d); toast('Changes saved'); }
+    else { const order = st.items.length ? Math.max(...st.items.map(x=>x.order||0))+1 : 1; await addDoc(collection(db,col), {...d, order}); toast(c.noun[0].toUpperCase()+c.noun.slice(1)+' added'); }
+    resetL(col); await loadList(col);
   }));
-  $(c.cancel).addEventListener('click', () => resetForm(col));
+  $(c.cancel).addEventListener('click', () => resetL(col));
   $(c.list).addEventListener('click', async e => {
-    const b = e.target.closest('button[data-act]'); if (!b) return;
-    const st = state[col], i = +b.closest('.item').dataset.i, it = st.items[i], act = b.dataset.act;
+    const b=e.target.closest('button[data-act]'); if(!b) return;
+    const st=S[col], i=+b.closest('.tr').dataset.i, x=st.items[i], act=b.dataset.act;
     try {
-      if (act === 'edit') { st.edit = it.id; c.fill(it); $(c.save).textContent='Save changes'; $(c.title).textContent='Edit '+c.noun; $(c.cancel).hidden=false; drawList(col); scrollTo({top:0,behavior:'smooth'}); return; }
-      if (act === 'del') { if (!confirm('Delete this '+c.noun+'?')) return; await deleteDoc(doc(db,col,it.id)); if (st.edit===it.id) resetForm(col); toast('Deleted'); }
-      if (act === 'up' || act === 'down') {
-        const j = act==='up' ? i-1 : i+1; if (j<0 || j>=st.items.length) return;
-        const arr = st.items.slice(); [arr[i],arr[j]] = [arr[j],arr[i]];
-        const batch = writeBatch(db); arr.forEach((x,k) => batch.update(doc(db,col,x.id), {order:k+1})); await batch.commit(); toast('Order saved');
-      }
+      if (act==='edit'){ st.edit=x.id; c.fill(x); $(c.save).textContent='Save changes'; $(c.title).textContent='Edit '+c.noun; $(c.cancel).hidden=false; drawList(col); scrollTo({top:0,behavior:'smooth'}); return; }
+      if (act==='del'){ if(!await ask(`Delete this ${c.noun}?`,'It will be removed from the site.')) return; await deleteDoc(doc(db,col,x.id)); if(st.edit===x.id) resetL(col); toast(c.noun[0].toUpperCase()+c.noun.slice(1)+' deleted'); }
+      if (act==='up'||act==='down'){ const j=act==='up'?i-1:i+1; if(j<0||j>=st.items.length) return; const arr=st.items.slice(); [arr[i],arr[j]]=[arr[j],arr[i]]; const bt=writeBatch(db); arr.forEach((y,k)=>bt.update(doc(db,col,y.id),{order:k+1})); await bt.commit(); toast('Order saved'); }
       await loadList(col);
-    } catch(err){ toast(explain(err), true); }
+    } catch(err){ toast(explain(err),true); }
   });
 });
 </script>
