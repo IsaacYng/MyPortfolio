@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex"/>
+<title>Redirecting…</title>
+<!-- GitHub Pages shows this file for any path that doesn't exist.
+     It sends the visitor straight to the home page.
+     If the path is a poem name (e.g. /kafin), that poem opens on the home page. -->
+<script>
+(function(){
+  var poems=['the-gossip-rope','kinariyeko-phul','kafin','nachaheko-sangeet','ashru-bipanako','sukshma-spandan','euta-enako-duita-pratibimba'];
+  var slug=(location.pathname||'').replace(/^\/+|\/+$/g,'').replace(/^poems?\//,'').toLowerCase();
+  location.replace(poems.indexOf(slug)>-1 ? '/?poem='+slug : '/');
+})();
+</script>
+<meta http-equiv="refresh" content="0; url=/"/>
+<style>
+  body{font-family:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;background:#E4EAE9;color:#1C2A33;
+       display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;text-align:center}
+  a{color:#B8233A;font-weight:700}
+</style>
+</head>
+<body>
+  <div>
+    <p>Taking you home…</p>
+    <p><a href="/">Continue</a></p>
+  </div>
+</body>
+</html>
