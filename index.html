@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="description" content="Ishak Yonghang — sales consultant, web developer, art student and poet from Phidim, Panchthar, Nepal."/>
+<meta name="description" content="Ishak Yonghang — sales consultant, art student and poet from Phidim, Panchthar, Nepal."/>
 <meta name="author" content="Ishak Yonghang"/>
 <meta property="og:title" content="Ishak Yonghang"/>
 <meta property="og:url" content="https://yonghangishak.com.np"/>
@@ -143,25 +143,6 @@ section{padding:clamp(64px,9vw,112px) 0}
 .duties p{font-size:.98rem;color:var(--ink-2);line-height:1.55}
 @media(max-width:860px){.job{grid-template-columns:1fr}.duties{grid-template-columns:1fr}}
 
-.projects{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:20px}
-.proj{border:1.5px solid var(--ink);border-radius:20px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:12px;background:var(--paper)}
-.proj.main{grid-row:span 2;background:var(--ink);color:var(--paper);border-color:var(--ink);position:relative;overflow:hidden}
-.proj.main .status{background:var(--tea-soft);color:var(--tea)}
-.proj.quiet{border-style:dashed;border-color:var(--ridge-3);background:transparent}
-.status{align-self:flex-start;font-family:var(--display);font-size:.8rem;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--mist);color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
-.status.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tea)}
-.proj h3{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.025em;line-height:1.05}
-.proj p{line-height:1.55;max-width:46ch}
-.proj.main p{color:#C9D3D6}
-.proj .go{margin-top:auto;padding-top:12px}
-.proj.main .btn{border-color:var(--paper);color:var(--paper)}
-.proj.main .btn:hover{background:var(--paper);color:var(--ink)}
-.calc{margin-top:8px;border-radius:14px;background:var(--night-2);padding:18px;font-family:var(--display);font-size:.92rem;display:grid;gap:10px}
-.calc .row{display:flex;justify-content:space-between;color:#AEBBC0}
-.calc .row b{color:var(--paper);font-weight:600}
-.calc .total{border-top:1px solid #3B4D59;padding-top:10px;color:var(--paper)}
-.calc .total b{color:#F2A5B1;font-size:1.2rem}
-@media(max-width:860px){.projects{grid-template-columns:1fr}.proj.main{grid-row:auto}}
 
 /* training + snapshots */
 .certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
@@ -213,38 +194,15 @@ section{padding:clamp(64px,9vw,112px) 0}
 .night .btn{border-color:#E8EDEE;color:#E8EDEE}
 .night .btn:hover{background:#fff;color:var(--night)}
 
-/* family */
-.tree{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative}
-.side{border:1px solid var(--line);border-radius:20px;padding:24px;background:#fff}
-.side h3{font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--slate);margin-bottom:16px}
-.couple{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-family:var(--display)}
-.couple + .couple{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line)}
-.couple .role{width:100%;font-size:.82rem;color:var(--slate)}
-.couple strong{font-weight:600;font-size:1.08rem}
-.couple .amp{color:var(--rhodo)}
-.me{grid-column:1/-1;justify-self:center;text-align:center;font-family:var(--display);padding:20px 36px;border-radius:999px;background:var(--ink);color:var(--paper);position:relative}
-.me::before{content:"";position:absolute;left:50%;top:-21px;height:21px;width:1.5px;background:var(--ridge-3)}
-.me strong{display:block;font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
-.me span{font-size:.85rem;color:#AEBBC0}
-@media(max-width:720px){.tree{grid-template-columns:1fr}}
-
 /* contact */
 .contact{background:var(--mist)}
-.contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,5vw,72px)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,640px);gap:clamp(32px,5vw,72px)}
 .ways{list-style:none;display:grid;gap:4px}
 .ways a,.ways div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:var(--display)}
 .ways a:hover strong{color:var(--rhodo)}
 .ways span{color:var(--slate);font-size:.9rem;flex-shrink:0}
 .ways strong{font-weight:600;font-size:1.02rem;text-align:right;overflow-wrap:anywhere;transition:color .2s}
-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--paper);padding:clamp(22px,3vw,32px);border-radius:20px}
-form .full{grid-column:1/-1}
-label{font-family:var(--display);font-size:.88rem;color:var(--ink-2);display:grid;gap:6px}
-input,textarea{font:inherit;font-family:var(--serif);font-size:1rem;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
-input:focus,textarea:focus{outline:none;border-color:var(--ink)}
-textarea{min-height:130px;resize:vertical}
-.form-note{font-family:var(--display);font-size:.9rem;color:var(--tea);display:none}
 @media(max-width:820px){.contact-grid{grid-template-columns:1fr}}
-@media(max-width:480px){form{grid-template-columns:1fr}}
 
 footer{background:var(--ink);color:#AEBBC0;font-family:var(--display);font-size:.9rem;padding:32px 0 calc(32px + env(safe-area-inset-bottom,0px))}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
@@ -278,7 +236,6 @@ footer strong{color:var(--paper);font-weight:600}
       <a href="#work">Work</a>
       <a href="#poetry">Poetry</a>
       <a href="#training">Training</a>
-      <a href="#family">Family</a>
       <a href="#contact" class="cta">Contact</a>
     </nav>
   </div>
@@ -291,17 +248,17 @@ footer strong{color:var(--paper);font-weight:600}
     <div>
       <p class="place">Phidim, Panchthar, Nepal</p>
       <h1 class="name"><span>Ishak</span><span>Yonghang</span></h1>
-      <p class="lede">I sell Bajaj motorcycles in Phidim, build the web tools our showroom runs on, study art, and write poems in Nepali and English.</p>
+      <p class="lede">I help people choose their next Bajaj motorcycle in Phidim, study art, and write poems in Nepali and English.</p>
       <div class="actions">
         <a href="#work" class="btn fill">See my work</a>
         <a href="#poetry" class="btn">Read my poems</a>
       </div>
     </div>
     <div class="portrait">
-      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div></div>
+      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div><img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Ishak Yonghang" onerror="this.remove()" style="position:relative"/></div>
       <div class="facts">
         <div><strong id="age">20</strong>years old</div>
-        <div><strong>Bajaj</strong>sales &amp; web</div>
+        <div><strong>Bajaj</strong>sales consultant</div>
         <div><strong>3</strong>languages</div>
       </div>
     </div>
@@ -319,12 +276,12 @@ footer strong{color:var(--paper);font-weight:600}
   <div class="wrap">
     <div class="head">
       <h2>From the hills of Panchthar</h2>
-      <p>Born in Hilihang-5, Subhang. Working in Phidim. Learning by doing, one line of code and one verse at a time.</p>
+      <p>Born in Hilihang-5, Subhang. Working in Phidim. Learning by doing, one conversation and one verse at a time.</p>
     </div>
     <div class="about-grid">
       <div class="story">
         <p>I'm Ishak. By day I'm a sales consultant at Samriddhi And Brothers Auto, the Bajaj dealership in Phidim-1, helping people choose a bike and understand the EMI, loan and insurance options that come with it.</p>
-        <p>I also build the showroom's web tools on my own: the admin panel, the customer site and the finance calculator. Outside work I study art at Panchthar Multiple Campus and write poetry about the questions that don't have easy answers.</p>
+        <p>Outside work I study art at Panchthar Multiple Campus and write poetry about the questions that don't have easy answers.</p>
 
         <h3 class="sub">Education</h3>
         <ol class="timeline">
@@ -344,7 +301,7 @@ footer strong{color:var(--paper);font-weight:600}
         </dl>
         <h3 class="sub">Skills</h3>
         <div class="tags">
-          <span>Sales &amp; finance</span><span>Customer relations</span><span>HTML &amp; CSS</span><span>JavaScript</span><span>Firebase</span><span>Data management</span><span>MS Excel</span><span>MS Word</span><span>Poetry</span><span>Creative writing</span>
+          <span>Sales &amp; finance</span><span>Customer relations</span><span>Data management</span><span>MS Excel</span><span>MS Word</span><span>Poetry</span><span>Creative writing</span>
         </div>
         <h3 class="sub">Languages</h3>
         <div class="tags"><span>Nepali</span><span>English</span><span>Hindi</span></div>
@@ -358,12 +315,12 @@ footer strong{color:var(--paper);font-weight:600}
   <div class="wrap">
     <div class="head">
       <h2>Work</h2>
-      <p>The showroom floor and the code behind it. Most of what I build exists because I needed it at work first.</p>
+      <p>Every day on the showroom floor: meeting customers, explaining finance, and staying in touch after the sale.</p>
     </div>
 
-    <div class="job">
+    <div class="job" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
       <div>
-        <h3>Sales Consultant &amp; in-house web developer</h3>
+        <h3>Sales Consultant</h3>
         <p class="where">Samriddhi And Brothers Auto Pvt. Ltd.<br/>Bajaj authorized dealer, Phidim-1</p>
       </div>
       <div class="duties">
@@ -373,31 +330,6 @@ footer strong{color:var(--paper);font-weight:600}
       </div>
     </div>
 
-    <div class="projects">
-      <article class="proj main">
-        <span class="status live">Live</span>
-        <h3>Finance Calculator</h3>
-        <p>An auto-finance tool built for the showroom's daily work. Enter a model and down payment, get an EMI plan a customer can understand on the spot.</p>
-        <div class="calc" aria-hidden="true">
-          <div class="row">Model <b>Bajaj Pulsar</b></div>
-          <div class="row">Down payment <b>30%</b></div>
-          <div class="row">Tenure <b>24 months</b></div>
-          <div class="row total">Monthly EMI <b>Calculated instantly</b></div>
-        </div>
-        <div class="go"><a class="btn" href="https://finance.yonghangishak.com.np/" target="_blank" rel="noopener">Open the calculator</a></div>
-      </article>
-      <article class="proj">
-        <span class="status">In progress</span>
-        <h3>Verses of Life</h3>
-        <p>A home for my poetry collection, designed to feel like turning the pages of a journal.</p>
-        <div class="go"><a class="btn" href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener">Visit the poetry site</a></div>
-      </article>
-      <article class="proj quiet">
-        <span class="status">Planned</span>
-        <h3>Next project</h3>
-        <p>Another tool that solves a real problem for real people. Still taking shape.</p>
-      </article>
-    </div>
   </div>
 </section>
 
@@ -476,35 +408,12 @@ I worry about being The Prodigal Son.</div>
   </div>
 </section>
 
-<!-- FAMILY -->
-<section id="family">
-  <div class="wrap">
-    <div class="head">
-      <h2>Family</h2>
-      <p>Three generations, two sides, one name I carry forward.</p>
-    </div>
-    <div class="tree">
-      <div class="side">
-        <h3>Father's side</h3>
-        <div class="couple"><span class="role">Grandparents</span><strong>Nar Prasad Yonghang</strong><span class="amp">&amp;</span><strong>Ganga Maya Lingden</strong></div>
-        <div class="couple"><span class="role">Father</span><strong>Seru Hang Yonghang</strong></div>
-      </div>
-      <div class="side">
-        <h3>Mother's side</h3>
-        <div class="couple"><span class="role">Grandparents</span><strong>Ton Hang Neambang</strong><span class="amp">&amp;</span><strong>Man Maya Suhang</strong></div>
-        <div class="couple"><span class="role">Mother</span><strong>Ful Kumari Neambang</strong></div>
-      </div>
-      <div class="me"><strong>Ishak Yonghang</strong><span>Born October 26, 2005</span></div>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section id="contact" class="contact">
   <div class="wrap">
     <div class="head">
       <h2>Say hello</h2>
-      <p>About a project, a bike, a poem, or nothing in particular. WhatsApp gets the quickest reply.</p>
+      <p>About a bike, a poem, or nothing in particular. WhatsApp gets the quickest reply.</p>
     </div>
     <div class="contact-grid">
       <ul class="ways">
@@ -514,17 +423,6 @@ I worry about being The Prodigal Son.</div>
         <li><a href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener"><span>Poetry</span><strong>poem.yonghangishak.com.np</strong></a></li>
         <li><div><span>Showroom</span><strong>Phidim-1, Panchthar, Koshi</strong></div></li>
       </ul>
-      <form id="contactForm" novalidate>
-        <label>First name<input id="fname" autocomplete="given-name" required/></label>
-        <label>Last name<input id="lname" autocomplete="family-name"/></label>
-        <label class="full">Email<input id="email" type="email" autocomplete="email" required/></label>
-        <label class="full">Subject<input id="subject"/></label>
-        <label class="full">Message<textarea id="message" required></textarea></label>
-        <div class="full" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-          <button type="submit" class="btn fill">Send message</button>
-          <span class="form-note" id="formNote">Your email app has opened with the message.</span>
-        </div>
-      </form>
     </div>
   </div>
 </section>
@@ -532,7 +430,7 @@ I worry about being The Prodigal Son.</div>
 
 <footer>
   <div class="wrap">
-    <span><strong>Ishak Yonghang</strong> — built in Phidim, Nepal</span>
+    <span><strong>Ishak Yonghang</strong> — Phidim, Panchthar, Nepal</span>
     <span>© <span id="year">2026</span> · Go your dream</span>
   </div>
 </footer>
@@ -677,22 +575,12 @@ window.openModal=openModal;
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.hasAttribute('data-close'))closeModals();}));
 addEventListener('keydown',e=>{if(e.key==='Escape')closeModals();});
 
-/* contact */
-document.getElementById('contactForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const v=id=>document.getElementById(id).value.trim();
-  if(!v('fname')||!v('email')||!v('message')){alert('Please add your name, email and message.');return;}
-  const body='From: '+v('fname')+' '+v('lname')+'\nEmail: '+v('email')+'\n\n'+v('message');
-  location.href='mailto:yonghangissac@gmail.com?subject='+encodeURIComponent(v('subject')||'Message from your portfolio')+'&body='+encodeURIComponent(body);
-  document.getElementById('formNote').style.display='inline';
-  e.target.reset();
-});
 </script>
 
 <!-- Firebase: profile photo, snapshots, certificates (managed in admin.html) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyD0Uc2UxGt0MmOBk8IG0TZPQCmij6p5gqE",
@@ -705,14 +593,6 @@ const app = initializeApp({
 });
 const db = getFirestore(app);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-(async () => {
-  try {
-    const s = await getDoc(doc(db,'site','profile'));
-    if (s.exists() && s.data().photoURL)
-      document.getElementById('profileCard').innerHTML = `<img src="${esc(s.data().photoURL)}" alt="Ishak Yonghang">`;
-  } catch(e) {}
-})();
 
 (async () => {
   const w = document.getElementById('snapScroll');
