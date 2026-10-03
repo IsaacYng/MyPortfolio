@@ -171,6 +171,51 @@ textarea{min-height:96px;resize:vertical}
 .toast i{width:8px;height:8px;border-radius:50%;background:#5BC08A;flex-shrink:0}
 .toast.bad i{background:#F08A9A}
 
+/* auth extras */
+.pw{position:relative}
+.pw input{padding-right:44px}
+.eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:none;background:transparent;border-radius:6px;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.eye:hover{color:var(--ink);background:var(--bg)}
+.eye .i-hide{display:none}
+.eye[aria-pressed="true"] .i-show{display:none}
+.eye[aria-pressed="true"] .i-hide{display:block}
+.field>span a,.link{font-weight:600;color:var(--accent);text-decoration:none;cursor:pointer;background:none;border:none;font-size:.84rem;padding:0}
+.field>span a:hover,.link:hover{text-decoration:underline}
+.caps{display:none;align-items:center;gap:6px;font-size:.8rem;color:var(--warn);margin-top:2px}
+.caps.on{display:flex}
+.check{display:flex;align-items:center;gap:9px;font-size:.88rem;color:var(--ink-2);cursor:pointer;user-select:none}
+.check input{width:16px;height:16px;accent-color:var(--ink);margin:0}
+.note{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border-radius:8px;font-size:.86rem}
+.note.ok{background:var(--ok-soft);color:var(--ok)}
+.note.bad{background:var(--accent-soft);color:var(--accent-2)}
+.note.info{background:var(--bg);color:var(--ink-2)}
+.note svg{margin-top:1px}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:rot .7s linear infinite;display:none}
+.btn.loading .spin{display:inline-block}
+.btn:not(.primary) .spin{border-color:rgba(22,34,43,.2);border-top-color:var(--ink)}
+@keyframes rot{to{transform:rotate(360deg)}}
+.splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--bg);z-index:80;color:var(--muted);font-size:.9rem}
+.splash .spin{display:block;width:26px;height:26px;border-color:var(--line-2);border-top-color:var(--ink)}
+.meter{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:4px}
+.meter i{display:block;height:100%;width:0;border-radius:999px;transition:width .25s,background .25s}
+.meter-t{font-size:.78rem;color:var(--muted);margin-top:4px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:12px 16px;font-size:.92rem}
+.kv dt{color:var(--muted)}
+.kv dd{font-weight:500;overflow-wrap:anywhere}
+@media(max-width:560px){.kv{grid-template-columns:1fr;gap:2px}.kv dd{margin-bottom:10px}}
+.user-menu{position:relative}
+.user-btn{display:flex;align-items:center;gap:8px;padding:4px 8px 4px 4px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.user-btn:hover{border-color:var(--line-2)}
+.user-btn .av{width:28px;height:28px;font-size:.75rem}
+.dropdown{position:absolute;right:0;top:calc(100% + 8px);width:240px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 18px 40px -16px rgba(22,34,43,.35);padding:6px;z-index:30}
+.dropdown .dh{padding:10px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.dropdown .dh b{display:block;font-weight:600}
+.dropdown .dh span{font-size:.8rem;color:var(--muted);overflow-wrap:anywhere}
+.dropdown button,.dropdown a{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:7px;border:none;background:none;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;font-weight:500;font-size:.9rem}
+.dropdown button:hover,.dropdown a:hover{background:var(--bg)}
+.dropdown .danger{color:var(--accent)}
+.idle-count{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+
 /* mobile */
 @media(max-width:900px){
   .app{grid-template-columns:1fr}
@@ -188,8 +233,13 @@ textarea{min-height:96px;resize:vertical}
 </head>
 <body>
 
+<div class="splash" id="splash"><span class="spin"></span>Checking your session…</div>
+<script>
+setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s.innerHTML='<b style="color:#16222B">Couldn\'t connect</b><span>Check your internet connection, then reload.</span><button class="btn primary" onclick="location.reload()">Reload</button>';}},12000);
+</script>
+
 <!-- ============ LOGIN ============ -->
-<div class="login" id="loginView">
+<div class="login" id="loginView" hidden>
   <aside class="login-art">
     <div class="brand"><span class="mono">IY</span>Ishak Yonghang</div>
     <div>
@@ -207,10 +257,24 @@ textarea{min-height:96px;resize:vertical}
       <h1>Sign in</h1>
       <p class="sub">Use your admin account to continue.</p>
       <div class="form">
-        <label class="field"><span>Email</span><input type="email" id="lEmail" autocomplete="username" required/></label>
-        <label class="field"><span>Password</span><input type="password" id="lPass" autocomplete="current-password" required/></label>
+        <div class="note ok" id="lOk" hidden></div>
+        <label class="field"><span>Email</span><input type="email" id="lEmail" autocomplete="username" inputmode="email" required/></label>
+        <div class="field"><span><label for="lPass">Password</label><button type="button" class="link" id="toForgot">Forgot password?</button></span><div class="pw"><input type="password" id="lPass" autocomplete="current-password" required/><button type="button" class="eye" data-eye="lPass" aria-label="Show password" aria-pressed="false"><svg class="i-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="i-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5.5 19 2 12 2 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.2A9.6 9.6 0 0 1 12 5c6.5 0 10 7 10 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg></button></div></div>
+        <p class="caps" id="lCaps"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4-8 8h5v8h6v-8h5z"/></svg>Caps Lock is on</p>
+        <label class="check"><input type="checkbox" id="lKeep" checked/>Keep me signed in on this device</label>
         <p class="err" id="lErr" role="alert"></p>
-        <button class="btn primary block" type="submit" id="lBtn">Sign in</button>
+        <button class="btn primary block" type="submit" id="lBtn"><span class="spin"></span><span class="bt">Sign in</span></button>
+      </div>
+    </form>
+    <form class="lf" id="forgotForm" novalidate hidden>
+      <div class="mono">IY</div>
+      <h1>Reset password</h1>
+      <p class="sub">Enter your admin email and we'll send you a link to set a new password.</p>
+      <div class="form">
+        <label class="field"><span>Email</span><input type="email" id="fEmail" autocomplete="username" inputmode="email" required/></label>
+        <p class="err" id="fErr" role="alert"></p>
+        <button class="btn primary block" type="submit" id="fBtn"><span class="spin"></span><span class="bt">Send reset link</span></button>
+        <button class="btn block" type="button" id="toLogin">Back to sign in</button>
       </div>
     </form>
   </div>
@@ -228,13 +292,15 @@ textarea{min-height:96px;resize:vertical}
       <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Right now</a>
       <a data-go="certs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>Certificates<span class="ct" id="ctC">–</span></a>
       <a data-go="snaps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Snapshots<span class="ct" id="ctS">–</span></a>
+      <div class="nav-label">SETTINGS</div>
+      <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account &amp; security</a>
       <div class="nav-label">SITE</div>
       <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
     </nav>
     <div class="me">
       <span class="av" id="av">IY</span>
       <div class="who"><b>Admin</b><span id="who"></span></div>
-      <button class="icon-btn" id="logout" title="Log out" aria-label="Log out"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+      <button class="icon-btn" data-logout title="Sign out" aria-label="Sign out"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
     </div>
   </aside>
   <div class="scrim" id="scrim" hidden></div>
@@ -244,7 +310,16 @@ textarea{min-height:96px;resize:vertical}
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="crumb"><span class="hide-sm">Console / </span><b id="crumb">Overview</b></div>
       <div class="sp"></div>
-      <span class="status" id="status"><i></i><span>Connecting…</span></span>
+      <span class="status" id="status"><i></i><span class="hide-sm">Connecting…</span></span>
+      <div class="user-menu">
+        <button class="user-btn" id="userBtn" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="av av2">IY</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="dropdown" id="userMenu" role="menu" hidden>
+          <div class="dh"><b>Signed in as</b><span class="who2"></span></div>
+          <button role="menuitem" data-go="account"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account &amp; security</button>
+          <a role="menuitem" href="/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+          <button role="menuitem" class="danger" data-logout><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Sign out</button>
+        </div>
+      </div>
     </header>
 
     <div class="content">
@@ -329,6 +404,40 @@ textarea{min-height:96px;resize:vertical}
         </div>
       </section>
 
+      <!-- ACCOUNT -->
+      <section data-page="account" hidden>
+        <div class="ph"><div><h1>Account &amp; security</h1><p>Your sign-in details and password.</p></div></div>
+        <div class="card">
+          <div class="card-h"><h2>Profile</h2></div>
+          <div class="card-b">
+            <dl class="kv">
+              <dt>Email</dt><dd id="aEmail">–</dd>
+              <dt>Last sign-in</dt><dd id="aLast">–</dd>
+              <dt>Account created</dt><dd id="aMade">–</dd>
+              <dt>This session</dt><dd id="aKeep">–</dd>
+              <dt>Auto sign-out</dt><dd>After 30 minutes without activity</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Change password</h2></div>
+          <form class="card-b form" id="pwForm" novalidate>
+            <input type="email" autocomplete="username" id="pwUser" hidden/>
+            <div class="field"><span><label for="pCur">Current password</label></span><div class="pw"><input type="password" id="pCur" autocomplete="current-password" required/><button type="button" class="eye" data-eye="pCur" aria-label="Show password" aria-pressed="false"><svg class="i-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="i-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5.5 19 2 12 2 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.2A9.6 9.6 0 0 1 12 5c6.5 0 10 7 10 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg></button></div></div>
+            <div class="grid2">
+              <div><div class="field"><span><label for="pNew">New password</label></span><div class="pw"><input type="password" id="pNew" autocomplete="new-password" required/><button type="button" class="eye" data-eye="pNew" aria-label="Show password" aria-pressed="false"><svg class="i-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="i-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5.5 19 2 12 2 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.2A9.6 9.6 0 0 1 12 5c6.5 0 10 7 10 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg></button></div></div><div class="meter"><i id="pMeter"></i></div><p class="meter-t" id="pMeterT">At least 8 characters, with a number or symbol.</p></div>
+              <div class="field"><span><label for="pNew2">Confirm new password</label></span><div class="pw"><input type="password" id="pNew2" autocomplete="new-password" required/><button type="button" class="eye" data-eye="pNew2" aria-label="Show password" aria-pressed="false"><svg class="i-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="i-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10.4 10.4 0 0 1 12 19C5.5 19 2 12 2 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.2A9.6 9.6 0 0 1 12 5c6.5 0 10 7 10 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2M2 2l20 20"/></svg></button></div></div>
+            </div>
+            <p class="err" id="pErr" role="alert"></p>
+          </form>
+          <div class="card-f"><button class="btn" type="button" id="pReset"><span class="spin"></span><span class="bt">Email me a reset link</span></button><button class="btn primary" type="submit" form="pwForm" id="pBtn"><span class="spin"></span><span class="bt">Update password</span></button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Sign out</h2></div>
+          <div class="card-b" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><p class="help" style="font-size:.9rem">Sign out of the console on this device.</p><button class="btn danger" type="button" data-logout>Sign out</button></div>
+        </div>
+      </section>
+
       <!-- SNAPSHOTS -->
       <section data-page="snaps" hidden>
         <div class="ph"><div><h1>Life snapshots</h1><p>The scrolling photo strip under Training.</p></div></div>
@@ -353,6 +462,14 @@ textarea{min-height:96px;resize:vertical}
   </div>
 </div>
 
+<!-- idle dialog -->
+<div class="dlg" id="idle" hidden role="alertdialog" aria-modal="true" aria-labelledby="idleT">
+  <div class="dlg-b">
+    <div class="in"><h3 id="idleT">Are you still there?</h3><p>For your security you'll be signed out in <span class="idle-count" id="idleN">60</span> seconds.</p></div>
+    <div class="card-f" style="background:#fff;border-top:none"><button class="btn" id="idleOut" type="button">Sign out now</button><button class="btn primary" id="idleStay" type="button">Stay signed in</button></div>
+  </div>
+</div>
+
 <!-- confirm dialog -->
 <div class="dlg" id="dlg" hidden role="dialog" aria-modal="true" aria-labelledby="dlgT">
   <div class="dlg-b">
@@ -364,7 +481,7 @@ textarea{min-height:96px;resize:vertical}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, browserSessionPersistence, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 const app = initializeApp({
@@ -382,11 +499,15 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 /* ---------- ui helpers ---------- */
 let tt;
 function toast(msg, bad=false){ const t=$('toast'); $('toastT').textContent=msg; t.classList.toggle('bad',bad); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'), bad?5200:2600); }
-function setStatus(ok, txt){ const s=$('status'); s.className='status '+(ok?'ok':'bad'); s.querySelector('span').textContent=txt; }
+function setStatus(ok, txt){ const s=$('status'); s.className='status '+(ok?'ok':'bad'); s.querySelector('span').textContent=txt; s.title=txt; }
 function explain(e){
   const c = (e && e.code) || '';
   if (c.includes('permission-denied')) return 'Permission denied — check the Firestore rules.';
-  if (c.includes('invalid-credential') || c.includes('wrong-password') || c.includes('user-not-found') || c.includes('invalid-email')) return 'Incorrect email or password.';
+  if (c.includes('invalid-email')) return 'That email address doesn\'t look right.';
+  if (c.includes('invalid-credential') || c.includes('wrong-password') || c.includes('user-not-found')) return 'Incorrect email or password.';
+  if (c.includes('weak-password')) return 'Password is too weak. Use at least 8 characters.';
+  if (c.includes('requires-recent-login')) return 'Please sign out and sign in again, then retry.';
+  if (c.includes('user-disabled')) return 'This account has been disabled.';
   if (c.includes('too-many-requests')) return 'Too many attempts. Try again in a few minutes.';
   if (c.includes('network') || c.includes('unavailable')) return 'Network error. Check your connection.';
   if (c.includes('operation-not-allowed')) return 'Enable Email/Password sign-in in Firebase Authentication.';
@@ -416,11 +537,11 @@ const ops = (i,n) => `<div class="ops">
 const blank = (t,s) => `<div class="blank"><b>${t}</b>${s}</div>`;
 
 /* ---------- navigation ---------- */
-const titles = { overview:'Overview', verses:'Bible verses', now:'Right now', certs:'Certificates', snaps:'Snapshots' };
+const titles = { overview:'Overview', verses:'Bible verses', now:'Right now', certs:'Certificates', snaps:'Snapshots', account:'Account & security' };
 function go(p){
   document.querySelectorAll('[data-page]').forEach(s => s.hidden = s.dataset.page !== p);
   document.querySelectorAll('.nav a[data-go]').forEach(a => a.classList.toggle('on', a.dataset.go === p));
-  $('crumb').textContent = titles[p]; closeMenu(); scrollTo({top:0});
+  $('crumb').textContent = titles[p]; closeMenu(); $('userMenu').hidden=true; scrollTo({top:0});
   try { history.replaceState(null,'','#'+p); } catch(e){}
 }
 document.addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (a) { e.preventDefault(); go(a.dataset.go); } });
@@ -428,7 +549,7 @@ const side=$('side'), scrim=$('scrim');
 function closeMenu(){ side.classList.remove('open'); scrim.hidden=true; }
 $('menuBtn').addEventListener('click', () => { side.classList.add('open'); scrim.hidden=false; });
 scrim.addEventListener('click', closeMenu);
-addEventListener('keydown', e => { if (e.key==='Escape') { closeMenu(); if(!$('dlg').hidden) $('dlgNo').click(); } });
+addEventListener('keydown', e => { if (e.key==='Escape') { closeMenu(); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
 
 /* ---------- image picker (compressed so it fits in Firestore, no Storage needed) ---------- */
 const MAX_BYTES = 750*1024;
@@ -461,19 +582,144 @@ document.querySelectorAll('.drop').forEach(box => {
 });
 
 /* ---------- auth ---------- */
+const ADMINS = ['yonghangissac@gmail.com'];          // only these emails may use the console
+const IDLE_MIN = 30;                                   // auto sign-out after this many idle minutes
+const btnLoad = (b,on,txt) => { b.disabled=on; b.classList.toggle('loading',on); if(txt) b.querySelector('.bt').textContent=txt; };
+const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+// show / hide password
+document.querySelectorAll('[data-eye]').forEach(b => b.addEventListener('click', () => {
+  const inp=$(b.dataset.eye), show=inp.type==='password';
+  inp.type = show ? 'text' : 'password';
+  b.setAttribute('aria-pressed', show); b.setAttribute('aria-label', show?'Hide password':'Show password');
+  inp.focus({preventScroll:true}); const n=inp.value.length; try{ inp.setSelectionRange(n,n); }catch(e){}
+}));
+// caps lock warning
+['keydown','keyup'].forEach(ev => $('lPass').addEventListener(ev, e => { if (e.getModifierState) $('lCaps').classList.toggle('on', e.getModifierState('CapsLock')); }));
+$('lPass').addEventListener('blur', () => $('lCaps').classList.remove('on'));
+
+// switch login <-> forgot
+$('toForgot').addEventListener('click', () => { $('loginForm').hidden=true; $('forgotForm').hidden=false; $('fEmail').value=$('lEmail').value; $('fErr').textContent=''; $('fEmail').focus(); });
+$('toLogin').addEventListener('click', () => { $('forgotForm').hidden=true; $('loginForm').hidden=false; $('lPass').focus(); });
+
+let signedOutMsg = '';
 $('loginForm').addEventListener('submit', async e => {
-  e.preventDefault(); $('lErr').textContent='';
+  e.preventDefault(); $('lErr').textContent=''; $('lOk').hidden=true;
   const em=$('lEmail').value.trim(), pw=$('lPass').value;
-  if (!em || !pw) { $('lErr').textContent='Enter your email and password.'; return; }
-  $('lBtn').disabled=true; $('lBtn').textContent='Signing in…';
-  try { await signInWithEmailAndPassword(auth, em, pw); } catch(err){ $('lErr').textContent = explain(err); }
-  $('lBtn').disabled=false; $('lBtn').textContent='Sign in';
+  if (!validEmail(em)) { $('lErr').textContent='Enter a valid email address.'; $('lEmail').focus(); return; }
+  if (!pw) { $('lErr').textContent='Enter your password.'; $('lPass').focus(); return; }
+  btnLoad($('lBtn'), true, 'Signing in…');
+  try {
+    await setPersistence(auth, $('lKeep').checked ? browserLocalPersistence : browserSessionPersistence);
+    try { localStorage.setItem('iy-keep', $('lKeep').checked ? '1' : '0'); } catch(_){}
+    await signInWithEmailAndPassword(auth, em, pw);
+    $('lPass').value='';
+  } catch(err){ $('lErr').textContent = explain(err); $('lPass').select(); }
+  btnLoad($('lBtn'), false, 'Sign in');
 });
-$('logout').addEventListener('click', async () => { if (await ask('Log out?','You will need to sign in again to make changes.','Log out')) signOut(auth); });
+$('forgotForm').addEventListener('submit', async e => {
+  e.preventDefault(); $('fErr').textContent='';
+  const em=$('fEmail').value.trim();
+  if (!validEmail(em)) { $('fErr').textContent='Enter a valid email address.'; return; }
+  btnLoad($('fBtn'), true, 'Sending…');
+  try { await sendPasswordResetEmail(auth, em); }
+  catch(err){ if (!(err.code||'').includes('user-not-found')) { $('fErr').textContent=explain(err); btnLoad($('fBtn'), false, 'Send reset link'); return; } }
+  btnLoad($('fBtn'), false, 'Send reset link');
+  $('forgotForm').hidden=true; $('loginForm').hidden=false;
+  $('lOk').textContent='If that email has an admin account, a reset link is on its way. Check your inbox and spam folder.'; $('lOk').hidden=false;
+});
+
+// sign out (with confirmation)
+async function doSignOut(reason){ stopIdle(); signedOutMsg = reason || 'You have been signed out.'; await signOut(auth); }
+document.addEventListener('click', async e => {
+  if (!e.target.closest('[data-logout]')) return;
+  $('userMenu').hidden=true;
+  if (await ask('Sign out?','You will need to sign in again to make changes.','Sign out')) doSignOut('You have been signed out.');
+});
+
+// user dropdown
+$('userBtn').addEventListener('click', e => { e.stopPropagation(); const m=$('userMenu'); m.hidden=!m.hidden; $('userBtn').setAttribute('aria-expanded', !m.hidden); });
+document.addEventListener('click', e => { if (!e.target.closest('.user-menu')) { $('userMenu').hidden=true; $('userBtn').setAttribute('aria-expanded','false'); } });
+
+// idle auto sign-out
+let idleTimer, warnTimer, countTimer;
+function stopIdle(){ clearTimeout(idleTimer); clearTimeout(warnTimer); clearInterval(countTimer); $('idle').hidden=true; }
+function armIdle(){
+  stopIdle();
+  warnTimer = setTimeout(() => {
+    let n=60; $('idleN').textContent=n; $('idle').hidden=false; $('idleStay').focus();
+    countTimer = setInterval(() => { n--; $('idleN').textContent=n; if (n<=0) { doSignOut('You were signed out after '+IDLE_MIN+' minutes of inactivity.'); } }, 1000);
+  }, (IDLE_MIN-1)*60*1000);
+}
+let lastPoke=0;
+['pointerdown','keydown','scroll','touchstart'].forEach(ev => addEventListener(ev, () => {
+  if (!auth.currentUser || !$('idle').hidden) return;
+  const t=Date.now(); if (t-lastPoke>15000) { lastPoke=t; armIdle(); }
+}, {passive:true}));
+$('idleStay').addEventListener('click', armIdle);
+$('idleOut').addEventListener('click', () => doSignOut('You have been signed out.'));
+
+// account page + password change
+const fmt = t => t ? new Date(t).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'}) : '–';
+function fillAccount(u){
+  $('aEmail').textContent=u.email; $('aLast').textContent=fmt(u.metadata.lastSignInTime); $('aMade').textContent=fmt(u.metadata.creationTime);
+  let keep='1'; try{ keep=localStorage.getItem('iy-keep')||'1'; }catch(_){}
+  $('aKeep').textContent = keep==='1' ? 'Remembered on this device' : 'Ends when the browser closes';
+  $('pwUser').value=u.email;
+}
+function strength(v){
+  let sc=0; if(v.length>=8) sc++; if(v.length>=12) sc++; if(/[A-Z]/.test(v)&&/[a-z]/.test(v)) sc++; if(/\d/.test(v)) sc++; if(/[^A-Za-z0-9]/.test(v)) sc++;
+  return Math.min(4, sc);
+}
+$('pNew').addEventListener('input', () => {
+  const v=$('pNew').value, sc=v?Math.max(1,strength(v)):0, m=$('pMeter');
+  const lv=[['0%','#CDD6D7','At least 8 characters, with a number or symbol.'],['25%','#B8233A',v.length<8?'Too short':'Weak'],['50%','#C77A1A','Fair'],['75%','#5B8F3A','Good'],['100%','#2F6B4C','Strong']][sc];
+  m.style.width=lv[0]; m.style.background=lv[1]; $('pMeterT').textContent = v ? 'Strength: '+lv[2] : lv[2];
+});
+$('pwForm').addEventListener('submit', async e => {
+  e.preventDefault(); $('pErr').textContent='';
+  const cur=$('pCur').value, nw=$('pNew').value, nw2=$('pNew2').value;
+  if (!cur) { $('pErr').textContent='Enter your current password.'; return; }
+  if (nw.length<8) { $('pErr').textContent='New password must be at least 8 characters.'; return; }
+  if (strength(nw)<2) { $('pErr').textContent='Choose a stronger password (add numbers or symbols).'; return; }
+  if (nw!==nw2) { $('pErr').textContent='The new passwords don\'t match.'; return; }
+  if (nw===cur) { $('pErr').textContent='New password must be different from the current one.'; return; }
+  btnLoad($('pBtn'), true, 'Updating…');
+  try {
+    const u=auth.currentUser;
+    await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, cur));
+    await updatePassword(u, nw);
+    ['pCur','pNew','pNew2'].forEach(i=>$(i).value=''); $('pNew').dispatchEvent(new Event('input'));
+    toast('Password updated');
+  } catch(err){ $('pErr').textContent = (err.code||'').includes('invalid-credential')||(err.code||'').includes('wrong-password') ? 'Current password is incorrect.' : explain(err); }
+  btnLoad($('pBtn'), false, 'Update password');
+});
+$('pReset').addEventListener('click', async () => {
+  btnLoad($('pReset'), true, 'Sending…');
+  try { await sendPasswordResetEmail(auth, auth.currentUser.email); toast('Reset link sent to '+auth.currentUser.email); }
+  catch(err){ toast(explain(err), true); }
+  btnLoad($('pReset'), false, 'Email me a reset link');
+});
+
+// session state
 onAuthStateChanged(auth, async user => {
+  $('splash').hidden = true;
+  if (user && !ADMINS.includes((user.email||'').toLowerCase())) {
+    await signOut(auth);
+    $('lErr').textContent='This account doesn\'t have access to the console.';
+    return;
+  }
   $('loginView').hidden = !!user; $('appView').hidden = !user;
-  if (!user) return;
-  $('who').textContent = user.email; $('av').textContent = (user.email||'A')[0].toUpperCase();
+  if (!user) {
+    stopIdle();
+    if (signedOutMsg) { $('lOk').textContent=signedOutMsg; $('lOk').hidden=false; signedOutMsg=''; }
+    $('forgotForm').hidden=true; $('loginForm').hidden=false;
+    setTimeout(()=>$('lEmail').focus(), 50);
+    return;
+  }
+  $('who').textContent = user.email; document.querySelector('.who2').textContent = user.email;
+  const ini=(user.email||'A')[0].toUpperCase(); document.querySelectorAll('.av').forEach(a=>a.textContent=ini);
+  fillAccount(user); armIdle();
   const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
   const start = (location.hash||'').slice(1); go(titles[start] ? start : 'overview');
   try { await Promise.all([loadVerses(), loadNow(), loadList('certs'), loadList('snapshots')]); setStatus(true,'Connected'); }
