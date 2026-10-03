@@ -420,6 +420,8 @@ section{padding:clamp(64px,9vw,112px) 0}
 .poem:hover::before{transform:scaleY(1)}
 .poem .r{display:inline-flex;align-items:center;gap:6px}
 .poem .k{font-family:var(--display);font-size:.82rem;color:#8FA1A9}
+.poem.en .pt{font-family:var(--display);font-weight:700;letter-spacing:-.01em}
+.poem.en p{font-family:var(--serif);font-style:italic;line-height:1.6}
 .poem .pt{display:block;font-family:var(--nep);font-weight:500;font-size:1.45rem;color:#fff;line-height:1.4}
 .poem p{font-family:var(--nep);font-size:.98rem;line-height:1.9;color:#B9C5CA;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .poem .r{margin-top:auto;font-family:var(--display);font-size:.88rem;color:#F2A5B1}
@@ -1019,7 +1021,7 @@ const poems=[
 ];
 const shelf=document.getElementById('shelf');
 const gossipPoem={s:'the-gossip-rope',t:'The Gossip Rope',k:'Poem in English',b:document.getElementById('gossip').textContent,ne:false};
-const allPoems=[gossipPoem,...poems.map(p=>({...p,ne:true}))];
+let allPoems=[gossipPoem,...poems.map(p=>({...p,ne:true}))];
 const baseTitle=document.title,canon=document.querySelector('link[rel="canonical"]'),baseCanon=canon?canon.href:location.origin+'/';
 const poemURL=p=>location.origin+location.pathname+'?poem='+p.s;
 function showPoem(p,from){
@@ -1038,26 +1040,37 @@ window.onPoemClose=()=>{
   try{history.replaceState(null,'',location.pathname);}catch(e){}
   document.title=baseTitle;if(canon)canon.href=baseCanon;window.currentPoem=null;
 };
-poems.forEach(p=>{
-  const b=document.createElement('button');
-  b.className='poem';b.type='button';b.dataset.mood=p.k;
-  b.innerHTML=`<span class="k">${p.k}</span><span class="pt" lang="ne">${p.t}</span><p lang="ne">${p.b.split('\n').slice(0,3).join(' ')}</p><span class="r">Read poem <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span>`;
-  b.addEventListener('click',()=>showPoem({...p,ne:true},b));
-  shelf.appendChild(b);
-});
-/* mood filter */
-(function(){
-  const box=document.getElementById('moods'),count=document.getElementById('moodCount');
-  const moods=['All',...new Set(poems.map(p=>p.k))];
-  const n=m=>m==='All'?poems.length:poems.filter(p=>p.k===m).length;
+/* poem shelf + mood filter (re-rendered when poems arrive from the admin) */
+const moodBox=document.getElementById('moods'),moodCount=document.getElementById('moodCount');
+const escH=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let shelfList=[];
+function renderShelf(list){
+  shelfList=list;shelf.innerHTML='';moodBox.innerHTML='';
+  list.forEach(p=>{
+    const b=document.createElement('button'),lg=p.ne?'ne':'en';
+    b.className='poem'+(p.ne?'':' en');b.type='button';b.dataset.mood=p.k||'';
+    b.innerHTML=`<span class="k">${escH(p.k||'Poem')}</span><span class="pt" lang="${lg}">${escH(p.t)}</span><p lang="${lg}">${escH(p.b.split('\n').filter(l=>l.trim()).slice(0,3).join(' '))}</p><span class="r">Read poem <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span>`;
+    b.addEventListener('click',()=>showPoem(p,b));
+    shelf.appendChild(b);
+  });
+  const moods=['All',...new Set(list.map(p=>p.k).filter(Boolean))];
+  const n=m=>m==='All'?list.length:list.filter(p=>p.k===m).length;
   function apply(m){
-    [...box.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+    [...moodBox.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
     shelf.querySelectorAll('.poem').forEach(c=>{const show=m==='All'||c.dataset.mood===m;c.classList.toggle('hidden',!show);if(show){c.classList.remove('fade');void c.offsetWidth;c.classList.add('fade');}});
-    count.textContent=n(m)+(n(m)===1?' poem':' poems')+(m==='All'?' in Nepali':' about '+m.toLowerCase());
+    moodCount.textContent=n(m)+(n(m)===1?' poem':' poems')+(m==='All'?'':' about '+m.toLowerCase());
   }
-  moods.forEach(m=>{const b=document.createElement('button');b.type='button';b.dataset.m=m;b.innerHTML=m+' <small>'+n(m)+'</small>';b.addEventListener('click',()=>apply(m));box.appendChild(b);});
+  moodBox.hidden=moods.length<3;
+  moods.forEach(m=>{const b=document.createElement('button');b.type='button';b.dataset.m=m;b.innerHTML=escH(m)+' <small>'+n(m)+'</small>';b.addEventListener('click',()=>apply(m));moodBox.appendChild(b);});
   apply('All');
-})();
+}
+renderShelf(poems.map(p=>({...p,ne:true})));
+window.setPoems=list=>{
+  if(!list||!list.length)return;
+  renderShelf(list);
+  allPoems=[gossipPoem,...list];
+  openFromLink();
+};
 /* share a poem's link */
 async function sharePoemLink(p){
   const url=poemURL(p);
@@ -1067,12 +1080,16 @@ async function sharePoemLink(p){
 document.getElementById('poemLink').addEventListener('click',()=>{if(window.currentPoem)sharePoemLink(window.currentPoem);});
 document.getElementById('gossipLink').addEventListener('click',()=>sharePoemLink(gossipPoem));
 /* open a poem from the link */
-(function(){
+let linkHandled=false;
+function openFromLink(){
+  if(linkHandled)return;
   const q=new URLSearchParams(location.search).get('poem');
-  if(!q)return;
+  if(!q){linkHandled=true;return;}
   const p=allPoems.find(x=>x.s===q);
-  if(p)setTimeout(()=>showPoem(p,document.getElementById('poetry')),300);
-})();
+  if(p){linkHandled=true;setTimeout(()=>showPoem(p,document.getElementById('poetry')),300);}
+}
+openFromLink();
+setTimeout(()=>{linkHandled=true;},8000);
 
 /* share poem as image */
 async function poemImage(p){
@@ -1234,6 +1251,15 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
       h += `<figure class="snap"><img src="${esc(it.url)}" alt="${esc(it.title||'Snapshot')}" loading="lazy"><figcaption>${esc(it.title||'')}</figcaption></figure>`; });
     w.innerHTML = h + more;
   } catch(e) { w.innerHTML = `<figure class="snap more">Photos couldn't load. Refresh to try again.</figure>`; }
+})();
+
+(async () => {
+  try {
+    const d = await getDocs(query(collection(db,'poems'), orderBy('order','asc')));
+    const list = [];
+    d.forEach(x => { const it = x.data(); if (it.title && it.body && it.published !== false) list.push({ s: it.slug || x.id, t: it.title, k: it.mood || '', b: it.body, ne: it.lang !== 'en' }); });
+    if (list.length) window.setPoems(list);
+  } catch(e) {}
 })();
 
 (async () => {
