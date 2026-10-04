@@ -369,6 +369,8 @@ body.focusing{overflow:hidden}
 .top-more:hover,.top-more[aria-expanded="true"]{border-color:var(--ink)}
 @media(max-width:900px){.top-more{display:none}}
 @media(min-width:901px){#sheetMore.anchored{top:auto;left:auto;transform:none;width:400px}}
+.grecaptcha-badge{visibility:hidden !important}
+.rc-note a{color:var(--ink-2)}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -494,6 +496,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <label class="check"><input type="checkbox" id="lKeep" checked/>Keep me signed in on this device</label>
         <p class="err" id="lErr" role="alert"></p>
         <button class="btn primary block" type="submit" id="lBtn"><span class="spin"></span><span class="bt">Sign in</span></button>
+        <p class="help rc-note" hidden style="font-size:.76rem">Protected by reCAPTCHA. Google's <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a> apply.</p>
       </div>
     </form>
     <form class="lf" id="forgotForm" novalidate hidden>
@@ -980,6 +983,15 @@ const app = initializeApp({
   messagingSenderId: "741383996320",
   appId: "1:741383996320:web:0fded52449d58e1d1b1ac5"
 });
+// ---- App Check: must use the SAME reCAPTCHA v3 site key as index.html. Empty = off. ----
+const APPCHECK_SITE_KEY = "";
+if (APPCHECK_SITE_KEY) {
+  try {
+    const { initializeAppCheck, ReCaptchaV3Provider } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-app-check.js");
+    initializeAppCheck(app, { provider: new ReCaptchaV3Provider(APPCHECK_SITE_KEY), isTokenAutoRefreshEnabled: true });
+    document.querySelectorAll('.rc-note').forEach(e => e.hidden = false);
+  } catch (e) { console.warn('App Check failed to start', e); }
+}
 const auth = getAuth(app), db = getFirestore(app);
 // Photos go to Cloud Storage. Free usage only applies to buckets in us-central1, us-east1 or us-west1 —
 // if your bucket is somewhere else, create one in a US region and put its gs:// name here.

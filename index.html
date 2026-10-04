@@ -550,6 +550,9 @@ footer{background:var(--deep);color:#AEBBC0;font-family:var(--display);font-size
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 footer strong{color:var(--on-deep);font-weight:600}
 footer .wrap{align-items:center}
+.privacy{flex-basis:100%;order:10;font-size:.78rem;color:#8FA1A9;line-height:1.5;padding-top:12px;border-top:1px solid #2E3F4A}
+.privacy a{color:#C9D3D6}
+.grecaptcha-badge{visibility:hidden !important}
 .soc{display:flex;gap:8px}
 .soc a{width:40px;height:40px;border-radius:50%;border:1px solid #3B4D59;display:flex;align-items:center;justify-content:center;color:var(--on-deep);transition:background .2s,border-color .2s}
 .soc a:hover{background:var(--rhodo);border-color:var(--rhodo-text)}
@@ -1012,6 +1015,7 @@ I worry about being The Prodigal Son.</div>
       <a href="https://www.facebook.com/yonghangisaac" data-c="fb" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v7h4v-7h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
     </span>
     <span>© <span id="year">2026</span>. Go your dream.</span>
+    <p class="privacy">This site counts visits with Google Analytics<span class="rc-note" hidden> and is protected by reCAPTCHA</span>. Google's <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a> apply.</p>
     <a href="#top" class="totop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>Back to top</a>
   </div>
 </footer>
@@ -1627,6 +1631,16 @@ const app = initializeApp({
   appId: "1:741383996320:web:0fded52449d58e1d1b1ac5",
   measurementId: "G-JYR3BKGF26"
 });
+// ---- App Check: only requests from this website are accepted by Firebase ----
+// Paste your reCAPTCHA v3 SITE key below (see setup steps). Empty = App Check off.
+const APPCHECK_SITE_KEY = "";
+if (APPCHECK_SITE_KEY) {
+  try {
+    const { initializeAppCheck, ReCaptchaV3Provider } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-app-check.js");
+    initializeAppCheck(app, { provider: new ReCaptchaV3Provider(APPCHECK_SITE_KEY), isTokenAutoRefreshEnabled: true });
+    document.querySelectorAll('.rc-note').forEach(e => e.hidden = false);
+  } catch (e) { console.warn('App Check failed to start', e); }
+}
 const db = getFirestore(app);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $id = id => document.getElementById(id);
