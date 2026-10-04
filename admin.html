@@ -365,6 +365,10 @@ body.focusing{overflow:hidden}
   .rm-t{font-size:.95rem;color:var(--ink);padding:4px 8px 10px}
   .rm-i{padding:14px 10px;font-size:1rem}
 }
+.top-more{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:.88rem;cursor:pointer;color:var(--ink)}
+.top-more:hover,.top-more[aria-expanded="true"]{border-color:var(--ink)}
+@media(max-width:900px){.top-more{display:none}}
+@media(min-width:901px){#sheetMore.anchored{top:auto;left:auto;transform:none;width:400px}}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -547,6 +551,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="crumb"><span class="hide-sm">Console / </span><b id="crumb">Home</b></div>
       <div class="sp"></div>
+      <button type="button" class="top-more" id="topMore" aria-haspopup="dialog"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>More</span></button>
       <span class="status" id="status" title="Connecting"><i></i><span class="hide-sm">Connecting…</span></span>
       <div class="user-menu">
         <button class="user-btn" id="userBtn" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="av">IY</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
@@ -616,6 +621,11 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>What I care about</h2><span class="pill" id="q-cares"></span></div>
           <div class="card-b"><p class="help" style="margin-bottom:14px">The cards in the About section. Turn on “Dark card” for the one you want to stand out.</p><div class="rows-ed" id="ed-cares"></div><button class="btn" type="button" id="add-cares" style="margin-top:12px">+ Add</button></div>
           <div class="card-f sticky"><span class="help" id="m-cares"></span><button class="btn" type="button" id="undo-cares">Undo changes</button><button class="btn accent" type="button" id="save-cares"><span class="spin"></span><span class="bt">Save</span></button></div>
+        </div>
+        <div class="card sec-card collapsed" id="card-thoughts">
+          <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Thoughts</h2><span class="pill" id="q-thoughts"></span></div>
+          <div class="card-b"><p class="help" style="margin-bottom:14px">Short pieces of prose shown under your poems, like “Self-realization”. Nepali or English.</p><div class="rows-ed" id="ed-thoughts"></div><button class="btn" type="button" id="add-thoughts" style="margin-top:12px">+ Add</button></div>
+          <div class="card-f sticky"><span class="help" id="m-thoughts"></span><button class="btn" type="button" id="undo-thoughts">Undo changes</button><button class="btn accent" type="button" id="save-thoughts"><span class="spin"></span><span class="bt">Save</span></button></div>
         </div>
         <div class="card sec-card collapsed" id="card-education">
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Education</h2><span class="pill" id="q-education"></span></div>
@@ -819,7 +829,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <section data-page="help" hidden>
         <div class="ph"><div><h1 lang="ne">मद्दत</h1><p>Short answers in Nepali for everything in this console.</p></div></div>
         <div class="card faq" lang="ne">
-          <details class="qa"><summary>नयाँ कविता कसरी थप्ने?</summary><p>तल Poems थिच्नुहोस् → नेपाली वा English छान्नुहोस् → शीर्षक र कविता लेख्नुहोस् → रातो Publish poem थिच्नुहोस्। तुरुन्तै साइटमा देखिन्छ।</p></details><details class="qa"><summary>कविता पछि कुनै दिनमा प्रकाशित गर्ने?</summary><p>Poems मा “More options” खोल्नुहोस् → “Publish on a date” मा मिति छान्नुहोस् → Schedule poem थिच्नुहोस्। त्यो दिन बिहानदेखि आफैं साइटमा आउँछ।</p></details><details class="qa"><summary>लेख्दै गरेको कविता हरायो?</summary><p>पब्लिश नगरेको कविता यही फोनमा आफैं सेभ हुन्छ। Poems पेज फेरि खोल्दा “Unpublished draft restored” लेखिएर फर्किन्छ।</p></details><details class="qa"><summary>फोटो किन अपलोड भएन?</summary><p>फोटो क्लाउडमा मात्र छ भने पहिले Gallery मा खोलेर डाउनलोड गर्नुहोस्। अझै भएन भने फोटोको screenshot लिएर त्यो अपलोड गर्नुहोस्।</p></details><details class="qa"><summary>बटन किन थिच्न मिल्दैन?</summary><p>सीमा पुगेको हुन सक्छ। बटनको छेउमा कारण लेखिएको हुन्छ, जस्तै “Limit reached”। पुरानो वस्तु मेटाएपछि फेरि थप्न मिल्छ।</p></details><details class="qa"><summary>“Permission denied” आयो भने?</summary><p>Firebase को Firestore Rules वा Storage Rules ठीकसँग राखिएको छैन। Rules फेरि paste गरेर Publish गर्नुहोस्।</p></details><details class="qa"><summary>सेभ गरेँ तर साइटमा देखिएन?</summary><p>साइट खोलेर तलतिर तानेर refresh गर्नुहोस्। ब्राउजरले पुरानो पेज सम्झिएको हुन सक्छ।</p></details><details class="qa"><summary>क्रम (order) कसरी मिलाउने?</summary><p>सूचीमा ↑ ↓ थिच्नुहोस्। क्रम तुरुन्तै सेभ हुन्छ।</p></details><details class="qa"><summary>ब्याकअप कसरी लिने?</summary><p>More → Backup & restore → Download backup। फाइल फोनमा सुरक्षित राख्नुहोस्, महिनामा एक पटक लिनुहोस्।</p></details><details class="qa"><summary>गल्तीले सबै मेटियो भने?</summary><p>Backup & restore → Restore from a backup → आफ्नो ब्याकअप फाइल छान्नुहोस् → Restore। सबै फर्किन्छ।</p></details><details class="qa"><summary>कति जनाले साइट हेरे?</summary><p>Home को “Visitors” बक्समा Open visitor dashboard थिच्नुहोस्। Google Analytics मा आजका र पुराना visitor देखिन्छन्।</p></details><details class="qa"><summary>पैसा लाग्छ कि?</summary><p>यो console ले सबै कुरा Firebase को निःशुल्क सीमाभित्र राख्छ र बढी भए रोक्छ। सुरक्षाका लागि Google Cloud मा $1 को budget alert पनि राख्नुहोस्।</p></details>
+          <details class="qa"><summary>नयाँ कविता कसरी थप्ने?</summary><p>तल Poems थिच्नुहोस् → नेपाली वा English छान्नुहोस् → शीर्षक र कविता लेख्नुहोस् → रातो Publish poem थिच्नुहोस्। तुरुन्तै साइटमा देखिन्छ।</p></details><details class="qa"><summary>कविता पछि कुनै दिनमा प्रकाशित गर्ने?</summary><p>Poems मा “More options” खोल्नुहोस् → “Publish on a date” मा मिति छान्नुहोस् → Schedule poem थिच्नुहोस्। त्यो दिन बिहानदेखि आफैं साइटमा आउँछ।</p></details><details class="qa"><summary>लेख्दै गरेको कविता हरायो?</summary><p>पब्लिश नगरेको कविता यही फोनमा आफैं सेभ हुन्छ। Poems पेज फेरि खोल्दा “Unpublished draft restored” लेखिएर फर्किन्छ।</p></details><details class="qa"><summary>फोटो किन अपलोड भएन?</summary><p>फोटो क्लाउडमा मात्र छ भने पहिले Gallery मा खोलेर डाउनलोड गर्नुहोस्। अझै भएन भने फोटोको screenshot लिएर त्यो अपलोड गर्नुहोस्।</p></details><details class="qa"><summary>बटन किन थिच्न मिल्दैन?</summary><p>सीमा पुगेको हुन सक्छ। बटनको छेउमा कारण लेखिएको हुन्छ, जस्तै “Limit reached”। पुरानो वस्तु मेटाएपछि फेरि थप्न मिल्छ।</p></details><details class="qa"><summary>“Permission denied” आयो भने?</summary><p>Firebase को Firestore Rules वा Storage Rules ठीकसँग राखिएको छैन। Rules फेरि paste गरेर Publish गर्नुहोस्।</p></details><details class="qa"><summary>सेभ गरेँ तर साइटमा देखिएन?</summary><p>साइट खुला छ भने परिवर्तन केही सेकेन्डमै आफैं देखिन्छ। देखिएन भने साइटलाई तलतिर तानेर refresh गर्नुहोस्।</p></details><details class="qa"><summary>क्रम (order) कसरी मिलाउने?</summary><p>सूचीमा ↑ ↓ थिच्नुहोस्। क्रम तुरुन्तै सेभ हुन्छ।</p></details><details class="qa"><summary>ब्याकअप कसरी लिने?</summary><p>More → Backup & restore → Download backup। फाइल फोनमा सुरक्षित राख्नुहोस्, महिनामा एक पटक लिनुहोस्।</p></details><details class="qa"><summary>गल्तीले सबै मेटियो भने?</summary><p>Backup & restore → Restore from a backup → आफ्नो ब्याकअप फाइल छान्नुहोस् → Restore। सबै फर्किन्छ।</p></details><details class="qa"><summary>कति जनाले साइट हेरे?</summary><p>Home को “Visitors” बक्समा Open visitor dashboard थिच्नुहोस्। Google Analytics मा आजका र पुराना visitor देखिन्छन्।</p></details><details class="qa"><summary>पैसा लाग्छ कि?</summary><p>यो console ले सबै कुरा Firebase को निःशुल्क सीमाभित्र राख्छ र बढी भए रोक्छ। सुरक्षाका लागि Google Cloud मा $1 को budget alert पनि राख्नुहोस्।</p></details>
         </div>
       </section>
 
@@ -1119,10 +1129,11 @@ function openMenu(){ side.classList.add('open'); scrim.hidden=false; }
 function closeMenu(){ side.classList.remove('open'); scrim.hidden=true; }
 $('menuBtn').addEventListener('click', openMenu);
 function openSheet(id){ $('sheetBg').hidden=false; $(id).hidden=false; const f=$(id).querySelector('button,a'); f&&f.focus(); }
-function closeSheets(){ $('sheetBg').hidden=true; ['sheetNew','sheetMore'].forEach(i=>$(i).hidden=true); }
+function closeSheets(){ $('sheetBg').hidden=true; ['sheetNew','sheetMore'].forEach(i=>$(i).hidden=true); const sm=$('sheetMore'); sm.classList.remove('anchored'); sm.style.top=''; sm.style.right=''; const tm=$('topMore'); tm&&tm.setAttribute('aria-expanded','false'); }
 $('bMore').addEventListener('click', () => openSheet('sheetMore'));
 $('bMore').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSheet('sheetMore'); } });
 $('bNew').addEventListener('click', () => openSheet('sheetNew'));
+$('topMore').addEventListener('click', () => { const sh=$('sheetMore'); if(!sh.hidden){ closeSheets(); return; } openSheet('sheetMore'); const r=$('topMore').getBoundingClientRect(); sh.classList.add('anchored'); sh.style.top=(r.bottom+10)+'px'; sh.style.right=Math.max(12,innerWidth-r.right)+'px'; $('topMore').setAttribute('aria-expanded','true'); });
 $('sheetBg').addEventListener('click', closeSheets);
 document.addEventListener('click', async e => {
   const c = e.target.closest('[data-create]'); if(!c) return;
@@ -1634,6 +1645,9 @@ const ICON_SVG = {
 const ICON_OPTS=[['cross','Cross'],['pen','Pen'],['book','Book'],['landmark','Government'],['question','Question'],['heart','Heart'],['star','Star'],['music','Music'],['globe','Globe'],['users','People'],['cap','Study'],['briefcase','Work'],['sheet','Spreadsheet'],['doc','Document'],['camera','Camera']];
 const COLOR_OPTS=[['dark','Dark','linear-gradient(140deg,#1C2A33,#2A3E4B)'],['red','Red','linear-gradient(140deg,#B8233A,#8F1A2C)'],['green','Green','linear-gradient(150deg,#2F6B4C,#1F4E37)'],['blue','Blue','linear-gradient(150deg,#2F5B94,#203F6B)'],['gold','Gold','linear-gradient(150deg,#B5651D,#8A4A12)']];
 const EXTRAS_DEF = {
+  thoughts:[
+    {text:'My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul laughed, and I realized I am a shadow. I laughed too, because I am not Isaac — I am Ishak.',label:'Self-realization'},
+    {text:"In this cursed world, everyone is a puppet. No matter how much you try to escape, you lose every time. You can't find the mastermind, but I see something of that mastermind, and it looks like desire.",label:'Untitled'}],
   heroLines:[
     {text:'I see a rope, I see a hill, which help each other to climb.',source:'The Gossip Rope',lang:'en'},
     {text:'न बयान हुन्छ शब्दले, न कुनै रुप छ यो प्रेमको',source:'किनारिएको फुल',lang:'ne'},
@@ -1666,6 +1680,9 @@ const SEC = {
     {key:'icon',label:'Icon',type:'icon',options:ICON_OPTS},
     {key:'text',label:'Text',type:'textarea',full:true,max:220,sub:true},
     {key:'featured',label:'Dark card (stands out)',type:'check',full:true} ]}) },
+  thoughts: { noun:'thought', max:8, req:'text', ed: RowEditor('thoughts',{ noun:'thought', max:8, fields:[
+    {key:'text',label:'Thought',type:'textarea',full:true,max:600,ph:'A short piece of writing'},
+    {key:'label',label:'Title',max:40,ph:'Self-realization',sub:true} ]}) },
   education: { noun:'study', max:8, req:'title', ed: RowEditor('education',{ noun:'study', max:8, fields:[
     {key:'title',label:'Title',max:60,ph:'Class XII, Humanities'},
     {key:'year',label:'Year',max:20,ph:'2080 BS',sub:true},
@@ -1702,7 +1719,7 @@ Object.keys(SEC).forEach(k => {
     const next = { ...(D.extras||{}), [k]: list };
     assertSpace(D.extras?docBytes('extras',D.extras):0, docBytes('extras',next));
     await setDoc(doc(db,'site','extras'), { [k]: list }, { merge:true });
-    D.extras = next; $('m-'+k).textContent='Live on your site'; clean('sections'); toast('Saved — refresh your site to see it'); refreshAll();
+    D.extras = next; $('m-'+k).textContent='Live on your site'; clean('sections'); toast('Saved — live on your site now'); refreshAll();
   }));
 });
 
@@ -1799,7 +1816,7 @@ $('abSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', as
   if(!x.body) { $('abBodyIn').focus(); throw userErr('Write a little about yourself.'); }
   assertSpace(D.about?docBytes('about',D.about):0, docBytes('about',x));
   await setDoc(doc(db,'site','about'), x); D.about=x; clean('about');
-  $('abMeta').textContent='Live on your site'; toast('Saved — refresh your site to see it'); refreshAll();
+  $('abMeta').textContent='Live on your site'; toast('Saved — live on your site now'); refreshAll();
 }));
 
 /* =========================================================
@@ -1956,7 +1973,7 @@ $('nToday').addEventListener('click', () => setVal('nUpdated', new Date().toLoca
 $('nSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
   const x={}; NK.forEach(k => x[k]=$(nid(k)).value.trim());
   assertSpace(D.now?docBytes('now',D.now):0, docBytes('now',x));
-  await setDoc(doc(db,'site','now'), x); D.now=x; $('nMeta').textContent='Live on your site'; toast('Saved — refresh your site to see it'); refreshAll();
+  await setDoc(doc(db,'site','now'), x); D.now=x; $('nMeta').textContent='Live on your site'; toast('Saved — live on your site now'); refreshAll();
 }));
 
 /* =========================================================

@@ -120,6 +120,14 @@ a{color:inherit}
 .nav-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.92rem;text-decoration:none;padding:10px 18px;border-radius:999px;background:var(--rhodo);color:#fff;box-shadow:0 8px 20px -10px rgba(184,35,58,.7);transition:background .2s,transform .2s}
 .nav-cta:hover{background:var(--rhodo-dark);transform:translateY(-1px)}
 .nav-r{display:flex;align-items:center;gap:8px}
+.nav-more{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font-family:var(--display);font-weight:600;font-size:.9rem;cursor:pointer;transition:border-color .2s,background .2s}
+.nav-more:hover,.nav-more[aria-expanded="true"]{border-color:var(--ink)}
+@media(max-width:820px){.nav-more{display:none}}
+@media(min-width:821px){
+  #msBg.msheet-bg{background:rgba(22,34,43,.12)}
+  #msMore.msheet{left:auto;bottom:auto;width:380px;border-radius:18px;padding:14px 14px 16px;border:1px solid var(--line);box-shadow:0 24px 60px -24px rgba(22,34,43,.55);animation:fade .18s}
+  #msMore .grab{display:none}
+}
 .theme-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--glass);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .3s,border-color .2s}
 .theme-btn:hover{border-color:var(--ink);transform:rotate(-20deg)}
 .theme-btn .i-sun{display:none}
@@ -475,6 +483,7 @@ section{padding:clamp(48px,7vw,92px) 0}
 @media(max-width:600px){.shelf{grid-template-columns:1fr}.poem{border-left:none;border-top:1px solid #2E3F4A;padding-left:0;padding-right:0}}
 
 .prose{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);margin-top:clamp(48px,7vw,80px)}
+.prose blockquote.ne{font-family:var(--nep);line-height:1.9}
 .prose blockquote{font-size:clamp(1.15rem,2vw,1.35rem);line-height:1.6;color:#DCE3E5;padding-left:20px;border-left:3px solid var(--rhodo)}
 .prose cite{display:block;margin-top:12px;font-style:normal;font-family:var(--display);font-size:.88rem;color:#8FA1A9}
 @media(max-width:720px){.prose{grid-template-columns:1fr}}
@@ -624,6 +633,7 @@ footer .wrap{align-items:center}
       <a href="#contact">Contact</a>
 </nav>
     <div class="nav-r">
+    <button type="button" class="nav-more" id="navMore" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>More</span></button>
     <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to dark mode"><span class="i-moon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span><span class="i-sun"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button>
     <a href="https://wa.me/9779820907795" data-c="wa" target="_blank" rel="noopener" class="nav-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Chat</span></a>
     </div>
@@ -879,7 +889,7 @@ I worry about being The Prodigal Son.</div>
     <div class="shelf" id="shelf"></div>
     <p class="mood-count" id="moodCount" aria-live="polite"></p>
 
-    <div class="prose">
+    <div class="prose" id="thoughts">
       <blockquote>My soul asked me, "Who are you?" and I replied, "I am Isaac." My soul laughed, and I realized I am a shadow. I laughed too, because I am not Isaac — I am Ishak.<cite>Self-realization</cite></blockquote>
       <blockquote>In this cursed world, everyone is a puppet. No matter how much you try to escape, you lose every time. You can't find the mastermind, but I see something of that mastermind, and it looks like desire.<cite>Untitled</cite></blockquote>
     </div>
@@ -1378,10 +1388,15 @@ initVerses();window.initVerses=initVerses;
 /* "More" sheet on phones */
 (function(){
   const bg=document.getElementById('msBg'),sh=document.getElementById('msMore'),btn=document.getElementById('tMore');
-  const open=()=>{const d=document.documentElement.dataset.theme==='dark',tb=sh.querySelector('[data-ms=theme] span');if(tb)tb.textContent=d?'Light mode':'Dark mode';bg.hidden=false;sh.hidden=false;const f=sh.querySelector('a,button');f&&f.focus();};
-  const close=()=>{bg.hidden=true;sh.hidden=true;};
-  btn.addEventListener('click',open);bg.addEventListener('click',close);
-  addEventListener('keydown',e=>{if(e.key==='Escape'&&!sh.hidden){close();btn.focus();}});
+  const nb=document.getElementById('navMore');let opener=null;
+  const open=src=>{opener=src||btn;const d=document.documentElement.dataset.theme==='dark',tb=sh.querySelector('[data-ms=theme] span');if(tb)tb.textContent=d?'Light mode':'Dark mode';
+    bg.hidden=false;sh.hidden=false;
+    if(innerWidth>820&&opener===nb){const r=nb.getBoundingClientRect();sh.style.top=(r.bottom+10)+'px';sh.style.right=Math.max(12,innerWidth-r.right)+'px';nb.setAttribute('aria-expanded','true');}else{sh.style.top='';sh.style.right='';}
+    const f=sh.querySelector('a,button');f&&f.focus({preventScroll:true});};
+  const close=()=>{bg.hidden=true;sh.hidden=true;nb.setAttribute('aria-expanded','false');};
+  btn.addEventListener('click',()=>open(btn));nb.addEventListener('click',()=>sh.hidden?open(nb):close());
+  addEventListener('resize',()=>{if(!sh.hidden)close();});addEventListener('scroll',()=>{if(!sh.hidden&&innerWidth>820)close();},{passive:true});bg.addEventListener('click',close);
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!sh.hidden){close();(opener||btn).focus();}});
   sh.addEventListener('click',e=>{const t=e.target.closest('a,button');if(!t)return;
     const a=t.dataset.ms;close();
     if(a==='share')document.getElementById('sharePage').click();
@@ -1601,7 +1616,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeModals();});
 <!-- Firebase: profile photo, snapshots, certificates (managed in admin.html) -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-import { getFirestore, collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyD0Uc2UxGt0MmOBk8IG0TZPQCmij6p5gqE",
@@ -1614,31 +1629,35 @@ const app = initializeApp({
 });
 const db = getFirestore(app);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $id = id => document.getElementById(id);
+// Live updates: everything below listens to the database, so changes made in the admin
+// appear on open pages within a second or two — no refresh needed.
+const live = (ref, fn, onErr) => onSnapshot(ref, snap => { try { fn(snap); } catch(e) { console.warn(e); } }, err => { onErr && onErr(err); });
+const swap = el => { if (!el) return; el.classList.remove('swap-in'); void el.offsetWidth; el.classList.add('swap-in'); };
+let first = {};
+const changed = k => { const f = !first[k]; first[k] = true; return !f; };   // true after the first render (i.e. a live change)
 
-(async () => {
-  const w = document.getElementById('snapScroll');
+/* ---------- photos ---------- */
+live(query(collection(db,'snapshots'), orderBy('order','asc')), d => {
+  const w = $id('snapScroll');
   const more = `<a class="snap cta" href="https://www.facebook.com/${(window.CONTACT||{}).fb||'yonghangisaac'}" data-c="fb" target="_blank" rel="noopener"><i><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v7h4v-7h3l1-4h-4V8.5c0-.3.2-.5.5-.5z\"/></svg></i><b>More moments on Facebook</b><span>See more photos and updates</span></a>`;
-  try {
-    const d = await getDocs(query(collection(db,'snapshots'), orderBy('order','asc')));
-    let h = '';
-    d.forEach(x => { const it = x.data();
-      h += `<figure class="snap"><img src="${esc(it.url)}" alt="${esc(it.title||'Snapshot')}" loading="lazy"><figcaption>${esc(it.title||'')}</figcaption></figure>`; });
-    const nPh = (h.match(/class="snap"/g)||[]).length, span = 4 - (nPh % 4);
-    w.innerHTML = h ? h + more.replace('class="snap cta"', `class="snap cta" style="--span:${span}"`) : '';
-    window.trainState && window.trainState('snaps', h ? 1 : 0);
-  } catch(e) { w.innerHTML = `<figure class="snap more">Photos couldn't load. Refresh to try again.</figure>`; }
-})();
+  let h = '';
+  d.forEach(x => { const it = x.data(); if (!it.url) return;
+    h += `<figure class="snap"><img src="${esc(it.url)}" alt="${esc(it.title||'Snapshot')}" loading="lazy"><figcaption>${esc(it.title||'')}</figcaption></figure>`; });
+  const nPh = (h.match(/class="snap"/g)||[]).length, span = 4 - (nPh % 4);
+  w.innerHTML = h ? h + more.replace('class="snap cta"', `class="snap cta" style="--span:${span}"`) : '';
+  if (changed('snaps')) swap(w);
+  window.trainState && window.trainState('snaps', h ? 1 : 0);
+}, () => { $id('snapScroll').innerHTML = `<figure class="snap more">Photos couldn't load. Refresh to try again.</figure>`; });
 
-(async () => {
-  try {
-    const d = await getDocs(query(collection(db,'poems'), orderBy('order','asc')));
-    const list = [];
-    d.forEach(x => { const it = x.data(); if (it.title && it.body && it.published !== false && !(it.publishAt && it.publishAt > Date.now())) list.push({ s: it.slug || x.id, t: it.title, k: it.mood || '', b: it.body, ne: it.lang !== 'en' }); });
-    if (list.length) window.setPoems(list);
-  } catch(e) {}
-})();
+/* ---------- poems ---------- */
+live(query(collection(db,'poems'), orderBy('order','asc')), d => {
+  const list = [];
+  d.forEach(x => { const it = x.data(); if (it.title && it.body && it.published !== false && !(it.publishAt && it.publishAt > Date.now())) list.push({ s: it.slug || x.id, t: it.title, k: it.mood || '', b: it.body, ne: it.lang !== 'en' }); });
+  if (list.length) window.setPoems(list);
+});
 
-(async () => {
+/* ---------- site sections (hero lines, cards, education, skills, thoughts) ---------- */
   const IC = {
     cross:'<path d="M12 2v20M5 8h14"/>', pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
     landmark:'<path d="M3 21h18M4 10h16M12 3 3 8h18z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/>',
@@ -1655,87 +1674,77 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
     doc:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
     camera:'<path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/>'
   };
-  const svgI = (k,w=22) => `<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]||IC.star}</svg>`;
-  const CHK = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>';
-  try {
-    const x = await getDoc(doc(db,'site','extras'));
-    if (!x.exists()) return;
-    const d = x.data();
-    const sw=id=>{const el=document.getElementById(id);el.classList.remove('swap-in');void el.offsetWidth;el.classList.add('swap-in');};
-    if (Array.isArray(d.cares) && d.cares.length) sw('cares'), document.getElementById('cares').innerHTML = d.cares.map(c => `<article class="like${c.featured?' faith':''}"><span class="l-ic">${svgI(c.icon)}</span><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p></article>`).join('');
-    if (Array.isArray(d.education) && d.education.length) sw('eduList'), document.getElementById('eduList').innerHTML = d.education.map(e => `<li${e.current?' class="now"':''}><span class="yr">${esc(e.year)}</span><span class="e-ic">${svgI('cap')}</span><h4>${esc(e.title)}</h4><p>${esc(e.detail)}</p><span class="st">${esc(e.status)}</span></li>`).join('');
-    if (Array.isArray(d.skills) && d.skills.length) sw('skillTiles'), document.getElementById('skillTiles').innerHTML = d.skills.map(k => `<article class="tile g c-${esc(k.color||'dark')}${k.wide?' wide':''}">${k.color==='dark'||!k.color?'<span class="glyph" aria-hidden="true">क</span>':''}<span class="t-ic">${svgI(k.icon)}</span><h4>${esc(k.title)}</h4>${k.text?`<p>${esc(k.text)}</p>`:''}${(k.chips||[]).length?`<div class="t-chips">${k.chips.map(c=>`<span>${CHK}${esc(c)}</span>`).join('')}</div>`:''}</article>`).join('');
-    if (Array.isArray(d.heroLines) && d.heroLines.length) window.heroLines = d.heroLines.filter(h=>h&&h.text).map(h => ({ t:h.text, s:h.source||'', ne:h.lang!=='en' }));
-  } catch(e) {}
-})();
+const svgI = (k,w=22) => `<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]||IC.star}</svg>`;
+const CHK = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>';
+live(doc(db,'site','extras'), x => {
+  if (!x.exists()) return;
+  const d = x.data(), put = (id, html) => { const el=$id(id); el.innerHTML = html; swap(el); };
+  if (Array.isArray(d.cares) && d.cares.length) put('cares', d.cares.map(c => `<article class="like${c.featured?' faith':''}"><span class="l-ic">${svgI(c.icon)}</span><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p></article>`).join(''));
+  if (Array.isArray(d.education) && d.education.length) put('eduList', d.education.map(e => `<li${e.current?' class="now"':''}><span class="yr">${esc(e.year)}</span><span class="e-ic">${svgI('cap')}</span><h4>${esc(e.title)}</h4><p>${esc(e.detail)}</p><span class="st">${esc(e.status)}</span></li>`).join(''));
+  if (Array.isArray(d.skills) && d.skills.length) put('skillTiles', d.skills.map(k => `<article class="tile g c-${esc(k.color||'dark')}${k.wide?' wide':''}">${k.color==='dark'||!k.color?'<span class="glyph" aria-hidden="true">क</span>':''}<span class="t-ic">${svgI(k.icon)}</span><h4>${esc(k.title)}</h4>${k.text?`<p>${esc(k.text)}</p>`:''}${(k.chips||[]).length?`<div class="t-chips">${k.chips.map(c=>`<span>${CHK}${esc(c)}</span>`).join('')}</div>`:''}</article>`).join(''));
+  if (Array.isArray(d.thoughts)) { const t = d.thoughts.filter(q=>q&&q.text); $id('thoughts').hidden = !t.length; if (t.length) put('thoughts', t.map(q => `<blockquote${/[\u0900-\u097F]/.test(q.text)?' lang="ne" class="ne"':''}>${esc(q.text).replace(/\n/g,'<br>')}${q.label?`<cite>${esc(q.label)}</cite>`:''}</blockquote>`).join('')); }
+  if (Array.isArray(d.heroLines) && d.heroLines.length) window.heroLines = d.heroLines.filter(h=>h&&h.text).map(h => ({ t:h.text, s:h.source||'', ne:h.lang!=='en' }));
+});
 
-(async () => {
-  try { const c = await getDoc(doc(db,'site','contact')); if (c.exists() && window.applyContact) window.applyContact(c.data()); } catch(e) {}
-})();
+/* ---------- contact ---------- */
+live(doc(db,'site','contact'), c => { if (c.exists() && window.applyContact) window.applyContact(c.data()); });
 
-(async () => {
-  try {
-    const a = await getDoc(doc(db,'site','about'));
-    if (!a.exists()) return;
-    const d = a.data();
-    if (d.title) document.getElementById('abTitle').textContent = d.title;
-    if (d.lead !== undefined) { const el=document.getElementById('abLead'); el.textContent = d.lead; el.hidden = !d.lead; }
-    if (d.body) document.getElementById('abStory').innerHTML = d.body.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => '<p>'+esc(t).replace(/\n/g,'<br>')+'</p>').join('');
-    if (Array.isArray(d.facts)) { const dl=document.getElementById('abFacts'); dl.innerHTML = d.facts.filter(f=>f&&f.k&&f.v).map(f => '<dt>'+esc(f.k)+'</dt><dd>'+esc(f.v)+'</dd>').join(''); dl.hidden = !dl.children.length; }
-  } catch(e) {}
-})();
+/* ---------- about ---------- */
+live(doc(db,'site','about'), a => {
+  if (!a.exists()) return;
+  const d = a.data();
+  if (d.title) $id('abTitle').textContent = d.title;
+  if (d.lead !== undefined) { const el=$id('abLead'); el.textContent = d.lead; el.hidden = !d.lead; }
+  if (d.body) { const st=$id('abStory'); st.innerHTML = d.body.split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => '<p>'+esc(t).replace(/\n/g,'<br>')+'</p>').join(''); if (changed('about')) swap(st); }
+  if (Array.isArray(d.facts)) { const dl=$id('abFacts'); dl.innerHTML = d.facts.filter(f=>f&&f.k&&f.v).map(f => '<dt>'+esc(f.k)+'</dt><dd>'+esc(f.v)+'</dd>').join(''); dl.hidden = !dl.children.length; }
+});
 
-(async () => {
-  try {
-    const n = await getDoc(doc(db,'site','now'));
-    if (!n.exists()) return;
-    const d = n.data();
-    [['reading','nowReading'],['writing','nowWriting'],['learning','nowLearning'],['working','nowWorking']].forEach(([k,id]) => {
-      const el = document.getElementById(id);
-      if (d[k]) el.textContent = d[k];
-      else if (d[k] === '') el.closest('.now-i').remove();
+/* ---------- right now ---------- */
+live(doc(db,'site','now'), n => {
+  if (!n.exists()) return;
+  const d = n.data();
+  [['reading','nowReading'],['writing','nowWriting'],['learning','nowLearning'],['working','nowWorking']].forEach(([k,id]) => {
+    const el = $id(id), box = el.closest('.now-i');
+    if (d[k]) { el.textContent = d[k]; box.hidden = false; }
+    else if (d[k] === '') box.hidden = true;
+  });
+  if (d.updated) $id('nowUpd').textContent = 'Updated ' + d.updated;
+  if (changed('now')) swap($id('now'));
+});
+
+/* ---------- bible verses ---------- */
+live(doc(db,'site','verse'), v => {
+  if (!v.exists()) return;
+  const data = v.data();
+  const list = Array.isArray(data.verses) ? data.verses : (data.text ? [{text:data.text, ref:data.ref}] : []);
+  if (!list.length) return;
+  const tr = $id('vbTrack');
+  tr.innerHTML = list.filter(x=>x&&x.text).map(x => `<figure class="vb-slide" aria-roledescription="slide"><blockquote lang="ne">${esc(x.text)}</blockquote><figcaption lang="ne">${esc(x.ref||'')}</figcaption></figure>`).join('');
+  window.initVerses && window.initVerses();
+});
+
+/* ---------- certificates ---------- */
+live(query(collection(db,'certs'), orderBy('order','asc')), d => {
+  const g = $id('certGrid');
+  g.innerHTML = '';
+  d.forEach(x => { const it = x.data();
+    const c = document.createElement('article'); c.className = 'cert';
+    c.innerHTML = `<h3>${esc(it.title)}</h3><span class="s">${esc(it.sub)}</span>
+      ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
+      <div class="tags">${(it.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+      ${it.url ? `<button type="button">View certificate</button>` : ''}`;
+    const b = c.querySelector('button');
+    if (b) b.addEventListener('click', () => {
+      $id('certTitle').textContent = it.title || '';
+      $id('certSub').textContent = it.sub || '';
+      $id('certImg').src = it.url;
+      window.openModal('certModal', b);
     });
-    if (d.updated) document.getElementById('nowUpd').textContent = 'Updated ' + d.updated;
-  } catch(e) {}
-})();
-
-(async () => {
-  try {
-    const v = await getDoc(doc(db,'site','verse'));
-    if (!v.exists()) return;
-    const data = v.data();
-    const list = Array.isArray(data.verses) ? data.verses : (data.text ? [{text:data.text, ref:data.ref}] : []);
-    if (!list.length) return;
-    const tr = document.getElementById('vbTrack');
-    tr.innerHTML = list.filter(x=>x&&x.text).map(x => `<figure class="vb-slide" aria-roledescription="slide"><blockquote lang="ne">${esc(x.text)}</blockquote><figcaption lang="ne">${esc(x.ref||'')}</figcaption></figure>`).join('');
-    window.initVerses && window.initVerses();
-  } catch(e) {}
-})();
-
-(async () => {
-  const g = document.getElementById('certGrid');
-  try {
-    const d = await getDocs(query(collection(db,'certs'), orderBy('order','asc')));
-    if (d.empty) { g.innerHTML = ''; window.trainState && window.trainState('certs',0); return; }
-    g.innerHTML = '';
-    d.forEach(x => { const it = x.data();
-      const c = document.createElement('article'); c.className = 'cert';
-      c.innerHTML = `<h3>${esc(it.title)}</h3><span class="s">${esc(it.sub)}</span>
-        ${it.desc ? `<p>${esc(it.desc)}</p>` : ''}
-        <div class="tags">${(it.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div>
-        ${it.url ? `<button type="button">View certificate</button>` : ''}`;
-      const b = c.querySelector('button');
-      if (b) b.addEventListener('click', () => {
-        document.getElementById('certTitle').textContent = it.title || '';
-        document.getElementById('certSub').textContent = it.sub || '';
-        document.getElementById('certImg').src = it.url;
-        window.openModal('certModal', b);
-      });
-      g.appendChild(c);
-    });
-    window.trainState && window.trainState('certs',d.size||g.children.length);
-  } catch(e) { g.innerHTML = `<div class="empty">Certificates couldn't load. Refresh to try again.</div>`; }
-})();
+    g.appendChild(c);
+  });
+  if (changed('certs')) swap(g);
+  window.trainState && window.trainState('certs', g.children.length);
+}, () => { $id('certGrid').innerHTML = `<div class="empty">Certificates couldn't load. Refresh to try again.</div>`; });
 </script>
 </body>
 </html>
