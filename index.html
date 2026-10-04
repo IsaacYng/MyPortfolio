@@ -1632,12 +1632,12 @@ const app = initializeApp({
   measurementId: "G-JYR3BKGF26"
 });
 // ---- App Check: only requests from this website are accepted by Firebase ----
-// Paste your reCAPTCHA v3 SITE key below (see setup steps). Empty = App Check off.
-const APPCHECK_SITE_KEY = "";
+// Paste your Fraud Defense (reCAPTCHA Enterprise) SITE key below (see setup steps). Empty = App Check off.
+const APPCHECK_SITE_KEY = "6Ldza94tAAAAAJYXxIdBWQm__ddR5oaOuHZ3wUcW";
 if (APPCHECK_SITE_KEY) {
   try {
-    const { initializeAppCheck, ReCaptchaV3Provider } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-app-check.js");
-    initializeAppCheck(app, { provider: new ReCaptchaV3Provider(APPCHECK_SITE_KEY), isTokenAutoRefreshEnabled: true });
+    const { initializeAppCheck, ReCaptchaEnterpriseProvider } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-app-check.js");
+    initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(APPCHECK_SITE_KEY), isTokenAutoRefreshEnabled: true });
     document.querySelectorAll('.rc-note').forEach(e => e.hidden = false);
   } catch (e) { console.warn('App Check failed to start', e); }
 }

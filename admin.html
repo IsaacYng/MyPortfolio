@@ -983,12 +983,12 @@ const app = initializeApp({
   messagingSenderId: "741383996320",
   appId: "1:741383996320:web:0fded52449d58e1d1b1ac5"
 });
-// ---- App Check: must use the SAME reCAPTCHA v3 site key as index.html. Empty = off. ----
-const APPCHECK_SITE_KEY = "";
+// ---- App Check: must use the SAME Fraud Defense (reCAPTCHA Enterprise) site key as index.html. Empty = off. ----
+const APPCHECK_SITE_KEY = "6Ldza94tAAAAAJYXxIdBWQm__ddR5oaOuHZ3wUcW";
 if (APPCHECK_SITE_KEY) {
   try {
-    const { initializeAppCheck, ReCaptchaV3Provider } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-app-check.js");
-    initializeAppCheck(app, { provider: new ReCaptchaV3Provider(APPCHECK_SITE_KEY), isTokenAutoRefreshEnabled: true });
+    const { initializeAppCheck, ReCaptchaEnterpriseProvider } = await import("https://www.gstatic.com/firebasejs/12.17.1/firebase-app-check.js");
+    initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(APPCHECK_SITE_KEY), isTokenAutoRefreshEnabled: true });
     document.querySelectorAll('.rc-note').forEach(e => e.hidden = false);
   } catch (e) { console.warn('App Check failed to start', e); }
 }
