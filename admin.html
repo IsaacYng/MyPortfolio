@@ -272,6 +272,79 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line-2);bor
 .qa[open] summary{color:var(--accent)}
 .qa p{padding:0 20px 16px;font-family:var(--nep);line-height:1.85;color:var(--ink-2)}
 .visit{margin-bottom:18px}
+/* ---- home ---- */
+.welcome{position:relative;overflow:hidden;isolation:isolate;border-radius:18px;padding:26px 24px 30px;background:linear-gradient(150deg,#16222B,#22333E);color:#fff;margin-bottom:14px;box-shadow:0 24px 50px -30px rgba(22,34,43,.7)}
+.w-ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:90px;z-index:-1}
+.w-date{font-size:.84rem;color:#9FB0B7}
+.welcome h1{font-weight:700;font-size:1.8rem;letter-spacing:-.025em;margin-top:2px;line-height:1.15}
+.w-live{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem;color:#C9D3D6;margin-top:8px}
+.w-live i{width:8px;height:8px;border-radius:50%;background:#5BC08A;box-shadow:0 0 0 4px rgba(91,192,138,.2)}
+.w-live a{color:#fff;font-weight:600}
+.w-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn.ghost{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.18)}
+.health{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.hc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;cursor:pointer;min-width:0;transition:border-color .15s}
+.hc:hover{border-color:var(--line-2)}
+.hc .hi{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg);color:var(--ink)}
+.hc.ok .hi{background:var(--ok-soft);color:var(--ok)}.hc.warn .hi{background:var(--warn-soft);color:var(--warn)}.hc.bad .hi{background:var(--accent-soft);color:var(--accent)}
+.hc span{display:grid;min-width:0}.hc b{font-weight:700;font-size:1.02rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hc small{font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.steps-bar{height:4px;background:var(--line)}
+.steps-bar i{display:block;height:100%;background:var(--ok-bar);width:0;transition:width .4s}
+#stepsCard.all-done .steps{display:none}
+.hero-o>.card{margin-top:0}
+.hero-o{margin-bottom:18px;align-items:start}
+.hero-o{grid-template-columns:1fr 1fr}
+@media(max-width:900px){.health{grid-template-columns:1fr 1fr}.welcome{padding:22px 18px 26px}.welcome h1{font-size:1.5rem}}
+/* ---- bottom nav create + sheets ---- */
+.bnav-new{display:none}
+.sheet-bg{position:fixed;inset:0;background:rgba(22,34,43,.45);z-index:45;animation:fadein .2s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:46;background:#fff;border-radius:22px 22px 0 0;padding:8px 16px calc(20px + env(safe-area-inset-bottom,0px));max-height:85vh;overflow:auto;box-shadow:0 -20px 50px -20px rgba(22,34,43,.5);animation:sheetup .28s cubic-bezier(.2,.7,.2,1)}
+@media(min-width:901px){.sheet{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-50%);width:440px;border-radius:18px;animation:fadein .2s}}
+@keyframes sheetup{from{transform:translateY(100%)}}
+@keyframes fadein{from{opacity:0}}
+.grab{width:40px;height:4px;border-radius:4px;background:var(--line-2);margin:4px auto 12px}
+.sheet h3{font-weight:700;font-size:1.1rem;margin:0 4px 12px}
+.sheet-list{display:grid;gap:6px}
+.sheet-list button{display:flex;align-items:center;gap:14px;padding:12px;border-radius:14px;border:none;background:none;text-align:left;cursor:pointer;width:100%}
+.sheet-list button:hover,.sheet-list button:focus-visible{background:var(--bg)}
+.sheet-list b{display:block;font-weight:600}
+.sheet-list small{font-size:.82rem;color:var(--muted)}
+.si{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.si.c1{background:var(--accent)}.si.c2{background:#3E9A68}.si.c3{background:#2F5B94}.si.c4{background:#B5651D}.si.c5{background:var(--ink)}
+.sheet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sheet-grid a{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 6px;border-radius:14px;background:var(--bg);color:var(--ink);text-decoration:none;font-size:.82rem;font-weight:600;cursor:pointer;text-align:center}
+.sheet-grid a:hover{background:var(--line)}
+.sheet-grid a.danger{color:var(--accent)}
+/* ---- sticky save bar ---- */
+@media(max-width:900px){
+  .card-f.sticky{position:sticky;bottom:calc(68px + env(safe-area-inset-bottom,0px));z-index:5;box-shadow:0 -10px 24px -18px rgba(22,34,43,.45);border-radius:0 0 var(--r) var(--r)}
+  .bnav{align-items:center}
+  .bnav-new{display:flex;align-items:center;justify-content:center;width:52px;height:52px;margin:-22px 4px 0;border-radius:50%;border:4px solid #fff;background:var(--accent);color:#fff;box-shadow:0 10px 22px -8px rgba(184,35,58,.8);cursor:pointer;flex-shrink:0}
+  .bnav-new svg{width:24px;height:24px}
+}
+/* ---- writing mode & preview ---- */
+.write-tools{display:flex;gap:8px;flex-wrap:wrap}
+.write-tools .btn{min-height:36px;padding:0 12px;font-size:.84rem}
+.po-preview{border:1px solid var(--line);border-radius:12px;background:#16222B;color:#E8EDEE;padding:22px 20px;max-height:420px;overflow:auto}
+.po-preview .ph4{font-family:var(--nep);font-weight:500;font-size:1.4rem;color:#fff;margin-bottom:12px}
+.po-preview .ph4.en{font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+.po-preview .pb{white-space:pre-line;font-family:var(--nep);line-height:2;color:#DCE3E5}
+.po-preview .pb.en{font-family:Georgia,serif;font-style:italic;line-height:1.9}
+.po-preview .pk{font-size:.8rem;color:#F2A5B1;margin-bottom:4px}
+#poCard.focus{position:fixed;inset:0;z-index:55;border-radius:0;overflow:auto;border:none;margin:0;padding-top:env(safe-area-inset-top,0px)}
+#poCard.focus .card-b{max-width:760px;margin:0 auto}
+#poCard.focus #poBody{min-height:60vh;font-size:1.15rem;line-height:2}
+#poCard.focus .card-f{position:sticky;bottom:0}
+body.focusing{overflow:hidden}
+.tr.rec{color:inherit;text-decoration:none;cursor:pointer}
+.tr.rec:hover{background:#FAFBFB}
+.tr.rec .n{color:var(--muted)}
+/* page fade */
+[data-page]:not([hidden]){animation:fadein .25s}
+/* toast action */
+.toast button{margin-left:6px;background:none;border:none;color:#F2A5B1;font-weight:700;cursor:pointer;padding:0 2px;font-size:.9rem;pointer-events:auto}
+.toast.has-act{pointer-events:auto}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -416,19 +489,21 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <div class="brand"><span class="mono">IY</span><div>Ishak Yonghang<small>Content console</small></div></div>
     <nav class="nav" aria-label="Sections">
       <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
-      <div class="nav-label">CONTENT</div>
-      <a data-go="about"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>About me</a>
-      <a data-go="sections"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>Site sections</a>
+      <div class="nav-label">WRITE</div>
       <a data-go="poems"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Poems<span class="ct" id="ctP">–</span></a>
       <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg>Bible verses<span class="ct" id="ctV">–</span></a>
+      <div class="nav-label">YOUR PAGE</div>
+      <a data-go="about"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>About me</a>
       <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Right now</a>
+      <a data-go="sections"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>Site sections</a>
+      <a data-go="contact"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Contact details</a>
+      <div class="nav-label">MEDIA</div>
       <a data-go="snaps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Photos<span class="ct" id="ctS">–</span></a>
       <a data-go="certs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg>Certificates<span class="ct" id="ctC">–</span></a>
-      <div class="nav-label">SETTINGS</div>
+      <div class="nav-label">SYSTEM</div>
       <a data-go="backup"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Backup &amp; restore</a>
-      <a data-go="contact"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Contact details</a>
       <a data-go="storage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>Storage &amp; limits</a>
-      <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account &amp; security</a>
+      <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Account &amp; security</a>
       <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>मद्दत / Help</a>
       <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
     </nav>
@@ -465,20 +540,33 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <main class="content">
       <!-- HOME -->
       <section data-page="overview">
-        <div class="ph"><div><h1 id="hello">Welcome back</h1><p>Everything you can change on your site, in one place. Changes go live as soon as you save.</p><p class="np-help" lang="ne">यहाँबाट सुरु गर्नुहोस्। “Getting started” का काम एक-एक गरी सक्नुहोस्, सकेपछि ✓ लाग्छ।</p></div><a class="btn" href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a></div>
+        <div class="welcome">
+          <svg class="w-ridge" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
+          <p class="w-date" id="wDate"></p>
+          <h1 id="hello">Welcome back</h1>
+          <p class="w-live"><i></i>Your site is live · <a href="/" target="_blank" rel="noopener">yonghangishak.com.np</a></p>
+          <div class="w-acts"><button class="btn accent" type="button" data-create="poem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Write a poem</button><button class="btn ghost" type="button" data-create="photo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Add a photo</button></div>
+        </div>
+        <p class="np-help" lang="ne" style="margin-bottom:18px">यहाँबाट सुरु गर्नुहोस्। नयाँ कविता लेख्न “Write a poem” थिच्नुहोस्। तलका कामहरू एक-एक गरी सक्नुहोस्।</p>
+        <div class="health" id="health"></div>
         <div class="hero-o">
           <div class="card">
+            <div class="card-h"><h2>Recent poems</h2><a class="link" data-go="poems">See all</a></div>
+            <div class="tbl" id="recent"></div>
+          </div>
+          <div class="card" id="stepsCard">
             <div class="card-h"><h2>Getting started</h2><span class="meta" id="stepsMeta"></span></div>
+            <div class="steps-bar"><i id="stepsBar"></i></div>
             <div class="steps" id="steps"></div>
           </div>
-          <div class="card" data-go="storage" style="cursor:pointer">
-            <div class="card-h"><h2>Free limits</h2><span class="pill" id="planPill">Checking…</span></div>
-            <div class="store-mini">
-              <div class="mrow"><div class="mt" id="ovPhotos"><span>Photos</span><b>–</b></div><div class="bar"><i id="ovPhotosBar" style="width:0"></i></div></div>
-              <div class="mrow"><div class="mt" id="ovDb"><span>Text & poems</span><b>–</b></div><div class="bar"><i id="ovDbBar" style="width:0"></i></div></div>
-              <div class="mrow"><div class="mt" id="ovUp"><span>Uploads this month</span><b>–</b></div><div class="bar"><i id="ovUpBar" style="width:0"></i></div></div>
-              <p class="help" id="ovNote">Calculating…</p>
-            </div>
+        </div>
+        <div class="card" data-go="storage" style="cursor:pointer">
+          <div class="card-h"><h2>Free limits</h2><span class="pill" id="planPill">Checking…</span></div>
+          <div class="store-mini">
+            <div class="mrow"><div class="mt" id="ovPhotos"><span>Photos</span><b>–</b></div><div class="bar"><i id="ovPhotosBar" style="width:0"></i></div></div>
+            <div class="mrow"><div class="mt" id="ovDb"><span>Text & poems</span><b>–</b></div><div class="bar"><i id="ovDbBar" style="width:0"></i></div></div>
+            <div class="mrow"><div class="mt" id="ovUp"><span>Uploads this month</span><b>–</b></div><div class="bar"><i id="ovUpBar" style="width:0"></i></div></div>
+            <p class="help" id="ovNote">Calculating…</p>
           </div>
         </div>
         <div class="card visit">
@@ -488,12 +576,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn primary" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg>Open visitor dashboard</a><a class="btn" href="https://console.firebase.google.com/project/myportfolio-e77ba/analytics" target="_blank" rel="noopener">Firebase view</a></div>
           </div>
         </div>
-        <div class="stats">
-          <div class="stat" data-go="poems"><span>Poems</span><b id="stP">–</b><small id="stPs">on the site</small></div>
-          <div class="stat" data-go="verses"><span>Bible verses</span><b id="stV">–</b><small id="stVs">in the slider</small></div>
-          <div class="stat" data-go="snaps"><span>Photos</span><b id="stS">–</b><small id="stSs">snapshots</small></div>
-          <div class="stat" data-go="certs"><span>Certificates</span><b id="stC">–</b><small id="stCs">in Training</small></div>
-          <div class="stat" data-go="now"><span>Right now</span><b id="stN" style="font-size:1.05rem;margin:10px 0 6px">–</b><small>last updated</small></div>
+        <div class="stats" hidden>
+          <b id="stP"></b><small id="stPs"></small><b id="stV"></b><b id="stS"></b><b id="stC"></b><b id="stN"></b>
         </div>
       </section>
 
@@ -503,22 +587,22 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="card sec-card collapsed" id="card-heroLines">
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Poem lines in the hero</h2><span class="pill" id="q-heroLines"></span></div>
           <div class="card-b"><p class="help" style="margin-bottom:14px">The lines that type themselves under your name at the top of the site. Choose short lines from your poems.</p><div class="rows-ed" id="ed-heroLines"></div><button class="btn" type="button" id="add-heroLines" style="margin-top:12px">+ Add</button></div>
-          <div class="card-f"><span class="help" id="m-heroLines"></span><button class="btn" type="button" id="undo-heroLines">Undo changes</button><button class="btn accent" type="button" id="save-heroLines"><span class="spin"></span><span class="bt">Save</span></button></div>
+          <div class="card-f sticky"><span class="help" id="m-heroLines"></span><button class="btn" type="button" id="undo-heroLines">Undo changes</button><button class="btn accent" type="button" id="save-heroLines"><span class="spin"></span><span class="bt">Save</span></button></div>
         </div>
         <div class="card sec-card collapsed" id="card-cares">
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>What I care about</h2><span class="pill" id="q-cares"></span></div>
           <div class="card-b"><p class="help" style="margin-bottom:14px">The cards in the About section. Turn on “Dark card” for the one you want to stand out.</p><div class="rows-ed" id="ed-cares"></div><button class="btn" type="button" id="add-cares" style="margin-top:12px">+ Add</button></div>
-          <div class="card-f"><span class="help" id="m-cares"></span><button class="btn" type="button" id="undo-cares">Undo changes</button><button class="btn accent" type="button" id="save-cares"><span class="spin"></span><span class="bt">Save</span></button></div>
+          <div class="card-f sticky"><span class="help" id="m-cares"></span><button class="btn" type="button" id="undo-cares">Undo changes</button><button class="btn accent" type="button" id="save-cares"><span class="spin"></span><span class="bt">Save</span></button></div>
         </div>
         <div class="card sec-card collapsed" id="card-education">
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Education</h2><span class="pill" id="q-education"></span></div>
           <div class="card-b"><p class="help" style="margin-bottom:14px">Your studies, oldest first. Mark the one you are doing now as “Current”.</p><div class="rows-ed" id="ed-education"></div><button class="btn" type="button" id="add-education" style="margin-top:12px">+ Add</button></div>
-          <div class="card-f"><span class="help" id="m-education"></span><button class="btn" type="button" id="undo-education">Undo changes</button><button class="btn accent" type="button" id="save-education"><span class="spin"></span><span class="bt">Save</span></button></div>
+          <div class="card-f sticky"><span class="help" id="m-education"></span><button class="btn" type="button" id="undo-education">Undo changes</button><button class="btn accent" type="button" id="save-education"><span class="spin"></span><span class="bt">Save</span></button></div>
         </div>
         <div class="card sec-card collapsed" id="card-skills">
           <div class="card-h" role="button" tabindex="0" aria-expanded="false"><h2>Skills</h2><span class="pill" id="q-skills"></span></div>
           <div class="card-b"><p class="help" style="margin-bottom:14px">The colourful skill tiles. Put several skills in one tile, separated by commas.</p><div class="rows-ed" id="ed-skills"></div><button class="btn" type="button" id="add-skills" style="margin-top:12px">+ Add</button></div>
-          <div class="card-f"><span class="help" id="m-skills"></span><button class="btn" type="button" id="undo-skills">Undo changes</button><button class="btn accent" type="button" id="save-skills"><span class="spin"></span><span class="bt">Save</span></button></div>
+          <div class="card-f sticky"><span class="help" id="m-skills"></span><button class="btn" type="button" id="undo-skills">Undo changes</button><button class="btn accent" type="button" id="save-skills"><span class="spin"></span><span class="bt">Save</span></button></div>
         </div>
       </section>
 
@@ -561,7 +645,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <div class="facts" id="abRows"></div>
             <button class="btn" id="abAdd" type="button" style="margin-top:12px">+ Add a row</button>
           </div>
-          <div class="card-f"><button class="btn" id="abReset" type="button">Undo changes</button><button class="btn accent" id="abSave" type="button"><span class="spin"></span><span class="bt">Save about me</span></button></div>
+          <div class="card-f sticky"><button class="btn" id="abReset" type="button">Undo changes</button><button class="btn accent" id="abSave" type="button"><span class="spin"></span><span class="bt">Save about me</span></button></div>
         </div>
       </section>
 
@@ -569,7 +653,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <section data-page="poems" hidden>
         <div class="ph"><div><h1>Poems</h1><p>Shown in the poetry section, grouped by mood. “The Gossip Rope” stays as the featured poem.</p><p class="np-help" lang="ne">भाषा छान्नुहोस्, शीर्षक र कविता लेख्नुहोस्, अनि Publish poem थिच्नुहोस्। लेख्दै गर्दा कविता यही फोनमा आफैं सेभ हुन्छ।</p></div><span class="pill" id="poQuota"></span></div>
         <div class="note info" id="importCard" hidden><div style="flex:1"><b>Start with your current poems.</b> Your site shows 6 poems built into the page. Import them once so you can edit them here.</div><button class="btn primary" id="pImport" type="button"><span class="spin"></span><span class="bt">Import 6 poems</span></button></div>
-        <div class="card">
+        <div class="card" id="poCard">
           <div class="card-h"><h2 id="poFormTitle">Write a new poem</h2></div>
           <div class="card-b form">
             <div class="field"><span class="lab">Language</span>
@@ -583,6 +667,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
               <label class="field"><span class="lab">Mood <em>e.g. Love, Faith</em></span><input id="poMood" list="moodList" placeholder="Love" data-max="mood"/></label>
             </div>
             <datalist id="moodList"></datalist>
+            <div class="write-tools"><button type="button" class="btn" id="poFocus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg><span>Writing mode</span></button><button type="button" class="btn" id="poPrevBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Preview</span></button></div>
+            <div class="po-preview" id="poPreview" hidden></div>
             <label class="field"><span class="lab">Poem <em id="poLines">0 lines</em></span><textarea id="poBody" class="ne" lang="ne" style="min-height:300px" placeholder="Write each line on its own line. Leave an empty line between stanzas." data-max="poemBody"></textarea></label>
             <details>
               <summary class="help" style="cursor:pointer;font-weight:600">More options</summary>
@@ -595,7 +681,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
               </div>
             </details>
           </div>
-          <div class="card-f"><span class="help" id="poDraft"></span><span class="help" id="poSize"></span><button class="btn" id="poCancel" type="button" hidden>Cancel</button><button class="btn accent" id="poSave" type="button"><span class="spin"></span><span class="bt">Publish poem</span></button></div>
+          <div class="card-f sticky"><span class="help" id="poDraft"></span><span class="help" id="poSize"></span><button class="btn" id="poCancel" type="button" hidden>Cancel</button><button class="btn accent" id="poSave" type="button"><span class="spin"></span><span class="bt">Publish poem</span></button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>All poems</h2><span class="meta" id="poMeta"></span></div>
@@ -613,7 +699,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <label class="field"><span class="lab">Verse</span><textarea id="vText" class="ne" lang="ne" placeholder="मलाई पुकार्, र म तँलाई जवाफ दिनेछु…" data-max="verse"></textarea></label>
             <label class="field"><span class="lab">Reference</span><input id="vRef" class="ne" lang="ne" placeholder="यर्मिया ३३:३" data-max="ref"/></label>
           </div>
-          <div class="card-f"><button class="btn" id="vCancel" type="button" hidden>Cancel</button><button class="btn accent" id="vSave" type="button"><span class="spin"></span><span class="bt">Add verse</span></button></div>
+          <div class="card-f sticky"><button class="btn" id="vCancel" type="button" hidden>Cancel</button><button class="btn accent" id="vSave" type="button"><span class="spin"></span><span class="bt">Add verse</span></button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>In the slider</h2><span class="meta" id="vMeta"></span></div>
@@ -635,7 +721,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             </div>
             <label class="field"><span class="lab">Updated <em>shown as “Updated …”</em></span><input id="nUpdated" placeholder="October 2026" data-max="updated"/></label>
           </div>
-          <div class="card-f"><button class="btn" id="nToday" type="button">Use this month</button><button class="btn accent" id="nSave" type="button"><span class="spin"></span><span class="bt">Save changes</span></button></div>
+          <div class="card-f sticky"><button class="btn" id="nToday" type="button">Use this month</button><button class="btn accent" id="nSave" type="button"><span class="spin"></span><span class="bt">Save changes</span></button></div>
         </div>
       </section>
 
@@ -651,7 +737,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             </div>
             <label class="field"><span class="lab">Caption <em>optional</em></span><input id="sTitle" placeholder="Lali kharka, 2026" data-max="caption"/></label>
           </div>
-          <div class="card-f"><span class="help" id="sSize"></span><button class="btn" id="sCancel" type="button" hidden>Cancel</button><button class="btn accent" id="sSave" type="button"><span class="spin"></span><span class="bt">Add photo</span></button></div>
+          <div class="card-f sticky"><span class="help" id="sSize"></span><button class="btn" id="sCancel" type="button" hidden>Cancel</button><button class="btn accent" id="sSave" type="button"><span class="spin"></span><span class="bt">Add photo</span></button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>On the site</h2><span class="meta" id="sMeta"></span></div>
@@ -681,7 +767,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
               </div>
             </details>
           </div>
-          <div class="card-f"><span class="help" id="cSize"></span><button class="btn" id="cCancel" type="button" hidden>Cancel</button><button class="btn accent" id="cSave" type="button"><span class="spin"></span><span class="bt">Add certificate</span></button></div>
+          <div class="card-f sticky"><span class="help" id="cSize"></span><button class="btn" id="cCancel" type="button" hidden>Cancel</button><button class="btn accent" id="cSave" type="button"><span class="spin"></span><span class="bt">Add certificate</span></button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>On the site</h2><span class="meta" id="cMeta"></span></div>
@@ -702,7 +788,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <label class="field"><span class="lab">Location <em>shown in the contact list</em></span><input id="ctPlace" placeholder="Phidim-1, Panchthar, Koshi" maxlength="60"/></label>
             <div class="test-links"><a class="btn" id="ctTestWa" target="_blank" rel="noopener">Test WhatsApp</a><a class="btn" id="ctTestFb" target="_blank" rel="noopener">Test Facebook</a></div>
           </div>
-          <div class="card-f"><button class="btn" id="ctUndo" type="button">Undo changes</button><button class="btn accent" id="ctSave" type="button"><span class="spin"></span><span class="bt">Save contact details</span></button></div>
+          <div class="card-f sticky"><button class="btn" id="ctUndo" type="button">Undo changes</button><button class="btn accent" id="ctSave" type="button"><span class="spin"></span><span class="bt">Save contact details</span></button></div>
         </div>
       </section>
 
@@ -790,10 +876,42 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <nav class="bnav" aria-label="Quick navigation">
     <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
     <a data-go="poems"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Poems</a>
+    <button type="button" class="bnav-new" id="bNew" aria-label="Create new"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
     <a data-go="snaps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Photos</a>
-    <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg>Verses</a>
-    <a id="bMore"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>More</a>
+    <a id="bMore" role="button" tabindex="0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>More</a>
   </nav>
+</div>
+
+<!-- bottom sheets -->
+<div class="sheet-bg" id="sheetBg" hidden></div>
+<div class="sheet" id="sheetNew" role="dialog" aria-modal="true" aria-label="Create new" hidden>
+  <div class="grab"></div>
+  <h3>Create</h3>
+  <div class="sheet-list">
+    <button type="button" data-create="poem"><span class="si c1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span><b>Write a poem</b><small>Nepali or English</small></span></button>
+    <button type="button" data-create="verse"><span class="si c2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg></span><span><b>Add a Bible verse</b><small>For the verse slider</small></span></button>
+    <button type="button" data-create="photo"><span class="si c3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg></span><span><b>Add a photo</b><small>Life snapshots</small></span></button>
+    <button type="button" data-create="cert"><span class="si c4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg></span><span><b>Add a certificate</b><small>Training section</small></span></button>
+    <button type="button" data-create="now"><span class="si c5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Update “Right now”</b><small>What you're up to</small></span></button>
+  </div>
+</div>
+<div class="sheet" id="sheetMore" role="dialog" aria-modal="true" aria-label="All sections" hidden>
+  <div class="grab"></div>
+  <h3>All sections</h3>
+  <div class="sheet-grid">
+    <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg><span>Verses</span></a>
+    <a data-go="about"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>About me</span></a>
+    <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Right now</span></a>
+    <a data-go="sections"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg><span>Sections</span></a>
+    <a data-go="contact"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>Contact</span></a>
+    <a data-go="certs"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg><span>Certificates</span></a>
+    <a data-go="backup"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>Backup</span></a>
+    <a data-go="storage"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg><span>Storage</span></a>
+    <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Account</span></a>
+    <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg><span lang="ne">मद्दत</span></a>
+    <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span>View site</span></a>
+    <a data-logout role="button" tabindex="0" class="danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Sign out</span></a>
+  </div>
 </div>
 
 <!-- dialogs -->
@@ -855,7 +973,10 @@ const fillCls = p => p >= 90 ? 'fill-bad' : p >= 70 ? 'fill-warn' : 'fill-ok';
 
 /* ---------- ui helpers ---------- */
 let tt;
-function toast(msg, bad=false){ const t=$('toast'); $('toastT').textContent=msg; t.classList.toggle('bad',bad); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'), bad?6000:2800); }
+function toast(msg, bad=false, act=null){ const t=$('toast'); $('toastT').textContent=msg; t.querySelectorAll('button').forEach(b=>b.remove()); t.classList.toggle('has-act',!!act);
+  if(act){ const b=document.createElement('button'); b.type='button'; b.textContent=act.label; b.onclick=()=>{ t.classList.remove('show'); act.fn(); }; t.appendChild(b); }
+  t.classList.toggle('bad',bad); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'), act?7000:bad?6000:2800);
+  if(!bad && navigator.vibrate) { try{ navigator.vibrate(12); }catch(_){} } }
 function setStatus(ok, txt){ const s=$('status'); s.className='status '+(ok?'ok':'bad'); s.querySelector('span').textContent=txt; s.title=txt; }
 function explain(e){
   const c = (e && e.code) || '';
@@ -926,16 +1047,31 @@ async function go(p){
   currentPage = p;
   document.querySelectorAll('[data-page]').forEach(s => s.hidden = s.dataset.page !== p);
   document.querySelectorAll('.nav a[data-go], .bnav a[data-go]').forEach(a => a.classList.toggle('on', a.dataset.go === p));
-  $('crumb').textContent = titles[p]; closeMenu(); $('userMenu').hidden=true; scrollTo({top:0});
+  $('crumb').textContent = titles[p]; closeMenu(); closeSheets(); $('userMenu').hidden=true; scrollTo({top:0});
   try { history.replaceState(null,'','#'+p); } catch(e){}
 }
 document.addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (a) { e.preventDefault(); go(a.dataset.go); } });
 const side=$('side'), scrim=$('scrim');
 function openMenu(){ side.classList.add('open'); scrim.hidden=false; }
 function closeMenu(){ side.classList.remove('open'); scrim.hidden=true; }
-$('menuBtn').addEventListener('click', openMenu); $('bMore').addEventListener('click', openMenu);
+$('menuBtn').addEventListener('click', openMenu);
+function openSheet(id){ $('sheetBg').hidden=false; $(id).hidden=false; const f=$(id).querySelector('button,a'); f&&f.focus(); }
+function closeSheets(){ $('sheetBg').hidden=true; ['sheetNew','sheetMore'].forEach(i=>$(i).hidden=true); }
+$('bMore').addEventListener('click', () => openSheet('sheetMore'));
+$('bMore').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSheet('sheetMore'); } });
+$('bNew').addEventListener('click', () => openSheet('sheetNew'));
+$('sheetBg').addEventListener('click', closeSheets);
+document.addEventListener('click', async e => {
+  const c = e.target.closest('[data-create]'); if(!c) return;
+  closeSheets();
+  const map = { poem:['poems','poTitle'], verse:['verses','vText'], photo:['snaps',null], cert:['certs','cTitle'], now:['now','nReading'] };
+  const [pg, focus] = map[c.dataset.create];
+  await go(pg);
+  if (pg==='poems' && P.edit) resetPoem();
+  setTimeout(()=>{ if(focus) $(focus).focus(); else { const card=document.querySelector('[data-page="snaps"] .drop'); card && card.scrollIntoView({block:'center'}); card && card.classList.add('over'); setTimeout(()=>card&&card.classList.remove('over'),900); } }, 120);
+});
 scrim.addEventListener('click', closeMenu);
-addEventListener('keydown', e => { if (e.key==='Escape') { closeMenu(); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
+addEventListener('keydown', e => { if (e.key==='Escape') { closeMenu(); closeSheets(); if(document.body.classList.contains('focusing')) setFocus(false); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
 $('userBtn').addEventListener('click', e => { e.stopPropagation(); const m=$('userMenu'); m.hidden=!m.hidden; $('userBtn').setAttribute('aria-expanded', !m.hidden); });
 document.addEventListener('click', e => { if (!e.target.closest('.user-menu')) { $('userMenu').hidden=true; $('userBtn').setAttribute('aria-expanded','false'); } });
 
@@ -1074,9 +1210,28 @@ function renderSteps(){
   ];
   const bk=lastBackup(); steps.push(['backup', bk && Date.now()-bk < 30*864e5, bk ? 'Back up again (monthly)' : 'Download your first backup', bk ? 'Last one was '+Math.floor((Date.now()-bk)/864e5)+' days ago' : 'Keeps your content safe']);
   const done = steps.filter(s=>s[1]).length;
-  $('stepsMeta').textContent = `${done} of ${steps.length} done`;
+  $('stepsMeta').textContent = done===steps.length ? 'All done 🎉' : `${done} of ${steps.length} done`;
+  $('stepsBar').style.width = (done/steps.length*100)+'%'; $('stepsCard').classList.toggle('all-done', done===steps.length);
   $('steps').innerHTML = steps.map(([go,ok,t,s]) => `<a class="step ${ok?'done':''}" data-go="${go}"><span class="ck">${I.check}</span><span class="st"><b>${t}</b><span>${s}</span></span>${I.chev}</a>`).join('');
 }
+function renderHome(){
+  $('wDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const u=usage(), gp=pct(u.gcs,LIMITS.storage), dp=pct(u.total,LIMITS.budget), bk=lastBackup(), days=bk?Math.floor((Date.now()-bk)/864e5):null;
+  const live = D.poems.length ? D.poems.filter(x=>x.published!==false && !isFuture(x)).length : BUILTIN_POEMS.length;
+  const sched = D.poems.filter(isFuture).length;
+  const svgI = k => `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON_SVG[k]}</svg>`;
+  const cards = [
+    ['poems', 'ok', 'pen', live+' poems', sched ? sched+' scheduled' : 'live on your site'],
+    ['storage', gp>=90||dp>=90?'bad':gp>=70||dp>=70?'warn':'ok', 'sheet', Math.max(gp,dp).toFixed(0)+'% used', 'free limits'],
+    ['backup', !bk?'warn':days>30?'warn':'ok', 'doc', !bk?'No backup':days===0?'Backed up today':days+' days ago', !bk?'download one now':'last backup'],
+    ['snaps', 'ok', 'camera', D.snapshots.length+' photos', D.certs.length+' certificates']
+  ];
+  $('health').innerHTML = cards.map(([g,c,i,b,s])=>`<a class="hc ${c}" data-go="${g}"><span class="hi">${svgI(i)}</span><span><b>${b}</b><small>${s}</small></span></a>`).join('');
+  const rec = D.poems.slice().sort((a,b)=>(b.updatedAt||b.order||0)-(a.updatedAt||a.order||0)).slice(0,4);
+  $('recent').innerHTML = rec.length ? rec.map(x=>{ const ne=x.lang!=='en'; return `<a class="tr noimg rec" data-edit-poem="${esc(x.id)}"><span class="n">${I.edit}</span><div style="min-width:0"><div class="t ${ne?'ne':''}" lang="${ne?'ne':'en'}">${esc(x.title)}${isFuture(x)?`<span class="badge sched">${fmtDay(x.publishAt)}</span>`:x.published===false?'<span class="badge draft">Hidden</span>':''}</div><div class="s">${esc(x.mood||'No mood')} · ${ne?'Nepali':'English'}</div></div></a>`; }).join('')
+    : `<div class="blank"><b>No poems in the console yet</b>Import your poems or write a new one.<div style="margin-top:12px"><button class="btn accent" type="button" data-create="poem">Write a poem</button></div></div>`;
+}
+document.addEventListener('click', async e => { const a=e.target.closest('[data-edit-poem]'); if(!a) return; e.preventDefault(); await go('poems'); const i=D.poems.findIndex(x=>x.id===a.dataset.editPoem); const row=document.querySelector(`#poList .tr[data-i="${i}"] [data-act=edit]`); row && row.click(); });
 function renderStats(){
   const live = D.poems.length ? D.poems.filter(x=>x.published!==false).length : BUILTIN_POEMS.length;
   $('ctP').textContent = $('stP').textContent = live; $('stPs').textContent = D.poems.length ? 'on the site' : 'built in (not imported)';
@@ -1085,7 +1240,7 @@ function renderStats(){
   $('ctC').textContent = $('stC').textContent = D.certs.length;
   $('stN').textContent = (D.now && D.now.updated) || 'Not set';
 }
-function refreshAll(){ renderStats(); renderSteps(); renderUsage(); refreshGuards(); }
+function refreshAll(){ renderStats(); renderSteps(); renderUsage(); refreshGuards(); renderHome(); }
 
 /* =========================================================
    IMAGES — shrink to ≤ LIMITS.photo, HEIC supported
@@ -1222,7 +1377,7 @@ $('forgotForm').addEventListener('submit', async e => {
 async function doSignOut(reason){ stopIdle(); signedOutMsg = reason || 'You have been signed out.'; await signOut(auth); }
 document.addEventListener('click', async e => {
   if (!e.target.closest('[data-logout]')) return;
-  $('userMenu').hidden=true; closeMenu();
+  $('userMenu').hidden=true; closeMenu(); closeSheets();
   if (await ask('Sign out?','You will need to sign in again to make changes.','Sign out')) doSignOut('You have been signed out.');
 });
 let warnTimer, countTimer;
@@ -1637,6 +1792,13 @@ function drawPoems(){
 }
 function resetPoem(){ clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); }
 $('poCancel').addEventListener('click', resetPoem);
+function setFocus(on){ $('poCard').classList.toggle('focus',on); document.body.classList.toggle('focusing',on); $('poFocus').querySelector('span').textContent = on ? 'Exit writing mode' : 'Writing mode'; if(on) $('poBody').focus(); }
+$('poFocus').addEventListener('click', () => setFocus(!$('poCard').classList.contains('focus')));
+function renderPreview(){ const ne=poLang()==='ne', t=$('poTitle').value.trim()||'Untitled', b=$('poBody').value;
+  $('poPreview').innerHTML = `<div class="pk">${esc($('poMood').value.trim()||'Poem')}</div><div class="ph4 ${ne?'':'en'}" lang="${ne?'ne':'en'}">${esc(t)}</div><div class="pb ${ne?'':'en'}" lang="${ne?'ne':'en'}">${esc(b)||'<span style="opacity:.6">Your poem will appear here.</span>'}</div>`; }
+$('poPrevBtn').addEventListener('click', () => { const p=$('poPreview'); p.hidden=!p.hidden; $('poPrevBtn').querySelector('span').textContent = p.hidden ? 'Preview' : 'Hide preview'; if(!p.hidden) renderPreview(); });
+['poTitle','poBody','poMood'].forEach(id => $(id).addEventListener('input', () => { if(!$('poPreview').hidden) renderPreview(); }));
+document.querySelectorAll('input[name=poLang]').forEach(r => r.addEventListener('change', () => { if(!$('poPreview').hidden) renderPreview(); }));
 $('poSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
   const dv=$('poDate').value, pAt = dv ? new Date(dv+'T06:00:00').getTime() : null;
   const d={ title:$('poTitle').value.trim(), mood:$('poMood').value.trim(), lang:poLang(), slug:$('poSlug').value.trim().replace(/^-|-$/g,''), body:$('poBody').value.replace(/\s+$/,''), published:$('poPub').checked, publishAt: pAt && pAt > Date.now() ? pAt : null };
@@ -1649,16 +1811,17 @@ $('poSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', as
   if(!old) assertCount('poems', D.poems.length);
   const order = old ? old.order : (D.poems.length?Math.max(...D.poems.map(x=>x.order||0))+1:1);
   assertSpace(old?docBytes(old.id,strip(old)):0, docBytes(P.edit||'new-poem-id-xxxxxxxx', {...d, order}));
+  d.updatedAt = Date.now();
   if(old){ await updateDoc(doc(db,'poems',P.edit), d); toast('Poem updated'); }
   else { await addDoc(collection(db,'poems'), {...d, order}); toast(!d.published?'Poem saved as hidden':d.publishAt?'Poem scheduled for '+fmtDay(d.publishAt):'Poem published'); }
-  clearDraft(); resetPoem(); await loadPoems(); refreshAll();
+  clearDraft(); setFocus(false); resetPoem(); await loadPoems(); refreshAll();
 }));
 $('poList').addEventListener('click', async e => {
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const i=+b.closest('.tr').dataset.i, x=D.poems[i], act=b.dataset.act;
   try{
     if(act==='edit'){ $('poDate').value = isFuture(x) ? new Date(x.publishAt).toISOString().slice(0,10) : ''; P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poCancel').hidden=false; drawPoems(); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
-    if(act==='del'){ if(!await ask('Delete this poem?',`“${x.title}” will be removed from the site.`)) return; await deleteDoc(doc(db,'poems',x.id)); if(P.edit===x.id) resetPoem(); toast('Poem deleted'); }
+    if(act==='del'){ const {id,...data}=x; await deleteDoc(doc(db,'poems',x.id)); if(P.edit===x.id) resetPoem(); toast(`“${x.title}” deleted`, false, { label:'Undo', fn: async()=>{ try{ await setDoc(doc(db,'poems',id), data); await loadPoems(); refreshAll(); toast('Poem restored'); }catch(err){ toast(explain(err),true); } } }); }
     if(act==='up'||act==='down'){ const j=act==='up'?i-1:i+1; if(j<0||j>=D.poems.length) return; const arr=D.poems.slice(); [arr[i],arr[j]]=[arr[j],arr[i]]; const bt=writeBatch(db); arr.forEach((y,k)=>bt.update(doc(db,'poems',y.id),{order:k+1})); await bt.commit(); toast('Order saved'); }
     await loadPoems(); refreshAll();
   }catch(err){ toast(err.userMsg||explain(err),true); }
@@ -1708,10 +1871,11 @@ $('vList').addEventListener('click', async e => {
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const i=+b.closest('.tr').dataset.i, act=b.dataset.act, list=D.verses.slice();
   if (act==='edit'){ vEdit=i; setVal('vText',list[i].text); setVal('vRef',list[i].ref); $('vSave').querySelector('.bt').textContent='Save changes'; $('vFormTitle').textContent='Edit verse '+(i+1); $('vCancel').hidden=false; drawVerses(); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
-  if (act==='del'){ if(!await ask('Delete this verse?','It will be removed from the site.')) return; list.splice(i,1); if(vEdit===i) resetV(); }
+  if (act==='del'){ list.splice(i,1); if(vEdit===i) resetV(); }
   if (act==='up'&&i>0) [list[i-1],list[i]]=[list[i],list[i-1]];
   if (act==='down'&&i<list.length-1) [list[i+1],list[i]]=[list[i],list[i+1]];
-  try { await saveVerses(list); drawVerses(); refreshAll(); toast(act==='del'?'Verse deleted':'Order saved'); } catch(err){ toast(err.userMsg||explain(err),true); }
+  const prev = D.verses.slice();
+  try { await saveVerses(list); drawVerses(); refreshAll(); if(act==='del') toast('Verse deleted', false, { label:'Undo', fn: async()=>{ try{ await saveVerses(prev); drawVerses(); refreshAll(); toast('Verse restored'); }catch(err){ toast(err.userMsg||explain(err),true); } } }); else toast('Order saved'); } catch(err){ toast(err.userMsg||explain(err),true); }
 });
 
 /* =========================================================
@@ -1791,7 +1955,9 @@ Object.keys(C).forEach(col => {
     const st=S[col], i=+b.closest('.tr').dataset.i, x=D[col][i], act=b.dataset.act;
     try {
       if (act==='edit'){ st.edit=x.id; c.fill(x); $(c.save).querySelector('.bt').textContent='Save changes'; $(c.title).textContent='Edit '+c.noun; $(c.cancel).hidden=false; drawList(col); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
-      if (act==='del'){ if(!await ask(`Delete this ${c.noun}?`,'It will be removed from the site and its space freed.')) return; await deleteDoc(doc(db,col,x.id)); await removePhoto(x.path); if(st.edit===x.id) resetL(col); toast(c.noun[0].toUpperCase()+c.noun.slice(1)+' deleted'); }
+      if (act==='del'){ const {id,...data}=x; await deleteDoc(doc(db,col,x.id)); if(st.edit===x.id) resetL(col);
+        let undone=false; const t=setTimeout(()=>{ if(!undone) removePhoto(x.path); }, 7500);
+        toast(c.noun[0].toUpperCase()+c.noun.slice(1)+' deleted', false, { label:'Undo', fn: async()=>{ undone=true; clearTimeout(t); try{ await setDoc(doc(db,col,id), data); await loadList(col); refreshAll(); toast('Restored'); }catch(err){ toast(explain(err),true); } } }); }
       if (act==='up'||act==='down'){ const j=act==='up'?i-1:i+1; if(j<0||j>=D[col].length) return; const arr=D[col].slice(); [arr[i],arr[j]]=[arr[j],arr[i]]; const bt=writeBatch(db); arr.forEach((y,k)=>bt.update(doc(db,col,y.id),{order:k+1})); await bt.commit(); toast('Order saved'); }
       await loadList(col); refreshAll();
     } catch(err){ toast(err.userMsg||explain(err),true); }
