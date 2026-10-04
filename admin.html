@@ -1360,7 +1360,7 @@ $('loginForm').addEventListener('submit', async e => {
     try { localStorage.setItem('iy-keep', $('lKeep').checked ? '1' : '0'); } catch(_){}
     await signInWithEmailAndPassword(auth, em, pw);
     $('lPass').value='';
-  } catch(err){ $('lErr').textContent = explain(err); $('lPass').select(); }
+  } catch(err){ $('lErr').textContent = explain(err) + (err && err.code ? ' (' + err.code.replace('auth/','') + ')' : ''); $('lPass').select(); }
   btnLoad($('lBtn'), false, 'Sign in');
 });
 $('forgotForm').addEventListener('submit', async e => {
