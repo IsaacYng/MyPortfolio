@@ -21,8 +21,8 @@
 <meta name="twitter:description" content="Poems in Nepali and English, and faith."/>
 <meta name="twitter:image" content="https://yonghangishak.com.np/og-image.jpg"/>
 <!-- Google Analytics (free, part of your Firebase project) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JYR3BKGF26"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JYR3BKGF26');window.track=function(n,p){try{gtag('event',n,p||{});}catch(e){}};</script>
+
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JYR3BKGF26');addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-JYR3BKGF26';document.head.appendChild(s);};(window.requestIdleCallback||function(f){setTimeout(f,1500);})(go,{timeout:4000});});window.track=function(n,p){try{gtag('event',n,p||{});}catch(e){}};</script>
 <link rel="canonical" href="https://yonghangishak.com.np/"/>
 <script>try{localStorage.removeItem('theme');var t=sessionStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <meta name="theme-color" content="#E4EAE9"/>
@@ -52,7 +52,14 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin/>
+<link rel="dns-prefetch" href="https://firebasestorage.googleapis.com"/>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+<!-- Fonts load without blocking the first paint (text shows instantly in a fallback font, then swaps) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400&family=Noto+Serif+Devanagari:wght@400..500&display=swap"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400&family=Noto+Serif+Devanagari:wght@400..500&display=swap" media="print" onload="this.media='all'"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400&family=Noto+Serif+Devanagari:wght@400..500&display=swap"/></noscript>
 <style>
 :root{
   --mist:#E4EAE9;
@@ -254,6 +261,7 @@ section.now{padding:clamp(28px,5vw,56px) 0 0}
 
 /* ---------- sections ---------- */
 section{padding:clamp(48px,7vw,92px) 0}
+#work,#training,#contact{content-visibility:auto;contain-intrinsic-size:auto 900px}
 .head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(14px,4vw,56px);margin-bottom:clamp(26px,4vw,48px);align-items:end}
 .head h2::after{content:"";display:block;width:44px;height:5px;border-radius:5px;background:var(--rhodo);margin-top:18px}
 .head h2{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:.95;letter-spacing:-.035em}
@@ -687,7 +695,7 @@ footer .wrap{align-items:center}
     <div class="portrait">
       <div class="frame">
       <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bc" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><circle cx="60" cy="60" r="58" fill="var(--rhodo)"/><text font-family="Bricolage Grotesque, system-ui, sans-serif" font-size="12.5" font-weight="600" letter-spacing="1" fill="#fff"><textPath href="#bc" textLength="272" lengthAdjust="spacingAndGlyphs">poetry ✦ faith ✦ phidim ✦ nepal ✦ </textPath></text><path d="M56.5 42h7v11h10v7h-10v18h-7V60h-10v-7h10z" fill="#fff"/></svg>
-      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div><img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Ishak Yonghang, poet from Phidim, Panchthar" width="600" height="750" fetchpriority="high" onerror="this.remove()" style="position:relative"/></div>
+      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div><img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Ishak Yonghang, poet from Phidim, Panchthar" width="600" height="750" fetchpriority="high" decoding="async" onerror="this.remove()" style="position:relative"/></div>
       <div class="facts">
         <div><strong id="age">20</strong><span>years old</span></div>
         <div><strong>Poet</strong><span>&amp; writer</span></div>
