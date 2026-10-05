@@ -283,7 +283,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line-2);bor
 .w-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 .btn.ghost{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#fff}
 .btn.ghost:hover{background:rgba(255,255,255,.18)}
-.health{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.health{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
 .hc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;cursor:pointer;min-width:0;transition:border-color .15s}
 .hc:hover{border-color:var(--line-2)}
 .hc .hi{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg);color:var(--ink)}
@@ -295,6 +295,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line-2);bor
 .hero-o>.card{margin-top:0}
 .hero-o{margin-bottom:18px;align-items:start}
 .hero-o{grid-template-columns:1fr 1fr}
+@media(max-width:1150px){.health{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){.health{grid-template-columns:1fr 1fr}.welcome{padding:22px 18px 26px}.welcome h1{font-size:1.5rem}}
 /* ---- bottom nav create + sheets ---- */
 .bnav-new{display:none}
@@ -371,6 +372,24 @@ body.focusing{overflow:hidden}
 @media(min-width:901px){#sheetMore.anchored{top:auto;left:auto;transform:none;width:400px}}
 .grecaptcha-badge{visibility:hidden !important}
 .rc-note a{color:var(--ink-2)}
+.msg{display:grid;gap:8px;padding:16px 20px;border-top:1px solid var(--line)}
+.msg:first-child{border-top:none}
+.msg .mt{font-size:.98rem;line-height:1.6;color:var(--ink)}
+.msg .mt.ne{font-family:var(--nep);line-height:1.9}
+.msg .mm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.msg .mm b{color:var(--ink);font-weight:600}
+.msg .mm .po{font-family:var(--nep)}
+.msg .ma{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.msg .ma .btn{min-height:36px;padding:0 14px;font-size:.86rem}
+.badge.live{background:var(--ok-soft);color:var(--ok)}
+.like-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:12px 20px;border-top:1px solid var(--line)}
+.like-row:first-child{border-top:none}
+.like-row .lt{min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.like-row .lt.ne{font-family:var(--nep);font-weight:500}
+.like-row .lb{display:block;width:120px;height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.like-row .lb i{display:block;height:100%;background:var(--accent);border-radius:999px}
+.like-row .ln{display:block;font-variant-numeric:tabular-nums;font-weight:700;min-width:3ch;text-align:right}
+@media(max-width:600px){.like-row .lb{width:64px}.msg{padding:14px}}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -522,6 +541,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <div class="nav-label">WRITE</div>
       <a data-go="poems"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Poems<span class="ct" id="ctP">–</span></a>
       <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg>Bible verses<span class="ct" id="ctV">–</span></a>
+      <a data-go="messages"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>Messages<span class="ct" id="ctM">–</span></a>
       <div class="nav-label">YOUR PAGE</div>
       <a data-go="about"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>About me</a>
       <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Right now</a>
@@ -724,6 +744,23 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-h"><h2>All poems</h2><span class="meta" id="poMeta"></span></div>
           <div class="toolbar"><input id="poSearch" type="search" placeholder="Search poems by title or mood" aria-label="Search poems"/><button class="btn" id="smBtn" type="button" title="Sitemap for yonghangishak.com.np">Sitemap</button><button class="btn" id="smBtn2" type="button" title="Sitemap for poem.yonghangishak.com.np">Poem sitemap</button></div>
           <div class="tbl" id="poList"><div class="skel"></div><div class="skel"></div></div>
+        </div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section data-page="messages" hidden>
+        <div class="ph"><div><h1>Messages</h1><p>Words readers left on your poems. Approve the ones you want shown under that poem on your site.</p><p class="np-help" lang="ne">पाठकहरूले तपाईंका कवितामा छोडेका सन्देश। Approve गरेपछि मात्र साइटमा देखिन्छ।</p></div><span class="pill" id="mPill"></span></div>
+        <div class="card">
+          <div class="toolbar"><div class="seg" role="radiogroup" aria-label="Filter messages">
+            <label><input type="radio" name="mFil" value="new" checked/><span>New</span></label>
+            <label><input type="radio" name="mFil" value="live"/><span>On site</span></label>
+            <label><input type="radio" name="mFil" value="all"/><span>All</span></label>
+          </div></div>
+          <div class="tbl" id="mList"><div class="skel"></div><div class="skel"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Hearts on your poems</h2><span class="meta" id="likeMeta"></span></div>
+          <div class="tbl" id="likeList"></div>
         </div>
       </section>
 
@@ -937,6 +974,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <h3>All sections</h3>
   <div class="sheet-grid">
     <a data-go="verses"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M6 8h12"/></svg><span>Verses</span></a>
+    <a data-go="messages"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Messages</span></a>
     <a data-go="about"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>About me</span></a>
     <a data-go="now"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Right now</span></a>
     <a data-go="sections"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg><span>Sections</span></a>
@@ -1124,7 +1162,7 @@ let currentPage = 'overview';
 addEventListener('beforeunload', e => { if ([...dirty].some(p => p!=='poems')) { e.preventDefault(); e.returnValue=''; } });
 
 /* ---------- navigation ---------- */
-const titles = { contact:'Contact details', help:'Help', sections:'Site sections', backup:'Backup & restore', overview:'Home', about:'About me', poems:'Poems', verses:'Bible verses', now:'Right now', snaps:'Photos', certs:'Certificates', storage:'Storage & limits', account:'Account & security' };
+const titles = { messages:'Messages', contact:'Contact details', help:'Help', sections:'Site sections', backup:'Backup & restore', overview:'Home', about:'About me', poems:'Poems', verses:'Bible verses', now:'Right now', snaps:'Photos', certs:'Certificates', storage:'Storage & limits', account:'Account & security' };
 async function go(p){
   if (!titles[p]) p='overview';
   if (p !== currentPage && dirty.has(currentPage) && currentPage !== 'poems') {
@@ -1171,7 +1209,7 @@ const DEF_VERSES = [
   {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
   {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
 ];
-const D = { contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
+const D = { messages:[], likes:[], contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
 const monthKey = () => new Date().toISOString().slice(0,7);
 const uploadsThisMonth = () => (D.usageDoc && D.usageDoc.month===monthKey()) ? (D.usageDoc.uploads||0) : 0;
 const isStored = x => !!(x && x.path);
@@ -1312,7 +1350,8 @@ function renderHome(){
     ['poems', 'ok', 'pen', live+' poems', sched ? sched+' scheduled' : 'live on your site'],
     ['storage', gp>=90||dp>=90?'bad':gp>=70||dp>=70?'warn':'ok', 'sheet', Math.max(gp,dp).toFixed(0)+'% used', 'free limits'],
     ['backup', !bk?'warn':days>30?'warn':'ok', 'doc', !bk?'No backup':days===0?'Backed up today':days+' days ago', !bk?'download one now':'last backup'],
-    ['snaps', 'ok', 'camera', D.snapshots.length+' photos', D.certs.length+' certificates']
+    ['snaps', 'ok', 'camera', D.snapshots.length+' photos', D.certs.length+' certificates'],
+    ['messages', D.messages.filter(m=>!m.approved).length?'warn':'ok', 'heart', (D.messages.filter(m=>!m.approved).length||'No')+' new', D.likes.reduce((s,l)=>s+l.count,0)+' hearts']
   ];
   $('health').innerHTML = cards.map(([g,c,i,b,s])=>`<a class="hc ${c}" data-go="${g}"><span class="hi">${svgI(i)}</span><span><b>${b}</b><small>${s}</small></span></a>`).join('');
   const rec = D.poems.slice().sort((a,b)=>(b.updatedAt||b.order||0)-(a.updatedAt||a.order||0)).slice(0,4);
@@ -1540,9 +1579,65 @@ onAuthStateChanged(auth, async user => {
   fillAccount(user); armIdle();
   const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
   go((location.hash||'').slice(1) || 'overview');
-  const r = await Promise.allSettled([loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
+  const r = await Promise.allSettled([loadMessages(), loadLikes(), loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
   D.loaded = true; refreshAll();
   if (r.some(x => x.status==='rejected')) setStatus(false,'Some data failed to load'); else setStatus(true,'Connected');
+});
+
+/* =========================================================
+   MESSAGES → collection "messages"  +  LIKES → collection "likes"
+   ========================================================= */
+const poemTitle = slug => { const p=D.poems.find(x=>x.slug===slug); return p ? p.title : ((BUILTIN_POEMS.find(x=>x.slug===slug)||{}).title || slug); };
+const poemNe = slug => { const p=D.poems.find(x=>x.slug===slug); return p ? p.lang!=='en' : true; };
+const ago = t => { if(!t) return ''; const d=t.toDate?t.toDate():new Date((t.seconds||0)*1000||t), s=(Date.now()-d.getTime())/1000;
+  if(s<60) return 'just now'; if(s<3600) return Math.floor(s/60)+'m ago'; if(s<86400) return Math.floor(s/3600)+'h ago';
+  if(s<604800) return Math.floor(s/86400)+'d ago'; return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+const mFilter = () => (document.querySelector('input[name=mFil]:checked')||{}).value || 'new';
+async function loadMessages(){
+  try { const q=await getDocs(collection(db,'messages'));
+    D.messages=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0)); }
+  catch(e){ D.messages=[]; drawMessages(); throw e; }
+  drawMessages();
+}
+async function loadLikes(){
+  try { const q=await getDocs(collection(db,'likes')); D.likes=q.docs.map(d=>({slug:d.id,count:(d.data()||{}).count||0})).sort((a,b)=>b.count-a.count); }
+  catch(e){ D.likes=[]; }
+  drawLikes();
+}
+function drawMessages(){
+  const nw=D.messages.filter(m=>!m.approved).length, f=mFilter();
+  const list=D.messages.filter(m=>f==='all'||(f==='new'?!m.approved:m.approved));
+  $('ctM').textContent = nw; $('ctM').style.background = nw ? 'var(--accent)' : '';
+  const pill=$('mPill'); pill.textContent = nw ? nw+' waiting' : 'All reviewed'; pill.className='pill'+(nw?' warn':'');
+  $('mList').innerHTML = list.length ? list.map(m=>{
+    const ne=/[\u0900-\u097F]/.test(m.text||'');
+    return `<div class="msg" data-id="${esc(m.id)}">
+      <div class="mt ${ne?'ne':''}">${esc(m.text)}</div>
+      <div class="mm"><b>${esc(m.name||'A reader')}</b> on <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'<span class="badge live">On site</span>':''}</div>
+      <div class="ma">${m.approved
+        ? `<button class="btn" data-m="hide">Hide from site</button>`
+        : `<button class="btn accent" data-m="ok">Show on site</button>`}
+        <button class="btn" data-m="del">Delete</button></div>
+    </div>`; }).join('')
+    : blank(f==='new'?'Nothing waiting':'No messages yet', f==='new'?'New messages from readers will appear here.':'When someone leaves a word on a poem, it shows here.');
+}
+function drawLikes(){
+  const top=D.likes.filter(l=>l.count>0), max=top.length?top[0].count:1, total=top.reduce((s,l)=>s+l.count,0);
+  $('likeMeta').textContent = total ? total+' hearts in total' : '';
+  $('likeList').innerHTML = top.length ? top.slice(0,10).map(l=>`<div class="like-row"><span class="lt ${poemNe(l.slug)?'ne':''}">${esc(poemTitle(l.slug))}</span><span class="lb"><i style="width:${Math.round(l.count/max*100)}%"></i></span><span class="ln">${l.count}</span></div>`).join('')
+    : blank('No hearts yet','When readers love a poem, it shows here.');
+}
+document.querySelectorAll('input[name=mFil]').forEach(r=>r.addEventListener('change',drawMessages));
+$('mList').addEventListener('click', async e => {
+  const btn=e.target.closest('button[data-m]'); if(!btn) return;
+  const id=btn.closest('.msg').dataset.id, m=D.messages.find(x=>x.id===id); if(!m) return;
+  const t=btn.textContent; btn.disabled=true; btn.textContent='…';
+  try{
+    if(btn.dataset.m==='del'){ const {id:_drop, ...data}=m; await deleteDoc(doc(db,'messages',id));
+      toast('Message deleted', false, { label:'Undo', fn: async()=>{ try{ await setDoc(doc(db,'messages',id), data); await loadMessages(); refreshAll(); toast('Restored'); }catch(err){ toast(explain(err),true); } } }); }
+    else { const ok=btn.dataset.m==='ok'; await updateDoc(doc(db,'messages',id), { approved: ok }); toast(ok?'Now showing under the poem':'Hidden from the site'); }
+    await loadMessages(); refreshAll();
+  }catch(err){ toast(explain(err),true); btn.disabled=false; btn.textContent=t; }
 });
 
 /* =========================================================
@@ -1746,7 +1841,7 @@ function showLastBackup(){ const t=lastBackup(); $('bkLast').textContent = t ? '
 $('bkBtn').addEventListener('click', async e => {
   const btn=e.currentTarget; btnLoad(btn,true,'Preparing…');
   try {
-    const cols={}; for (const c of ['poems','snapshots','certs']) { const q=await getDocs(collection(db,c)); cols[c]=q.docs.map(d=>({id:d.id,...d.data()})); }
+    const cols={}; for (const c of ['poems','snapshots','certs','messages','likes']) { const q=await getDocs(collection(db,c)); cols[c]=q.docs.map(d=>({id:d.id,...d.data()})); }
     const site={}; for (const s of ['verse','now','about','extras','contact']) { const d=await getDoc(doc(db,'site',s)); if (d.exists()) site[s]=d.data(); }
     const data={ app:'yonghangishak-console', version:1, created:new Date().toISOString(), collections:cols, site };
     const name='yonghangishak-backup-'+new Date().toISOString().slice(0,10)+'.json';
@@ -1778,7 +1873,7 @@ $('rsBtn').addEventListener('click', async () => {
     if (size > LIMITS.budget) throw userErr(`This backup is ${fmtB(size)}, more than the ${fmtB(LIMITS.budget)} limit. It can't be restored.`);
     if ((cols.poems||[]).length>LIMITS.count.poems || (cols.snapshots||[]).length>LIMITS.count.snapshots || (cols.certs||[]).length>LIMITS.count.certs) throw userErr('This backup has more items than the limits allow.');
     const ops=[];
-    for (const c of ['poems','snapshots','certs']) {
+    for (const c of ['poems','snapshots','certs','messages','likes']) {
       const cur=await getDocs(collection(db,c)); const keep=new Set((cols[c]||[]).map(x=>x.id));
       cur.docs.forEach(x=>{ if(!keep.has(x.id)) ops.push(['del',c,x.id]); });
       (cols[c]||[]).forEach(x=>{ const {id,...rest}=x; ops.push(['set',c,id,rest]); });
