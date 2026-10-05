@@ -390,6 +390,22 @@ body.focusing{overflow:hidden}
 .like-row .lb i{display:block;height:100%;background:var(--accent);border-radius:999px}
 .like-row .ln{display:block;font-variant-numeric:tabular-nums;font-weight:700;min-width:3ch;text-align:right}
 @media(max-width:600px){.like-row .lb{width:64px}.msg{padding:14px}}
+.av-s{width:24px;height:24px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--bg)}
+.av-s.ph{display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--muted);border:1px solid var(--line)}
+.msg .mm .em{color:var(--muted);font-size:.78rem;overflow:hidden;text-overflow:ellipsis;max-width:22ch;white-space:nowrap}
+.faces{display:flex;align-items:center}
+.faces img,.faces .ph{width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid var(--panel);margin-left:-8px;background:var(--bg)}
+.faces img:first-child,.faces .ph:first-child{margin-left:0}
+.faces .ph{display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:var(--muted)}
+.faces .more{background:var(--ink);color:#fff;font-size:.66rem}
+.person{display:flex;align-items:center;gap:12px;padding:12px 20px;border-top:1px solid var(--line)}
+.person:first-child{border-top:none}
+.person .av-s{width:36px;height:36px}
+.person .pn{flex:1;min-width:0;display:grid}
+.person .pn b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.person .pn small{font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.person .pc{font-size:.82rem;color:var(--muted);white-space:nowrap}
+@media(max-width:600px){.faces{display:none}.person{padding:12px 14px}}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -761,6 +777,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="card">
           <div class="card-h"><h2>Hearts on your poems</h2><span class="meta" id="likeMeta"></span></div>
           <div class="tbl" id="likeList"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Readers</h2><span class="meta" id="peopleMeta"></span></div>
+          <div class="tbl" id="peopleList"></div>
         </div>
       </section>
 
@@ -1209,7 +1229,7 @@ const DEF_VERSES = [
   {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
   {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
 ];
-const D = { messages:[], likes:[], contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
+const D = { messages:[], likes:[], likeUsers:[], contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
 const monthKey = () => new Date().toISOString().slice(0,7);
 const uploadsThisMonth = () => (D.usageDoc && D.usageDoc.month===monthKey()) ? (D.usageDoc.uploads||0) : 0;
 const isStored = x => !!(x && x.path);
@@ -1579,7 +1599,7 @@ onAuthStateChanged(auth, async user => {
   fillAccount(user); armIdle();
   const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
   go((location.hash||'').slice(1) || 'overview');
-  const r = await Promise.allSettled([loadMessages(), loadLikes(), loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
+  const r = await Promise.allSettled([loadMessages(), loadLikes(), loadLikeUsers(), loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
   D.loaded = true; refreshAll();
   if (r.some(x => x.status==='rejected')) setStatus(false,'Some data failed to load'); else setStatus(true,'Connected');
 });
@@ -1599,6 +1619,11 @@ async function loadMessages(){
   catch(e){ D.messages=[]; drawMessages(); throw e; }
   drawMessages();
 }
+async function loadLikeUsers(){
+  try { const q=await getDocs(collection(db,'likeUsers')); D.likeUsers=q.docs.map(d=>d.data()); }
+  catch(e){ D.likeUsers=[]; }
+  drawLikes();
+}
 async function loadLikes(){
   try { const q=await getDocs(collection(db,'likes')); D.likes=q.docs.map(d=>({slug:d.id,count:(d.data()||{}).count||0})).sort((a,b)=>b.count-a.count); }
   catch(e){ D.likes=[]; }
@@ -1611,9 +1636,10 @@ function drawMessages(){
   const pill=$('mPill'); pill.textContent = nw ? nw+' waiting' : 'All reviewed'; pill.className='pill'+(nw?' warn':'');
   $('mList').innerHTML = list.length ? list.map(m=>{
     const ne=/[\u0900-\u097F]/.test(m.text||'');
+    const av = m.photo ? `<img class="av-s" src="${esc(m.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="av-s ph">${esc((m.name||'R')[0].toUpperCase())}</span>`;
     return `<div class="msg" data-id="${esc(m.id)}">
       <div class="mt ${ne?'ne':''}">${esc(m.text)}</div>
-      <div class="mm"><b>${esc(m.name||'A reader')}</b> on <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'<span class="badge live">On site</span>':''}</div>
+      <div class="mm">${av}<b>${esc(m.name||'A reader')}</b>${m.email?`<span class="em">${esc(m.email)}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'<span class="badge live">On site</span>':''}</div>
       <div class="ma">${m.approved
         ? `<button class="btn" data-m="hide">Hide from site</button>`
         : `<button class="btn accent" data-m="ok">Show on site</button>`}
@@ -1621,11 +1647,24 @@ function drawMessages(){
     </div>`; }).join('')
     : blank(f==='new'?'Nothing waiting':'No messages yet', f==='new'?'New messages from readers will appear here.':'When someone leaves a word on a poem, it shows here.');
 }
-function drawLikes(){
+function drawLikes(){ drawPeople();
   const top=D.likes.filter(l=>l.count>0), max=top.length?top[0].count:1, total=top.reduce((s,l)=>s+l.count,0);
   $('likeMeta').textContent = total ? total+' hearts in total' : '';
-  $('likeList').innerHTML = top.length ? top.slice(0,10).map(l=>`<div class="like-row"><span class="lt ${poemNe(l.slug)?'ne':''}">${esc(poemTitle(l.slug))}</span><span class="lb"><i style="width:${Math.round(l.count/max*100)}%"></i></span><span class="ln">${l.count}</span></div>`).join('')
+  const by = {}; D.likeUsers.forEach(u=>{ (by[u.poem]=by[u.poem]||[]).push(u); });
+  $('likeList').innerHTML = top.length ? top.slice(0,10).map(l=>{
+    const who=(by[l.slug]||[]).slice(0,6), extra=(by[l.slug]||[]).length-who.length;
+    const faces = who.length ? `<span class="faces">${who.map(u=>u.photo?`<img src="${esc(u.photo)}" alt="" title="${esc(u.name||'')}" loading="lazy" referrerpolicy="no-referrer">`:`<span class="ph" title="${esc(u.name||'')}">${esc((u.name||'R')[0].toUpperCase())}</span>`).join('')}${extra>0?`<span class="ph more">+${extra}</span>`:''}</span>` : '';
+    return `<div class="like-row"><span class="lt ${poemNe(l.slug)?'ne':''}">${esc(poemTitle(l.slug))}</span>${faces}<span class="lb"><i style="width:${Math.round(l.count/max*100)}%"></i></span><span class="ln">${l.count}</span></div>`; }).join('')
     : blank('No hearts yet','When readers love a poem, it shows here.');
+}
+function drawPeople(){
+  const map={};
+  D.likeUsers.forEach(u=>{ const k=u.uid||u.name; map[k]=map[k]||{name:u.name,photo:u.photo,likes:0,words:0}; map[k].likes++; });
+  D.messages.forEach(m=>{ const k=m.uid||m.name; if(!k) return; map[k]=map[k]||{name:m.name,photo:m.photo,email:m.email,likes:0,words:0}; map[k].words++; if(m.email) map[k].email=m.email; });
+  const list=Object.values(map).sort((a,b)=>(b.likes+b.words)-(a.likes+a.words));
+  $('peopleMeta').textContent = list.length ? list.length+(list.length===1?' person':' people') : '';
+  $('peopleList').innerHTML = list.length ? list.slice(0,20).map(u=>`<div class="person">${u.photo?`<img class="av-s" src="${esc(u.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:`<span class="av-s ph">${esc((u.name||'R')[0].toUpperCase())}</span>`}<span class="pn"><b>${esc(u.name||'Reader')}</b>${u.email?`<small>${esc(u.email)}</small>`:''}</span><span class="pc">${u.likes?u.likes+' ♥':''}${u.likes&&u.words?' · ':''}${u.words?u.words+(u.words===1?' word':' words'):''}</span></div>`).join('')
+    : blank('No readers yet','People who sign in to react will show here.');
 }
 document.querySelectorAll('input[name=mFil]').forEach(r=>r.addEventListener('change',drawMessages));
 $('mList').addEventListener('click', async e => {
@@ -1841,7 +1880,7 @@ function showLastBackup(){ const t=lastBackup(); $('bkLast').textContent = t ? '
 $('bkBtn').addEventListener('click', async e => {
   const btn=e.currentTarget; btnLoad(btn,true,'Preparing…');
   try {
-    const cols={}; for (const c of ['poems','snapshots','certs','messages','likes']) { const q=await getDocs(collection(db,c)); cols[c]=q.docs.map(d=>({id:d.id,...d.data()})); }
+    const cols={}; for (const c of ['poems','snapshots','certs','messages','likes','likeUsers']) { const q=await getDocs(collection(db,c)); cols[c]=q.docs.map(d=>({id:d.id,...d.data()})); }
     const site={}; for (const s of ['verse','now','about','extras','contact']) { const d=await getDoc(doc(db,'site',s)); if (d.exists()) site[s]=d.data(); }
     const data={ app:'yonghangishak-console', version:1, created:new Date().toISOString(), collections:cols, site };
     const name='yonghangishak-backup-'+new Date().toISOString().slice(0,10)+'.json';
@@ -1873,7 +1912,7 @@ $('rsBtn').addEventListener('click', async () => {
     if (size > LIMITS.budget) throw userErr(`This backup is ${fmtB(size)}, more than the ${fmtB(LIMITS.budget)} limit. It can't be restored.`);
     if ((cols.poems||[]).length>LIMITS.count.poems || (cols.snapshots||[]).length>LIMITS.count.snapshots || (cols.certs||[]).length>LIMITS.count.certs) throw userErr('This backup has more items than the limits allow.');
     const ops=[];
-    for (const c of ['poems','snapshots','certs','messages','likes']) {
+    for (const c of ['poems','snapshots','certs','messages','likes','likeUsers']) {
       const cur=await getDocs(collection(db,c)); const keep=new Set((cols[c]||[]).map(x=>x.id));
       cur.docs.forEach(x=>{ if(!keep.has(x.id)) ops.push(['del',c,x.id]); });
       (cols[c]||[]).forEach(x=>{ const {id,...rest}=x; ops.push(['set',c,id,rest]); });
