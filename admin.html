@@ -200,7 +200,7 @@ textarea{min-height:100px;resize:vertical}
 input[type=search]{width:100%;padding:11px 13px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:16px}
 .saved-dot{display:inline-flex;align-items:center;gap:6px}
 .saved-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok-bar)}
-@media(max-width:900px){.toolbar{padding:10px 14px}}
+@media(max-width:900px){.toolbar{padding:10px 14px;flex-wrap:wrap}.toolbar input{flex-basis:100%}.toolbar .btn{flex:1}}
 .facts{display:grid;gap:10px}
 .fact{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr) auto;gap:10px;align-items:center}
 .fact input{padding:10px 12px}
@@ -536,6 +536,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Account &amp; security</a>
       <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>मद्दत / Help</a>
       <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>View live site</a>
+      <a href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>View poetry site</a>
     </nav>
     <div class="side-store" data-go="storage" title="Storage used">
       <div class="t"><span>Storage</span><b id="sideStoreT">–</b></div>
@@ -575,7 +576,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <svg class="w-ridge" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
           <p class="w-date" id="wDate"></p>
           <h1 id="hello">Welcome back</h1>
-          <p class="w-live"><i></i>Your site is live · <a href="/" target="_blank" rel="noopener">yonghangishak.com.np</a></p>
+          <p class="w-live"><i></i>Live · <a href="/" target="_blank" rel="noopener">yonghangishak.com.np</a> · <a href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener">poem.yonghangishak.com.np</a></p>
           <div class="w-acts"><button class="btn accent" type="button" data-create="poem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Write a poem</button><button class="btn ghost" type="button" data-create="photo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 8"/></svg>Add a photo</button></div>
         </div>
         <p class="np-help" lang="ne" style="margin-bottom:18px">यहाँबाट सुरु गर्नुहोस्। नयाँ कविता लेख्न “Write a poem” थिच्नुहोस्। तलका कामहरू एक-एक गरी सक्नुहोस्।</p>
@@ -687,7 +688,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- POEMS -->
       <section data-page="poems" hidden>
-        <div class="ph"><div><h1>Poems</h1><p>Shown in the poetry section, grouped by mood. “The Gossip Rope” stays as the featured poem.</p><p class="np-help" lang="ne">भाषा छान्नुहोस्, शीर्षक र कविता लेख्नुहोस्, अनि Publish poem थिच्नुहोस्। लेख्दै गर्दा कविता यही फोनमा आफैं सेभ हुन्छ।</p></div><span class="pill" id="poQuota"></span></div>
+        <div class="ph"><div><h1>Poems</h1><p>Shown on your main site’s poetry section <b>and</b> on poem.yonghangishak.com.np, grouped by mood. “The Gossip Rope” stays as the featured poem.</p><p class="np-help" lang="ne">भाषा छान्नुहोस्, शीर्षक र कविता लेख्नुहोस्, अनि Publish poem थिच्नुहोस्। लेख्दै गर्दा कविता यही फोनमा आफैं सेभ हुन्छ।</p></div><span class="pill" id="poQuota"></span></div>
         <div class="note info" id="importCard" hidden><div style="flex:1"><b>Start with your current poems.</b> Your site shows 6 poems built into the page. Import them once so you can edit them here.</div><button class="btn primary" id="pImport" type="button"><span class="spin"></span><span class="bt">Import 6 poems</span></button></div>
         <div class="card" id="poCard">
           <div class="card-h"><h2 id="poFormTitle">Write a new poem</h2></div>
@@ -721,7 +722,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
         <div class="card">
           <div class="card-h"><h2>All poems</h2><span class="meta" id="poMeta"></span></div>
-          <div class="toolbar"><input id="poSearch" type="search" placeholder="Search poems by title or mood" aria-label="Search poems"/><button class="btn" id="smBtn" type="button" title="Download a sitemap that lists every poem, for Google">Sitemap</button></div>
+          <div class="toolbar"><input id="poSearch" type="search" placeholder="Search poems by title or mood" aria-label="Search poems"/><button class="btn" id="smBtn" type="button" title="Sitemap for yonghangishak.com.np">Sitemap</button><button class="btn" id="smBtn2" type="button" title="Sitemap for poem.yonghangishak.com.np">Poem sitemap</button></div>
           <div class="tbl" id="poList"><div class="skel"></div><div class="skel"></div></div>
         </div>
       </section>
@@ -946,6 +947,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Account</span></a>
     <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg><span lang="ne">मद्दत</span></a>
     <a href="/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span>View site</span></a>
+    <a href="https://poem.yonghangishak.com.np/" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>Poetry site</span></a>
     <a data-logout role="button" tabindex="0" class="danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Sign out</span></a>
   </div>
 </div>
@@ -1065,7 +1067,7 @@ const I = {
   chev:'<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>'
 };
 const KEBAB='<button type="button" class="icon-btn kebab" data-menu aria-label="More actions" aria-haspopup="menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg></button>';
-const ops = (i,n,view) => `<div class="ops">${KEBAB}<div class="ops-h" hidden>${view?`<a href="${view}" target="_blank" rel="noopener" data-act="view">View on site</a>`:''}
+const ops = (i,n,view) => `<div class="ops">${KEBAB}<div class="ops-h" hidden>${view?`<a href="${view}" target="_blank" rel="noopener" data-act="view">View on main site</a>`:''}${view&&view.includes('?poem=')?`<a href="${view.replace(SITE,POEM_SITE)}" target="_blank" rel="noopener" data-act="view2">View on poetry site</a>`:''}
   <button type="button" data-act="edit">Edit</button>
   <button type="button" data-act="up" ${i===0?'disabled':''}>Move up</button>
   <button type="button" data-act="down" ${i===n-1?'disabled':''}>Move down</button>
@@ -1083,7 +1085,7 @@ document.querySelectorAll('[data-max]').forEach(el => {
 const setVal = (id, v) => { const el=$(id); el.value = v ?? ''; if (el._cnt) el._cnt(); };
 
 /* ---------- row action menu (⋮) ---------- */
-const MENU_IC = { view:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', edit:'<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>', open:'<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>', up:'<path d="M12 19V5M6 11l6-6 6 6"/>', down:'<path d="M12 5v14M6 13l6 6 6-6"/>', del:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>' };
+const MENU_IC = { view2:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/>', view:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', edit:'<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>', open:'<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>', up:'<path d="M12 19V5M6 11l6-6 6 6"/>', down:'<path d="M12 5v14M6 13l6 6 6-6"/>', del:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>' };
 let menuFor=null;
 function closeRowMenu(){ const m=$('rowMenu'); if(m.hidden) return; m.hidden=true; $('rowMenuBg').hidden=true; if(menuFor){ menuFor.setAttribute('aria-expanded','false'); menuFor.focus({preventScroll:true}); } menuFor=null; }
 function openRowMenu(btn){
@@ -1840,8 +1842,18 @@ const isFuture = x => x.publishAt && x.publishAt > Date.now();
 $('poDate').min = new Date().toISOString().slice(0,10);
 $('poDate').addEventListener('change', () => { const v=$('poDate').value; $('poSave').querySelector('.bt').textContent = P.edit ? 'Save changes' : (v && new Date(v+'T06:00:00') > Date.now() ? 'Schedule poem' : 'Publish poem'); $('poDateHelp').textContent = v ? 'Appears on your site on '+fmtDay(new Date(v+'T06:00:00'))+' (morning).' : 'The poem appears on your site automatically from that morning.'; });
 const SITE = 'https://yonghangishak.com.np';
+const POEM_SITE = 'https://poem.yonghangishak.com.np';
 $('poSearch').addEventListener('input', () => drawPoems());
 // sitemap with every published poem, ready to upload to GitHub
+function makeSitemap(base, includeGossip){
+  const today = new Date().toISOString().slice(0,10);
+  const slugs = ['the-gossip-rope', ...(D.poems.length ? D.poems.filter(x=>x.published!==false && !isFuture(x)).map(x=>x.slug) : BUILTIN_POEMS.map(x=>x.slug))];
+  const urls = [base+'/', ...[...new Set(slugs)].map(s => base+'/?poem='+encodeURIComponent(s))];
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.map(u=>`  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join('\n') + '\n</urlset>\n';
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([xml],{type:'application/xml'})); a.download='sitemap.xml'; document.body.appendChild(a); a.click(); a.remove();
+  return urls.length;
+}
+$('smBtn2').addEventListener('click', () => { const n=makeSitemap(POEM_SITE); toast(`Poem site sitemap.xml downloaded (${n} links) — upload it to the poem site's GitHub repo`); });
 $('smBtn').addEventListener('click', () => {
   const today = new Date().toISOString().slice(0,10);
   const slugs = ['the-gossip-rope', ...(D.poems.length ? D.poems.filter(x=>x.published!==false && !isFuture(x)).map(x=>x.slug) : BUILTIN_POEMS.map(x=>x.slug))];
