@@ -2185,9 +2185,16 @@ window.signIn = async () => {
     return window.ME;
   }
   catch (e) {
-    const c = e && e.code || '';
-    if (c.includes('popup-blocked') || c.includes('operation-not-supported')) { try { await signInWithRedirect(auth, provider); return; } catch(_) {} }
-    if (!c.includes('popup-closed') && !c.includes('cancelled-popup')) showToast("Couldn't sign in. Try again.");
+    const c = (e && e.code || '').replace('auth/','');
+    console.warn('sign-in failed:', c, e);
+    if (c.includes('popup-blocked') || c.includes('operation-not-supported') || c.includes('popup-closed') || c.includes('cancelled-popup')) {
+      try { await signInWithRedirect(auth, provider); return null; } catch(_) {}
+    }
+    const msg = c.includes('unauthorized-domain') ? 'This website is not in the Firebase authorized domains list.'
+      : c.includes('operation-not-allowed') ? 'Google sign-in is not switched on in Firebase yet.'
+      : c.includes('network') ? 'Network problem. Check your connection.'
+      : "Couldn't sign in (" + (c || 'unknown') + ")";
+    showToast(msg);
     return null;
   }
 };
