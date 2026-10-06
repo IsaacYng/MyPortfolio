@@ -529,9 +529,9 @@ section{padding:clamp(48px,7vw,92px) 0}
 .word .wh .t{margin-left:auto;color:var(--slate);font-size:.78rem}
 .word .tag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--rhodo);color:#fff}
 .word.by-author{border-left-color:var(--tea);background:var(--card);border:1px solid var(--line);border-left:3px solid var(--tea)}
-.word .wa{display:flex;gap:12px;margin-top:8px}
-.word .wa button{font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--ink-2);background:none;border:none;cursor:pointer;padding:2px}
-.word .wa button:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.word .wacts{display:flex;gap:14px;margin-top:10px}
+.word .wacts button{font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--ink-2);background:none;border:none;cursor:pointer;padding:2px}
+.word .wacts button:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .word .rbox{display:grid;gap:8px;margin-top:10px}
 .word .rbox textarea{width:100%;font-family:var(--display);font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);resize:vertical}
 .word .rb-row{display:flex;gap:8px;justify-content:flex-end}
@@ -1305,7 +1305,7 @@ I worry about being The Prodigal Son.</div>
   // a hidden section (Training) can appear later, so re-check once its content loads
   addEventListener('load',()=>setTimeout(watch,1200));
   addEventListener('pointerdown',e=>{
-    const b=e.target.closest('.btn, .nav-cta, .wa, .more-btn, .moods button, .qr-acts button');
+    const b=e.target.closest('.btn, .nav-cta, a.wa, .more-btn, .moods button, .qr-acts button');
     if(!b||b.disabled) return;
     const r=b.getBoundingClientRect(), d=Math.max(r.width,r.height), s=document.createElement('span');
     s.className='rip'; s.style.width=s.style.height=d+'px'; s.style.left=(e.clientX-r.left-d/2)+'px'; s.style.top=(e.clientY-r.top-d/2)+'px';
@@ -1607,9 +1607,9 @@ window.setPoems=list=>{
     const mine=window.ME&&w.uid===window.ME.uid;
     const ph=w.photo?`<img src="${escH(w.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:`<span class="ph">${escH((w.name||'R')[0].toUpperCase())}</span>`;
     return `<div class="word${isReply?' reply':''}${w.author?' by-author':''}" data-id="${escH(w.id)}">
-      <div class="wh">${ph}<b>${escH(w.name||'A reader')}</b>${w.author?'<span class="tag">Poet</span>':''}<span class="t">${escH(ago(w.createdAt))}</span></div>
+      <div class="wh">${ph}<b>${escH(w.name||'A reader')}</b>${w.author?'<span class="tag">Author</span>':''}<span class="t">${escH(ago(w.createdAt))}</span></div>
       <p${ne?' class="ne" lang="ne"':''}>${escH(w.text)}</p>
-      <div class="wa"><button type="button" data-w="reply">Reply</button>${mine?'<button type="button" data-w="del">Delete</button>':''}</div>
+      <div class="wacts"><button type="button" data-w="reply">Reply</button>${mine?'<button type="button" data-w="del">Delete</button>':''}</div>
       <div class="rbox" hidden><textarea maxlength="300" rows="2" placeholder="Write a reply…"></textarea><div class="rb-row"><button type="button" class="btn" data-w="rcancel">Cancel</button><button type="button" class="btn fill" data-w="rsend">Reply</button></div></div>
       ${(w.replies||[]).map(r=>wordHTML(r,true)).join('')}
     </div>`;
@@ -2218,15 +2218,17 @@ live(doc(db,'site','extras'), x => {
 });
 
 /* ---------- who is reading: Google sign-in for hearts and messages ---------- */
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { setDoc, getDocs, deleteDoc, where, limit, serverTimestamp, increment, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 const auth = getAuth(app);
+const nameOf = u => u.displayName || (u.email ? u.email.split('@')[0] : 'Reader');
+setPersistence(auth, browserLocalPersistence).catch(() => {});
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 window.ME = null; window.MY_LIKES = {};
 let myLikesOff = null;
 onAuthStateChanged(auth, u => {
-  window.ME = u ? { uid: u.uid, name: u.displayName || 'Reader', photo: u.photoURL || '' } : null;
+  window.ME = u ? { uid: u.uid, name: nameOf(u), photo: u.photoURL || '' } : null;
   window.syncMe && window.syncMe();
   if (myLikesOff) { myLikesOff(); myLikesOff = null; }
   window.MY_LIKES = {};
@@ -2238,7 +2240,7 @@ window.signIn = async () => {
   try {
     const r = await signInWithPopup(auth, provider);
     const u = (r && r.user) || auth.currentUser;
-    if (u) { window.ME = { uid: u.uid, name: u.displayName || 'Reader', photo: u.photoURL || '' }; window.syncMe && window.syncMe(); }
+    if (u) { window.ME = { uid: u.uid, name: nameOf(u), photo: u.photoURL || '' }; window.syncMe && window.syncMe(); }
     return window.ME;
   }
   catch (e) {
@@ -2269,7 +2271,7 @@ window.sendLike = async (slug, on) => {
   const u = auth.currentUser; if (!u) return;
   const b = writeBatch(db), ref = doc(db,'likeUsers', u.uid + '_' + slug);
   if (on === false) { b.delete(ref); b.set(doc(db,'likes', slug), { count: increment(-1) }, { merge: true }); }
-  else { b.set(ref, { uid: u.uid, poem: slug, name: u.displayName || 'Reader', photo: u.photoURL || '', createdAt: serverTimestamp() });
+  else { b.set(ref, { uid: u.uid, poem: slug, name: nameOf(u), photo: u.photoURL || '', createdAt: serverTimestamp() });
          b.set(doc(db,'likes', slug), { count: increment(1) }, { merge: true }); }
   try { await b.commit(); } catch(e) { console.warn(e); }
 };
@@ -2277,7 +2279,7 @@ window.sendWord = (slug, w) => {
   const u = auth.currentUser; if (!u) throw new Error('signed out');
   return addDoc(collection(db,'messages'), {
     poem: slug, text: (w.text||'').slice(0,300), parent: w.parent || null,
-    uid: u.uid, name: u.displayName || 'Reader', photo: u.photoURL || '', email: u.email || '',
+    uid: u.uid, name: nameOf(u), photo: u.photoURL || '', email: u.email || '',
     approved: false, createdAt: serverTimestamp()
   });
 };
