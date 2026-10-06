@@ -517,8 +517,12 @@ section{padding:clamp(48px,7vw,92px) 0}
 .more-btn.solid{background:#F2A5B1;color:var(--night)}
 .more-btn.solid:hover{background:#fff}
 .who{display:flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--display);font-size:.86rem;color:var(--slate)}
-.who img{width:26px;height:26px;border-radius:50%;object-fit:cover;background:var(--mist)}
-.who span{color:var(--ink);font-weight:600}
+.who-me{display:flex;align-items:center;gap:10px;min-width:0;background:none;border:none;padding:4px;border-radius:12px;cursor:pointer;text-align:left;color:inherit;font:inherit}
+.who-me:hover{background:var(--mist)}
+.who img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--mist);flex-shrink:0}
+.who-me span{display:grid;min-width:0}
+.who-me b{color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who-me small{font-size:.76rem;color:var(--slate);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .who button{margin-left:auto;font:inherit;font-weight:600;color:var(--slate);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:2px}
 .who button:hover{color:var(--ink)}
 .gsign{display:flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--display);font-size:.82rem;color:var(--slate);line-height:1.4}
@@ -691,6 +695,29 @@ footer .wrap{align-items:center}
 .totop{display:inline-flex;align-items:center;gap:6px;color:var(--on-deep);text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid #3B4D59;transition:background .2s}
 .totop:hover{background:var(--ink-2)}
 
+/* reader profile */
+.me-sheet{max-width:560px}
+.me-top{display:flex;align-items:center;gap:14px;padding-right:96px;min-width:0}
+.me-top>div{min-width:0}
+.me-top img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--mist);flex-shrink:0}
+.me-top img[hidden]{display:none}
+.me-top h3{font-family:var(--display);font-weight:800;font-size:clamp(1.2rem,4.5vw,1.5rem);letter-spacing:-.02em;line-height:1.15;overflow-wrap:anywhere}
+.me-top p{font-family:var(--display);font-size:.88rem;color:var(--slate);overflow-wrap:anywhere}
+.me-stat{display:flex;gap:10px;margin-top:18px}
+.me-stat span{flex:1;display:grid;gap:2px;padding:14px;border-radius:16px;background:var(--mist);font-family:var(--display);font-size:.84rem;color:var(--slate);text-align:center}
+.me-stat b{font-size:1.5rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.me-h{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--slate);margin:22px 0 10px}
+.me-list{display:grid;gap:8px}
+.me-row{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-family:var(--display);cursor:pointer;text-align:left;transition:border-color .2s,transform .2s}
+.me-row:hover{border-color:var(--ink);transform:translateX(3px)}
+.me-row .mr-t{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.me-row .mr-t.ne{font-family:var(--nep);font-weight:500}
+.me-row .mr-s{font-size:.78rem;color:var(--slate);white-space:nowrap}
+.me-row .pill-w{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#FFF4E0;color:#9A6212}
+.me-row .pill-l{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#E5F1EA;color:#2F6B4C}
+.me-row .mr-x{background:none;border:none;color:var(--slate);cursor:pointer;font-family:var(--display);font-weight:600;font-size:.78rem;padding:2px}
+.me-row .mr-x:hover{color:var(--rhodo-text)}
+.me-empty{padding:18px;border:1.5px dashed var(--line);border-radius:14px;font-family:var(--display);font-size:.88rem;color:var(--slate);text-align:center}
 /* photo viewer (lightbox) */
 .lb{position:fixed;inset:0;z-index:70;display:grid;grid-template-rows:auto 1fr auto;isolation:isolate;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);animation:lbin .3s cubic-bezier(.2,.7,.2,1)}
 @keyframes lbin{from{opacity:0}}
@@ -1222,8 +1249,10 @@ I worry about being The Prodigal Son.</div>
       <button type="button" id="poemNext"><span><small>Next</small><b id="poemNextT"></b></span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
     </nav>
     <div class="who" id="pWho" hidden>
-      <img id="pWhoImg" alt="" width="26" height="26"/>
-      <span id="pWhoName"></span>
+      <button type="button" class="who-me" id="pWhoBtn">
+        <img id="pWhoImg" alt="" width="30" height="30"/>
+        <span><b id="pWhoName"></b><small id="pWhoMail"></small></span>
+      </button>
       <button type="button" id="pSignOut">Sign out</button>
     </div>
     <div class="react">
@@ -1246,6 +1275,22 @@ I worry about being The Prodigal Son.</div>
     </div>
   </div>
 </div>
+<div class="modal" id="meModal" role="dialog" aria-modal="true" aria-labelledby="meName">
+  <div class="sheet me-sheet">
+    <button class="x" id="meClose" type="button" data-close>Close</button>
+    <div class="me-top">
+      <img id="meImg" alt="" width="64" height="64"/>
+      <div><h3 id="meName"></h3><p id="meMail"></p></div>
+    </div>
+    <div class="me-stat"><span><b id="meLikes">0</b>hearts</span><span><b id="meWords">0</b>words</span></div>
+    <h4 class="me-h">Poems you loved</h4>
+    <div class="me-list" id="meLikeList"></div>
+    <h4 class="me-h">Your words</h4>
+    <div class="me-list" id="meWordList"></div>
+    <button class="btn" id="meOut" type="button" style="margin-top:22px;width:100%">Sign out</button>
+  </div>
+</div>
+
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
   <div class="lb-bg" id="lbBg" aria-hidden="true"></div>
   <div class="lb-bar">
@@ -1480,6 +1525,7 @@ const poems=[
 const shelf=document.getElementById('shelf');
 const gossipPoem={s:'the-gossip-rope',t:'The Gossip Rope',k:'Poem in English',b:document.getElementById('gossip').textContent,ne:false};
 let allPoems=[gossipPoem,...poems.map(p=>({...p,ne:true}))];
+window.allPoemList=()=>allPoems;
 const baseTitle=document.title,canon=document.querySelector('link[rel="canonical"]'),baseCanon=canon?canon.href:location.origin+'/';
 const poemURL=p=>location.origin+location.pathname+'?poem='+p.s;
 const readMeta=p=>{const lines=p.b.split('\n').filter(l=>l.trim()).length,words=p.b.trim().split(/\s+/).length,min=Math.max(1,Math.round(words/150));return lines+' lines · '+min+' min read';};
@@ -1592,6 +1638,7 @@ window.setPoems=list=>{
     document.getElementById('pSignIn').hidden=!!u;
     box.hidden=!u;
     if(u){ document.getElementById('pWhoName').textContent=u.name||'Signed in';
+      document.getElementById('pWhoMail').textContent=u.email||'';
       const im=document.getElementById('pWhoImg'); if(u.photo){im.src=u.photo;im.hidden=false;}else im.hidden=true; }
     const p=window.currentPoem;
     likeBtn.disabled=false;
@@ -1664,6 +1711,7 @@ window.setPoems=list=>{
   document.getElementById('wCancel').addEventListener('click',()=>{ wForm.hidden=true; });
   document.getElementById('pSignIn').addEventListener('click',()=>window.signIn&&window.signIn());
   document.getElementById('pSignOut').addEventListener('click',()=>window.signOutMe&&window.signOutMe());
+  document.getElementById('pWhoBtn').addEventListener('click',()=>window.openMe&&window.openMe());
   wText.addEventListener('input',()=>{ wCount.textContent=wText.value.length+' / 300'; });
   wForm.addEventListener('submit',async e=>{
     e.preventDefault();
@@ -1678,6 +1726,42 @@ window.setPoems=list=>{
       if(window.track)track('poem_message',{poem:p.s});
     }catch(err){ showToast("Couldn't send. Check your connection."); }
     btn.disabled=false; btn.textContent='Send';
+  });
+})();
+
+/* reader profile: what you loved and wrote */
+(function(){
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const title=s=>{ const p=(window.allPoemList?window.allPoemList():[]).find(x=>x.s===s); return p?{t:p.t,ne:p.ne,p}:{t:s,ne:/[\u0900-\u097F]/.test(s)}; };
+  function row(slug,right,extra){
+    const i=title(slug);
+    return `<button type="button" class="me-row" data-go-poem="${esc(slug)}"><span class="mr-t ${i.ne?'ne':''}">${esc(i.t)}</span>${right||''}${extra||''}</button>`;
+  }
+  window.openMe=function(){
+    const u=window.ME; if(!u) return;
+    document.getElementById('meName').textContent=u.name||'Reader';
+    document.getElementById('meMail').textContent=u.email||'';
+    const im=document.getElementById('meImg'); if(u.photo){im.src=u.photo;im.hidden=false;}else im.hidden=true;
+    const likes=Object.keys(window.MY_LIKES||{});
+    document.getElementById('meLikes').textContent=likes.length;
+    document.getElementById('meLikeList').innerHTML = likes.length ? likes.map(s=>row(s,'<span class="mr-s">♥</span>')).join('')
+      : '<p class="me-empty">No poems loved yet. Tap the heart on a poem you like.</p>';
+    const words=(window.MY_WORDS||[]).slice().sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0));
+    document.getElementById('meWords').textContent=words.length;
+    document.getElementById('meWordList').innerHTML = words.length ? words.map(w=>
+      `<div class="me-row" style="cursor:default"><span class="mr-t">${esc(w.text)}</span>${w.approved?'<span class="pill-l">On site</span>':'<span class="pill-w">Waiting</span>'}<button type="button" class="mr-x" data-del-word="${esc(w.id)}">Delete</button></div>`).join('')
+      : '<p class="me-empty">You have not written anything yet.</p>';
+    openModal('meModal',document.getElementById('pWhoBtn'));
+  };
+  document.getElementById('meClose').addEventListener('click',closeModals);
+  document.getElementById('meOut').addEventListener('click',()=>{ closeModals(); window.signOutMe&&window.signOutMe(); });
+  document.getElementById('meModal').addEventListener('click',async e=>{
+    const g=e.target.closest('[data-go-poem]');
+    if(g){ const p=(window.allPoemList?window.allPoemList():[]).find(x=>x.s===g.dataset.goPoem);
+      closeModals(); if(p) setTimeout(()=>showPoem(p,null),180); return; }
+    const d=e.target.closest('[data-del-word]');
+    if(d){ if(!confirm('Delete this message?')) return;
+      try{ await window.deleteWord(d.dataset.delWord); showToast('Deleted'); setTimeout(()=>window.openMe&&window.openMe(),400); }catch(err){ showToast("Couldn't delete."); } }
   });
 })();
 
@@ -2226,12 +2310,17 @@ setPersistence(auth, browserLocalPersistence).catch(() => {});
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 window.ME = null; window.MY_LIKES = {};
-let myLikesOff = null;
+let myLikesOff = null, myWordsOff = null;
+window.MY_WORDS = [];
 onAuthStateChanged(auth, u => {
-  window.ME = u ? { uid: u.uid, name: nameOf(u), photo: u.photoURL || '' } : null;
+  window.ME = u ? { uid: u.uid, name: nameOf(u), photo: u.photoURL || '', email: u.email || '' } : null;
   window.syncMe && window.syncMe();
   if (myLikesOff) { myLikesOff(); myLikesOff = null; }
   window.MY_LIKES = {};
+  if (myWordsOff) { myWordsOff(); myWordsOff = null; }
+  window.MY_WORDS = [];
+  if (u) myWordsOff = onSnapshot(query(collection(db,'messages'), where('uid','==',u.uid)),
+    snap => { const a=[]; snap.forEach(x => a.push({ id:x.id, ...x.data() })); window.MY_WORDS = a; }, () => {});
   if (u) myLikesOff = onSnapshot(query(collection(db,'likeUsers'), where('uid','==',u.uid)),
     snap => { const m={}; snap.forEach(x => { m[(x.data()||{}).poem] = true; }); window.MY_LIKES = m; window.syncMe && window.syncMe(); }, () => {});
 });
@@ -2240,7 +2329,7 @@ window.signIn = async () => {
   try {
     const r = await signInWithPopup(auth, provider);
     const u = (r && r.user) || auth.currentUser;
-    if (u) { window.ME = { uid: u.uid, name: nameOf(u), photo: u.photoURL || '' }; window.syncMe && window.syncMe(); }
+    if (u) { window.ME = { uid: u.uid, name: nameOf(u), photo: u.photoURL || '', email: u.email || '' }; window.syncMe && window.syncMe(); }
     return window.ME;
   }
   catch (e) {
