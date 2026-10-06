@@ -521,9 +521,7 @@ section{padding:clamp(48px,7vw,92px) 0}
 .who span{color:var(--ink);font-weight:600}
 .who button{margin-left:auto;font:inherit;font-weight:600;color:var(--slate);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:2px}
 .who button:hover{color:var(--ink)}
-.gbtn{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:600;font-size:.92rem;padding:11px 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:border-color .2s,transform .2s}
-.gbtn:hover{border-color:var(--ink);transform:translateY(-2px)}
-.gbtn:active{transform:scale(.97)}
+.gsign{display:flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--display);font-size:.82rem;color:var(--slate);line-height:1.4}
 .word .wh{display:flex;align-items:center;gap:8px;margin-top:8px}
 .word .wh img{width:24px;height:24px;border-radius:50%;object-fit:cover;background:var(--card)}
 .react{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
@@ -1218,9 +1216,9 @@ I worry about being The Prodigal Son.</div>
       <button type="button" class="hbtn" id="pLike" aria-pressed="false">
         <span class="h-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span class="h-n" id="pLikeN">0</span><span class="h-t">Love this</span>
       </button>
-      <button type="button" class="gbtn" id="pSignIn" hidden><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3a12 12 0 0 0 10.2 6.3z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.7c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.8 6.1l3.8 3C6.5 6.7 9 4.7 12 4.7z"/></svg>Sign in to react</button>
       <button type="button" class="wbtn" id="pWordBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>Leave a word</button>
     </div>
+    <p class="gsign" id="pSignIn" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3a12 12 0 0 0 10.2 6.3z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.7c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.8 6.1l3.8 3C6.5 6.7 9 4.7 12 4.7z"/></svg>Sign in with Google to love a poem or leave a word</p>
     <form class="wform" id="pWordForm" hidden>
       <label class="sr" for="wText">Your message</label>
       <textarea id="wText" maxlength="300" rows="3" placeholder="What did this poem say to you?"></textarea>
@@ -1581,8 +1579,7 @@ window.setPoems=list=>{
     if(u){ document.getElementById('pWhoName').textContent=u.name||'Signed in';
       const im=document.getElementById('pWhoImg'); if(u.photo){im.src=u.photo;im.hidden=false;}else im.hidden=true; }
     const p=window.currentPoem;
-    likeBtn.disabled = !u || (p?liked(p.s):true);
-    document.getElementById('pWordBtn').disabled=!u;
+    likeBtn.disabled = !!u && !!p && liked(p.s);
   };
   window.setLikeCount=function(slug,n){ if(window.currentPoem&&window.currentPoem.s===slug) likeN.textContent=n||0; };
   window.showWords=function(slug,list){
@@ -1598,7 +1595,7 @@ window.setPoems=list=>{
   };
   likeBtn.addEventListener('click',async ()=>{
     const p=window.currentPoem; if(!p||liked(p.s)) return;
-    if(!window.ME){ await window.signIn(); if(!window.ME) return; }
+    if(!window.ME){ const u=await window.signIn(); if(!u) return; }
     mark(p.s); likeBtn.setAttribute('aria-pressed','true'); likeBtn.disabled=true;
     likeN.textContent=(+likeN.textContent||0)+1;
     likeBtn.classList.remove('pop'); void likeBtn.offsetWidth; likeBtn.classList.add('pop');
@@ -1606,7 +1603,7 @@ window.setPoems=list=>{
     if(window.track)track('poem_like',{poem:p.s});
     window.sendLike&&window.sendLike(p.s);
   });
-  wBtn.addEventListener('click',async ()=>{ if(!window.ME){ await window.signIn(); if(!window.ME) return; } wForm.hidden=!wForm.hidden; if(!wForm.hidden){ wText.focus(); wForm.scrollIntoView({block:'nearest',behavior:'smooth'}); } });
+  wBtn.addEventListener('click',async ()=>{ if(!window.ME){ const u=await window.signIn(); if(!u) return; } wForm.hidden=!wForm.hidden; if(!wForm.hidden){ wText.focus(); wForm.scrollIntoView({block:'nearest',behavior:'smooth'}); } });
   document.getElementById('wCancel').addEventListener('click',()=>{ wForm.hidden=true; });
   document.getElementById('pSignIn').addEventListener('click',()=>window.signIn&&window.signIn());
   document.getElementById('pSignOut').addEventListener('click',()=>window.signOutMe&&window.signOutMe());
@@ -2181,11 +2178,17 @@ onAuthStateChanged(auth, u => {
 });
 getRedirectResult(auth).catch(() => {});
 window.signIn = async () => {
-  try { await signInWithPopup(auth, provider); }
+  try {
+    const r = await signInWithPopup(auth, provider);
+    const u = (r && r.user) || auth.currentUser;
+    if (u) { window.ME = { uid: u.uid, name: u.displayName || 'Reader', photo: u.photoURL || '' }; window.syncMe && window.syncMe(); }
+    return window.ME;
+  }
   catch (e) {
     const c = e && e.code || '';
     if (c.includes('popup-blocked') || c.includes('operation-not-supported')) { try { await signInWithRedirect(auth, provider); return; } catch(_) {} }
     if (!c.includes('popup-closed') && !c.includes('cancelled-popup')) showToast("Couldn't sign in. Try again.");
+    return null;
   }
 };
 window.signOutMe = () => signOut(auth).then(() => showToast('Signed out'));
