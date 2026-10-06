@@ -406,6 +406,14 @@ body.focusing{overflow:hidden}
 .person .pn small{font-size:.78rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .person .pc{font-size:.82rem;color:var(--muted);white-space:nowrap}
 @media(max-width:600px){.faces{display:none}.person{padding:12px 14px}}
+.msg.sub{margin:10px 0 0 clamp(10px,3vw,24px);padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--line-2);border-radius:10px;background:#FAFBFB}
+.msg.sub .mt{font-size:.92rem}
+.badge.me{background:var(--ok-soft);color:var(--ok)}
+.mrep{display:grid;gap:8px;margin-top:10px}
+.mrep textarea{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;resize:vertical}
+.mrep .ma{justify-content:flex-end}
+.person .pc{display:grid;text-align:right;line-height:1.3}
+.person .pc small{font-size:.74rem;color:var(--muted)}
 /* storage page */
 .legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
 .lg-i{display:grid;gap:2px;font-size:.84rem}
@@ -1032,7 +1040,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, browserSessionPersistence, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-storage.js";
 
 const app = initializeApp({
@@ -1631,9 +1639,10 @@ async function loadLikes(){
 }
 function drawMessages(){
   const nw=D.messages.filter(m=>!m.approved).length, f=mFilter();
-  const list=D.messages.filter(m=>f==='all'||(f==='new'?!m.approved:m.approved));
+  const list=D.messages.filter(m=>!m.parent).filter(m=>f==='all'||(f==='new'?!m.approved:m.approved));
   $('ctM').textContent = nw; $('ctM').style.background = nw ? 'var(--accent)' : '';
   const pill=$('mPill'); pill.textContent = nw ? nw+' waiting' : 'All reviewed'; pill.className='pill'+(nw?' warn':'');
+  const byParent={}; D.messages.forEach(m=>{ if(m.parent){ (byParent[m.parent]=byParent[m.parent]||[]).push(m); } });
   $('mList').innerHTML = list.length ? list.map(m=>{
     const ne=/[\u0900-\u097F]/.test(m.text||'');
     const av = m.photo ? `<img class="av-s" src="${esc(m.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="av-s ph">${esc((m.name||'R')[0].toUpperCase())}</span>`;
@@ -1643,7 +1652,14 @@ function drawMessages(){
       <div class="ma">${m.approved
         ? `<button class="btn" data-m="hide">Hide from site</button>`
         : `<button class="btn accent" data-m="ok">Show on site</button>`}
+        <button class="btn" data-m="reply">Reply</button>
         <button class="btn" data-m="del">Delete</button></div>
+      <div class="mrep" hidden><textarea rows="2" maxlength="300" placeholder="Reply as Ishak…"></textarea><div class="ma"><button class="btn" data-m="rcancel">Cancel</button><button class="btn accent" data-m="rsend">Send reply</button></div></div>
+      ${(byParent[m.id]||[]).map(r=>`<div class="msg sub" data-id="${esc(r.id)}">
+        <div class="mt ${/[\u0900-\u097F]/.test(r.text||'')?'ne':''}">${esc(r.text)}</div>
+        <div class="mm">${r.author?'<span class="badge me">You</span>':''}<b>${esc(r.name||'A reader')}</b> · ${esc(ago(r.createdAt))}${r.approved?'<span class="badge live">On site</span>':''}</div>
+        <div class="ma">${r.approved?`<button class="btn" data-m="hide">Hide</button>`:`<button class="btn accent" data-m="ok">Show on site</button>`}<button class="btn" data-m="del">Delete</button></div>
+      </div>`).join('')}
     </div>`; }).join('')
     : blank(f==='new'?'Nothing waiting':'No messages yet', f==='new'?'New messages from readers will appear here.':'When someone leaves a word on a poem, it shows here.');
 }
@@ -1653,26 +1669,45 @@ function drawLikes(){ drawPeople();
   const by = {}; D.likeUsers.forEach(u=>{ (by[u.poem]=by[u.poem]||[]).push(u); });
   $('likeList').innerHTML = top.length ? top.slice(0,10).map(l=>{
     const who=(by[l.slug]||[]).slice(0,6), extra=(by[l.slug]||[]).length-who.length;
-    const faces = who.length ? `<span class="faces">${who.map(u=>u.photo?`<img src="${esc(u.photo)}" alt="" title="${esc(u.name||'')}" loading="lazy" referrerpolicy="no-referrer">`:`<span class="ph" title="${esc(u.name||'')}">${esc((u.name||'R')[0].toUpperCase())}</span>`).join('')}${extra>0?`<span class="ph more">+${extra}</span>`:''}</span>` : '';
+    const ttl=u=>esc((u.name||'Reader')+(u.createdAt?' · '+ago(u.createdAt):''));
+    const faces = who.length ? `<span class="faces">${who.map(u=>u.photo?`<img src="${esc(u.photo)}" alt="" title="${ttl(u)}" loading="lazy" referrerpolicy="no-referrer">`:`<span class="ph" title="${ttl(u)}">${esc((u.name||'R')[0].toUpperCase())}</span>`).join('')}${extra>0?`<span class="ph more">+${extra}</span>`:''}</span>` : '';
     return `<div class="like-row"><span class="lt ${poemNe(l.slug)?'ne':''}">${esc(poemTitle(l.slug))}</span>${faces}<span class="lb"><i style="width:${Math.round(l.count/max*100)}%"></i></span><span class="ln">${l.count}</span></div>`; }).join('')
     : blank('No hearts yet','When readers love a poem, it shows here.');
 }
 function drawPeople(){
   const map={};
-  D.likeUsers.forEach(u=>{ const k=u.uid||u.name; map[k]=map[k]||{name:u.name,photo:u.photo,likes:0,words:0}; map[k].likes++; });
-  D.messages.forEach(m=>{ const k=m.uid||m.name; if(!k) return; map[k]=map[k]||{name:m.name,photo:m.photo,email:m.email,likes:0,words:0}; map[k].words++; if(m.email) map[k].email=m.email; });
+  D.likeUsers.forEach(u=>{ const k=u.uid||u.name; map[k]=map[k]||{name:u.name,photo:u.photo,likes:0,words:0,last:0}; map[k].likes++;
+    const t=(u.createdAt&&u.createdAt.seconds)||0; if(t>map[k].last) map[k].last=t; });
+  D.messages.forEach(m=>{ if(m.author) return; const k=m.uid||m.name; if(!k) return; map[k]=map[k]||{name:m.name,photo:m.photo,email:m.email,likes:0,words:0,last:0}; map[k].words++;
+    if(m.email) map[k].email=m.email; const t=(m.createdAt&&m.createdAt.seconds)||0; if(t>map[k].last) map[k].last=t; });
   const list=Object.values(map).sort((a,b)=>(b.likes+b.words)-(a.likes+a.words));
   $('peopleMeta').textContent = list.length ? list.length+(list.length===1?' person':' people') : '';
-  $('peopleList').innerHTML = list.length ? list.slice(0,20).map(u=>`<div class="person">${u.photo?`<img class="av-s" src="${esc(u.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:`<span class="av-s ph">${esc((u.name||'R')[0].toUpperCase())}</span>`}<span class="pn"><b>${esc(u.name||'Reader')}</b>${u.email?`<small>${esc(u.email)}</small>`:''}</span><span class="pc">${u.likes?u.likes+' ♥':''}${u.likes&&u.words?' · ':''}${u.words?u.words+(u.words===1?' word':' words'):''}</span></div>`).join('')
+  $('peopleList').innerHTML = list.length ? list.slice(0,20).map(u=>`<div class="person">${u.photo?`<img class="av-s" src="${esc(u.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:`<span class="av-s ph">${esc((u.name||'R')[0].toUpperCase())}</span>`}<span class="pn"><b>${esc(u.name||'Reader')}</b>${u.email?`<small>${esc(u.email)}</small>`:''}</span><span class="pc">${u.likes?u.likes+' ♥':''}${u.likes&&u.words?' · ':''}${u.words?u.words+(u.words===1?' word':' words'):''}${u.last?`<small>${esc(ago({seconds:u.last}))}</small>`:''}</span></div>`).join('')
     : blank('No readers yet','People who sign in to react will show here.');
 }
 document.querySelectorAll('input[name=mFil]').forEach(r=>r.addEventListener('change',drawMessages));
 $('mList').addEventListener('click', async e => {
   const btn=e.target.closest('button[data-m]'); if(!btn) return;
-  const id=btn.closest('.msg').dataset.id, m=D.messages.find(x=>x.id===id); if(!m) return;
+  const card=btn.closest('.msg'), id=card.dataset.id, m=D.messages.find(x=>x.id===id); if(!m) return;
+  const box=card.querySelector(':scope > .mrep');
+  if(btn.dataset.m==='reply'){ box.hidden=!box.hidden; if(!box.hidden) box.querySelector('textarea').focus(); return; }
+  if(btn.dataset.m==='rcancel'){ box.hidden=true; return; }
+  if(btn.dataset.m==='rsend'){
+    const ta=box.querySelector('textarea'), text=ta.value.trim();
+    if(text.length<2){ ta.focus(); toast('Write a reply first',true); return; }
+    btn.disabled=true; btn.textContent='Sending…';
+    try{ await addDoc(collection(db,'messages'), { poem:m.poem, parent:id, text:text.slice(0,300), uid:auth.currentUser.uid,
+        name:'Ishak Yonghang', photo:'', author:true, approved:true, createdAt:serverTimestamp() });
+      ta.value=''; toast('Reply posted under the poem'); await loadMessages(); refreshAll(); }
+    catch(err){ toast(explain(err),true); }
+    btn.disabled=false; btn.textContent='Send reply'; return;
+  }
   const t=btn.textContent; btn.disabled=true; btn.textContent='…';
   try{
-    if(btn.dataset.m==='del'){ const {id:_drop, ...data}=m; await deleteDoc(doc(db,'messages',id));
+    if(btn.dataset.m==='del'){ const {id:_drop, ...data}=m;
+      const kids=D.messages.filter(x=>x.parent===id);
+      if(kids.length){ const bt=writeBatch(db); kids.forEach(k=>bt.delete(doc(db,'messages',k.id))); await bt.commit(); }
+      await deleteDoc(doc(db,'messages',id));
       toast('Message deleted', false, { label:'Undo', fn: async()=>{ try{ await setDoc(doc(db,'messages',id), data); await loadMessages(); refreshAll(); toast('Restored'); }catch(err){ toast(explain(err),true); } } }); }
     else { const ok=btn.dataset.m==='ok'; await updateDoc(doc(db,'messages',id), { approved: ok }); toast(ok?'Now showing under the poem':'Hidden from the site'); }
     await loadMessages(); refreshAll();

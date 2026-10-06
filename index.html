@@ -522,8 +522,22 @@ section{padding:clamp(48px,7vw,92px) 0}
 .who button{margin-left:auto;font:inherit;font-weight:600;color:var(--slate);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:2px}
 .who button:hover{color:var(--ink)}
 .gsign{display:flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--display);font-size:.82rem;color:var(--slate);line-height:1.4}
-.word .wh{display:flex;align-items:center;gap:8px;margin-top:8px}
-.word .wh img{width:24px;height:24px;border-radius:50%;object-fit:cover;background:var(--card)}
+.word .wh{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:var(--display);font-size:.84rem}
+.word .wh img,.word .wh .ph{width:26px;height:26px;border-radius:50%;object-fit:cover;background:var(--card);flex-shrink:0}
+.word .wh .ph{display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:var(--slate);border:1px solid var(--line)}
+.word .wh b{font-weight:600;color:var(--ink)}
+.word .wh .t{margin-left:auto;color:var(--slate);font-size:.78rem}
+.word .tag{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--rhodo);color:#fff}
+.word.by-author{border-left-color:var(--tea);background:var(--card);border:1px solid var(--line);border-left:3px solid var(--tea)}
+.word .wa{display:flex;gap:12px;margin-top:8px}
+.word .wa button{font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--ink-2);background:none;border:none;cursor:pointer;padding:2px}
+.word .wa button:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.word .rbox{display:grid;gap:8px;margin-top:10px}
+.word .rbox textarea{width:100%;font-family:var(--display);font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);resize:vertical}
+.word .rb-row{display:flex;gap:8px;justify-content:flex-end}
+.word .rb-row .btn{min-height:36px;padding:0 14px;font-size:.84rem}
+.word.reply{margin:10px 0 0 clamp(12px,4vw,26px);background:var(--card);border:1px solid var(--line);border-left:3px solid var(--line)}
+.word.reply.by-author{border-left-color:var(--tea)}
 .react{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
 .hbtn,.wbtn{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:600;font-size:.92rem;padding:11px 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s,transform .2s,color .2s}
 .hbtn:hover,.wbtn:hover{border-color:var(--ink);transform:translateY(-2px)}
@@ -1214,7 +1228,7 @@ I worry about being The Prodigal Son.</div>
     </div>
     <div class="react">
       <button type="button" class="hbtn" id="pLike" aria-pressed="false">
-        <span class="h-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span class="h-n" id="pLikeN">0</span><span class="h-t">Love this</span>
+        <span class="h-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span class="h-n" id="pLikeN">0</span><span class="h-t" id="pLikeT">Love this</span>
       </button>
       <button type="button" class="wbtn" id="pWordBtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>Leave a word</button>
     </div>
@@ -1564,10 +1578,11 @@ window.setPoems=list=>{
         wCount=document.getElementById('wCount'),wrap=document.getElementById('pWords');
   const liked=s=>{ if(window.MY_LIKES&&window.MY_LIKES[s]) return true; try{ return (JSON.parse(localStorage.getItem('liked')||'[]')).includes(s); }catch(e){ return false; } };
   const mark=s=>{ try{ const a=JSON.parse(localStorage.getItem('liked')||'[]'); if(!a.includes(s)){a.push(s);localStorage.setItem('liked',JSON.stringify(a));} }catch(e){} };
+  const unmark=s=>{ try{ localStorage.setItem('liked',JSON.stringify((JSON.parse(localStorage.getItem('liked')||'[]')).filter(x=>x!==s))); }catch(e){} };
   window.poemSocial=function(p){
     wForm.hidden=true; wText.value=''; wCount.textContent='0 / 300';
     const on=liked(p.s);
-    likeBtn.setAttribute('aria-pressed',on); likeBtn.disabled=on;
+    likeBtn.setAttribute('aria-pressed',on); document.getElementById('pLikeT').textContent = on ? 'Loved' : 'Love this';
     likeN.textContent=(window.LIKES&&window.LIKES[p.s])||0;
     window.loadWords&&window.loadWords(p.s);
     window.syncMe&&window.syncMe();
@@ -1579,29 +1594,71 @@ window.setPoems=list=>{
     if(u){ document.getElementById('pWhoName').textContent=u.name||'Signed in';
       const im=document.getElementById('pWhoImg'); if(u.photo){im.src=u.photo;im.hidden=false;}else im.hidden=true; }
     const p=window.currentPoem;
-    likeBtn.disabled = !!u && !!p && liked(p.s);
+    likeBtn.disabled=false;
+    if(p){ const on=liked(p.s); likeBtn.setAttribute('aria-pressed',on); document.getElementById('pLikeT').textContent = on ? 'Loved' : 'Love this'; }
   };
   window.setLikeCount=function(slug,n){ if(window.currentPoem&&window.currentPoem.s===slug) likeN.textContent=n||0; };
+  const escH=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const ago=t=>{ if(!t) return ''; const d=t.toDate?t.toDate():new Date((t.seconds||0)*1000||t), x=(Date.now()-d.getTime())/1000;
+    if(x<60) return 'just now'; if(x<3600) return Math.floor(x/60)+'m ago'; if(x<86400) return Math.floor(x/3600)+'h ago';
+    if(x<604800) return Math.floor(x/86400)+'d ago'; return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+  function wordHTML(w,isReply){
+    const ne=/[\u0900-\u097F]/.test(w.text||'');
+    const mine=window.ME&&w.uid===window.ME.uid;
+    const ph=w.photo?`<img src="${escH(w.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:`<span class="ph">${escH((w.name||'R')[0].toUpperCase())}</span>`;
+    return `<div class="word${isReply?' reply':''}${w.author?' by-author':''}" data-id="${escH(w.id)}">
+      <div class="wh">${ph}<b>${escH(w.name||'A reader')}</b>${w.author?'<span class="tag">Poet</span>':''}<span class="t">${escH(ago(w.createdAt))}</span></div>
+      <p${ne?' class="ne" lang="ne"':''}>${escH(w.text)}</p>
+      <div class="wa"><button type="button" data-w="reply">Reply</button>${mine?'<button type="button" data-w="del">Delete</button>':''}</div>
+      <div class="rbox" hidden><textarea maxlength="300" rows="2" placeholder="Write a reply…"></textarea><div class="rb-row"><button type="button" class="btn" data-w="rcancel">Cancel</button><button type="button" class="btn fill" data-w="rsend">Reply</button></div></div>
+      ${(w.replies||[]).map(r=>wordHTML(r,true)).join('')}
+    </div>`;
+  }
   window.showWords=function(slug,list){
-    if(!window.currentPoem||window.currentPoem.s!==slug){ return; }
-    if(!list||!list.length){ wrap.hidden=true; wrap.innerHTML=''; return; }
-    const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    if(!window.currentPoem||window.currentPoem.s!==slug) return;
+    const tops=(list||[]).filter(w=>!w.parent);
+    tops.forEach(t=>{ t.replies=(list||[]).filter(r=>r.parent===t.id).sort((a,b)=>((a.createdAt&&a.createdAt.seconds)||0)-((b.createdAt&&b.createdAt.seconds)||0)); });
+    tops.sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0));
+    if(!tops.length){ wrap.hidden=true; wrap.innerHTML=''; return; }
+    const n=(list||[]).length;
     wrap.hidden=false;
-    wrap.innerHTML='<h4>'+list.length+(list.length===1?' word from a reader':' words from readers')+'</h4>'+list.map(w=>{
-      const ne=/[\u0900-\u097F]/.test(w.text);
-      const ph=w.photo?'<img src="'+esc(w.photo)+'" alt="" loading="lazy" referrerpolicy="no-referrer">':'';
-      return '<div class="word"><p'+(ne?' class="ne" lang="ne"':'')+'>'+esc(w.text)+'</p><span class="wh">'+ph+'<span>— '+esc(w.name||'A reader')+'</span></span></div>';
-    }).join('');
+    wrap.innerHTML='<h4>'+n+(n===1?' word from a reader':' words from readers')+'</h4>'+tops.map(w=>wordHTML(w,false)).join('');
   };
+  wrap.addEventListener('click',async e=>{
+    const b=e.target.closest('button[data-w]'); if(!b) return;
+    const card=b.closest('.word'), id=card.dataset.id, box=card.querySelector(':scope > .rbox');
+    if(b.dataset.w==='reply'){ if(!window.ME){ const u=await window.signIn(); if(!u) return; } box.hidden=!box.hidden; if(!box.hidden) box.querySelector('textarea').focus(); return; }
+    if(b.dataset.w==='rcancel'){ box.hidden=true; return; }
+    if(b.dataset.w==='del'){
+      if(!confirm('Delete your message?')) return;
+      try{ await window.deleteWord(id); showToast('Deleted'); }catch(err){ showToast("Couldn't delete."); }
+      return;
+    }
+    if(b.dataset.w==='rsend'){
+      const ta=box.querySelector('textarea'), text=ta.value.trim();
+      if(text.length<2){ ta.focus(); showToast('Write a few words first'); return; }
+      b.disabled=true; b.textContent='…';
+      try{ await window.sendWord(window.currentPoem.s,{text,parent:card.dataset.id}); box.hidden=true; ta.value=''; showToast('Reply sent — it shows once approved'); }
+      catch(err){ showToast("Couldn't send."); }
+      b.disabled=false; b.textContent='Reply';
+    }
+  });
   likeBtn.addEventListener('click',async ()=>{
-    const p=window.currentPoem; if(!p||liked(p.s)) return;
+    const p=window.currentPoem; if(!p) return;
     if(!window.ME){ const u=await window.signIn(); if(!u) return; }
-    mark(p.s); likeBtn.setAttribute('aria-pressed','true'); likeBtn.disabled=true;
-    likeN.textContent=(+likeN.textContent||0)+1;
-    likeBtn.classList.remove('pop'); void likeBtn.offsetWidth; likeBtn.classList.add('pop');
-    if(navigator.vibrate){ try{ navigator.vibrate(14); }catch(e){} }
-    if(window.track)track('poem_like',{poem:p.s});
-    window.sendLike&&window.sendLike(p.s);
+    const on=liked(p.s);
+    if(on){
+      unmark(p.s); likeBtn.setAttribute('aria-pressed','false'); document.getElementById('pLikeT').textContent='Love this';
+      likeN.textContent=Math.max(0,(+likeN.textContent||0)-1);
+      window.sendLike&&window.sendLike(p.s,false);
+    } else {
+      mark(p.s); likeBtn.setAttribute('aria-pressed','true'); document.getElementById('pLikeT').textContent='Loved';
+      likeN.textContent=(+likeN.textContent||0)+1;
+      likeBtn.classList.remove('pop'); void likeBtn.offsetWidth; likeBtn.classList.add('pop');
+      if(navigator.vibrate){ try{ navigator.vibrate(14); }catch(e){} }
+      if(window.track)track('poem_like',{poem:p.s});
+      window.sendLike&&window.sendLike(p.s,true);
+    }
   });
   wBtn.addEventListener('click',async ()=>{ if(!window.ME){ const u=await window.signIn(); if(!u) return; } wForm.hidden=!wForm.hidden; if(!wForm.hidden){ wText.focus(); wForm.scrollIntoView({block:'nearest',behavior:'smooth'}); } });
   document.getElementById('wCancel').addEventListener('click',()=>{ wForm.hidden=true; });
@@ -2162,7 +2219,7 @@ live(doc(db,'site','extras'), x => {
 
 /* ---------- who is reading: Google sign-in for hearts and messages ---------- */
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { setDoc, getDocs, where, limit, serverTimestamp, increment, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { setDoc, getDocs, deleteDoc, where, limit, serverTimestamp, increment, writeBatch } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
@@ -2208,27 +2265,29 @@ live(collection(db,'likes'), d => {
   if (window.currentPoem) window.setLikeCount(window.currentPoem.s, m[window.currentPoem.s] || 0);
 });
 // one heart per person per poem: the counter and the person's record are written together
-window.sendLike = async slug => {
+window.sendLike = async (slug, on) => {
   const u = auth.currentUser; if (!u) return;
-  const b = writeBatch(db);
-  b.set(doc(db,'likeUsers', u.uid + '_' + slug), { uid: u.uid, poem: slug, name: u.displayName || 'Reader', photo: u.photoURL || '', createdAt: serverTimestamp() });
-  b.set(doc(db,'likes', slug), { count: increment(1) }, { merge: true });
+  const b = writeBatch(db), ref = doc(db,'likeUsers', u.uid + '_' + slug);
+  if (on === false) { b.delete(ref); b.set(doc(db,'likes', slug), { count: increment(-1) }, { merge: true }); }
+  else { b.set(ref, { uid: u.uid, poem: slug, name: u.displayName || 'Reader', photo: u.photoURL || '', createdAt: serverTimestamp() });
+         b.set(doc(db,'likes', slug), { count: increment(1) }, { merge: true }); }
   try { await b.commit(); } catch(e) { console.warn(e); }
 };
 window.sendWord = (slug, w) => {
   const u = auth.currentUser; if (!u) throw new Error('signed out');
   return addDoc(collection(db,'messages'), {
-    poem: slug, text: (w.text||'').slice(0,300),
+    poem: slug, text: (w.text||'').slice(0,300), parent: w.parent || null,
     uid: u.uid, name: u.displayName || 'Reader', photo: u.photoURL || '', email: u.email || '',
     approved: false, createdAt: serverTimestamp()
   });
 };
+window.deleteWord = id => deleteDoc(doc(db,'messages',id));
 let wordsOff = null;
 window.loadWords = slug => {
   if (wordsOff) { wordsOff(); wordsOff = null; }
   window.showWords(slug, []);
   wordsOff = onSnapshot(query(collection(db,'messages'), where('poem','==',slug), where('approved','==',true), limit(20)),
-    snap => { const list=[]; snap.forEach(x => list.push(x.data())); window.showWords(slug, list); },
+    snap => { const list=[]; snap.forEach(x => list.push({ id:x.id, ...x.data() })); window.showWords(slug, list); },
     () => {});
 };
 
