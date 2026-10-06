@@ -516,15 +516,15 @@ section{padding:clamp(48px,7vw,92px) 0}
 .poem-acts .more-btn{margin-top:0;display:inline-flex;align-items:center;gap:8px}
 .more-btn.solid{background:#F2A5B1;color:var(--night)}
 .more-btn.solid:hover{background:#fff}
-.who{display:flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--display);font-size:.86rem;color:var(--slate)}
-.who-me{display:flex;align-items:center;gap:10px;min-width:0;background:none;border:none;padding:4px;border-radius:12px;cursor:pointer;text-align:left;color:inherit;font:inherit}
-.who-me:hover{background:var(--mist)}
-.who img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--mist);flex-shrink:0}
-.who-me span{display:grid;min-width:0}
-.who-me b{color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.who-me small{font-size:.76rem;color:var(--slate);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.who button{margin-left:auto;font:inherit;font-weight:600;color:var(--slate);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:2px}
-.who button:hover{color:var(--ink)}
+.who{display:flex;align-items:center;gap:10px;margin-top:22px;padding:8px 10px 8px 8px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-family:var(--display)}
+.who-me{display:flex;align-items:center;gap:10px;min-width:0;flex:1;background:none;border:none;padding:0;border-radius:999px;cursor:pointer;text-align:left;color:inherit;font:inherit}
+.who img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--mist);flex-shrink:0;border:1px solid var(--line)}
+.who-me>span{display:grid;min-width:0}
+.who-me b{color:var(--ink);font-weight:600;font-size:.9rem;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who-me small{font-size:.76rem;color:var(--slate);line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who-me:hover b{color:var(--rhodo-text)}
+.who .so{flex-shrink:0;font-family:var(--display);font-weight:600;font-size:.8rem;color:var(--slate);background:var(--mist);border:none;border-radius:999px;padding:8px 14px;cursor:pointer;transition:background .2s,color .2s}
+.who .so:hover{background:var(--ink);color:var(--paper)}
 .gsign{display:flex;align-items:center;gap:8px;margin-top:10px;font-family:var(--display);font-size:.82rem;color:var(--slate);line-height:1.4}
 .word .wh{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-family:var(--display);font-size:.84rem}
 .word .wh img,.word .wh .ph{width:26px;height:26px;border-radius:50%;object-fit:cover;background:var(--card);flex-shrink:0}
@@ -1253,7 +1253,7 @@ I worry about being The Prodigal Son.</div>
         <img id="pWhoImg" alt="" width="30" height="30"/>
         <span><b id="pWhoName"></b><small id="pWhoMail"></small></span>
       </button>
-      <button type="button" id="pSignOut">Sign out</button>
+      <button type="button" class="so" id="pSignOut">Sign out</button>
     </div>
     <div class="react">
       <button type="button" class="hbtn" id="pLike" aria-pressed="false">
@@ -1266,7 +1266,7 @@ I worry about being The Prodigal Son.</div>
       <label class="sr" for="wText">Your message</label>
       <textarea id="wText" maxlength="300" rows="3" placeholder="What did this poem say to you?"></textarea>
       <div class="wf-row"><span class="wf-c" id="wCount">0 / 300</span><button type="button" class="btn" id="wCancel">Cancel</button><button type="submit" class="btn fill" id="wSend">Send</button></div>
-      <p class="wf-note">I read every message. It shows under the poem once I approve it.</p>
+      <p class="wf-note">Your words appear under the poem right away. You can delete them any time.</p>
     </form>
     <div class="words" id="pWords" hidden></div>
     <div class="sheet-acts">
@@ -1685,7 +1685,7 @@ window.setPoems=list=>{
       const ta=box.querySelector('textarea'), text=ta.value.trim();
       if(text.length<2){ ta.focus(); showToast('Write a few words first'); return; }
       b.disabled=true; b.textContent='…';
-      try{ await window.sendWord(window.currentPoem.s,{text,parent:card.dataset.id}); box.hidden=true; ta.value=''; showToast('Reply sent — it shows once approved'); }
+      try{ await window.sendWord(window.currentPoem.s,{text,parent:card.dataset.id}); box.hidden=true; ta.value=''; showToast('Reply posted'); }
       catch(err){ showToast("Couldn't send."); }
       b.disabled=false; b.textContent='Reply';
     }
@@ -1722,7 +1722,7 @@ window.setPoems=list=>{
     try{
       await window.sendWord(p.s,{text});
       wForm.hidden=true; wText.value=''; wCount.textContent='0 / 300';
-      showToast('Thank you — I will read it soon');
+      showToast('Thank you for your words');
       if(window.track)track('poem_message',{poem:p.s});
     }catch(err){ showToast("Couldn't send. Check your connection."); }
     btn.disabled=false; btn.textContent='Send';
@@ -1749,7 +1749,7 @@ window.setPoems=list=>{
     const words=(window.MY_WORDS||[]).slice().sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0));
     document.getElementById('meWords').textContent=words.length;
     document.getElementById('meWordList').innerHTML = words.length ? words.map(w=>
-      `<div class="me-row" style="cursor:default"><span class="mr-t">${esc(w.text)}</span>${w.approved?'<span class="pill-l">On site</span>':'<span class="pill-w">Waiting</span>'}<button type="button" class="mr-x" data-del-word="${esc(w.id)}">Delete</button></div>`).join('')
+      `<div class="me-row" style="cursor:default"><span class="mr-t">${esc(w.text)}</span>${w.approved?'<span class="pill-l">On site</span>':'<span class="pill-w">Hidden</span>'}<button type="button" class="mr-x" data-del-word="${esc(w.id)}">Delete</button></div>`).join('')
       : '<p class="me-empty">You have not written anything yet.</p>';
     openModal('meModal',document.getElementById('pWhoBtn'));
   };
@@ -2369,7 +2369,7 @@ window.sendWord = (slug, w) => {
   return addDoc(collection(db,'messages'), {
     poem: slug, text: (w.text||'').slice(0,300), parent: w.parent || null,
     uid: u.uid, name: nameOf(u), photo: u.photoURL || '', email: u.email || '',
-    approved: false, createdAt: serverTimestamp()
+    approved: true, createdAt: serverTimestamp()
   });
 };
 window.deleteWord = id => deleteDoc(doc(db,'messages',id));

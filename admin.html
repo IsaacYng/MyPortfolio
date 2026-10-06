@@ -773,11 +773,11 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- MESSAGES -->
       <section data-page="messages" hidden>
-        <div class="ph"><div><h1>Messages</h1><p>Words readers left on your poems. Approve the ones you want shown under that poem on your site.</p><p class="np-help" lang="ne">पाठकहरूले तपाईंका कवितामा छोडेका सन्देश। Approve गरेपछि मात्र साइटमा देखिन्छ।</p></div><span class="pill" id="mPill"></span></div>
+        <div class="ph"><div><h1>Messages</h1><p>Words readers left on your poems. They appear under the poem right away — hide any you don't want shown.</p><p class="np-help" lang="ne">पाठकहरूले छोडेका सन्देश तुरुन्तै कवितामुनि देखिन्छन्। नचाहिएको Hide गर्नुहोस्।</p></div><span class="pill" id="mPill"></span></div>
         <div class="card">
           <div class="toolbar"><div class="seg" role="radiogroup" aria-label="Filter messages">
-            <label><input type="radio" name="mFil" value="new" checked/><span>New</span></label>
-            <label><input type="radio" name="mFil" value="live"/><span>On site</span></label>
+            <label><input type="radio" name="mFil" value="live" checked/><span>On site</span></label>
+            <label><input type="radio" name="mFil" value="hidden"/><span>Hidden</span></label>
             <label><input type="radio" name="mFil" value="all"/><span>All</span></label>
           </div></div>
           <div class="tbl" id="mList"><div class="skel"></div><div class="skel"></div></div>
@@ -1379,7 +1379,7 @@ function renderHome(){
     ['storage', gp>=90||dp>=90?'bad':gp>=70||dp>=70?'warn':'ok', 'sheet', Math.max(gp,dp).toFixed(0)+'% used', 'free limits'],
     ['backup', !bk?'warn':days>30?'warn':'ok', 'doc', !bk?'No backup':days===0?'Backed up today':days+' days ago', !bk?'download one now':'last backup'],
     ['snaps', 'ok', 'camera', D.snapshots.length+' photos', D.certs.length+' certificates'],
-    ['messages', D.messages.filter(m=>!m.approved).length?'warn':'ok', 'heart', (D.messages.filter(m=>!m.approved).length||'No')+' new', D.likes.reduce((s,l)=>s+l.count,0)+' hearts']
+    ['messages', 'ok', 'heart', D.messages.filter(m=>!m.author).length+' words', D.likes.reduce((s,l)=>s+l.count,0)+' hearts']
   ];
   $('health').innerHTML = cards.map(([g,c,i,b,s])=>`<a class="hc ${c}" data-go="${g}"><span class="hi">${svgI(i)}</span><span><b>${b}</b><small>${s}</small></span></a>`).join('');
   const rec = D.poems.slice().sort((a,b)=>(b.updatedAt||b.order||0)-(a.updatedAt||a.order||0)).slice(0,4);
@@ -1620,7 +1620,7 @@ const poemNe = slug => { const p=D.poems.find(x=>x.slug===slug); return p ? p.la
 const ago = t => { if(!t) return ''; const d=t.toDate?t.toDate():new Date((t.seconds||0)*1000||t), s=(Date.now()-d.getTime())/1000;
   if(s<60) return 'just now'; if(s<3600) return Math.floor(s/60)+'m ago'; if(s<86400) return Math.floor(s/3600)+'h ago';
   if(s<604800) return Math.floor(s/86400)+'d ago'; return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
-const mFilter = () => (document.querySelector('input[name=mFil]:checked')||{}).value || 'new';
+const mFilter = () => (document.querySelector('input[name=mFil]:checked')||{}).value || 'live';
 async function loadMessages(){
   try { const q=await getDocs(collection(db,'messages'));
     D.messages=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0)); }
@@ -1638,30 +1638,30 @@ async function loadLikes(){
   drawLikes();
 }
 function drawMessages(){
-  const nw=D.messages.filter(m=>!m.approved).length, f=mFilter();
-  const list=D.messages.filter(m=>!m.parent).filter(m=>f==='all'||(f==='new'?!m.approved:m.approved));
-  $('ctM').textContent = nw; $('ctM').style.background = nw ? 'var(--accent)' : '';
-  const pill=$('mPill'); pill.textContent = nw ? nw+' waiting' : 'All reviewed'; pill.className='pill'+(nw?' warn':'');
+  const nw=D.messages.filter(m=>!m.approved).length, total=D.messages.filter(m=>!m.author).length, f=mFilter();
+  const list=D.messages.filter(m=>!m.parent).filter(m=>f==='all'||(f==='hidden'?!m.approved:m.approved));
+  $('ctM').textContent = total; $('ctM').style.background = '';
+  const pill=$('mPill'); pill.textContent = total+(total===1?' message':' messages')+(nw?' · '+nw+' hidden':''); pill.className='pill'+(nw?' warn':'');
   const byParent={}; D.messages.forEach(m=>{ if(m.parent){ (byParent[m.parent]=byParent[m.parent]||[]).push(m); } });
   $('mList').innerHTML = list.length ? list.map(m=>{
     const ne=/[\u0900-\u097F]/.test(m.text||'');
     const av = m.photo ? `<img class="av-s" src="${esc(m.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="av-s ph">${esc((m.name||'R')[0].toUpperCase())}</span>`;
     return `<div class="msg" data-id="${esc(m.id)}">
       <div class="mt ${ne?'ne':''}">${esc(m.text)}</div>
-      <div class="mm">${av}<b>${esc(m.name||'A reader')}</b>${m.email?`<span class="em">${esc(m.email)}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'<span class="badge live">On site</span>':''}</div>
+      <div class="mm">${av}<b>${esc(m.name||'A reader')}</b>${m.email?`<span class="em">${esc(m.email)}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'':'<span class="badge draft">Hidden</span>'}</div>
       <div class="ma">${m.approved
-        ? `<button class="btn" data-m="hide">Hide from site</button>`
-        : `<button class="btn accent" data-m="ok">Show on site</button>`}
+        ? `<button class="btn" data-m="hide">Hide</button>`
+        : `<button class="btn accent" data-m="ok">Show again</button>`}
         <button class="btn" data-m="reply">Reply</button>
         <button class="btn" data-m="del">Delete</button></div>
       <div class="mrep" hidden><textarea rows="2" maxlength="300" placeholder="Reply as Ishak…"></textarea><div class="ma"><button class="btn" data-m="rcancel">Cancel</button><button class="btn accent" data-m="rsend">Send reply</button></div></div>
       ${(byParent[m.id]||[]).map(r=>`<div class="msg sub" data-id="${esc(r.id)}">
         <div class="mt ${/[\u0900-\u097F]/.test(r.text||'')?'ne':''}">${esc(r.text)}</div>
-        <div class="mm">${r.author?'<span class="badge me">You</span>':''}<b>${esc(r.name||'A reader')}</b> · ${esc(ago(r.createdAt))}${r.approved?'<span class="badge live">On site</span>':''}</div>
-        <div class="ma">${r.approved?`<button class="btn" data-m="hide">Hide</button>`:`<button class="btn accent" data-m="ok">Show on site</button>`}<button class="btn" data-m="del">Delete</button></div>
+        <div class="mm">${r.author?'<span class="badge me">You</span>':''}<b>${esc(r.name||'A reader')}</b> · ${esc(ago(r.createdAt))}${r.approved?'':'<span class="badge draft">Hidden</span>'}</div>
+        <div class="ma">${r.approved?`<button class="btn" data-m="hide">Hide</button>`:`<button class="btn accent" data-m="ok">Show again</button>`}<button class="btn" data-m="del">Delete</button></div>
       </div>`).join('')}
     </div>`; }).join('')
-    : blank(f==='new'?'Nothing waiting':'No messages yet', f==='new'?'New messages from readers will appear here.':'When someone leaves a word on a poem, it shows here.');
+    : blank(f==='hidden'?'Nothing hidden':'No messages yet', f==='hidden'?'Messages you hide will appear here.':'When someone leaves a word on a poem, it shows here.');
 }
 function drawLikes(){ drawPeople();
   const top=D.likes.filter(l=>l.count>0), max=top.length?top[0].count:1, total=top.reduce((s,l)=>s+l.count,0);
@@ -1709,7 +1709,7 @@ $('mList').addEventListener('click', async e => {
       if(kids.length){ const bt=writeBatch(db); kids.forEach(k=>bt.delete(doc(db,'messages',k.id))); await bt.commit(); }
       await deleteDoc(doc(db,'messages',id));
       toast('Message deleted', false, { label:'Undo', fn: async()=>{ try{ await setDoc(doc(db,'messages',id), data); await loadMessages(); refreshAll(); toast('Restored'); }catch(err){ toast(explain(err),true); } } }); }
-    else { const ok=btn.dataset.m==='ok'; await updateDoc(doc(db,'messages',id), { approved: ok }); toast(ok?'Now showing under the poem':'Hidden from the site'); }
+    else { const ok=btn.dataset.m==='ok'; await updateDoc(doc(db,'messages',id), { approved: ok }); toast(ok?'Showing under the poem again':'Hidden from the site'); }
     await loadMessages(); refreshAll();
   }catch(err){ toast(explain(err),true); btn.disabled=false; btn.textContent=t; }
 });
