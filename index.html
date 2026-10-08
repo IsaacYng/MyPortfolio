@@ -130,6 +130,15 @@ a{color:inherit}
 .nav-cta:hover svg{transform:rotate(-10deg) scale(1.1)}
 .nav-cta:active{transform:scale(.96)}
 .nav-r{display:flex;align-items:center;gap:8px}
+.acct-btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 15px 0 6px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font-family:var(--display);font-weight:600;font-size:.9rem;cursor:pointer;transition:border-color .2s,transform .2s}
+.acct-btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+.acct-btn:active{transform:scale(.96)}
+.ab-in{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--card);overflow:hidden;flex-shrink:0}
+.ab-in img{width:100%;height:100%;object-fit:cover}
+.ab-in.letter{background:linear-gradient(140deg,var(--rhodo),var(--rhodo-dark));color:#fff;font-family:var(--display);font-weight:800;font-size:.85rem}
+@media(max-width:980px){.acct-btn{display:none}}
+.ms-grid #msAcctIc svg{display:block}
+.ms-grid #msAcctIc img{width:22px;height:22px;border-radius:50%;object-fit:cover;display:block}
 .lang-btn{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font-family:var(--display);font-weight:600;font-size:.9rem;cursor:pointer;transition:border-color .2s,transform .2s}
 .lang-btn:hover{border-color:var(--ink);transform:translateY(-1px)}
 .lang-btn:active{transform:scale(.96)}
@@ -732,6 +741,16 @@ footer .wrap{align-items:center}
 .me-top img[hidden]{display:none}
 .me-top h3{font-family:var(--display);font-weight:800;font-size:clamp(1.1rem,4.2vw,1.5rem);letter-spacing:-.02em;line-height:1.2;overflow-wrap:anywhere}
 .me-top p{font-family:var(--display);font-size:.85rem;color:var(--slate);overflow-wrap:anywhere;margin-top:2px}
+.me-bio{font-family:var(--display);font-size:.95rem;line-height:1.6;color:var(--ink-2);margin-top:14px;padding-left:14px;border-left:3px solid var(--line)}
+.me-edit{display:grid;gap:12px;margin-top:14px;padding:16px;border-radius:18px;background:var(--mist);border:1px solid var(--line)}
+.me-edit .field{display:grid;gap:6px}
+.me-edit .field>span{font-family:var(--display);font-weight:600;font-size:.84rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:8px}
+.me-edit .field>span em{font-style:normal;font-weight:400;color:var(--slate);font-size:.78rem}
+.me-edit input,.me-edit textarea{width:100%;font-family:var(--display);font-size:16px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);resize:vertical}
+.me-edit input:focus,.me-edit textarea:focus{outline:none;border-color:var(--ink)}
+.me-edit .err{color:var(--rhodo-text);font-family:var(--display);font-size:.84rem;min-height:1em}
+.me-ed-row{display:flex;gap:8px;justify-content:flex-end}
+.me-ed-row .btn{min-height:40px;padding:0 18px;font-size:.88rem}
 .me-stat{display:flex;gap:10px;margin-top:18px}
 .me-stat span{flex:1;display:grid;gap:2px;padding:14px;border-radius:16px;background:var(--mist);font-family:var(--display);font-size:.84rem;color:var(--slate);text-align:center}
 .me-stat b{font-size:1.5rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
@@ -875,6 +894,7 @@ footer .wrap{align-items:center}
       <a href="#contact">Contact</a>
 </nav>
     <div class="nav-r">
+    <button type="button" class="acct-btn" id="acctBtn" aria-label="Your account"><span class="ab-in" id="acctIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3a12 12 0 0 0 10.2 6.3z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.7c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.8 6.1l3.8 3C6.5 6.7 9 4.7 12 4.7z"/></svg></span><span id="acctTxt">Sign in</span></button>
     <button type="button" class="lang-btn" id="langBtn" aria-label="Switch language" title="नेपाली / English"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg><span id="langLabel">नेपाली</span></button>
     <button type="button" class="nav-more" id="navMore" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>More</span></button>
     <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to dark mode"><span class="i-moon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span><span class="i-sun"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button>
@@ -901,6 +921,7 @@ footer .wrap{align-items:center}
     <a href="https://wa.me/9779820907795" data-c="wa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>WhatsApp</span></a>
     <button type="button" data-ms="share"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>Share site</span></button>
     <button type="button" data-ms="save"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>Save contact</span></button>
+    <button type="button" data-ms="acct"><span id="msAcctIc"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3a12 12 0 0 0 10.2 6.3z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.7c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.8 6.1l3.8 3C6.5 6.7 9 4.7 12 4.7z"/></svg></span><span id="msAcctTxt">Sign in</span></button>
     <button type="button" data-ms="lang"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg><span>नेपाली</span></button>
     <button type="button" data-ms="theme"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>Dark mode</span></button>
     <a href="#top"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><span>Back to top</span></a>
@@ -1311,7 +1332,16 @@ I worry about being The Prodigal Son.</div>
       <img id="meImg" alt="" width="64" height="64"/><span class="me-ph" id="meInit" hidden></span>
       <div><h3 id="meName"></h3><p id="meMail"></p></div>
     </div>
+    <p class="me-bio" id="meBio" hidden></p>
     <div class="me-stat"><span><b id="meLikes">0</b>hearts</span><span><b id="meWords">0</b>words</span></div>
+    <button class="btn" type="button" id="meEditBtn" style="margin-top:14px;width:100%">Edit my profile</button>
+    <form class="me-edit" id="meEdit" hidden>
+      <label class="field"><span>Display name</span><input id="meNameIn" maxlength="40" placeholder="Your name"/></label>
+      <label class="field"><span>About you <em>optional</em></span><textarea id="meBioIn" maxlength="200" rows="3" placeholder="A line about you"></textarea></label>
+      <label class="field"><span>Link <em>optional — Facebook, Instagram…</em></span><input id="meLinkIn" maxlength="120" placeholder="https://" inputmode="url"/></label>
+      <p class="err" id="meErr"></p>
+      <div class="me-ed-row"><button type="button" class="btn" id="meCancel">Cancel</button><button type="submit" class="btn fill" id="meSave">Save</button></div>
+    </form>
     <h4 class="me-h">Poems you loved</h4>
     <div class="me-list" id="meLikeList"></div>
     <h4 class="me-h">Your words</h4>
@@ -1662,7 +1692,24 @@ window.setPoems=list=>{
     window.loadWords&&window.loadWords(p.s);
     window.syncMe&&window.syncMe();
   };
+  const acctBtn=document.getElementById('acctBtn'), acctIn=document.getElementById('acctIn'), acctTxt=document.getElementById('acctTxt');
+  const msIc=document.getElementById('msAcctIc'), msTxt=document.getElementById('msAcctTxt');
+  const GICON=acctIn.innerHTML, GICON2=msIc.innerHTML;
+  acctBtn.addEventListener('click',async ()=>{ if(window.ME) window.openMe(); else await window.signIn(); });
+  window.syncAcct=function(){
+    const u=window.ME;
+    const first=(u&&u.name?u.name[0]:'R').toUpperCase();
+    if(u){ acctTxt.textContent=(u.name||'Account').split(' ')[0]; msTxt.textContent='My profile';
+      if(u.photo){ acctIn.className='ab-in'; acctIn.innerHTML='';
+        const ai=new Image(); ai.referrerPolicy='no-referrer'; ai.alt='';
+        ai.onerror=()=>{ acctIn.className='ab-in letter'; acctIn.textContent=first; };
+        ai.src=u.photo; acctIn.appendChild(ai);
+        msIc.innerHTML=''; const mi=new Image(); mi.referrerPolicy='no-referrer'; mi.alt=''; mi.onerror=()=>{ msIc.innerHTML=GICON2; }; mi.src=u.photo; msIc.appendChild(mi); }
+      else { acctIn.className='ab-in letter'; acctIn.textContent=first; msIc.innerHTML=GICON2; }
+    } else { acctTxt.textContent='Sign in'; msTxt.textContent='Sign in'; acctIn.className='ab-in'; acctIn.innerHTML=GICON; msIc.innerHTML=GICON2; }
+  };
   window.syncMe=function(){
+    window.syncAcct&&window.syncAcct();
     const u=window.ME, box=document.getElementById('pWho');
     document.getElementById('pSignIn').hidden=!!u;
     box.hidden=!u;
@@ -1782,7 +1829,7 @@ window.setPoems=list=>{
   }
   window.openMe=function(){
     const u=window.ME; if(!u) return;
-    document.getElementById('meName').textContent=u.name||'Reader';
+    document.getElementById('meName').textContent=(window.MY_PROFILE&&window.MY_PROFILE.name)||u.name||'Reader';
     document.getElementById('meMail').textContent=u.email||'';
     const im=document.getElementById('meImg'), ini=document.getElementById('meInit');
     ini.textContent=(u.name||'R')[0].toUpperCase();
@@ -1797,9 +1844,36 @@ window.setPoems=list=>{
     document.getElementById('meWordList').innerHTML = words.length ? words.map(w=>
       `<div class="me-row" style="cursor:default"><span class="mr-t">${esc(w.text)}</span>${w.approved?'<span class="pill-l">On site</span>':'<span class="pill-w">Hidden</span>'}<button type="button" class="mr-x" data-del-word="${esc(w.id)}">Delete</button></div>`).join('')
       : '<p class="me-empty">You have not written anything yet.</p>';
+    const prof=window.MY_PROFILE||{};
+    const bio=document.getElementById('meBio');
+    bio.textContent=prof.bio||''; bio.hidden=!prof.bio;
+    document.getElementById('meEdit').hidden=true;
+    document.getElementById('meEditBtn').hidden=false;
     openModal('meModal',document.getElementById('pWhoBtn'));
   };
   document.getElementById('meClose').addEventListener('click',closeModals);
+  document.getElementById('meEditBtn').addEventListener('click',()=>{
+    const p=window.MY_PROFILE||{}, u=window.ME||{};
+    document.getElementById('meNameIn').value=p.name||u.name||'';
+    document.getElementById('meBioIn').value=p.bio||'';
+    document.getElementById('meLinkIn').value=p.link||'';
+    document.getElementById('meErr').textContent='';
+    document.getElementById('meEdit').hidden=false;
+    document.getElementById('meEditBtn').hidden=true;
+    document.getElementById('meNameIn').focus();
+  });
+  document.getElementById('meCancel').addEventListener('click',()=>{ document.getElementById('meEdit').hidden=true; document.getElementById('meEditBtn').hidden=false; });
+  document.getElementById('meEdit').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=document.getElementById('meNameIn').value.trim(), bio=document.getElementById('meBioIn').value.trim(), link=document.getElementById('meLinkIn').value.trim();
+    const err=document.getElementById('meErr');
+    if(name.length<2){ err.textContent='Please write a name with at least 2 letters.'; return; }
+    if(link && !/^https?:\/\/\S+$/.test(link)){ err.textContent='The link should start with https://'; return; }
+    const btn=document.getElementById('meSave'); btn.disabled=true; btn.textContent='Saving…';
+    try{ await window.saveProfile({name,bio,link}); showToast('Profile saved'); document.getElementById('meEdit').hidden=true; document.getElementById('meEditBtn').hidden=false; setTimeout(()=>window.openMe&&window.openMe(),200); }
+    catch(e2){ err.textContent="Couldn't save. Try again."; }
+    btn.disabled=false; btn.textContent='Save';
+  });
   document.getElementById('meOut').addEventListener('click',()=>{ closeModals(); window.signOutMe&&window.signOutMe(); });
   document.getElementById('meModal').addEventListener('click',async e=>{
     const g=e.target.closest('[data-go-poem]');
@@ -1941,6 +2015,7 @@ initVerses();window.initVerses=initVerses;
     if(a==='save')document.getElementById('saveContact').click();
     if(a==='theme')document.getElementById('themeBtn').click();
     if(a==='lang')document.getElementById('langBtn').click();
+    if(a==='acct')document.getElementById('acctBtn').click();
   });
 })();
 
@@ -2363,7 +2438,9 @@ setPersistence(auth, browserLocalPersistence).catch(() => {});
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 window.ME = null; window.MY_LIKES = {};
-let myLikesOff = null, myWordsOff = null;
+let myLikesOff = null, myWordsOff = null, profOff = null;
+window.MY_PROFILE = null;
+window.saveProfile = p => setDoc(doc(db,'readers',auth.currentUser.uid), { name:(p.name||'').slice(0,40), bio:(p.bio||'').slice(0,200), link:(p.link||'').slice(0,120) }, { merge:true });
 window.MY_WORDS = [];
 onAuthStateChanged(auth, u => {
   window.ME = u ? { uid: u.uid, name: nameOf(u), photo: u.photoURL || '', email: u.email || '' } : null;
@@ -2372,6 +2449,18 @@ onAuthStateChanged(auth, u => {
   window.MY_LIKES = {};
   if (myWordsOff) { myWordsOff(); myWordsOff = null; }
   window.MY_WORDS = [];
+  if (profOff) { profOff(); profOff = null; }
+  window.MY_PROFILE = null;
+  if (u) {
+    // keep a small reader profile so people can set their own name and bio
+    setDoc(doc(db,'readers',u.uid), { uid:u.uid, email:u.email||'', photo:u.photoURL||'', googleName:u.displayName||'', lastSeen:serverTimestamp() }, { merge:true }).catch(()=>{});
+    profOff = onSnapshot(doc(db,'readers',u.uid), d => {
+      window.MY_PROFILE = d.exists() ? d.data() : null;
+      const p = window.MY_PROFILE;
+      if (p && p.name) { window.ME = { ...window.ME, name: p.name }; window.syncMe && window.syncMe(); }
+      if (p && p.blocked) showToast('Your account can no longer post here.');
+    }, () => {});
+  }
   if (u) myWordsOff = onSnapshot(query(collection(db,'messages'), where('uid','==',u.uid)),
     snap => { const a=[]; snap.forEach(x => a.push({ id:x.id, ...x.data() })); window.MY_WORDS = a; }, () => {});
   if (u) myLikesOff = onSnapshot(query(collection(db,'likeUsers'), where('uid','==',u.uid)),
@@ -2413,7 +2502,7 @@ window.sendLike = async (slug, on) => {
   const u = auth.currentUser; if (!u) return;
   const b = writeBatch(db), ref = doc(db,'likeUsers', u.uid + '_' + slug);
   if (on === false) { b.delete(ref); b.set(doc(db,'likes', slug), { count: increment(-1) }, { merge: true }); }
-  else { b.set(ref, { uid: u.uid, poem: slug, name: nameOf(u), photo: u.photoURL || '', createdAt: serverTimestamp() });
+  else { b.set(ref, { uid: u.uid, poem: slug, name: ((window.MY_PROFILE&&window.MY_PROFILE.name)||nameOf(u)), photo: u.photoURL || '', createdAt: serverTimestamp() });
          b.set(doc(db,'likes', slug), { count: increment(1) }, { merge: true }); }
   try { await b.commit(); } catch(e) { console.warn(e); }
 };
@@ -2421,7 +2510,7 @@ window.sendWord = (slug, w) => {
   const u = auth.currentUser; if (!u) throw new Error('signed out');
   return addDoc(collection(db,'messages'), {
     poem: slug, text: (w.text||'').slice(0,300), parent: w.parent || null,
-    uid: u.uid, name: nameOf(u), photo: u.photoURL || '', email: u.email || '',
+    uid: u.uid, name: ((window.MY_PROFILE&&window.MY_PROFILE.name)||nameOf(u)), photo: u.photoURL || '', email: u.email || '',
     approved: true, createdAt: serverTimestamp()
   });
 };
