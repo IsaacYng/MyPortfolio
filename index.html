@@ -1684,10 +1684,12 @@ window.setPoems=list=>{
   function wordHTML(w,isReply){
     const ne=/[\u0900-\u097F]/.test(w.text||'');
     const mine=window.ME&&w.uid===window.ME.uid;
-    const init=escH((w.name||'R')[0].toUpperCase());
-    const ph=w.photo?`<img src="${escH(w.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ph',textContent:'${init}'}))">`:`<span class="ph">${init}</span>`;
+    const who=w.author?'Ishak Yonghang':(w.name||'A reader');
+    const pic=w.author?(window.SITE_PHOTO||''):(w.photo||'');
+    const init=escH((who||'R')[0].toUpperCase());
+    const ph=pic?`<img src="${escH(pic)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ph',textContent:'${init}'}))">`:`<span class="ph">${init}</span>`;
     return `<div class="word${isReply?' reply':''}${w.author?' by-author':''}" data-id="${escH(w.id)}">
-      <div class="wh">${ph}<b>${escH(w.name||'A reader')}</b>${w.author?'<span class="tag">Author</span>':''}<span class="t">${escH(ago(w.createdAt))}</span></div>
+      <div class="wh">${ph}<b>${escH(who)}</b>${w.author?'<span class="tag">Author</span>':''}<span class="t">${escH(ago(w.createdAt))}</span></div>
       <p${ne?' class="ne" lang="ne"':''}>${escH(w.text)}</p>
       <div class="wacts"><button type="button" data-w="reply">Reply</button>${mine?'<button type="button" data-w="del">Delete</button>':''}</div>
       <div class="rbox" hidden><textarea maxlength="300" rows="2" placeholder="Write a reply…"></textarea><div class="rb-row"><button type="button" class="btn" data-w="rcancel">Cancel</button><button type="button" class="btn fill" data-w="rsend">Reply</button></div></div>
@@ -1940,6 +1942,13 @@ initVerses();window.initVerses=initVerses;
     if(a==='theme')document.getElementById('themeBtn').click();
     if(a==='lang')document.getElementById('langBtn').click();
   });
+})();
+
+/* the author's own picture, shared by the contact card and author replies */
+(function(){
+  const src=document.querySelector('#profileCard img');
+  window.SITE_PHOTO = src ? (src.currentSrc||src.getAttribute('src')||'') : '';
+  if(src) src.addEventListener('load',()=>{ window.SITE_PHOTO = src.currentSrc||src.src; });
 })();
 
 /* contact card avatar uses the profile photo */
