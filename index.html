@@ -139,12 +139,6 @@ a{color:inherit}
 @media(max-width:980px){.acct-btn{display:none}}
 .ms-grid #msAcctIc svg{display:block}
 .ms-grid #msAcctIc img{width:22px;height:22px;border-radius:50%;object-fit:cover;display:block}
-.lang-btn{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font-family:var(--display);font-weight:600;font-size:.9rem;cursor:pointer;transition:border-color .2s,transform .2s}
-.lang-btn:hover{border-color:var(--ink);transform:translateY(-1px)}
-.lang-btn:active{transform:scale(.96)}
-#langLabel{font-family:var(--nep)}
-:root[lang="ne"] #langLabel{font-family:var(--display)}
-@media(max-width:560px){.lang-btn span{display:none}.lang-btn{padding:0;width:42px;justify-content:center}}
 .nav-more{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font-family:var(--display);font-weight:600;font-size:.9rem;cursor:pointer;transition:border-color .2s,background .2s}
 .nav-more:hover,.nav-more[aria-expanded="true"]{border-color:var(--ink)}
 @media(max-width:820px){.nav-more{display:none}}
@@ -217,9 +211,6 @@ a{color:inherit}
 .hline figcaption{margin-top:6px;font-family:var(--display);font-size:.88rem;color:var(--slate);opacity:0;transition:opacity .4s}
 .hline figcaption.show{opacity:1}
 .hline figcaption.ne{font-family:var(--nep)}
-html.np-ui{font-synthesis-weight:none}
-.np-ui .btn,.np-ui .nav-cta,.np-ui .links a,.np-ui .tabbar span,.np-ui .ms-grid span,.np-ui .ways span,.np-ui .ways strong,.np-ui .facts span,.np-ui .now-k,.np-ui .head p,.np-ui .lede,.np-ui .hbtn,.np-ui .wbtn,.np-ui .cc-facts span,.np-ui .cc-facts b,.np-ui .cc-qr b,.np-ui .cc-qr span,.np-ui .qr-acts button,.np-ui .r,.np-ui .k,.np-ui .wf-note,.np-ui .place{font-family:var(--nep)}
-.np-ui .btn,.np-ui .nav-cta{line-height:1.5}
 .name-np{font-family:var(--nep);font-size:clamp(1.1rem,2vw,1.35rem);color:var(--tea);margin-top:14px;padding-left:clamp(1.7rem,4.3vw,3.5rem)}
 .portrait{justify-self:end;width:min(100%,370px);padding:18px 18px 56px 0}
 .frame{position:relative}
@@ -729,15 +720,30 @@ footer .wrap{align-items:center}
 .totop{display:inline-flex;align-items:center;gap:6px;color:var(--on-deep);text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid #3B4D59;transition:background .2s}
 .totop:hover{background:var(--ink-2)}
 
+/* reader profile — slides in from the right on wide screens */
+.modal.drawer{align-items:stretch;justify-content:flex-end;padding:0}
+.modal.drawer .sheet{max-width:420px;width:100%;max-height:none;height:100%;border-radius:0;animation:slidein .35s cubic-bezier(.2,.7,.2,1);overflow-y:auto;padding-top:0}
+@keyframes slidein{from{transform:translateX(40px);opacity:0}}
+@media(max-width:820px){
+  .modal.drawer{align-items:flex-end;justify-content:center;padding:0}
+  .modal.drawer .sheet{max-width:none;height:auto;max-height:92vh;border-radius:26px 26px 0 0;animation:up .3s cubic-bezier(.2,.7,.2,1);overflow:hidden auto}
+  .me-cover{border-radius:26px 26px 0 0}
+}
+.me-cover{height:104px;margin:calc(-1 * clamp(22px,4vw,40px)) calc(-1 * clamp(22px,4vw,40px)) 0;background:radial-gradient(600px 200px at 20% 0,rgba(184,35,58,.28),transparent 70%),linear-gradient(140deg,var(--deep),var(--night-2))}
+.me-sheet{padding-top:0}
+.me-sheet .x{top:clamp(16px,3vw,22px);z-index:3}
+.me-top{margin-top:-40px;position:relative;z-index:2;align-items:flex-end;padding-right:0}
+.me-top h3{margin-bottom:2px}
+.me-top img,.me-ph{border:4px solid var(--paper);box-shadow:0 10px 24px -14px rgba(22,34,43,.6)}
 /* reader profile */
 .me-sheet{max-width:560px}
 .me-top img{border:2px solid var(--line)}
 .me-top img[hidden]+div,.me-ph{}
-.me-ph{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.6rem;color:#fff;background:linear-gradient(140deg,var(--rhodo),var(--rhodo-dark));flex-shrink:0}
-.me-top{display:flex;align-items:center;gap:14px;min-width:0;min-height:64px;margin-top:8px}
+.me-ph{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.6rem;color:#fff;background:linear-gradient(140deg,var(--rhodo),var(--rhodo-dark));flex-shrink:0}
+.me-top{display:flex;align-items:flex-end;gap:14px;min-width:0;min-height:64px}
 .me-sheet .x{top:clamp(16px,3vw,26px)}
 .me-top>div{min-width:0}
-.me-top img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--mist);flex-shrink:0}
+.me-top img{width:76px;height:76px;border-radius:50%;object-fit:cover;background:var(--mist);flex-shrink:0}
 .me-top img[hidden]{display:none}
 .me-top h3{font-family:var(--display);font-weight:800;font-size:clamp(1.1rem,4.2vw,1.5rem);letter-spacing:-.02em;line-height:1.2;overflow-wrap:anywhere}
 .me-top p{font-family:var(--display);font-size:.85rem;color:var(--slate);overflow-wrap:anywhere;margin-top:2px}
@@ -751,6 +757,9 @@ footer .wrap{align-items:center}
 .me-edit .err{color:var(--rhodo-text);font-family:var(--display);font-size:.84rem;min-height:1em}
 .me-ed-row{display:flex;gap:8px;justify-content:flex-end}
 .me-ed-row .btn{min-height:40px;padding:0 18px;font-size:.88rem}
+.me-id{margin-top:12px}
+.me-id h3{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,4.4vw,1.6rem);letter-spacing:-.025em;line-height:1.15;overflow-wrap:anywhere}
+.me-id p{font-family:var(--display);font-size:.86rem;color:var(--slate);overflow-wrap:anywhere;margin-top:3px}
 .me-stat{display:flex;gap:10px;margin-top:18px}
 .me-stat span{flex:1;display:grid;gap:2px;padding:14px;border-radius:16px;background:var(--mist);font-family:var(--display);font-size:.84rem;color:var(--slate);text-align:center}
 .me-stat b{font-size:1.5rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
@@ -895,7 +904,7 @@ footer .wrap{align-items:center}
 </nav>
     <div class="nav-r">
     <button type="button" class="acct-btn" id="acctBtn" aria-label="Your account"><span class="ab-in" id="acctIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3a12 12 0 0 0 10.2 6.3z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.7c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.8 6.1l3.8 3C6.5 6.7 9 4.7 12 4.7z"/></svg></span><span id="acctTxt">Sign in</span></button>
-    <button type="button" class="lang-btn" id="langBtn" aria-label="Switch language" title="नेपाली / English"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg><span id="langLabel">नेपाली</span></button>
+    
     <button type="button" class="nav-more" id="navMore" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>More</span></button>
     <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch to dark mode"><span class="i-moon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span><span class="i-sun"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span></button>
     <a href="https://wa.me/9779820907795" data-c="wa" target="_blank" rel="noopener" class="nav-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg><span>Chat</span></a>
@@ -922,7 +931,6 @@ footer .wrap{align-items:center}
     <button type="button" data-ms="share"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><span>Share site</span></button>
     <button type="button" data-ms="save"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>Save contact</span></button>
     <button type="button" data-ms="acct"><span id="msAcctIc"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3a12 12 0 0 0 10.2 6.3z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.7c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.8 6.1l3.8 3C6.5 6.7 9 4.7 12 4.7z"/></svg></span><span id="msAcctTxt">Sign in</span></button>
-    <button type="button" data-ms="lang"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg><span>नेपाली</span></button>
     <button type="button" data-ms="theme"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>Dark mode</span></button>
     <a href="#top"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg><span>Back to top</span></a>
   </div>
@@ -1325,13 +1333,13 @@ I worry about being The Prodigal Son.</div>
     </div>
   </div>
 </div>
-<div class="modal" id="meModal" role="dialog" aria-modal="true" aria-labelledby="meName">
-  <div class="sheet me-sheet">
+<div class="modal drawer" id="meModal" role="dialog" aria-modal="true" aria-labelledby="meName">
+  <div class="sheet me-sheet"><div class="me-cover" aria-hidden="true"></div>
     <button class="x" id="meClose" type="button" data-close>Close</button>
     <div class="me-top">
-      <img id="meImg" alt="" width="64" height="64"/><span class="me-ph" id="meInit" hidden></span>
-      <div><h3 id="meName"></h3><p id="meMail"></p></div>
+      <img id="meImg" alt="" width="76" height="76"/><span class="me-ph" id="meInit" hidden></span>
     </div>
+    <div class="me-id"><h3 id="meName"></h3><p id="meMail"></p></div>
     <p class="me-bio" id="meBio" hidden></p>
     <div class="me-stat"><span><b id="meLikes">0</b>hearts</span><span><b id="meWords">0</b>words</span></div>
     <button class="btn" type="button" id="meEditBtn" style="margin-top:14px;width:100%">Edit my profile</button>
@@ -1416,45 +1424,6 @@ I worry about being The Prodigal Son.</div>
     if(getComputedStyle(b).position==='static') b.style.position='relative';
     b.appendChild(s); setTimeout(()=>s.remove(),600);
   },{passive:true});
-})();
-
-/* ---------- Nepali / English ---------- */
-(function(){
-  const EN2NE={"About": "मेरो बारे", "Poetry": "कविता", "Work": "काम", "Training": "तालिम", "Contact": "सम्पर्क", "More": "थप", "Chat": "कुराकानी", "Verses": "पदहरू", "Photos": "तस्बिर", "WhatsApp": "व्हाट्सएप", "Share site": "साइट सेयर", "Save contact": "सम्पर्क सेभ", "Dark mode": "डार्क मोड", "Light mode": "लाइट मोड", "Back to top": "माथि जाने", "Phidim, Panchthar, Nepal": "फिदिम, पाँचथर, नेपाल", "Read my poems": "मेरा कविता पढ्नुहोस्", "Say hello": "नमस्ते भन्नुहोस्", "years old": "वर्ष", "& writer": "र लेखक", "languages": "भाषा", "Poet": "कवि", "Reading": "पढ्दै", "Writing": "लेख्दै", "Learning": "सिक्दै", "Working": "काम", "What I care about": "मलाई मन पर्ने कुरा", "Education": "शिक्षा", "Skills": "सीप", "Languages": "भाषाहरू", "Verses of life": "जीवनका पङ्क्ति", "All": "सबै", "Life snapshots": "जीवनका झलकहरू", "More projects": "अरू काम", "Read poem": "कविता पढ्नुहोस्", "Previous": "अघिल्लो", "Next": "अर्को", "Close": "बन्द", "Share as image": "तस्बिर बनाएर सेयर", "Share link": "लिङ्क सेयर", "Love this": "मन पर्‍यो", "Leave a word": "केही लेख्नुहोस्", "Send": "पठाउनुहोस्", "Cancel": "रद्द", "Read the whole poem": "पूरा कविता पढ्नुहोस्", "Read more poems": "अरू कविता पढ्नुहोस्", "Share this verse": "यो पद सेयर गर्नुहोस्", "Chat on WhatsApp": "व्हाट्सएपमा कुरा गर्नुहोस्", "Save my contact": "मेरो सम्पर्क सेभ गर्नुहोस्", "Share this page": "यो पेज सेयर गर्नुहोस्", "Email": "इमेल", "Facebook": "फेसबुक", "Poetry site": "कविता साइट", "Showroom": "सोरूम", "Website": "वेबसाइट", "Share QR": "QR सेयर", "Save": "सेभ", "Based in": "बसोबास", "Best way to reach": "सम्पर्कको सजिलो बाटो", "Scan to open this site": "साइट खोल्न स्क्यान गर्नुहोस्", "Scan to save my contact": "सम्पर्क सेभ गर्न स्क्यान गर्नुहोस्", "Born": "जन्म", "Lives in": "बसोबास", "Province": "प्रदेश", "Nationality": "नागरिकता", "Faith": "धर्म", "View photo": "तस्बिर हेर्नुहोस्", "Home": "गृह"}, LONG={"I write poems in Nepali and English, study political science in Phidim, and follow Jesus. Mostly I write about love, loss, and the questions that don't have easy answers.": "म नेपाली र अङ्ग्रेजीमा कविता लेख्छु, फिदिममा राजनीतिशास्त्र पढ्छु, र येशूलाई पछ्याउँछु। प्रायः म माया, वियोग र सजिलो उत्तर नभएका प्रश्नहरूबारे लेख्छु।", "Raw feeling turned into words. Kept exactly as they came to me, in English and in Nepali.": "कच्चा अनुभूति शब्दमा। जस्तो आयो त्यस्तै राखिएको, नेपाली र अङ्ग्रेजीमा।", "Three generations, two sides, one name I carry forward.": "तीन पुस्ता, दुई पक्ष, एउटा नाम।", "About a poem, faith, or nothing in particular. WhatsApp gets the quickest reply.": "कविता, विश्वास, वा जे पनि। व्हाट्सएपमा छिटो जवाफ पाउनुहुन्छ।", "Courses and certificates I've completed. Tap one to see the certificate.": "मैले सकेका कोर्स र प्रमाणपत्रहरू। हेर्न कुनै एउटा थिच्नुहोस्।", "My current job. Every day on the showroom floor: meeting customers, explaining finance, and staying in touch after the sale.": "मेरो हालको काम। हरेक दिन सोरूममा: ग्राहकसँग भेट, फाइनान्स बुझाउने, र बिक्रीपछि पनि सम्पर्कमा रहने।", "Point a phone camera at the code to visit yonghangishak.com.np.": "कोडमा फोनको क्यामेरा देखाउनुहोस्, साइट खुल्छ।", "Scanning adds my name, number and email straight to your phone contacts.": "स्क्यान गर्दा मेरो नाम, नम्बर र इमेल सिधै फोनमा सेभ हुन्छ।", "What did this poem say to you?": "यो कविताले तपाईंलाई के भन्यो?", "Your name (optional)": "तपाईंको नाम (वैकल्पिक)", "I read every message. It shows under the poem once I approve it.": "म हरेक सन्देश पढ्छु। स्वीकृत गरेपछि कविताको तल देखिन्छ।"};
-  const SKIP=new Set(['SCRIPT','STYLE','NOSCRIPT']);
-  const NE=new Map(), EN=new Map();
-  Object.entries(EN2NE).forEach(([e,n])=>{ NE.set(e.trim().toLowerCase(),n); });
-  Object.entries(LONG).forEach(([e,n])=>{ NE.set(e.trim().toLowerCase(),n); });
-  const btn=document.getElementById('langBtn'),lbl=document.getElementById('langLabel'),root=document.documentElement;
-  let lang='en';
-  function walk(node,fn){ const w=document.createTreeWalker(node,NodeFilter.SHOW_TEXT,{acceptNode(n){
-    if(SKIP.has(n.parentNode.nodeName))return NodeFilter.FILTER_REJECT;
-    if(n.parentNode.closest('body [data-keep],body [lang="ne"],body .ne,#poemBody,#poemTitle,.poem,.verse,.vb-slide,#abStory,#abFacts,.word,.like p,.like h4,.tile,.lt,.edu li,#hlText,#hlSrc,.prose,.cc-quote,#rBody'))return NodeFilter.FILTER_REJECT;
-    return n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT; }});
-    const out=[]; let n; while(n=w.nextNode()) out.push(n); out.forEach(fn); }
-  function toNe(){
-    walk(document.body,t=>{
-      const key=t.nodeValue.trim().toLowerCase(), hit=NE.get(key);
-      if(hit){ if(!EN.has(t)) EN.set(t,t.nodeValue); t.nodeValue=t.nodeValue.replace(t.nodeValue.trim(),hit); }
-    });
-    document.querySelectorAll('[placeholder]').forEach(el=>{ const h=NE.get((el.placeholder||'').trim().toLowerCase()); if(h){ if(!EN.has(el)) EN.set(el,el.placeholder); el.placeholder=h; } });
-  }
-  function toEn(){ EN.forEach((v,k)=>{ if(k.nodeType===3) k.nodeValue=v; else k.placeholder=v; }); EN.clear(); }
-  function set(l,save){
-    lang=l; root.setAttribute('lang',l==='ne'?'ne':'en');
-    root.classList.toggle('np-ui',l==='ne');
-    if(l==='ne') toNe(); else toEn();
-    lbl.textContent = l==='ne' ? 'English' : 'नेपाली';
-    const sheetLbl=document.querySelector('[data-ms=lang] span'); if(sheetLbl) sheetLbl.textContent = lbl.textContent;
-    if(save){ try{ localStorage.setItem('ui-lang',l); }catch(e){} if(window.track)track('lang_switch',{lang:l}); }
-  }
-  btn.addEventListener('click',()=>set(lang==='ne'?'en':'ne',true));
-  let saved=null; try{ saved=localStorage.getItem('ui-lang'); }catch(e){}
-  if(saved==='ne'||(!saved&&/^ne\b/i.test(navigator.language||''))) setTimeout(()=>set('ne',false),60);
-  // new content from the admin arrives later, so re-translate
-  const mo=new MutationObserver(()=>{ if(lang==='ne') toNe(); });
-  addEventListener('DOMContentLoaded',()=>mo.observe(document.body,{childList:true,subtree:true}));
-  window.uiLang=()=>lang;
 })();
 
 /* nav state */
@@ -2014,7 +1983,6 @@ initVerses();window.initVerses=initVerses;
     if(a==='share')document.getElementById('sharePage').click();
     if(a==='save')document.getElementById('saveContact').click();
     if(a==='theme')document.getElementById('themeBtn').click();
-    if(a==='lang')document.getElementById('langBtn').click();
     if(a==='acct')document.getElementById('acctBtn').click();
   });
 })();
