@@ -729,9 +729,9 @@ footer .wrap{align-items:center}
   .modal.drawer .sheet{max-width:none;height:auto;max-height:92vh;border-radius:26px 26px 0 0;animation:up .3s cubic-bezier(.2,.7,.2,1);overflow:hidden auto}
   .me-cover{border-radius:26px 26px 0 0}
 }
-.me-cover{height:104px;margin:calc(-1 * clamp(22px,4vw,40px)) calc(-1 * clamp(22px,4vw,40px)) 0;background:radial-gradient(600px 200px at 20% 0,rgba(184,35,58,.28),transparent 70%),linear-gradient(140deg,var(--deep),var(--night-2))}
+.me-cover{height:92px;margin:calc(-1 * clamp(22px,4vw,40px)) calc(-1 * clamp(22px,4vw,40px)) 0;background:radial-gradient(600px 200px at 20% 0,rgba(184,35,58,.28),transparent 70%),linear-gradient(140deg,var(--deep),var(--night-2))}
 .me-sheet{padding-top:0}
-.me-sheet .x{top:clamp(16px,3vw,22px);z-index:3}
+.me-sheet .x{top:clamp(14px,3vw,20px);right:clamp(14px,3vw,20px);z-index:3}
 .me-top{margin-top:-40px;position:relative;z-index:2;align-items:flex-end;padding-right:0}
 .me-top h3{margin-bottom:2px}
 .me-top img,.me-ph{border:4px solid var(--paper);box-shadow:0 10px 24px -14px rgba(22,34,43,.6)}
@@ -757,15 +757,19 @@ footer .wrap{align-items:center}
 .me-edit .err{color:var(--rhodo-text);font-family:var(--display);font-size:.84rem;min-height:1em}
 .me-ed-row{display:flex;gap:8px;justify-content:flex-end}
 .me-ed-row .btn{min-height:40px;padding:0 18px;font-size:.88rem}
-.me-id{margin-top:12px}
+.me-sheet .me-id{margin-top:14px}
+.me-sheet .me-id h3{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,4.6vw,1.55rem);letter-spacing:-.025em;line-height:1.2;margin:0;overflow-wrap:anywhere}
+.me-sheet .me-id p{margin-top:4px}
+.me-sheet .me-top img{border-radius:50%;margin-top:0}
+.me-sheet .me-top{gap:12px;align-items:flex-end;margin-top:-38px}
 .me-id h3{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,4.4vw,1.6rem);letter-spacing:-.025em;line-height:1.15;overflow-wrap:anywhere}
 .me-id p{font-family:var(--display);font-size:.86rem;color:var(--slate);overflow-wrap:anywhere;margin-top:3px}
-.me-stat{display:flex;gap:10px;margin-top:18px}
-.me-stat span{flex:1;display:grid;gap:2px;padding:14px;border-radius:16px;background:var(--mist);font-family:var(--display);font-size:.84rem;color:var(--slate);text-align:center}
+.me-stat{display:flex;gap:10px;margin-top:16px}
+.me-stat span{flex:1;display:grid;gap:2px;padding:13px;border-radius:16px;background:var(--mist);font-family:var(--display);font-size:.84rem;color:var(--slate);text-align:center}
 .me-stat b{font-size:1.5rem;font-weight:800;color:var(--ink);letter-spacing:-.02em}
-.me-h{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--slate);margin:22px 0 10px}
+.me-h{font-family:var(--display);font-weight:700;font-size:.88rem;color:var(--slate);margin:20px 0 9px}
 .me-list{display:grid;gap:8px}
-.me-row{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-family:var(--display);cursor:pointer;text-align:left;transition:border-color .2s,transform .2s}
+.me-row{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-family:var(--display);cursor:pointer;text-align:left;transition:border-color .2s,transform .2s}
 .me-row:hover{border-color:var(--ink);transform:translateX(3px)}
 .me-row .mr-t{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .me-row .mr-t.ne{font-family:var(--nep);font-weight:500}
@@ -1342,7 +1346,7 @@ I worry about being The Prodigal Son.</div>
     <div class="me-id"><h3 id="meName"></h3><p id="meMail"></p></div>
     <p class="me-bio" id="meBio" hidden></p>
     <div class="me-stat"><span><b id="meLikes">0</b>hearts</span><span><b id="meWords">0</b>words</span></div>
-    <button class="btn" type="button" id="meEditBtn" style="margin-top:14px;width:100%">Edit my profile</button>
+    <button class="btn" type="button" id="meEditBtn" style="margin-top:12px;width:100%;min-height:44px">Edit my profile</button>
     <form class="me-edit" id="meEdit" hidden>
       <label class="field"><span>Display name</span><input id="meNameIn" maxlength="40" placeholder="Your name"/></label>
       <label class="field"><span>About you <em>optional</em></span><textarea id="meBioIn" maxlength="200" rows="3" placeholder="A line about you"></textarea></label>
@@ -1354,7 +1358,7 @@ I worry about being The Prodigal Son.</div>
     <div class="me-list" id="meLikeList"></div>
     <h4 class="me-h">Your words</h4>
     <div class="me-list" id="meWordList"></div>
-    <button class="btn" id="meOut" type="button" style="margin-top:22px;width:100%">Sign out</button>
+    <button class="btn" id="meOut" type="button" style="margin-top:20px;width:100%;min-height:44px">Sign out</button>
   </div>
 </div>
 
