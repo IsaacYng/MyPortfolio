@@ -585,6 +585,42 @@ body.focusing{overflow:hidden}
   #cList .tr{grid-template-columns:84px minmax(0,1fr) auto}
   #cList .tr img,#cList .tr .ph-img{width:84px;height:60px}
 }
+/* ---------- editor: forms open over the list (drawer on desktop, sheet on phones) ---------- */
+body.ed-open{overflow:hidden}
+.ed{position:fixed;inset:0;z-index:58;display:flex;justify-content:flex-end}
+.ed-bg{position:absolute;inset:0;background:rgba(22,34,43,.5);animation:fadein .2s}
+.ed > .card.ed-card{position:relative;display:flex;flex-direction:column;width:min(600px,100%);height:100%;margin:0;border:none;border-radius:0;overflow:hidden;box-shadow:-30px 0 60px -30px rgba(22,34,43,.55);animation:edIn .28s cubic-bezier(.2,.8,.2,1)}
+.ed[data-ed="poems"] > .card.ed-card{width:min(780px,100%)}
+.ed-card > .card-h{flex:none;flex-wrap:nowrap;padding-top:calc(14px + env(safe-area-inset-top,0px));padding-bottom:14px}
+.ed-card > .card-h h2{font-size:1.08rem;margin-right:auto;min-width:0}
+.ed-x{width:40px;height:40px;margin:-6px -10px -6px 0;border-radius:999px;color:var(--ink-2)}
+.ed-x:hover{background:var(--bg);color:var(--ink)}
+.ed-card > .card-b{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding-bottom:28px}
+.ed-card > .card-f,.ed-card > .card-f.sticky{position:relative;bottom:auto;flex:none;border-radius:0;box-shadow:0 -10px 24px -20px rgba(22,34,43,.5);padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+.ed-card > .card-f .btn.accent{min-width:150px}
+.ed-card > .card-f .help:empty{display:none}
+.ed .drop{flex-wrap:wrap}
+.ed .drop.has img{width:100%;height:auto;max-height:min(36vh,320px);object-fit:contain;background:var(--panel);border:1px solid var(--line)}
+#poCard.focus.ed-card{width:auto;height:auto}
+@keyframes edIn{from{transform:translateX(48px);opacity:0}to{transform:none;opacity:1}}
+@keyframes edUp{from{transform:translateY(56px);opacity:.3}to{transform:none;opacity:1}}
+.ed-new{flex:none}
+.ed-new svg{margin-left:-3px}
+@media(max-width:900px){
+  .ed{align-items:flex-end}
+  .ed > .card.ed-card,.ed[data-ed="poems"] > .card.ed-card{width:100%;height:calc(100% - 24px - env(safe-area-inset-top,0px));border-radius:20px 20px 0 0;animation-name:edUp}
+  .ed-card > .card-h{padding-top:18px}
+  .ed-card > .card-f .btn{flex:1}
+  .ed-card > .card-f .help{flex-basis:100%;order:-1}
+  .ph .ed-new{width:100%;min-height:46px}
+}
+
+/* ---------- verses list: read like the slider ---------- */
+#vList .tr{align-items:start;padding-top:14px;padding-bottom:14px}
+#vList .tr .n{padding-top:4px}
+#vList .t.ne{white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;font-weight:400;line-height:1.75}
+#vList .s{margin-top:4px;color:var(--accent);font-weight:600}
+#vList .ops{align-self:center}
 @media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 </style>
 </head>
@@ -1282,6 +1318,8 @@ const dirty = new Set();
 Object.entries(FORMS).forEach(([pg,ids]) => ids.forEach(id => document.getElementById(id).addEventListener('input', () => dirty.add(pg))));
 const clean = pg => dirty.delete(pg);
 let currentPage = 'overview';
+const ED = {};   // editors, filled in at the end of the script
+let edQuiet = false, edPop = false;
 addEventListener('beforeunload', e => { if ([...dirty].some(p => p!=='poems')) { e.preventDefault(); e.returnValue=''; } });
 
 /* ---------- navigation ---------- */
@@ -1292,6 +1330,7 @@ async function go(p){
     if (!await ask('Leave without saving?','You have changes on this page that are not saved yet.','Leave')) return;
     clean(currentPage);
   }
+  if (p !== currentPage) leaveEditors();
   currentPage = p;
   document.querySelectorAll('[data-page]').forEach(s => s.hidden = s.dataset.page !== p);
   document.querySelectorAll('.nav a[data-go], .bnav a[data-go]').forEach(a => a.classList.toggle('on', a.dataset.go === p));
@@ -1316,6 +1355,7 @@ document.addEventListener('click', async e => {
   const map = { poem:['poems','poTitle'], verse:['verses','vText'], photo:['snaps',null], cert:['certs','cTitle'], now:['now','nReading'] };
   const [pg, focus] = map[c.dataset.create];
   await go(pg);
+  if (ED[pg] && ED[pg].wrap) { newEd(pg); return; }
   if (pg==='poems' && P.edit) resetPoem();
   setTimeout(()=>{ if(focus) $(focus).focus(); else { const card=document.querySelector('[data-page="snaps"] .drop'); card && card.scrollIntoView({block:'center'}); card && card.classList.add('over'); setTimeout(()=>card&&card.classList.remove('over'),900); } }, 120);
 });
@@ -2220,6 +2260,7 @@ function drawPoems(){
   $('moodList').innerHTML=[...new Set(['Love','Emotion','Reflection','Farewell','Faith','Hope',...it.map(x=>x.mood).filter(Boolean)])].map(m=>`<option value="${esc(m)}">`).join('');
   const q = ($('poSearch').value||'').trim().toLowerCase();
   const rows = it.map((x,i)=>({x,i})).filter(({x}) => !q || (x.title||'').toLowerCase().includes(q) || (x.mood||'').toLowerCase().includes(q) || (x.slug||'').includes(q));
+  edBtnLabels();
   $('poList').innerHTML = !it.length ? blank('No poems here yet','Your site is still showing its built-in poems. Import them above, or write a new one.')
     : !rows.length ? blank('No matches','Try a different word.')
     : rows.map(({x,i})=>{ const ne=x.lang!=='en', lg=ne?'ne':'en', lines=(x.body||'').split('\n').map(l=>l.trim()).filter(Boolean);
@@ -2229,7 +2270,7 @@ function drawPoems(){
           <div class="pm"><span class="mood" style="--m:${moodColor(x.mood)}">${esc(x.mood||'No mood')}</span><span>${lines.length} ${lines.length===1?'line':'lines'}</span>${ne?'':'<span class="lang-tag">English</span>'}</div>
         </div>${ops(i,it.length, x.published===false||isFuture(x)?null:SITE+'/?poem='+encodeURIComponent(x.slug))}</div>`; }).join('');
 }
-function resetPoem(){ clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); }
+function resetPoem(){ clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); closeEd('poems'); }
 $('poCancel').addEventListener('click', resetPoem);
 function setFocus(on){ $('poCard').classList.toggle('focus',on); document.body.classList.toggle('focusing',on); $('poFocus').querySelector('span').textContent = on ? 'Exit writing mode' : 'Writing mode'; if(on) $('poBody').focus(); }
 $('poFocus').addEventListener('click', () => setFocus(!$('poCard').classList.contains('focus')));
@@ -2259,7 +2300,7 @@ $('poList').addEventListener('click', async e => {
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const i=+b.closest('.tr').dataset.i, x=D.poems[i], act=b.dataset.act;
   try{
-    if(act==='edit'){ $('poDate').value = isFuture(x) ? new Date(x.publishAt).toISOString().slice(0,10) : ''; P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poCancel').hidden=false; drawPoems(); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
+    if(act==='edit'){ $('poDate').value = isFuture(x) ? new Date(x.publishAt).toISOString().slice(0,10) : ''; P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poCancel').hidden=false; drawPoems(); refreshGuards(); openEd('poems'); return; }
     if(act==='del'){ const {id,...data}=x; await deleteDoc(doc(db,'poems',x.id)); if(P.edit===x.id) resetPoem(); toast(`“${x.title}” deleted`, false, { label:'Undo', fn: async()=>{ try{ await setDoc(doc(db,'poems',id), data); await loadPoems(); refreshAll(); toast('Poem restored'); }catch(err){ toast(explain(err),true); } } }); }
     if(act==='up'||act==='down'){ const j=act==='up'?i-1:i+1; if(j<0||j>=D.poems.length) return; const arr=D.poems.slice(); [arr[i],arr[j]]=[arr[j],arr[i]]; const bt=writeBatch(db); arr.forEach((y,k)=>bt.update(doc(db,'poems',y.id),{order:k+1})); await bt.commit(); toast('Order saved'); }
     await loadPoems(); refreshAll();
@@ -2295,7 +2336,7 @@ async function saveVerses(list){
   assertSpace(old, docBytes('verse',{verses:list}));
   await setDoc(doc(db,'site','verse'), { verses:list }); D.verses=list; D.versesSaved=true;
 }
-function resetV(){ clean('verses'); vEdit=-1; setVal('vText',''); setVal('vRef',''); $('vSave').querySelector('.bt').textContent='Add verse'; $('vFormTitle').textContent='Add a verse'; $('vCancel').hidden=true; drawVerses(); refreshGuards(); }
+function resetV(){ clean('verses'); vEdit=-1; setVal('vText',''); setVal('vRef',''); $('vSave').querySelector('.bt').textContent='Add verse'; $('vFormTitle').textContent='Add a verse'; $('vCancel').hidden=true; drawVerses(); refreshGuards(); closeEd('verses'); }
 $('vSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
   const text=$('vText').value.trim(), ref=$('vRef').value.trim();
   if (!text) { $('vText').focus(); throw userErr('Write the verse first.'); }
@@ -2309,7 +2350,7 @@ $('vCancel').addEventListener('click', resetV);
 $('vList').addEventListener('click', async e => {
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const i=+b.closest('.tr').dataset.i, act=b.dataset.act, list=D.verses.slice();
-  if (act==='edit'){ vEdit=i; setVal('vText',list[i].text); setVal('vRef',list[i].ref); $('vSave').querySelector('.bt').textContent='Save changes'; $('vFormTitle').textContent='Edit verse '+(i+1); $('vCancel').hidden=false; drawVerses(); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
+  if (act==='edit'){ vEdit=i; setVal('vText',list[i].text); setVal('vRef',list[i].ref); $('vSave').querySelector('.bt').textContent='Save changes'; $('vFormTitle').textContent='Edit verse '+(i+1); $('vCancel').hidden=false; drawVerses(); refreshGuards(); openEd('verses'); return; }
   if (act==='del'){ list.splice(i,1); if(vEdit===i) resetV(); }
   if (act==='up'&&i>0) [list[i-1],list[i]]=[list[i],list[i-1]];
   if (act==='down'&&i<list.length-1) [list[i+1],list[i]]=[list[i],list[i+1]];
@@ -2363,9 +2404,9 @@ function drawList(col){
   const c=C[col], it=D[col], n=it.length;
   const gcs = it.reduce((t,x)=>t+(isStored(x)?(x.bytes||0):0),0);
   $(c.meta).textContent = n ? `${n} ${c.noun}${n===1?'':'s'}${gcs?', '+fmtB(gcs):''}` : '';
-  $(c.list).innerHTML = n ? it.map((x,i)=>c.item(x,i,n)).join('') : blank('Nothing here yet',`Add your first ${c.noun} above.`);
+  $(c.list).innerHTML = n ? it.map((x,i)=>c.item(x,i,n)).join('') : blank('Nothing here yet',`Tap “${c.add}” to put your first ${c.noun} on the site.`);
 }
-function resetL(col){ clean(col==='snapshots'?'snaps':'certs'); const c=C[col]; S[col].edit=null; c.clear(); $(c.save).querySelector('.bt').textContent=c.add; $(c.title).textContent=c.add.replace('Add','Add a').replace('a a','an a'); $(c.cancel).hidden=true; drawList(col); refreshGuards(); }
+function resetL(col){ clean(col==='snapshots'?'snaps':'certs'); const c=C[col]; S[col].edit=null; c.clear(); $(c.save).querySelector('.bt').textContent=c.add; $(c.title).textContent=c.add.replace('Add','Add a').replace('a a','an a'); $(c.cancel).hidden=true; drawList(col); refreshGuards(); closeEd(col==='snapshots'?'snaps':'certs'); }
 Object.keys(C).forEach(col => {
   const c=C[col];
   $(c.save).addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
@@ -2394,7 +2435,7 @@ Object.keys(C).forEach(col => {
     const b=e.target.closest('button[data-act]'); if(!b) return;
     const st=S[col], i=+b.closest('.tr').dataset.i, x=D[col][i], act=b.dataset.act;
     try {
-      if (act==='edit'){ st.edit=x.id; c.fill(x); $(c.save).querySelector('.bt').textContent='Save changes'; $(c.title).textContent='Edit '+c.noun; $(c.cancel).hidden=false; drawList(col); refreshGuards(); scrollTo({top:0,behavior:'smooth'}); return; }
+      if (act==='edit'){ st.edit=x.id; c.fill(x); $(c.save).querySelector('.bt').textContent='Save changes'; $(c.title).textContent='Edit '+c.noun; $(c.cancel).hidden=false; drawList(col); refreshGuards(); openEd(col==='snapshots'?'snaps':'certs'); return; }
       if (act==='del'){ const {id,...data}=x; await deleteDoc(doc(db,col,x.id)); if(st.edit===x.id) resetL(col);
         let undone=false; const t=setTimeout(()=>{ if(!undone) removePhoto(x.path); }, 7500);
         toast(c.noun[0].toUpperCase()+c.noun.slice(1)+' deleted', false, { label:'Undo', fn: async()=>{ undone=true; clearTimeout(t); try{ await setDoc(doc(db,col,id), data); await loadList(col); refreshAll(); toast('Restored'); }catch(err){ toast(explain(err),true); } } }); }
@@ -2423,6 +2464,88 @@ $('migBtn').addEventListener('click', migrate);
 
 setLang('ne'); linkPrev(); restoreDraft(); showLastBackup();
 
+
+/* =========================================================
+   EDITORS — add/edit forms open over the list
+   ========================================================= */
+const X_SVG='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+const PLUS_SVG='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+Object.assign(ED, {
+  poems:  { card:$('poCard'),                       editing:()=>!!P.edit,             reset:()=>resetPoem(),          first:'poTitle', label:'New poem' },
+  verses: { card:$('vFormTitle').closest('.card'),  editing:()=>vEdit>=0,             reset:()=>resetV(),             first:'vText',   label:'Add verse' },
+  snaps:  { card:$('sFormTitle').closest('.card'),  editing:()=>!!S.snapshots.edit,   reset:()=>resetL('snapshots'),  first:null,      label:'Add photo' },
+  certs:  { card:$('cFormTitle').closest('.card'),  editing:()=>!!S.certs.edit,       reset:()=>resetL('certs'),      first:'cTitle',  label:'Add certificate' }
+});
+Object.entries(ED).forEach(([pg,e]) => {
+  const wrap=document.createElement('div'); wrap.className='ed'; wrap.dataset.ed=pg; wrap.hidden=true;
+  wrap.setAttribute('role','dialog'); wrap.setAttribute('aria-modal','true');
+  wrap.innerHTML='<div class="ed-bg"></div>';
+  e.card.parentNode.insertBefore(wrap, e.card); wrap.appendChild(e.card); e.card.classList.add('ed-card');
+  const h=e.card.querySelector('.card-h'), title=h.querySelector('h2');
+  if (title) { title.id = title.id || ('edT-'+pg); wrap.setAttribute('aria-labelledby', title.id); }
+  const x=document.createElement('button'); x.type='button'; x.className='icon-btn ed-x'; x.setAttribute('aria-label','Close'); x.innerHTML=X_SVG;
+  x.addEventListener('click', () => dismissEd(pg)); h.appendChild(x);
+  wrap.querySelector('.ed-bg').addEventListener('click', () => dismissEd(pg));
+  const ph=document.querySelector(`[data-page="${pg}"] > .ph`);
+  if (ph) { const b=document.createElement('button'); b.type='button'; b.className='btn accent ed-new'; b.innerHTML=PLUS_SVG+'<span></span>';
+    b.addEventListener('click', () => newEd(pg)); ph.appendChild(b); e.btn=b; }
+  e.wrap=wrap;
+});
+function openEdKey(){ return Object.keys(ED).find(k => ED[k].wrap && !ED[k].wrap.hidden); }
+function openEd(pg){
+  const e=ED[pg]; if (!e || !e.wrap) return;
+  const was=!e.wrap.hidden;
+  e.wrap.hidden=false; document.body.classList.add('ed-open');
+  if (e.editing()) clean(pg);                       // filling the form is not a change
+  const b=e.card.querySelector('.card-b'); if (b && !was) b.scrollTop=0;
+  if (!was) { try { if (!(history.state && history.state.ed)) history.pushState({ed:pg}, ''); } catch(_){} }
+  if (!e.editing() && e.first && innerWidth>900) setTimeout(() => { const f=$(e.first); f && f.focus({preventScroll:true}); }, 250);
+}
+function closeEd(pg){
+  const e=ED[pg]; if (!e || !e.wrap || e.wrap.hidden) { edBtnLabels(); return; }
+  if (pg==='poems' && document.body.classList.contains('focusing')) setFocus(false);
+  e.wrap.hidden=true;
+  if (!openEdKey()) document.body.classList.remove('ed-open');
+  if (!edQuiet) { try { if (history.state && history.state.ed) { edPop=true; history.back(); } } catch(_){} }
+  edBtnLabels();
+  const btn=e.btn; btn && btn.offsetParent && btn.focus({preventScroll:true});
+}
+function newEd(pg){ const e=ED[pg]; if (!e) return; if (e.editing()) { edQuiet=true; try { e.reset(); } finally { edQuiet=false; } } openEd(pg); }
+async function dismissEd(pg, fromBack){
+  const e=ED[pg]; if (!e || !e.wrap || e.wrap.hidden) return;
+  if (e.editing()) {
+    if (dirty.has(pg) && !await ask('Discard your changes?','What you changed here will not be saved.','Discard')) {
+      if (fromBack) { try { history.pushState({ed:pg}, ''); } catch(_){} }
+      return;
+    }
+    if (fromBack) edQuiet=true;
+    try { e.reset(); } finally { edQuiet=false; }
+  } else {
+    if (fromBack) edQuiet=true;
+    try { closeEd(pg); } finally { edQuiet=false; }
+  }
+}
+function leaveEditors(){
+  edQuiet=true;
+  try { Object.keys(ED).forEach(k => { const e=ED[k]; if (e.wrap && !e.wrap.hidden) { e.editing() ? e.reset() : closeEd(k); } }); }
+  finally { edQuiet=false; }
+}
+function edBtnLabels(){
+  Object.entries(ED).forEach(([pg,e]) => { if (!e.btn) return;
+    let t=e.label;
+    if (pg==='poems' && !P.edit && (($('poTitle').value||'').trim() || ($('poBody').value||'').trim())) t='Continue draft';
+    e.btn.querySelector('span').textContent=t; });
+}
+addEventListener('popstate', () => {
+  if (edPop) { edPop=false; return; }
+  const k=openEdKey(); if (k) dismissEd(k, true);
+}, true);
+addEventListener('keydown', e => {
+  if (e.key!=='Escape') return;
+  if (!$('dlg').hidden || !$('rowMenu').hidden || document.body.classList.contains('focusing')) return;
+  const k=openEdKey(); if (k) { e.stopPropagation(); dismissEd(k); }
+}, true);
+edBtnLabels();
 </script>
 </body>
 </html>
