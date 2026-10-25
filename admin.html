@@ -621,6 +621,16 @@ body.ed-open{overflow:hidden}
 #vList .t.ne{white-space:normal;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;font-weight:400;line-height:1.75}
 #vList .s{margin-top:4px;color:var(--accent);font-weight:600}
 #vList .ops{align-self:center}
+/* ---------- new: series, translation, new-message badge ---------- */
+.sr-tag{padding:1px 8px;border-radius:6px;background:var(--bg);color:var(--ink-2);font-weight:600;font-size:.74rem}
+.sr-tag.ne{font-family:var(--nep);font-weight:500}
+.tr-box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#FAFBFB}
+.tr-box[open]{background:#fff}
+.tr-box summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-2)}
+.tr-box summary em{font-style:normal;font-weight:400;color:var(--muted);font-size:.8rem}
+.badge.new{background:var(--accent);color:#fff;margin:0}
+.nav .ct.new{background:var(--accent);color:#fff}
+#readsList .like-row:first-child{border-top:none}
 @media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 </style>
 </head>
@@ -752,6 +762,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <div class="steps" id="steps"></div>
           </div>
         </div>
+        <div class="card" id="readsCard">
+          <div class="card-h"><h2>Most read this month</h2><span class="meta" id="readsMeta"></span></div>
+          <div class="tbl" id="readsList"><div class="skel"></div></div>
+        </div>
         <div class="card" data-go="storage" style="cursor:pointer">
           <div class="card-h"><h2>Free limits</h2><span class="pill" id="planPill">Checking…</span></div>
           <div class="store-mini">
@@ -864,9 +878,16 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
               <label class="field"><span class="lab">Mood <em>e.g. Love, Faith</em></span><input id="poMood" list="moodList" placeholder="Love" data-max="mood"/></label>
             </div>
             <datalist id="moodList"></datalist>
+            <label class="field"><span class="lab">Series <em>optional — poems with the same series name are read together</em></span><input id="poSeries" list="seriesList" placeholder="Phidim ka katha" data-max="series"/></label>
+            <datalist id="seriesList"></datalist>
             <div class="write-tools"><button type="button" class="btn" id="poFocus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg><span>Writing mode</span></button><button type="button" class="btn" id="poPrevBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Preview</span></button></div>
             <div class="po-preview" id="poPreview" hidden></div>
             <label class="field"><span class="lab">Poem <em id="poLines">0 lines</em></span><textarea id="poBody" class="ne" lang="ne" style="min-height:300px" placeholder="Write each line on its own line. Leave an empty line between stanzas." data-max="poemBody"></textarea></label>
+            <details class="tr-box" id="poTrBox">
+              <summary><span id="poTrHead">English translation</span> <em>optional</em></summary>
+              <p class="help" style="margin:10px 0 12px">Readers see a “Read in English” button on the poem. Keep the same stanza breaks as the original.</p>
+              <label class="field"><span class="lab"><span id="poTrLab">Translation</span> <em id="poTrLines"></em></span><textarea id="poTrans" lang="en" style="min-height:220px" placeholder="Write the translation here, stanza by stanza." data-max="poemBody"></textarea></label>
+            </details>
             <details>
               <summary class="help" style="cursor:pointer;font-weight:600">More options</summary>
               <div class="form" style="margin-top:14px">
@@ -1170,7 +1191,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, browserSessionPersistence, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch, serverTimestamp, deleteField } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, where, writeBatch, serverTimestamp, deleteField } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-storage.js";
 
 const app = initializeApp({
@@ -1210,10 +1231,10 @@ const LIMITS = {
   photo: 500*KB,            // each photo after automatic shrinking
   uploadsMonth: 500,        // photo uploads per month (free: 5,000 upload operations / month)
   count: { poems:100, verses:30, snapshots:30, certs:30 },
-  text: { abTitle:80, abLead:200, abBody:1500, factK:30, factV:80, poemTitle:80, mood:30, poemBody:20000, slug:60, verse:600, ref:60, now:120, updated:40, caption:80, certTitle:90, certSub:80, certDesc:300, tags:120 }
+  text: { abTitle:80, abLead:200, abBody:1500, factK:30, factV:80, poemTitle:80, mood:30, poemBody:20000, slug:60, verse:600, ref:60, now:120, updated:40, caption:80, certTitle:90, certSub:80, certDesc:300, tags:120, series:40 }
 };
 const PLAN = { storage:1024*MB, reads:50000, writes:20000, deletes:20000, egress:10*1024*MB, doc:1*MB, gcs:5*1024*MB, gcsEgress:100*1024*MB, gcsA:5000, gcsB:50000 };
-const TEXT_LABEL = { abTitle:'About heading', abLead:'About short line', abBody:'About story', factK:'Detail label', factV:'Detail value', poemTitle:'Poem title', mood:'Mood', poemBody:'Poem text', slug:'Link name', verse:'Bible verse', ref:'Verse reference', now:'Each “Right now” line', updated:'“Updated” text', caption:'Photo caption', certTitle:'Certificate name', certSub:'Issued by / year', certDesc:'Certificate description', tags:'Certificate tags' };
+const TEXT_LABEL = { abTitle:'About heading', abLead:'About short line', abBody:'About story', factK:'Detail label', factV:'Detail value', poemTitle:'Poem title', mood:'Mood', poemBody:'Poem text', slug:'Link name', verse:'Bible verse', ref:'Verse reference', now:'Each “Right now” line', updated:'“Updated” text', caption:'Photo caption', certTitle:'Certificate name', certSub:'Issued by / year', certDesc:'Certificate description', tags:'Certificate tags', series:'Poem series name' };
 
 const enc = new TextEncoder();
 const bytes = v => enc.encode(typeof v === 'string' ? v : JSON.stringify(v ?? '')).length;
@@ -1313,7 +1334,7 @@ document.addEventListener('click', e => {
 });
 
 /* ---------- unsaved changes ---------- */
-const FORMS = { contact:['ctWa','ctEmail','ctFb','ctPlace'], sections:[], about:['abTitleIn','abLeadIn','abBodyIn'], poems:['poTitle','poMood','poBody'], verses:['vText','vRef'], snaps:['sTitle'], certs:['cTitle','cSub','cDesc','cTags'] };
+const FORMS = { contact:['ctWa','ctEmail','ctFb','ctPlace'], sections:[], about:['abTitleIn','abLeadIn','abBodyIn'], poems:['poTitle','poMood','poBody','poSeries','poTrans'], verses:['vText','vRef'], snaps:['sTitle'], certs:['cTitle','cSub','cDesc','cTags'] };
 const dirty = new Set();
 Object.entries(FORMS).forEach(([pg,ids]) => ids.forEach(id => document.getElementById(id).addEventListener('input', () => dirty.add(pg))));
 const clean = pg => dirty.delete(pg);
@@ -1336,6 +1357,7 @@ async function go(p){
   document.querySelectorAll('.nav a[data-go], .bnav a[data-go]').forEach(a => a.classList.toggle('on', a.dataset.go === p));
   $('crumb').textContent = titles[p]; closeMenu(); closeSheets(); $('userMenu').hidden=true; scrollTo({top:0});
   try { history.replaceState(null,'','#'+p); } catch(e){}
+  if (p==='messages') markMessagesSeen(); else if (D.msgSeenView !== D.msgSeen) { D.msgSeenView = D.msgSeen; drawMessages(); }
 }
 document.addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (a) { e.preventDefault(); go(a.dataset.go); } });
 const side=$('side'), scrim=$('scrim');
@@ -1372,7 +1394,7 @@ const DEF_VERSES = [
   {text:'मलाई पुकार्, र म तँलाई जवाफ दिनेछु र तैंले नजानेका गहिरा र गुप्त कुराहरू म तँलाई बताउनेछु।', ref:'यर्मिया ३३:३'},
   {text:'तिर्नुपर्ने कुरा सबैलाई तिर — कर तिर्नुपर्नेलाई कर, महसूल तिर्नुपर्नेलाई महसूल, आदर गर्नुपर्नेलाई आदर, इज्जत गर्नुपर्नेलाई इज्जत गर।', ref:'रोमी १३:७'}
 ];
-const D = { messages:[], likes:[], likeUsers:[], readers:[], contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
+const D = { views:[], msgSeen:0, msgSeenView:0, messages:[], likes:[], likeUsers:[], readers:[], contact:null, extras:null, about:null, poems:[], verses:[], versesSaved:false, now:null, snapshots:[], certs:[], usageDoc:null, loaded:false };
 const monthKey = () => new Date().toISOString().slice(0,7);
 const uploadsThisMonth = () => (D.usageDoc && D.usageDoc.month===monthKey()) ? (D.usageDoc.uploads||0) : 0;
 const isStored = x => !!(x && x.path);
@@ -1503,7 +1525,18 @@ function renderSteps(){
   $('stepsBar').style.width = (done/steps.length*100)+'%'; $('stepsCard').classList.toggle('all-done', done===steps.length);
   $('steps').innerHTML = steps.map(([go,ok,t,s]) => `<a class="step ${ok?'done':''}" data-go="${go}"><span class="ck">${I.check}</span><span class="st"><b>${t}</b><span>${s}</span></span>${I.chev}</a>`).join('');
 }
+const monthKey2 = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); };
+async function loadViews(){ try { const q=await getDocs(query(collection(db,'views'), where('m','==',monthKey2()))); D.views=q.docs.map(d=>d.data()).filter(v=>v && v.s).sort((a,b)=>(b.count||0)-(a.count||0)); } catch(e){ D.views=null; } }
+function drawReads(){
+  const v=D.views, box=$('readsList');
+  if (v===null) { box.innerHTML=blank('Reads are not counted yet','Publish the new Firestore rules, then poem reads start showing here.'); $('readsMeta').textContent=''; return; }
+  const total=v.reduce((t,x)=>t+(x.count||0),0), top=v.slice(0,5), max=top.length?(top[0].count||1):1;
+  $('readsMeta').textContent = total ? total+(total===1?' reader':' readers')+' this month' : '';
+  box.innerHTML = top.length ? top.map(x=>{ const ne=poemNe(x.s); return `<div class="like-row"><span class="lt ${ne?'ne':''}">${esc(poemTitle(x.s))}</span><span class="lb"><i style="width:${Math.round((x.count||0)/max*100)}%"></i></span><span class="ln">${x.count||0}</span></div>`; }).join('')
+    : blank('No reads yet this month','Each person who opens a poem is counted once a month.');
+}
 function renderHome(){
+  drawReads();
   $('wDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   const u=usage(), gp=pct(u.gcs,LIMITS.storage), dp=pct(u.total,LIMITS.budget), bk=lastBackup(), days=bk?Math.floor((Date.now()-bk)/864e5):null;
   const live = D.poems.length ? D.poems.filter(x=>x.published!==false && !isFuture(x)).length : BUILTIN_POEMS.length;
@@ -1514,7 +1547,7 @@ function renderHome(){
     ['storage', gp>=90||dp>=90?'bad':gp>=70||dp>=70?'warn':'ok', 'sheet', Math.max(gp,dp).toFixed(0)+'% used', 'free limits'],
     ['backup', !bk?'warn':days>30?'warn':'ok', 'doc', !bk?'No backup':days===0?'Backed up today':days+' days ago', !bk?'download one now':'last backup'],
     ['snaps', 'ok', 'camera', D.snapshots.length+' photos', D.certs.length+' certificates'],
-    ['messages', 'ok', 'heart', D.messages.filter(m=>!m.author).length+' words', D.likes.reduce((s,l)=>s+l.count,0)+' hearts']
+    (()=>{ const f=D.messages.filter(m=>!m.author && msgTime(m)>D.msgSeen).length; return ['messages', f?'warn':'ok', 'heart', f ? f+' new '+(f===1?'word':'words') : D.messages.filter(m=>!m.author).length+' words', f ? 'tap to read them' : D.likes.reduce((s,l)=>s+l.count,0)+' hearts']; })()
   ];
   $('health').innerHTML = cards.map(([g,c,i,b,s])=>`<a class="hc ${c}" data-go="${g}"><span class="hi">${svgI(i)}</span><span><b>${b}</b><small>${s}</small></span></a>`).join('');
   const rec = D.poems.slice().sort((a,b)=>(b.updatedAt||b.order||0)-(a.updatedAt||a.order||0)).slice(0,4);
@@ -1742,8 +1775,8 @@ onAuthStateChanged(auth, async user => {
   fillAccount(user); armIdle();
   const h = new Date().getHours(); $('hello').textContent = (h<12?'Good morning':h<18?'Good afternoon':'Good evening') + ', Ishak';
   go((location.hash||'').slice(1) || 'overview');
-  const r = await Promise.allSettled([loadMessages(), loadLikes(), loadLikeUsers(), loadReaders(), loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
-  D.loaded = true; refreshAll();
+  const r = await Promise.allSettled([loadMessages(), loadLikes(), loadLikeUsers(), loadReaders(), loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc(), loadState(), loadViews()]);
+  D.loaded = true; drawMessages(); refreshAll(); loadCloudDraft(); if (currentPage==='messages') markMessagesSeen();
   stripMessageEmails().catch(e => console.warn('Email cleanup skipped', e));
   if (r.some(x => x.status==='rejected')) setStatus(false,'Some data failed to load'); else setStatus(true,'Connected');
 });
@@ -1751,8 +1784,8 @@ onAuthStateChanged(auth, async user => {
 /* =========================================================
    MESSAGES → collection "messages"  +  LIKES → collection "likes"
    ========================================================= */
-const poemTitle = slug => { const p=D.poems.find(x=>x.slug===slug); return p ? p.title : ((BUILTIN_POEMS.find(x=>x.slug===slug)||{}).title || slug); };
-const poemNe = slug => { const p=D.poems.find(x=>x.slug===slug); return p ? p.lang!=='en' : true; };
+const poemTitle = slug => { if (slug==='the-gossip-rope') return 'The Gossip Rope'; const p=D.poems.find(x=>x.slug===slug); return p ? p.title : ((BUILTIN_POEMS.find(x=>x.slug===slug)||{}).title || slug); };
+const poemNe = slug => { if (slug==='the-gossip-rope') return false; const p=D.poems.find(x=>x.slug===slug); return p ? p.lang!=='en' : true; };
 const ago = t => { if(!t) return ''; const d=t.toDate?t.toDate():new Date((t.seconds||0)*1000||t), s=(Date.now()-d.getTime())/1000;
   if(s<60) return 'just now'; if(s<3600) return Math.floor(s/60)+'m ago'; if(s<86400) return Math.floor(s/3600)+'h ago';
   if(s<604800) return Math.floor(s/86400)+'d ago'; return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
@@ -1767,6 +1800,17 @@ async function stripMessageEmails(){
   for(let i=0;i<ops.length;i+=400){ const bt=writeBatch(db); ops.slice(i,i+400).forEach(f=>f(bt)); await bt.commit(); }
   console.info('Removed emails from '+bad.length+' public message(s)');
 }
+const msgTime = m => ((m.createdAt && m.createdAt.seconds) || 0) * 1000;
+async function loadState(){ try { const r=await getDoc(doc(db,'private','state'));
+  if (r.exists()) { D.msgSeen = D.msgSeenView = r.data().msgSeen || 0; }
+  else { D.msgSeen = D.msgSeenView = Date.now(); setDoc(doc(db,'private','state'), { msgSeen: D.msgSeen }, { merge:true }).catch(()=>{}); } // first run: start counting from today
+} catch(_){} }
+let seenT=null;
+function markMessagesSeen(){ clearTimeout(seenT); seenT=setTimeout(async () => {
+  if (currentPage!=='messages' || !D.loaded) return;
+  const latest = Math.max(0, ...D.messages.map(msgTime)); if (latest <= D.msgSeen) return;
+  D.msgSeen = latest; drawMessages(); refreshAll();
+  try { await setDoc(doc(db,'private','state'), { msgSeen: latest }, { merge:true }); } catch(e){ console.warn(e); } }, 1500); }
 const mFilter = () => (document.querySelector('input[name=mFil]:checked')||{}).value || 'live';
 async function loadMessages(){
   try { const q=await getDocs(collection(db,'messages'));
@@ -1792,7 +1836,8 @@ async function loadLikes(){
 function drawMessages(){
   const nw=D.messages.filter(m=>!m.approved).length, total=D.messages.filter(m=>!m.author).length, f=mFilter();
   const list=D.messages.filter(m=>!m.parent).filter(m=>f==='all'||(f==='hidden'?!m.approved:m.approved));
-  $('ctM').textContent = total; $('ctM').style.background = '';
+  const fresh = D.messages.filter(m => !m.author && msgTime(m) > D.msgSeen).length;
+  $('ctM').textContent = fresh ? fresh+' new' : total; $('ctM').classList.toggle('new', !!fresh);
   const pill=$('mPill'); pill.textContent = total+(total===1?' message':' messages')+(nw?' · '+nw+' hidden':''); pill.className='pill'+(nw?' warn':'');
   const byParent={}; D.messages.forEach(m=>{ if(m.parent){ (byParent[m.parent]=byParent[m.parent]||[]).push(m); } });
   $('mList').innerHTML = list.length ? list.map(m=>{
@@ -1800,7 +1845,7 @@ function drawMessages(){
     const av = m.photo ? `<img class="av-s" src="${esc(m.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="av-s ph">${esc((m.name||'R')[0].toUpperCase())}</span>`;
     return `<div class="msg" data-id="${esc(m.id)}">
       <div class="mt ${ne?'ne':''}">${esc(m.text)}</div>
-      <div class="mm">${av}<b>${esc(m.name||'A reader')}</b>${mailOf(m)?`<span class="em">${esc(mailOf(m))}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'':'<span class="badge draft">Hidden</span>'}</div>
+      <div class="mm">${!m.author && msgTime(m) > D.msgSeenView ? '<span class="badge new">New</span>' : ''}${av}<b>${esc(m.name||'A reader')}</b>${mailOf(m)?`<span class="em">${esc(mailOf(m))}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'':'<span class="badge draft">Hidden</span>'}</div>
       <div class="ma">${m.approved
         ? `<button class="btn" data-m="hide">Hide</button>`
         : `<button class="btn accent" data-m="ok">Show again</button>`}
@@ -1809,7 +1854,7 @@ function drawMessages(){
       <div class="mrep" hidden><textarea rows="2" maxlength="300" placeholder="Reply as Ishak…"></textarea><div class="ma"><button class="btn" data-m="rcancel">Cancel</button><button class="btn accent" data-m="rsend">Send reply</button></div></div>
       ${(byParent[m.id]||[]).map(r=>`<div class="msg sub" data-id="${esc(r.id)}">
         <div class="mt ${/[\u0900-\u097F]/.test(r.text||'')?'ne':''}">${esc(r.text)}</div>
-        <div class="mm">${r.author?'<span class="badge me">You</span>':''}<b>${esc(r.name||'A reader')}</b> · ${esc(ago(r.createdAt))}${r.approved?'':'<span class="badge draft">Hidden</span>'}</div>
+        <div class="mm">${!r.author && msgTime(r) > D.msgSeenView ? '<span class="badge new">New</span>' : ''}${r.author?'<span class="badge me">You</span>':''}<b>${esc(r.name||'A reader')}</b> · ${esc(ago(r.createdAt))}${r.approved?'':'<span class="badge draft">Hidden</span>'}</div>
         <div class="ma">${r.approved?`<button class="btn" data-m="hide">Hide</button>`:`<button class="btn accent" data-m="ok">Show again</button>`}<button class="btn" data-m="del">Delete</button></div>
       </div>`).join('')}
     </div>`; }).join('')
@@ -2229,19 +2274,35 @@ $('smBtn').addEventListener('click', () => {
 });
 // poem drafts are kept on this device until published, so nothing is lost
 const DRAFT_KEY = 'iy-poem-draft';
-function saveDraft(){ if (P.edit) return; const d={ t:$('poTitle').value, m:$('poMood').value, b:$('poBody').value, l:poLang(), at:Date.now() };
-  try { if (d.t.trim()||d.b.trim()) { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); $('poDraft').innerHTML='<span class="saved-dot">Draft saved on this device</span>'; } else { localStorage.removeItem(DRAFT_KEY); $('poDraft').textContent=''; } } catch(_){} }
-function clearDraft(){ try{ localStorage.removeItem(DRAFT_KEY); }catch(_){} $('poDraft').textContent=''; }
-function restoreDraft(){ try { const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null'); if(!d) return; setLang(d.l==='en'?'en':'ne'); setVal('poTitle',d.t); setVal('poMood',d.m); setVal('poBody',d.b); $('poTitle').dispatchEvent(new Event('input')); $('poBody').dispatchEvent(new Event('input')); $('poDraft').innerHTML='<span class="saved-dot">Unpublished draft restored</span>'; } catch(_){} }
-let draftT; ['poTitle','poMood','poBody'].forEach(id => $(id).addEventListener('input', () => { clearTimeout(draftT); draftT=setTimeout(saveDraft, 600); }));
+function saveDraft(){ if (P.edit) return; const d={ t:$('poTitle').value, m:$('poMood').value, b:$('poBody').value, l:poLang(), sr:$('poSeries').value, tr:$('poTrans').value, at:Date.now() };
+  try { if (d.t.trim()||d.b.trim()) { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); $('poDraft').innerHTML='<span class="saved-dot">Draft saved on this device</span>'; } else { localStorage.removeItem(DRAFT_KEY); $('poDraft').textContent=''; } } catch(_){}
+  cloudDraft(d.t.trim()||d.b.trim()||d.tr.trim() ? d : null); }
+// the same draft is kept in your account, so it follows you to another phone or computer
+let cloudT=null;
+function cloudDraft(d){ clearTimeout(cloudT); cloudT=setTimeout(async () => {
+  try { if (d) { await setDoc(doc(db,'private','draft'), d); if (!P.edit) $('poDraft').innerHTML='<span class="saved-dot">Draft saved to your account</span>'; }
+        else await deleteDoc(doc(db,'private','draft')); } catch(e){ console.warn('Cloud draft not saved', e); } }, 4000); }
+async function loadCloudDraft(){
+  try { const r=await getDoc(doc(db,'private','draft')); if (!r.exists()) return; const d=r.data();
+    let local=null; try { local=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null'); } catch(_){}
+    if (P.edit || (local && (local.at||0) >= (d.at||0))) return;
+    if (($('poTitle').value||'').trim() || ($('poBody').value||'').trim()) return;
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch(_){}
+    restoreDraft(); $('poDraft').innerHTML='<span class="saved-dot">Draft from your other device restored</span>'; edBtnLabels();
+  } catch(_){} }
+function clearDraft(){ try{ localStorage.removeItem(DRAFT_KEY); }catch(_){} $('poDraft').textContent=''; clearTimeout(cloudT); deleteDoc(doc(db,'private','draft')).catch(()=>{}); }
+function restoreDraft(){ try { const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null'); if(!d) return; setLang(d.l==='en'?'en':'ne'); setVal('poTitle',d.t); setVal('poMood',d.m); setVal('poBody',d.b); setVal('poSeries',d.sr||''); setVal('poTrans',d.tr||''); $('poTrBox').open=!!(d.tr||'').trim(); $('poTitle').dispatchEvent(new Event('input')); $('poBody').dispatchEvent(new Event('input')); $('poDraft').innerHTML='<span class="saved-dot">Unpublished draft restored</span>'; } catch(_){} }
+let draftT; ['poTitle','poMood','poBody','poSeries','poTrans'].forEach(id => $(id).addEventListener('input', () => { clearTimeout(draftT); draftT=setTimeout(saveDraft, 600); }));
 const slugify = t => t.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g,'').trim().replace(/[\s_]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
 const poLang = () => document.querySelector('input[name=poLang]:checked').value;
-function setLang(l){ document.querySelector(`input[name=poLang][value="${l}"]`).checked=true; const ne=l==='ne'; ['poBody','poTitle'].forEach(i=>{ $(i).classList.toggle('ne',ne); $(i).setAttribute('lang',l); }); $('poTitle').placeholder = ne?'कफिन':'Morning Light'; }
+function setLang(l){ document.querySelector(`input[name=poLang][value="${l}"]`).checked=true; const ne=l==='ne'; ['poBody','poTitle'].forEach(i=>{ $(i).classList.toggle('ne',ne); $(i).setAttribute('lang',l); }); $('poTitle').placeholder = ne?'कफिन':'Morning Light';
+  const t=$('poTrans'); if (t) { t.classList.toggle('ne',!ne); t.setAttribute('lang', ne?'en':'ne'); $('poTrHead').textContent = ne?'English translation':'Nepali translation (नेपाली अनुवाद)'; $('poTrLab').textContent = ne?'Translation in English':'नेपाली अनुवाद'; } }
 document.querySelectorAll('input[name=poLang]').forEach(r => r.addEventListener('change', () => setLang(poLang())));
 let slugTouched=false;
 const linkPrev = () => $('poLinkPrev').textContent='Link: yonghangishak.com.np/?poem='+($('poSlug').value||'(made from the title)');
 $('poSlug').addEventListener('input', () => { slugTouched=true; $('poSlug').value=$('poSlug').value.toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-'); linkPrev(); });
 $('poTitle').addEventListener('input', () => { if(!slugTouched && !P.edit){ const g=slugify($('poTitle').value); setVal('poSlug', g); } linkPrev(); });
+$('poTrans').addEventListener('input', () => { const n=$('poTrans').value.split('\n').filter(l=>l.trim()).length; $('poTrLines').textContent = n ? n+(n===1?' line':' lines') : ''; });
 $('poBody').addEventListener('input', () => { const n=$('poBody').value.split('\n').filter(l=>l.trim()).length; $('poLines').textContent=n+(n===1?' line':' lines'); $('poSize').textContent = $('poBody').value ? 'Size: '+fmtB(bytes($('poBody').value)) : ''; });
 async function loadPoems(){
   try { const q=await getDocs(query(collection(db,'poems'), orderBy('order','asc'))); D.poems=q.docs.map(d=>({id:d.id,...d.data()})); }
@@ -2258,8 +2319,9 @@ function drawPoems(){
   $('poMeta').textContent = it.length ? [`${it.length-sch-hid} live`, sch?`${sch} scheduled`:'', hid?`${hid} hidden`:''].filter(Boolean).join(' · ') : '';
   $('importCard').hidden = it.length>0;
   $('moodList').innerHTML=[...new Set(['Love','Emotion','Reflection','Farewell','Faith','Hope',...it.map(x=>x.mood).filter(Boolean)])].map(m=>`<option value="${esc(m)}">`).join('');
+  $('seriesList').innerHTML=[...new Set(it.map(x=>x.series).filter(Boolean))].map(m=>`<option value="${esc(m)}">`).join('');
   const q = ($('poSearch').value||'').trim().toLowerCase();
-  const rows = it.map((x,i)=>({x,i})).filter(({x}) => !q || (x.title||'').toLowerCase().includes(q) || (x.mood||'').toLowerCase().includes(q) || (x.slug||'').includes(q));
+  const rows = it.map((x,i)=>({x,i})).filter(({x}) => !q || (x.title||'').toLowerCase().includes(q) || (x.mood||'').toLowerCase().includes(q) || (x.series||'').toLowerCase().includes(q) || (x.slug||'').includes(q));
   edBtnLabels();
   $('poList').innerHTML = !it.length ? blank('No poems here yet','Your site is still showing its built-in poems. Import them above, or write a new one.')
     : !rows.length ? blank('No matches','Try a different word.')
@@ -2267,10 +2329,10 @@ function drawPoems(){
         return `<div class="tr noimg po-row ${P.edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span><div style="min-width:0">
           <div class="t ${ne?'ne':''}" lang="${lg}">${esc(x.title)}${x.published===false?'<span class="badge draft">Hidden</span>':isFuture(x)?`<span class="badge sched">${fmtDay(x.publishAt)}</span>`:''}</div>
           <div class="fl ${ne?'ne':''}" lang="${lg}">${esc(lines[0]||'')}</div>
-          <div class="pm"><span class="mood" style="--m:${moodColor(x.mood)}">${esc(x.mood||'No mood')}</span><span>${lines.length} ${lines.length===1?'line':'lines'}</span>${ne?'':'<span class="lang-tag">English</span>'}</div>
+          <div class="pm"><span class="mood" style="--m:${moodColor(x.mood)}">${esc(x.mood||'No mood')}</span><span>${lines.length} ${lines.length===1?'line':'lines'}</span>${ne?'':'<span class="lang-tag">English</span>'}${x.series?`<span class="sr-tag ${/[\u0900-\u097F]/.test(x.series)?'ne':''}">${esc(x.series)}</span>`:''}${(x.trans||'').trim()?`<span class="lang-tag">${ne?'+ English':'+ नेपाली'}</span>`:''}</div>
         </div>${ops(i,it.length, x.published===false||isFuture(x)?null:SITE+'/?poem='+encodeURIComponent(x.slug))}</div>`; }).join('');
 }
-function resetPoem(){ clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); closeEd('poems'); }
+function resetPoem(){ const wasEdit=!!P.edit; clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody','poSeries','poTrans'].forEach(i=>setVal(i,'')); $('poTrBox').open=false; $('poTrLines').textContent=''; $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); if (wasEdit) restoreDraft(); closeEd('poems'); }
 $('poCancel').addEventListener('click', resetPoem);
 function setFocus(on){ $('poCard').classList.toggle('focus',on); document.body.classList.toggle('focusing',on); $('poFocus').querySelector('span').textContent = on ? 'Exit writing mode' : 'Writing mode'; if(on) $('poBody').focus(); }
 $('poFocus').addEventListener('click', () => setFocus(!$('poCard').classList.contains('focus')));
@@ -2281,7 +2343,7 @@ $('poPrevBtn').addEventListener('click', () => { const p=$('poPreview'); p.hidde
 document.querySelectorAll('input[name=poLang]').forEach(r => r.addEventListener('change', () => { if(!$('poPreview').hidden) renderPreview(); }));
 $('poSave').addEventListener('click', e => busy(e.currentTarget, 'Saving…', async () => {
   const dv=$('poDate').value, pAt = dv ? new Date(dv+'T06:00:00').getTime() : null;
-  const d={ title:$('poTitle').value.trim(), mood:$('poMood').value.trim(), lang:poLang(), slug:$('poSlug').value.trim().replace(/^-|-$/g,''), body:$('poBody').value.replace(/\s+$/,''), published:$('poPub').checked, publishAt: pAt && pAt > Date.now() ? pAt : null };
+  const d={ title:$('poTitle').value.trim(), mood:$('poMood').value.trim(), lang:poLang(), slug:$('poSlug').value.trim().replace(/^-|-$/g,''), body:$('poBody').value.replace(/\s+$/,''), series:$('poSeries').value.trim(), trans:$('poTrans').value.replace(/\s+$/,''), published:$('poPub').checked, publishAt: pAt && pAt > Date.now() ? pAt : null };
   if(!d.title) { $('poTitle').focus(); throw userErr('Add a title for the poem.'); }
   if(!d.body.trim()) { $('poBody').focus(); throw userErr('Write the poem first.'); }
   if(!d.slug) d.slug = slugify(d.title) || ('poem-'+Date.now().toString(36));
@@ -2300,7 +2362,7 @@ $('poList').addEventListener('click', async e => {
   const b=e.target.closest('button[data-act]'); if(!b) return;
   const i=+b.closest('.tr').dataset.i, x=D.poems[i], act=b.dataset.act;
   try{
-    if(act==='edit'){ $('poDate').value = isFuture(x) ? new Date(x.publishAt).toISOString().slice(0,10) : ''; P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poCancel').hidden=false; drawPoems(); refreshGuards(); openEd('poems'); return; }
+    if(act==='edit'){ $('poDate').value = isFuture(x) ? new Date(x.publishAt).toISOString().slice(0,10) : ''; P.edit=x.id; slugTouched=true; setVal('poTitle',x.title); setVal('poMood',x.mood); setVal('poSlug',x.slug); setVal('poBody',x.body); setVal('poSeries',x.series||''); setVal('poTrans',x.trans||''); $('poTrBox').open=!!(x.trans||'').trim(); $('poTrans').dispatchEvent(new Event('input')); $('poPub').checked=x.published!==false; setLang(x.lang==='en'?'en':'ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Save changes'; $('poFormTitle').textContent='Edit poem'; $('poDraft').textContent=''; clearTimeout(draftT); clearTimeout(cloudT); $('poCancel').hidden=false; drawPoems(); refreshGuards(); openEd('poems'); return; }
     if(act==='del'){ const {id,...data}=x; await deleteDoc(doc(db,'poems',x.id)); if(P.edit===x.id) resetPoem(); toast(`“${x.title}” deleted`, false, { label:'Undo', fn: async()=>{ try{ await setDoc(doc(db,'poems',id), data); await loadPoems(); refreshAll(); toast('Poem restored'); }catch(err){ toast(explain(err),true); } } }); }
     if(act==='up'||act==='down'){ const j=act==='up'?i-1:i+1; if(j<0||j>=D.poems.length) return; const arr=D.poems.slice(); [arr[i],arr[j]]=[arr[j],arr[i]]; const bt=writeBatch(db); arr.forEach((y,k)=>bt.update(doc(db,'poems',y.id),{order:k+1})); await bt.commit(); toast('Order saved'); }
     await loadPoems(); refreshAll();

@@ -889,6 +889,26 @@ footer .wrap{align-items:center}
   .ridges path{animation:none}
   .verse{transition:none}
 }
+
+/* ---------- translation, series, stanza sharing, verse of the day ---------- */
+.tr-btn{display:inline-flex;align-items:center;gap:8px;margin:-6px 0 20px;font-family:var(--display);font-weight:600;font-size:.86rem;padding:8px 15px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.tr-btn:hover{border-color:var(--ink)}
+.tr-btn[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:var(--on-deep)}
+.tr-btn .ne,.tr-btn span[lang="ne"]{font-family:var(--nep);font-weight:500}
+.r-series{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 22px;padding:12px 14px;border-radius:16px;background:var(--mist);font-family:var(--display);font-size:.86rem;color:var(--slate)}
+.r-series b{color:var(--ink);font-weight:700}
+.r-series b.ne{font-family:var(--nep);font-weight:500}
+.rs-list{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
+.rs-list button{min-width:36px;height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--display);font-weight:600;font-size:.84rem;cursor:pointer}
+.rs-list button:hover{border-color:var(--ink)}
+.rs-list button[aria-current="true"]{background:var(--rhodo);border-color:var(--rhodo);color:#fff}
+#poemBody .stz{display:block;margin:0 -12px;padding:4px 12px;border-radius:14px;cursor:pointer;transition:background .2s,box-shadow .2s;-webkit-tap-highlight-color:transparent}
+#poemBody .stz:not(:first-child){margin-top:1em}
+#poemBody .stz:hover{background:rgba(184,35,58,.05)}
+#poemBody .stz.on{background:rgba(184,35,58,.1);box-shadow:inset 3px 0 0 var(--rhodo)}
+#poemBody .stz-act{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px;white-space:normal;font-style:normal;line-height:1.4}
+#poemBody .stz-act .btn{min-height:42px;padding:0 18px;font-size:.88rem}
+.vb-today{display:block;position:relative;z-index:1;margin:0 auto 12px;font-family:var(--display);font-weight:600;font-size:.82rem;color:var(--rhodo-text)}
 </style>
 </head>
 <body>
@@ -1303,6 +1323,8 @@ I worry about being The Prodigal Son.</div>
     <div class="reader-top"><p class="k" id="poemKind"></p><div class="fs" role="group" aria-label="Text size"><button type="button" id="fsDown" aria-label="Smaller text">A−</button><button type="button" id="fsUp" aria-label="Larger text">A+</button></div></div>
     <h3 id="poemTitle" lang="ne"></h3>
     <p class="r-meta" id="poemMeta"></p>
+    <button type="button" class="tr-btn" id="poemTr" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span id="poemTrT">Read in English</span></button>
+    <div class="r-series" id="poemSeries" hidden></div>
     <div class="body" id="poemBody" lang="ne"></div>
     <nav class="r-nav" aria-label="More poems">
       <button type="button" id="poemPrev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg><span><small>Previous</small><b id="poemPrevT"></b></span></button>
@@ -1571,20 +1593,56 @@ function stepPoem(d){
 }
 function showPoem(p,from,inPlace){
   const T=document.getElementById('poemTitle'),B=document.getElementById('poemBody');
-  document.getElementById('poemMeta').textContent=readMeta(p);
+  document.getElementById('poemMeta').textContent=readMeta(p)+' · tap a stanza to share it';
   document.getElementById('poemKind').textContent=p.k;
-  T.textContent=p.t;B.textContent=p.b;
-  [T,B].forEach(el=>{el.setAttribute('lang',p.ne?'ne':'en');el.classList.toggle('en',!p.ne);});
-  window.currentPoem=p;
+  T.textContent=p.t;T.setAttribute('lang',p.ne?'ne':'en');T.classList.toggle('en',!p.ne);
+  window.currentPoem=p;trOn=false;renderBody(p);renderSeries(p);
   poemNav(p);
   window.poemSocial && window.poemSocial(p);
   if(!inPlace)openModal('poemModal',from);
   if(window.track)track('poem_open',{poem:p.s,title:p.t});
+  (window.countRead||(x=>(window._readQ=window._readQ||[]).push(x)))(p.s);
   try{history.replaceState(null,'','?poem='+p.s);}catch(e){}
   document.title=p.t+' — Ishak Yonghang';
   if(canon)canon.href=poemURL(p);
 }
+/* translation toggle + stanzas you can share */
+let trOn=false;
+const shownNe=p=>trOn&&p.tr?!p.ne:p.ne;
+function renderBody(p){
+  const B=document.getElementById('poemBody'),ne=shownNe(p),txt=trOn&&p.tr?p.tr:p.b;
+  const st=txt.replace(/\r/g,'').split(/\n[ \t]*\n/).map(x=>x.replace(/^\n+|\s+$/g,'')).filter(x=>x.trim());
+  B.innerHTML=st.map((t,k)=>`<span class="stz" role="button" tabindex="0" data-i="${k}" aria-label="Stanza ${k+1}: tap to share">${escH(t)}</span>`).join('');
+  B.setAttribute('lang',ne?'ne':'en');B.classList.toggle('en',!ne);
+  const tb=document.getElementById('poemTr'),tt=document.getElementById('poemTrT');
+  tb.hidden=!p.tr;tb.setAttribute('aria-pressed',trOn);
+  const label=trOn?(p.ne?['मूल नेपालीमा पढ्नुहोस्','ne']:['Read the original English','en']):(p.ne?['Read in English','en']:['नेपालीमा पढ्नुहोस्','ne']);
+  tt.textContent=label[0];tt.setAttribute('lang',label[1]);
+}
+document.getElementById('poemTr').addEventListener('click',()=>{const p=window.currentPoem;if(!p||!p.tr)return;trOn=!trOn;renderBody(p);if(window.track)track('poem_translation',{poem:p.s,on:trOn});});
+function renderSeries(p){
+  const box=document.getElementById('poemSeries');
+  if(!p.sr){box.hidden=true;box.innerHTML='';return;}
+  const list=allPoems.filter(x=>x.sr===p.sr),i=list.findIndex(x=>x.s===p.s);
+  box.hidden=false;
+  box.innerHTML=`<span>Series</span><b class="${/[\u0900-\u097F]/.test(p.sr)?'ne':''}">${escH(p.sr)}</b><span>${i+1} of ${list.length}</span>`+(list.length>1?`<div class="rs-list">${list.map((x,k)=>`<button type="button" data-s="${escH(x.s)}" title="${escH(x.t)}" aria-label="Poem ${k+1}: ${escH(x.t)}"${k===i?' aria-current="true"':''}>${k+1}</button>`).join('')}</div>`:'');
+}
+document.getElementById('poemSeries').addEventListener('click',e=>{const b=e.target.closest('button[data-s]');if(!b)return;const q=allPoems.find(x=>x.s===b.dataset.s);if(q&&q!==window.currentPoem){showPoem(q,null,true);document.querySelector('#poemModal .sheet').scrollTo({top:0,behavior:'smooth'});}});
+const SHARE_IC='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>';
+function clearStanza(){const B=document.getElementById('poemBody');B.querySelectorAll('.stz.on').forEach(x=>x.classList.remove('on'));B.querySelectorAll('.stz-act').forEach(x=>x.remove());}
+function pickStanza(el){
+  const was=el.classList.contains('on');clearStanza();if(was)return;
+  el.classList.add('on');
+  const bar=document.createElement('div');bar.className='stz-act';
+  bar.innerHTML=`<button type="button" class="btn fill" data-stz="share">${SHARE_IC}Share this stanza</button><button type="button" class="btn" data-stz="x">Cancel</button>`;
+  el.after(bar);
+  bar.querySelector('[data-stz=share]').addEventListener('click',e=>{const p=window.currentPoem;if(p)shareStanza(p,el.textContent,e.currentTarget);});
+  bar.querySelector('[data-stz=x]').addEventListener('click',()=>{clearStanza();el.focus({preventScroll:true});});
+}
+document.getElementById('poemBody').addEventListener('click',e=>{if(e.target.closest('.stz-act'))return;const el=e.target.closest('.stz');if(!el)return;if(String(getSelection()).length>2)return;pickStanza(el);});
+document.getElementById('poemBody').addEventListener('keydown',e=>{const el=e.target.closest('.stz');if(el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();pickStanza(el);}});
 window.onPoemClose=()=>{
+  clearStanza();
   if(!window.currentPoem)return;
   try{history.replaceState(null,'',location.pathname);}catch(e){}
   document.title=baseTitle;if(canon)canon.href=baseCanon;window.currentPoem=null;
@@ -1625,7 +1683,7 @@ function renderShelf(list){
   list.forEach(p=>{
     const b=document.createElement('button'),lg=p.ne?'ne':'en';
     b.className='poem'+(p.ne?'':' en');b.type='button';b.dataset.mood=p.k||'';
-    b.innerHTML=`<span class="k">${escH(p.k||'Poem')} · ${p.b.split('\n').filter(l=>l.trim()).length} lines</span><span class="pt" lang="${lg}">${escH(p.t)}</span><p lang="${lg}">${escH(p.b.split('\n').filter(l=>l.trim()).slice(0,3).join(' '))}</p><span class="r">Read poem <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span>`;
+    b.innerHTML=`<span class="k">${escH(p.k||'Poem')} · ${p.b.split('\n').filter(l=>l.trim()).length} lines${p.sr?' · '+escH(p.sr):''}</span><span class="pt" lang="${lg}">${escH(p.t)}</span><p lang="${lg}">${escH(p.b.split('\n').filter(l=>l.trim()).slice(0,3).join(' '))}</p><span class="r">Read poem <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span>`;
     b.addEventListener('click',()=>showPoem(p,b));
     shelf.appendChild(b);
   });
@@ -1914,20 +1972,56 @@ async function poemImage(p){
   x.fillStyle='#9FB0B7';x.textAlign='right';x.fillText('Phidim, Nepal',W-90,H-48);
   return new Promise(r=>c.toBlob(r,'image/png'));
 }
-async function sharePoem(p,btn){
-  if(window.track)track('share',{method:'image',content_type:'poem',item_id:p.s});
+async function shareImage(make,title,text,btn){
   if(btn)btn.disabled=true;showToast('Making your image…');
   try{
-    const blob=await poemImage(p);const name='poem-'+Date.now()+'.png';
+    const blob=await make();const name='ishak-yonghang-'+Date.now()+'.png';
     const file=new File([blob],name,{type:'image/png'});
     if(navigator.canShare&&navigator.canShare({files:[file]})){
-      try{await navigator.share({files:[file],title:p.t,text:p.t+' — Ishak Yonghang'});showToast('Shared');}catch(e){toast.classList.remove('show');}
+      try{await navigator.share({files:[file],title,text});showToast('Shared');}catch(e){toast.classList.remove('show');}
     }else{
       const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
       setTimeout(()=>URL.revokeObjectURL(u),1000);showToast('Image downloaded');
     }
   }catch(e){showToast("Couldn't make the image. Try again.");}
   if(btn)btn.disabled=false;
+}
+async function sharePoem(p,btn){
+  if(window.track)track('share',{method:'image',content_type:'poem',item_id:p.s});
+  return shareImage(()=>poemImage(p),p.t,p.t+' — Ishak Yonghang',btn);
+}
+/* one stanza as a quote card */
+async function stanzaImage(p,text,ne){
+  const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  try{await Promise.all([document.fonts.load("500 60px 'Noto Serif Devanagari'"),document.fonts.load("800 60px 'Bricolage Grotesque'"),document.fonts.load("italic 400 40px 'Newsreader'")]);}catch(e){}
+  x.fillStyle='#16222B';x.fillRect(0,0,W,H);
+  const ridge=(pts,col)=>{x.fillStyle=col;x.beginPath();x.moveTo(0,H);pts.forEach(([a,b])=>x.lineTo(a,b));x.lineTo(W,H);x.closePath();x.fill();};
+  ridge([[0,1180],[150,1120],[290,1160],[460,1090],[620,1150],[790,1100],[940,1150],[1080,1110]],'#1E2E38');
+  ridge([[0,1250],[180,1200],[360,1240],[540,1190],[720,1235],[900,1195],[1080,1230]],'#26394A');
+  x.textBaseline='alphabetic';x.textAlign='left';
+  x.fillStyle='#B8233A';x.fillRect(90,110,64,8);
+  x.fillStyle='#9FB0B7';x.font="600 34px 'Bricolage Grotesque', sans-serif";x.fillText('Ishak Yonghang',90,180);
+  const maxW=W-180;
+  const wrap=t=>{const out=[];let line='';t.split(' ').forEach(w=>{const n=line?line+' '+w:w;if(x.measureText(n).width>maxW&&line){out.push(line);line=w;}else line=n;});if(line)out.push(line);return out;};
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const top=430,bottom=1010;let fs=ne?54:60,lh;
+  const setF=f=>{x.font=ne?`400 ${f}px 'Noto Serif Devanagari', serif`:`italic 400 ${f}px 'Newsreader', Georgia, serif`;lh=Math.round(f*(ne?1.72:1.42));};
+  const need=()=>lines.reduce((h,l)=>h+wrap(l).length*lh,0);
+  setF(fs);while(fs>30&&need()>bottom-top){fs-=2;setF(fs);}
+  const y0=top+Math.max(0,(bottom-top-need())/2);let y=y0+lh*.72;
+  x.fillStyle='#B8233A';x.font="400 280px 'Newsreader', Georgia, serif";x.fillText('\u201C',70,y0+70);
+  setF(fs);
+  x.fillStyle='#F2F5F6';
+  outer:for(const l of lines){for(const w of wrap(l)){if(y>bottom+lh*.3)break outer;x.fillText(w,90,y);y+=lh;}}
+  x.fillStyle='#F2A5B1';x.font=p.ne?"500 38px 'Noto Serif Devanagari', serif":"700 38px 'Bricolage Grotesque', sans-serif";
+  x.fillText(wrap('— '+p.t)[0],90,Math.min(y+24,1075));
+  x.fillStyle='#F2A5B1';x.font="600 32px 'Bricolage Grotesque', sans-serif";x.fillText('yonghangishak.com.np',90,H-48);
+  x.fillStyle='#9FB0B7';x.textAlign='right';x.fillText('Phidim, Nepal',W-90,H-48);
+  return new Promise(r=>c.toBlob(r,'image/png'));
+}
+function shareStanza(p,text,btn){
+  if(window.track)track('share',{method:'image',content_type:'stanza',item_id:p.s});
+  return shareImage(()=>stanzaImage(p,text,shownNe(p)),p.t,'“'+p.t+'” — Ishak Yonghang\n'+poemURL(p),btn);
 }
 document.getElementById('poemShare').addEventListener('click',e=>{if(window.currentPoem)sharePoem(window.currentPoem,e.currentTarget);});
 document.getElementById('gossipShare').addEventListener('click',e=>sharePoem(gossipPoem,e.currentTarget));
@@ -1947,7 +2041,9 @@ function initVerses(){
   const tr=document.getElementById('vbTrack'),dots=document.getElementById('vbDots');
   const slides=[...tr.querySelectorAll('.vb-slide')],n=slides.length;
   const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let i=0,timer=null,pausedUntil=0;
+  const day=Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5);
+  let i=n?day%n:0,timer=null,pausedUntil=0;
+  slides.forEach((s,k)=>{const old=s.querySelector('.vb-today');if(old)old.remove();if(k===i&&n>1){const t=document.createElement('span');t.className='vb-today';t.textContent='Today’s verse';s.prepend(t);}});
   dots.innerHTML='';
   slides.forEach((s,k)=>{s.setAttribute('aria-label',(k+1)+' of '+n);const d=document.createElement('button');d.type='button';d.setAttribute('aria-label','Verse '+(k+1));d.addEventListener('click',()=>{go(k);hold();});dots.appendChild(d);});
   const mark=()=>[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
@@ -1964,6 +2060,7 @@ function initVerses(){
   clearInterval(window._vbT);
   if(!calm&&n>1)window._vbT=setInterval(()=>{if(hover||document.hidden||Date.now()<pausedUntil)return;go(i+1);},7000);
   mark();
+  requestAnimationFrame(()=>tr.scrollTo({left:i*tr.clientWidth}));
 }
 initVerses();window.initVerses=initVerses;
 
@@ -2366,7 +2463,7 @@ live(query(collection(db,'snapshots'), orderBy('order','asc')), d => {
 /* ---------- poems ---------- */
 live(query(collection(db,'poems'), orderBy('order','asc')), d => {
   const list = [];
-  d.forEach(x => { const it = x.data(); if (it.title && it.body && it.published !== false && !(it.publishAt && it.publishAt > Date.now())) list.push({ s: it.slug || x.id, t: it.title, k: it.mood || '', b: it.body, ne: it.lang !== 'en' }); });
+  d.forEach(x => { const it = x.data(); if (it.title && it.body && it.published !== false && !(it.publishAt && it.publishAt > Date.now())) list.push({ s: it.slug || x.id, t: it.title, k: it.mood || '', b: it.body, ne: it.lang !== 'en', tr: (it.trans || '').trim() ? it.trans : '', sr: (it.series || '').trim() }); });
   if (list.length) window.setPoems(list);
 });
 
@@ -2485,6 +2582,21 @@ window.sendWord = (slug, w) => {
   });
 };
 window.deleteWord = id => deleteDoc(doc(db,'messages',id));
+
+/* ---------- reads: each person counts once per poem per month (shown in the admin) ---------- */
+const readMonth = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); };
+window.countRead = slug => {
+  try {
+    if (!/^[a-z0-9-]{1,80}$/.test(slug||'')) return;
+    const m=readMonth(), k='read:'+m+':'+slug;
+    if (localStorage.getItem(k)) return;
+    localStorage.setItem(k,'1');
+    setDoc(doc(db,'views', m+'_'+slug), { count: increment(1), m, s: slug }, { merge:true })
+      .catch(() => { try { localStorage.removeItem(k); } catch(_){} });
+  } catch(_){}
+};
+try { const cur='read:'+readMonth()+':'; Object.keys(localStorage).forEach(k => { if (k.startsWith('read:') && !k.startsWith(cur)) localStorage.removeItem(k); }); } catch(_){}
+(window._readQ||[]).forEach(s => window.countRead(s)); window._readQ=[];
 let wordsOff = null;
 window.loadWords = slug => {
   if (wordsOff) { wordsOff(); wordsOff = null; }
