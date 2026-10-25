@@ -2219,7 +2219,7 @@ window.verseCard=verseCard;
   function draw(fresh){
     const p=list()[i]; if(!p) return;
     reset(); img.src=p.url; img.alt=p.title||'Photo'; cap.textContent=p.title||'';
-    bg.style.backgroundImage=`url("${p.url}")`;
+    bg.style.backgroundImage=`url("${String(p.url).replace(/"/g,'%22')}")`;
     cnt.textContent=(i+1)+' / '+list().length;
     img.classList.remove('enter'); void img.offsetWidth; img.classList.add('enter');
     prev.disabled=i===0; next.disabled=i===list().length-1;
@@ -2229,7 +2229,7 @@ window.verseCard=verseCard;
   }
   function build(){
     const n=list().length;
-    th.innerHTML=list().map((p,k)=>`<button type="button" aria-label="Photo ${k+1}"><img src="${p.url}" alt="" loading="lazy"></button>`).join('');
+    th.innerHTML=list().map((p,k)=>`<button type="button" aria-label="Photo ${k+1}"><img src="${escH(p.url)}" alt="" loading="lazy"></button>`).join('');
     dots.innerHTML=list().map(()=>'<i></i>').join('');
     th.hidden=dots.hidden=n<2; prev.hidden=next.hidden=n<2;
     [...th.children].forEach((b,k)=>b.addEventListener('click',()=>{i=k;draw();}));

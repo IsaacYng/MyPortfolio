@@ -2248,7 +2248,7 @@ async function loadPoems(){
   catch(e){ D.poems=[]; drawPoems(); throw e; }
   drawPoems();
 }
-const MOOD_C = { love:'#B8233A', emotion:'#A8620F', reflection:'#2F5B94', farewell:'#6B4C8A', faith:'#2F6B4C', hope:'#1C7474', dark:'#3A4A54' };
+const MOOD_C = { love:'#B8233A', emotion:'#8F520C', reflection:'#2F5B94', farewell:'#6B4C8A', faith:'#2F6B4C', hope:'#1C7474', dark:'#3A4A54' };
 const MOOD_P = Object.values(MOOD_C);
 const moodColor = m => { const k=(m||'').trim().toLowerCase(); if (!k) return '#56656D'; if (MOOD_C[k]) return MOOD_C[k];
   let h=0; for (const ch of k) h=(h*31+ch.charCodeAt(0))>>>0; return MOOD_P[h%MOOD_P.length]; };
@@ -2540,6 +2540,18 @@ addEventListener('popstate', () => {
   if (edPop) { edPop=false; return; }
   const k=openEdKey(); if (k) dismissEd(k, true);
 }, true);
+// keep keyboard focus inside the open editor
+addEventListener('keydown', e => {
+  if (e.key!=='Tab') return;
+  const k=openEdKey(); if (!k || !$('dlg').hidden) return;
+  const box = document.body.classList.contains('focusing') ? $('poCard') : ED[k].card;
+  const f=[...box.querySelectorAll('button:not([disabled]),[href],input:not([type=hidden]):not([disabled]),textarea:not([disabled]),select:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+  if (!f.length) return;
+  const first=f[0], last=f[f.length-1], a=document.activeElement;
+  if (!box.contains(a)) { e.preventDefault(); first.focus(); }
+  else if (e.shiftKey && a===first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && a===last) { e.preventDefault(); first.focus(); }
+});
 addEventListener('keydown', e => {
   if (e.key!=='Escape') return;
   if (!$('dlg').hidden || !$('rowMenu').hidden || document.body.classList.contains('focusing')) return;
