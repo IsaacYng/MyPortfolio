@@ -1,0 +1,113 @@
+rules_version = '2';
+// Firestore rules for yonghangishak.com.np (project myportfolio-e77ba)
+// Before publishing: copy your CURRENT rules somewhere safe, then test in Rules Playground.
+// If poem.yonghangishak.com.np uses any collection not listed here, add a match block for it.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- helpers ----------
+    function signedIn() { return request.auth != null; }
+    function isAdmin()  { return signedIn() && request.auth.token.email == 'yonghangissac@gmail.com'; }
+    function me()       { return request.auth.uid; }
+    function str(v, max) { return v is string && v.size() <= max; }
+
+    function readerDoc(uid) { return /databases/$(database)/documents/readers/$(uid); }
+    function notBlocked() {
+      return !exists(readerDoc(me())) || get(readerDoc(me())).data.get('blocked', false) != true;
+    }
+
+    function likeDoc(slug)     { return /databases/$(database)/documents/likes/$(slug); }
+    function likeUserDoc(slug) { return /databases/$(database)/documents/likeUsers/$(me() + '_' + slug); }
+    function countBefore(slug) { return exists(likeDoc(slug)) ? get(likeDoc(slug)).data.get('count', 0) : 0; }
+    function countAfter(slug)  { return getAfter(likeDoc(slug)).data.get('count', 0); }
+
+    // ---------- public content, only the admin can change it ----------
+    match /site/{id} {
+      allow read: if id != 'usage' || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /poems/{id}     { allow read: if true; allow write: if isAdmin(); }
+    match /snapshots/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /certs/{id}     { allow read: if true; allow write: if isAdmin(); }
+
+    // ---------- reader profiles (private: owner + admin) ----------
+    function validReader(d) {
+      return d.keys().hasOnly(['uid','email','photo','googleName','lastSeen','name','bio','link','blocked'])
+        && d.get('uid', me()) == me()
+        && str(d.get('email', ''), 200)
+        && str(d.get('photo', ''), 1000)
+        && str(d.get('googleName', ''), 200)
+        && str(d.get('name', ''), 40)
+        && str(d.get('bio', ''), 200)
+        && (d.get('link', '') == '' || (str(d.get('link', ''), 120) && d.get('link', '').matches('https?://[^ ]+')))
+        && (!('lastSeen' in d) || d.lastSeen is timestamp);
+    }
+    match /readers/{uid} {
+      allow read: if isAdmin() || (signedIn() && me() == uid);
+      allow create: if isAdmin() || (signedIn() && me() == uid
+        && validReader(request.resource.data) && !('blocked' in request.resource.data));
+      allow update: if isAdmin() || (signedIn() && me() == uid
+        && validReader(request.resource.data)
+        && request.resource.data.get('blocked', false) == resource.data.get('blocked', false));
+      allow delete: if isAdmin();
+    }
+
+    // ---------- words from readers ----------
+    match /messages/{id} {
+      allow read: if resource.data.approved == true || isAdmin()
+        || (signedIn() && resource.data.uid == me());
+      allow create: if isAdmin() || (signedIn() && notBlocked()
+        && request.resource.data.keys().hasOnly(['poem','text','parent','uid','name','photo','approved','createdAt'])
+        && request.resource.data.uid == me()
+        && str(request.resource.data.poem, 80)
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 300
+        && (request.resource.data.get('parent', null) == null || str(request.resource.data.parent, 40))
+        && str(request.resource.data.get('name', ''), 100)
+        && str(request.resource.data.get('photo', ''), 1000)
+        && request.resource.data.approved == true
+        && request.resource.data.createdAt == request.time);
+      allow update: if isAdmin();
+      allow delete: if isAdmin() || (signedIn() && resource.data.uid == me());
+    }
+
+    // ---------- hearts: the counter can only move by 1, together with the person's record ----------
+    match /likes/{slug} {
+      allow read: if true;
+      allow create: if isAdmin() || (signedIn() && notBlocked()
+        && request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count == 1
+        && !exists(likeUserDoc(slug)) && existsAfter(likeUserDoc(slug)));
+      allow update: if isAdmin() || (signedIn()
+        && request.resource.data.keys().hasOnly(['count'])
+        && (
+          (notBlocked()
+            && request.resource.data.count == resource.data.get('count', 0) + 1
+            && !exists(likeUserDoc(slug)) && existsAfter(likeUserDoc(slug)))
+          ||
+          (request.resource.data.count == resource.data.get('count', 0) - 1
+            && exists(likeUserDoc(slug)) && !existsAfter(likeUserDoc(slug)))
+        ));
+      allow delete: if isAdmin();
+    }
+
+    match /likeUsers/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == me());
+      allow create: if isAdmin() || (signedIn() && notBlocked()
+        && request.resource.data.keys().hasOnly(['uid','poem','name','photo','createdAt'])
+        && request.resource.data.uid == me()
+        && str(request.resource.data.poem, 80)
+        && id == me() + '_' + request.resource.data.poem
+        && str(request.resource.data.get('name', ''), 100)
+        && str(request.resource.data.get('photo', ''), 1000)
+        && request.resource.data.createdAt == request.time
+        && existsAfter(likeDoc(request.resource.data.poem))
+        && countAfter(request.resource.data.poem) == countBefore(request.resource.data.poem) + 1);
+      allow update: if isAdmin();
+      allow delete: if isAdmin() || (signedIn() && resource.data.uid == me()
+        && countAfter(resource.data.poem) == countBefore(resource.data.poem) - 1);
+    }
+
+    // everything else is closed by default
+  }
+}

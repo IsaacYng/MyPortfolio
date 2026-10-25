@@ -1090,7 +1090,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, browserSessionPersistence, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, query, orderBy, writeBatch, serverTimestamp, deleteField } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-storage.js";
 
 const app = initializeApp({
@@ -1660,6 +1660,7 @@ onAuthStateChanged(auth, async user => {
   go((location.hash||'').slice(1) || 'overview');
   const r = await Promise.allSettled([loadMessages(), loadLikes(), loadLikeUsers(), loadReaders(), loadContact(), loadExtras(), loadAbout(), loadPoems(), loadVerses(), loadNow(), loadList('snapshots'), loadList('certs'), loadUsageDoc()]);
   D.loaded = true; refreshAll();
+  stripMessageEmails().catch(e => console.warn('Email cleanup skipped', e));
   if (r.some(x => x.status==='rejected')) setStatus(false,'Some data failed to load'); else setStatus(true,'Connected');
 });
 
@@ -1671,6 +1672,17 @@ const poemNe = slug => { const p=D.poems.find(x=>x.slug===slug); return p ? p.la
 const ago = t => { if(!t) return ''; const d=t.toDate?t.toDate():new Date((t.seconds||0)*1000||t), s=(Date.now()-d.getTime())/1000;
   if(s<60) return 'just now'; if(s<3600) return Math.floor(s/60)+'m ago'; if(s<86400) return Math.floor(s/3600)+'h ago';
   if(s<604800) return Math.floor(s/86400)+'d ago'; return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+const mailOf = m => m.email || ((D.readers.find(r=>r.id===m.uid)||{}).email) || '';
+// Older messages saved the reader's email inside the public message. Move it to their private reader
+// profile and remove it from the message (runs once; later logins find nothing to fix).
+async function stripMessageEmails(){
+  const bad=D.messages.filter(m=>m.email && !m.author); if(!bad.length) return;
+  const ops=[];
+  bad.forEach(m=>{ ops.push(b=>b.update(doc(db,'messages',m.id),{email:deleteField()}));
+    if(m.uid && !((D.readers.find(r=>r.id===m.uid)||{}).email)) ops.push(b=>b.set(doc(db,'readers',m.uid),{email:m.email},{merge:true})); });
+  for(let i=0;i<ops.length;i+=400){ const bt=writeBatch(db); ops.slice(i,i+400).forEach(f=>f(bt)); await bt.commit(); }
+  console.info('Removed emails from '+bad.length+' public message(s)');
+}
 const mFilter = () => (document.querySelector('input[name=mFil]:checked')||{}).value || 'live';
 async function loadMessages(){
   try { const q=await getDocs(collection(db,'messages'));
@@ -1704,7 +1716,7 @@ function drawMessages(){
     const av = m.photo ? `<img class="av-s" src="${esc(m.photo)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="av-s ph">${esc((m.name||'R')[0].toUpperCase())}</span>`;
     return `<div class="msg" data-id="${esc(m.id)}">
       <div class="mt ${ne?'ne':''}">${esc(m.text)}</div>
-      <div class="mm">${av}<b>${esc(m.name||'A reader')}</b>${m.email?`<span class="em">${esc(m.email)}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'':'<span class="badge draft">Hidden</span>'}</div>
+      <div class="mm">${av}<b>${esc(m.name||'A reader')}</b>${mailOf(m)?`<span class="em">${esc(mailOf(m))}</span>`:''} · <span class="${poemNe(m.poem)?'po':''}">${esc(poemTitle(m.poem))}</span> · ${esc(ago(m.createdAt))}${m.approved?'':'<span class="badge draft">Hidden</span>'}</div>
       <div class="ma">${m.approved
         ? `<button class="btn" data-m="hide">Hide</button>`
         : `<button class="btn accent" data-m="ok">Show again</button>`}
@@ -1752,7 +1764,7 @@ function drawPeople(){
         <b>${esc(u.name||'Reader')}${u.blocked?'<span class="badge draft">Blocked</span>':''}</b>
         ${u.email?`<small>${esc(u.email)}</small>`:''}
         ${u.bio?`<small class="bio">${esc(u.bio)}</small>`:''}
-        <span class="chips">${u.likes?`<i class="c-h">♥ ${u.likes}</i>`:''}${u.words?`<i>${u.words} ${u.words===1?'word':'words'}</i>`:''}${u.last?`<i class="c-t">${esc(ago({seconds:u.last}))}</i>`:''}${u.link?`<a class="c-l" href="${esc(u.link)}" target="_blank" rel="noopener">${esc(u.link.replace(/^https?:\/\//,'').slice(0,28))}</a>`:''}</span>
+        <span class="chips">${u.likes?`<i class="c-h">♥ ${u.likes}</i>`:''}${u.words?`<i>${u.words} ${u.words===1?'word':'words'}</i>`:''}${u.last?`<i class="c-t">${esc(ago({seconds:u.last}))}</i>`:''}${/^https?:\/\//i.test(u.link||'')?`<a class="c-l" href="${esc(u.link)}" target="_blank" rel="noopener">${esc(u.link.replace(/^https?:\/\//,'').slice(0,28))}</a>`:''}</span>
       </span>
       <span class="pa">
         <button class="icon-btn kebab" data-rmenu aria-label="Actions for ${esc(u.name||'reader')}" aria-haspopup="menu">${KEB_SVG}</button>

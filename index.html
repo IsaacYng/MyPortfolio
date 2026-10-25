@@ -14,8 +14,8 @@
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="Ishak Yonghang, poet from Phidim, Panchthar"/>
-<meta name="thumbnail" content="https://yonghangishak.com.np/ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg"/>
-<link rel="image_src" href="https://yonghangishak.com.np/ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg"/>
+<meta name="thumbnail" content="https://yonghangishak.com.np/ishak-yonghang.jpg"/>
+<link rel="image_src" href="https://yonghangishak.com.np/ishak-yonghang.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Ishak Yonghang — poet from Phidim"/>
 <meta name="twitter:description" content="Poems in Nepali and English, and faith."/>
@@ -37,10 +37,9 @@
   "name": "Ishak Yonghang",
   "alternateName": ["इशाक योङहाङ", "Isaac Yonghang"],
   "url": "https://yonghangishak.com.np/",
-  "image": {"@type": "ImageObject", "url": "https://yonghangishak.com.np/ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg", "caption": "Ishak Yonghang"},
+  "image": {"@type": "ImageObject", "url": "https://yonghangishak.com.np/ishak-yonghang.jpg", "caption": "Ishak Yonghang"},
   "description": "Poet and political science student from Phidim, Panchthar, Nepal, writing poems in Nepali and English.",
-  "jobTitle": "Sales Consultant",
-  "worksFor": {"@type": "Organization", "name": "Samriddhi And Brothers Auto Pvt. Ltd."},
+  "knowsAbout": ["Poetry", "Nepali literature", "Christian faith", "Political science"],
   "affiliation": {"@type": "CollegeOrUniversity", "name": "Panchthar Multiple Campus"},
   "address": {"@type": "PostalAddress", "addressLocality": "Phidim", "addressRegion": "Koshi", "addressCountry": "NP"},
   "knowsLanguage": ["ne", "en", "hi"],
@@ -961,7 +960,7 @@ footer .wrap{align-items:center}
     <div class="portrait">
       <div class="frame">
       <svg class="badge" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bc" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><circle cx="60" cy="60" r="58" fill="var(--rhodo)"/><text font-family="Bricolage Grotesque, system-ui, sans-serif" font-size="12.5" font-weight="600" letter-spacing="1" fill="#fff"><textPath href="#bc" textLength="272" lengthAdjust="spacingAndGlyphs">poetry ✦ faith ✦ phidim ✦ nepal ✦ </textPath></text><path d="M56.5 42h7v11h10v7h-10v18h-7V60h-10v-7h10z" fill="#fff"/></svg>
-      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div><img src="ISHAK_YONGHANG_07407010109444_profile_pic%20(1).jpg" alt="Ishak Yonghang, poet from Phidim, Panchthar" width="600" height="750" fetchpriority="high" decoding="async" onerror="this.remove()" style="position:relative"/></div>
+      <div class="arch" id="profileCard"><div class="ph" aria-hidden="true">IY</div><img src="ishak-yonghang.jpg" alt="Ishak Yonghang, poet from Phidim, Panchthar" width="600" height="750" fetchpriority="high" decoding="async" onerror="this.remove()" style="position:relative"/></div>
       <div class="facts">
         <div><strong id="age">20</strong><span>years old</span></div>
         <div><strong>Poet</strong><span>&amp; writer</span></div>
@@ -1466,7 +1465,7 @@ gb.addEventListener('click',()=>{const o=g.classList.toggle('open');gb.textConte
 const toast=document.getElementById('toast');let tt;
 function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2400);}
 document.getElementById('saveContact').addEventListener('click',()=>{
-  const v=['BEGIN:VCARD','VERSION:3.0','N:Yonghang;Ishak;;;','FN:Ishak Yonghang','ORG:Samriddhi And Brothers Auto Pvt. Ltd.','TITLE:Sales Consultant','TEL;TYPE=CELL:+'+CONTACT.wa,'EMAIL:'+CONTACT.email,'URL:https://yonghangishak.com.np','END:VCARD'].join('\r\n');
+  const v=vcardText(CONTACT,true);
   const url=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));
   const a=document.createElement('a');a.href=url;a.download='Ishak-Yonghang.vcf';document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('Contact file downloaded. Open it to save.');
@@ -1697,7 +1696,6 @@ window.setPoems=list=>{
     if(p){ const on=liked(p.s); likeBtn.setAttribute('aria-pressed',on); document.getElementById('pLikeT').textContent = on ? 'Loved' : 'Love this'; }
   };
   window.setLikeCount=function(slug,n){ if(window.currentPoem&&window.currentPoem.s===slug) likeN.textContent=n||0; };
-  const escH=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const ago=t=>{ if(!t) return ''; const d=t.toDate?t.toDate():new Date((t.seconds||0)*1000||t), x=(Date.now()-d.getTime())/1000;
     if(x<60) return 'just now'; if(x<3600) return Math.floor(x/60)+'m ago'; if(x<86400) return Math.floor(x/3600)+'h ago';
     if(x<604800) return Math.floor(x/86400)+'d ago'; return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
@@ -1794,7 +1792,7 @@ window.setPoems=list=>{
 
 /* reader profile: what you loved and wrote */
 (function(){
-  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=escH;
   const title=s=>{ const p=(window.allPoemList?window.allPoemList():[]).find(x=>x.s===s); return p?{t:p.t,ne:p.ne,p}:{t:s,ne:/[\u0900-\u097F]/.test(s)}; };
   function row(slug,right,extra){
     const i=title(slug);
@@ -2009,7 +2007,7 @@ initVerses();window.initVerses=initVerses;
 /* contact details (can be changed from the admin) */
 window.CONTACT={wa:'9779820907795',email:'yonghangissac@gmail.com',fb:'yonghangisaac',place:'Phidim-1, Panchthar, Koshi'};
 window.fmtPhone=function(d){d=String(d||'').replace(/\D/g,'');return d.indexOf('977')===0?'+977 '+d.slice(3):'+'+d;};
-function vcardText(c){return ['BEGIN:VCARD','VERSION:3.0','N:Yonghang;Ishak','FN:Ishak Yonghang','TEL;TYPE=CELL:+'+c.wa,'EMAIL:'+c.email,'URL:https://yonghangishak.com.np','END:VCARD'].join('\n');}
+function vcardText(c,full){return ['BEGIN:VCARD','VERSION:3.0','N:Yonghang;Ishak;;;','FN:Ishak Yonghang'].concat(full?['ORG:Samriddhi And Brothers Auto Pvt. Ltd.','TITLE:Sales Consultant']:[],['TEL;TYPE=CELL:+'+c.wa,'EMAIL:'+c.email,'URL:https://yonghangishak.com.np','END:VCARD']).join('\r\n');}
 function loadQRLib(){return window.qrcode?Promise.resolve(window.qrcode):new Promise(function(res,rej){var sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';sc.onload=function(){window.qrcode?res(window.qrcode):rej();};sc.onerror=rej;document.head.appendChild(sc);});}
 window.applyContact=function(c){
   var C=window.CONTACT,changed=false;
@@ -2482,7 +2480,7 @@ window.sendWord = (slug, w) => {
   const u = auth.currentUser; if (!u) throw new Error('signed out');
   return addDoc(collection(db,'messages'), {
     poem: slug, text: (w.text||'').slice(0,300), parent: w.parent || null,
-    uid: u.uid, name: ((window.MY_PROFILE&&window.MY_PROFILE.name)||nameOf(u)), photo: u.photoURL || '', email: u.email || '',
+    uid: u.uid, name: ((window.MY_PROFILE&&window.MY_PROFILE.name)||nameOf(u)), photo: u.photoURL || '',
     approved: true, createdAt: serverTimestamp()
   });
 };

@@ -1,0 +1,17 @@
+rules_version = '2';
+// Cloud Storage rules for myportfolio-e77ba — photos and certificates uploaded from the admin.
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'yonghangissac@gmail.com';
+    }
+    match /photos/{col}/{file} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.size < 600 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isAdmin();
+    }
+    // everything else is closed by default
+  }
+}
