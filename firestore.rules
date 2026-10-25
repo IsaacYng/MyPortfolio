@@ -10,6 +10,7 @@ service cloud.firestore {
     function isAdmin()  { return signedIn() && request.auth.token.email == 'yonghangissac@gmail.com'; }
     function me()       { return request.auth.uid; }
     function str(v, max) { return v is string && v.size() <= max; }
+    function isSlug(v) { return v is string && v.matches('[a-z0-9-]{1,80}'); }
 
     function readerDoc(uid) { return /databases/$(database)/documents/readers/$(uid); }
     function notBlocked() {
@@ -59,7 +60,7 @@ service cloud.firestore {
       allow create: if isAdmin() || (signedIn() && notBlocked()
         && request.resource.data.keys().hasOnly(['poem','text','parent','uid','name','photo','approved','createdAt'])
         && request.resource.data.uid == me()
-        && str(request.resource.data.poem, 80)
+        && isSlug(request.resource.data.poem)
         && request.resource.data.text is string
         && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 300
         && (request.resource.data.get('parent', null) == null || str(request.resource.data.parent, 40))
@@ -96,7 +97,7 @@ service cloud.firestore {
       allow create: if isAdmin() || (signedIn() && notBlocked()
         && request.resource.data.keys().hasOnly(['uid','poem','name','photo','createdAt'])
         && request.resource.data.uid == me()
-        && str(request.resource.data.poem, 80)
+        && isSlug(request.resource.data.poem)
         && id == me() + '_' + request.resource.data.poem
         && str(request.resource.data.get('name', ''), 100)
         && str(request.resource.data.get('photo', ''), 1000)
@@ -106,6 +107,24 @@ service cloud.firestore {
       allow update: if isAdmin();
       allow delete: if isAdmin() || (signedIn() && resource.data.uid == me()
         && countAfter(resource.data.poem) == countBefore(resource.data.poem) - 1);
+    }
+
+    // ---------- admin-only notes: the cloud poem draft and "last seen" state ----------
+    match /private/{id} { allow read, write: if isAdmin(); }
+
+    // ---------- poem reads: +1 per person per month; only the admin can see them ----------
+    match /views/{id} {
+      allow read: if isAdmin();
+      allow create: if request.resource.data.keys().hasOnly(['count','m','s'])
+        && request.resource.data.count == 1
+        && isSlug(request.resource.data.s)
+        && request.resource.data.m is string && request.resource.data.m.matches('[0-9]{4}-[0-9]{2}')
+        && id == request.resource.data.m + '_' + request.resource.data.s;
+      allow update: if request.resource.data.keys().hasOnly(['count','m','s'])
+        && request.resource.data.count == resource.data.count + 1
+        && request.resource.data.m == resource.data.m
+        && request.resource.data.s == resource.data.s;
+      allow delete: if isAdmin();
     }
 
     // everything else is closed by default
