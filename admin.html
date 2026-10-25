@@ -541,6 +541,50 @@ body.focusing{overflow:hidden}
   .limits .bar{width:70px}
 }
 @media(max-width:600px){.stats{grid-template-columns:1fr 1fr}.legend{grid-template-columns:1fr 1fr}.ph h1{font-size:1.45rem}}
+/* ---------- poems list: title, first line, mood ---------- */
+.po-row{padding-top:14px;padding-bottom:14px;align-items:start}
+.po-row .n{padding-top:3px}
+.po-row .t.ne{font-size:1.06rem;line-height:1.5}
+.po-row .fl{margin-top:2px;color:var(--ink-2);font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.po-row .fl.ne{font-family:var(--nep);line-height:1.7}
+.po-row .fl:empty{display:none}
+.po-row .pm{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:7px;font-size:.78rem;color:var(--muted)}
+.po-row .ops{align-self:center}
+.mood{display:inline-flex;align-items:center;gap:6px;padding:2px 9px 2px 8px;border-radius:999px;font-weight:600;color:var(--m);background:#F3F5F5;background:color-mix(in srgb,var(--m) 10%,#fff)}
+.mood::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.lang-tag{padding:1px 7px;border-radius:6px;border:1px solid var(--line-2);font-weight:600;font-size:.72rem;color:var(--ink-2)}
+
+/* ---------- photos: a picture grid ---------- */
+#sList.tbl{grid-template-columns:repeat(auto-fill,minmax(min(160px,100%),1fr));gap:16px;padding:18px 20px 22px}
+#sList .tr{display:block;min-width:0;padding:0;border:none;background:none}
+#sList .tr:hover,#sList .tr.editing{background:none}
+#sList .pic{position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:var(--bg);border:1px solid var(--line)}
+#sList .pic img{display:block;width:100%;height:100%;object-fit:cover;border:none;border-radius:0;transition:transform .3s}
+#sList .tr:hover .pic img{transform:scale(1.03)}
+#sList .pic .ph-img{display:block;width:100%;height:100%;border:none;border-radius:0}
+#sList .tr.editing .pic{outline:3px solid var(--accent);outline-offset:2px}
+#sList .ord{position:absolute;left:8px;bottom:8px;min-width:26px;height:26px;padding:0 8px;border-radius:999px;background:rgba(22,34,43,.74);color:#fff;font-size:.76rem;font-weight:600;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+#sList .ops{position:absolute;top:7px;right:7px}
+#sList .kebab{width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.94);color:var(--ink);box-shadow:0 1px 4px rgba(22,34,43,.28)}
+#sList .kebab:hover,#sList .kebab[aria-expanded="true"]{background:#fff}
+#sList .cap{padding:9px 2px 0;min-width:0}
+#sList .cap .t{font-size:.92rem}
+#sList .cap .s{font-size:.78rem;margin-top:1px}
+#sList .blank,#sList .skel{grid-column:1/-1}
+
+/* ---------- certificates: wide thumbnail, issuer, tags ---------- */
+#cList .tr{grid-template-columns:28px 96px minmax(0,1fr) auto;padding-top:14px;padding-bottom:14px}
+#cList .tr img,#cList .tr .ph-img{width:96px;height:68px;border-radius:8px}
+#cList .tg{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+#cList .tg span{font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--bg);color:var(--ink-2)}
+#cList .t{white-space:normal;line-height:1.35}
+#cList .note{margin-top:5px;font-size:.78rem;color:var(--muted)}
+
+@media(max-width:600px){
+  #sList.tbl{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:14px}
+  #cList .tr{grid-template-columns:84px minmax(0,1fr) auto}
+  #cList .tr img,#cList .tr .ph-img{width:84px;height:60px}
+}
 @media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 </style>
 </head>
@@ -2164,6 +2208,10 @@ async function loadPoems(){
   catch(e){ D.poems=[]; drawPoems(); throw e; }
   drawPoems();
 }
+const MOOD_C = { love:'#B8233A', emotion:'#A8620F', reflection:'#2F5B94', farewell:'#6B4C8A', faith:'#2F6B4C', hope:'#1C7474', dark:'#3A4A54' };
+const MOOD_P = Object.values(MOOD_C);
+const moodColor = m => { const k=(m||'').trim().toLowerCase(); if (!k) return '#56656D'; if (MOOD_C[k]) return MOOD_C[k];
+  let h=0; for (const ch of k) h=(h*31+ch.charCodeAt(0))>>>0; return MOOD_P[h%MOOD_P.length]; };
 function drawPoems(){
   const it=D.poems, live=it.filter(x=>x.published!==false).length;
   const sch = it.filter(isFuture).length, hid = it.filter(x=>x.published===false).length;
@@ -2174,7 +2222,12 @@ function drawPoems(){
   const rows = it.map((x,i)=>({x,i})).filter(({x}) => !q || (x.title||'').toLowerCase().includes(q) || (x.mood||'').toLowerCase().includes(q) || (x.slug||'').includes(q));
   $('poList').innerHTML = !it.length ? blank('No poems here yet','Your site is still showing its built-in poems. Import them above, or write a new one.')
     : !rows.length ? blank('No matches','Try a different word.')
-    : rows.map(({x,i})=>{ const ne=x.lang!=='en'; return `<div class="tr noimg ${P.edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span><div style="min-width:0"><div class="t ${ne?'ne':''}" lang="${ne?'ne':'en'}">${esc(x.title)}${x.published===false?'<span class="badge draft">Hidden</span>':isFuture(x)?`<span class="badge sched">${fmtDay(x.publishAt)}</span>`:''}</div><div class="s">${esc(x.mood||'No mood')} · ${ne?'Nepali':'English'} · ${fmtB(docBytes(x.id,strip(x)))}</div></div>${ops(i,it.length, x.published===false||isFuture(x)?null:SITE+'/?poem='+encodeURIComponent(x.slug))}</div>`; }).join('');
+    : rows.map(({x,i})=>{ const ne=x.lang!=='en', lg=ne?'ne':'en', lines=(x.body||'').split('\n').map(l=>l.trim()).filter(Boolean);
+        return `<div class="tr noimg po-row ${P.edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span><div style="min-width:0">
+          <div class="t ${ne?'ne':''}" lang="${lg}">${esc(x.title)}${x.published===false?'<span class="badge draft">Hidden</span>':isFuture(x)?`<span class="badge sched">${fmtDay(x.publishAt)}</span>`:''}</div>
+          <div class="fl ${ne?'ne':''}" lang="${lg}">${esc(lines[0]||'')}</div>
+          <div class="pm"><span class="mood" style="--m:${moodColor(x.mood)}">${esc(x.mood||'No mood')}</span><span>${lines.length} ${lines.length===1?'line':'lines'}</span>${ne?'':'<span class="lang-tag">English</span>'}</div>
+        </div>${ops(i,it.length, x.published===false||isFuture(x)?null:SITE+'/?poem='+encodeURIComponent(x.slug))}</div>`; }).join('');
 }
 function resetPoem(){ clean('poems'); $('poDate').value=''; P.edit=null; slugTouched=false; ['poTitle','poMood','poSlug','poBody'].forEach(i=>setVal(i,'')); $('poPub').checked=true; setLang('ne'); $('poBody').dispatchEvent(new Event('input')); linkPrev(); $('poSave').querySelector('.bt').textContent='Publish poem'; $('poFormTitle').textContent='Write a new poem'; $('poCancel').hidden=true; drawPoems(); refreshGuards(); }
 $('poCancel').addEventListener('click', resetPoem);
@@ -2290,26 +2343,27 @@ const C = {
     fill:it=>{ setVal('sTitle',it.title); pick.s.set(it.url); },
     clear:()=>{ setVal('sTitle',''); pick.s.set(''); },
     check:d=>d.url?'':'Choose a photo first.',
-    row:it=>`<div class="t">${esc(it.title||'Untitled')}</div><div class="s">${photoInfo(it)}</div>` },
+    item:(x,i,n)=>`<div class="tr ${S.snapshots.edit===x.id?'editing':''}" data-i="${i}"><div class="pic">${x.url?`<img src="${esc(x.url)}" alt="" loading="lazy">`:'<span class="ph-img"></span>'}<span class="ord" title="Position on the site">${i+1}</span>${ops(i,n)}</div><div class="cap"><div class="t">${esc(x.title||'No caption')}</div><div class="s">${photoInfo(x)}</div></div></div>` },
   certs: { list:'cList', meta:'cMeta', save:'cSave', cancel:'cCancel', title:'cFormTitle', pick:'c', noun:'certificate', add:'Add certificate', help:'cSize',
     read:()=>({ title:$('cTitle').value.trim(), sub:$('cSub').value.trim(), desc:$('cDesc').value.trim(), tags:$('cTags').value.split(',').map(t=>t.trim()).filter(Boolean), url:pick.c.value }),
     fill:it=>{ setVal('cTitle',it.title); setVal('cSub',it.sub); setVal('cDesc',it.desc); setVal('cTags',(it.tags||[]).join(', ')); pick.c.set(it.url); },
     clear:()=>{ ['cTitle','cSub','cDesc','cTags'].forEach(i=>setVal(i,'')); pick.c.set(''); },
     check:d=>d.title?'':'Add the course name.',
-    row:it=>`<div class="t">${esc(it.title)}</div><div class="s">${esc(it.sub||'—')} · ${photoInfo(it)}</div>` }
+    item:(x,i,n)=>{ const tags=(x.tags||[]).filter(Boolean), note=!x.url?'No photo yet':isStored(x)?'':photoInfo(x);
+      return `<div class="tr ${S.certs.edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span>${x.url?`<img src="${esc(x.url)}" alt="" loading="lazy">`:'<span class="ph-img"></span>'}<div style="min-width:0"><div class="t">${esc(x.title)}</div><div class="s">${esc(x.sub||'Add who issued it and the year')}</div>${tags.length?`<div class="tg">${tags.slice(0,4).map(t=>`<span>${esc(t)}</span>`).join('')}${tags.length>4?`<span>+${tags.length-4}</span>`:''}</div>`:''}${note?`<div class="note">${note}</div>`:''}</div>${ops(i,n)}</div>`; } }
 };
 const S = { snapshots:{edit:null}, certs:{edit:null} };
-function photoInfo(it){ if (!it.url) return 'No photo'; if (isStored(it)) return fmtB(it.bytes||0)+' · Cloud Storage'; if (isLegacy(it)) return fmtB(it.url.length)+' · in database <span class="badge draft">Move to Storage</span>'; return 'Linked image · no storage'; }
+function photoInfo(it){ if (!it.url) return 'No photo'; if (isStored(it)) return fmtB(it.bytes||0); if (isLegacy(it)) return fmtB(it.url.length)+' in database <span class="badge draft">Move to Storage</span>'; return 'Linked image, uses no storage'; }
 async function loadList(col){
   try { const q=await getDocs(query(collection(db,col), orderBy('order','asc'))); D[col]=q.docs.map(d=>({id:d.id,...d.data()})); }
   catch(e){ D[col]=[]; drawList(col); throw e; }
   drawList(col);
 }
 function drawList(col){
-  const c=C[col], it=D[col];
-  const sz = it.reduce((s,x)=>s+docBytes(x.id,strip(x)),0);
-  $(c.meta).textContent = it.length ? `${it.length} · ${fmtB(sz)}` : '';
-  $(c.list).innerHTML = it.length ? it.map((x,i)=>`<div class="tr ${S[col].edit===x.id?'editing':''}" data-i="${i}"><span class="n">${i+1}</span>${x.url?`<img src="${esc(x.url)}" alt="" loading="lazy">`:'<span class="ph-img"></span>'}<div style="min-width:0">${c.row(x)}</div>${ops(i,it.length)}</div>`).join('') : blank('Nothing here yet',`Add your first ${c.noun} above.`);
+  const c=C[col], it=D[col], n=it.length;
+  const gcs = it.reduce((t,x)=>t+(isStored(x)?(x.bytes||0):0),0);
+  $(c.meta).textContent = n ? `${n} ${c.noun}${n===1?'':'s'}${gcs?', '+fmtB(gcs):''}` : '';
+  $(c.list).innerHTML = n ? it.map((x,i)=>c.item(x,i,n)).join('') : blank('Nothing here yet',`Add your first ${c.noun} above.`);
 }
 function resetL(col){ clean(col==='snapshots'?'snaps':'certs'); const c=C[col]; S[col].edit=null; c.clear(); $(c.save).querySelector('.bt').textContent=c.add; $(c.title).textContent=c.add.replace('Add','Add a').replace('a a','an a'); $(c.cancel).hidden=true; drawList(col); refreshGuards(); }
 Object.keys(C).forEach(col => {
